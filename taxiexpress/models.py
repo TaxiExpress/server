@@ -18,30 +18,31 @@ class Client(models.Model):
     email = models.EmailField(max_length=80)
     phone = models.IntegerField()
     #Datos de pago
-    cardno = models.IntegerField()
-    carddate = models.DateField()
-    cvv = models.IntegerField()
-    #favlist = ??
+
+    favlist = models.ManyToManyField(Driver, related_name='+')
     def __unicode__(self):
         return self.name
 
 class City(models.Model):
+    code = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=80)
     def __unicode__(self):
         return self.name
 
 class State(models.Model):
+    code = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=80)
     def __unicode__(self):
         return self.name
 
 class Country(models.Model):
+    code = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=80)
     def __unicode__(self):
         return self.name
 
 class Car(models.Model):
-    plate = models.CharField(max_length=7)
+    plate = models.CharField(max_length=7, unique=True)
     model = models.CharField(max_length=80)
     company = models.CharField(max_length=80)
     color = models.CharField(max_length=80)
@@ -63,12 +64,12 @@ class Driver(models.Model):
     country = models.ForeignKey(Country)
     email = models.EmailField(max_length=80)
     phone = models.IntegerField()
-    #valuation = ???
+    valuation = models.FloatField()
+    votes = models.IntegerField()
+    #Ponemos la licencia como unique? Y si cambia de dueño?
     license = models.IntegerField()
     licensepostcode = models.IntegerField()
     #Datos de pago
-    #cardno = models.IntegerField()
-    #carddate = models.DateField()
-    #cvv = models.IntegerField()
+
     def __unicode__(self):
         return self.name
