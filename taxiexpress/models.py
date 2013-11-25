@@ -70,6 +70,24 @@ class Driver(models.Model):
     license = models.IntegerField()
     licensepostcode = models.IntegerField()
     #Datos de pago
+    #Posicion
+    geom = models.PointField(srid=4326)
+    objects = models.GeoManager()
 
     def __unicode__(self):
         return self.name
+
+class Travel(models.Model):
+    client = models.ForeignKey(Client)
+    driver = models.ForeignKey(Driver)
+    starttime = models.DateTimeField()
+    endtime = models.DateTimeField()
+    cost = models.FloatField()
+    startpoint = models.PointField(srid=4326)
+    endpoint = models.PointField(srid=4326)
+    objects = models.GeoManager()
+
+class Valuation(models.Model):
+    client = models.ForeignKey(Client)
+    driver = models.ForeignKey(Driver)
+    valuation = models.CharField(max_length=255)
