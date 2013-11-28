@@ -5,7 +5,7 @@ from django.template.defaultfilters import escape
 
 # Create your models here.
 
-class City(models.Model):
+class Country(models.Model):
     code = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=80)
     def __unicode__(self):
@@ -14,12 +14,14 @@ class City(models.Model):
 class State(models.Model):
     code = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=80)
+    country = models.ForeignKey(Country)
     def __unicode__(self):
         return self.name
 
-class Country(models.Model):
+class City(models.Model):
     code = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=80)
+    state = models.ForeignKey(State)
     def __unicode__(self):
         return self.name
 
@@ -32,15 +34,15 @@ class Driver(models.Model):
     address = models.CharField(max_length=80)
     postcode = models.IntegerField()
     city = models.ForeignKey(City)
-    state = models.ForeignKey(State)
-    country = models.ForeignKey(Country)
     email = models.EmailField(max_length=80)
     phone = models.IntegerField()
     valuation = models.FloatField()
     votes = models.IntegerField()
+    #image = ???
     #Ponemos la licencia como unique? Y si cambia de dueno?
     license = models.IntegerField()
     licensepostcode = models.IntegerField()
+    isfree = models.BooleanField()
     #Datos de pago
     #Posicion
     geom = models.PointField(srid=4326)
