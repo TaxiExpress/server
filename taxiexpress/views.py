@@ -25,4 +25,4 @@ def loginClient(request):
         else:
             return HttpResponse(status_code=401, reason_phrase="The username or password was not correct")
     else:
-        return HttpResponse(status_code=401, reason_phrase="Bad request")
+        return HttpResponse(status_code=400, reason_phrase="Bad request")
