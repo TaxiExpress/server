@@ -27,14 +27,11 @@ class City(models.Model):
 
 
 class Driver(models.Model):
-    name = models.CharField(max_length=80)
-    password = models.CharField(max_length=80)
-    surname = models.CharField(max_length=80)
+    user = models.OneToOneField(User, unique=True)
     birthdate = models.DateField()
     address = models.CharField(max_length=80)
     postcode = models.IntegerField()
     city = models.ForeignKey(City)
-    email = models.EmailField(max_length=80)
     phone = models.IntegerField()
     valuation = models.FloatField()
     votes = models.IntegerField()
@@ -51,17 +48,14 @@ class Driver(models.Model):
     def __unicode__(self):
         return self.name
 
-class Client(models.Model):
-    name = models.CharField(max_length=80)
-    password = models.CharField(max_length=80)
-    surname = models.CharField(max_length=80)
+class Customer(models.Model):
+    user = models.OneToOneField(User, unique=True)
     birthdate = models.DateField()
     address = models.CharField(max_length=80)
     postcode = models.IntegerField()
     city = models.ForeignKey(City)
     state = models.ForeignKey(State)
     country = models.ForeignKey(Country)
-    email = models.EmailField(max_length=80)
     phone = models.IntegerField()
     #Datos de pago
 
@@ -84,7 +78,7 @@ class Car(models.Model):
 
 
 class Travel(models.Model):
-    client = models.ForeignKey(Client)
+    customer = models.ForeignKey(Customer)
     driver = models.ForeignKey(Driver)
     starttime = models.DateTimeField()
     endtime = models.DateTimeField()
@@ -94,6 +88,6 @@ class Travel(models.Model):
     objects = models.GeoManager()
 
 class Report(models.Model):
-    client = models.ForeignKey(Client)
+    client = models.ForeignKey(Customer)
     driver = models.ForeignKey(Driver)
     report = models.CharField(max_length=255)
