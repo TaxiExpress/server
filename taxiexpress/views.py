@@ -50,7 +50,7 @@ def getClosestTaxi(request):
     if request.GET.get('latitud', "false") != "false":
         pointclient = Point(float(request.GET['latitud']), float(request.GET['longitud']))
 
-        lista_parkings = Driver.objects.distance(pointclient).order_by('distance')[0]
+        list_TaxiDrivers = Driver.objects.distance(pointclient).order_by('distance')[0]
 
         #return JSON with taxi info
 
