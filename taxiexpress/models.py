@@ -27,7 +27,11 @@ class City(models.Model):
 
 
 class Driver(models.Model):
-    user = models.OneToOneField(User, unique=True)
+    username = models.CharField(max_length=80)
+    password = models.CharField(max_length=80)
+    first_name = models.CharField(max_length=80)
+    last_name = models.CharField(max_length=80)
+    email = models.EmailField(max_length=80)
     birthdate = models.DateField()
     address = models.CharField(max_length=80)
     postcode = models.IntegerField()
@@ -46,10 +50,14 @@ class Driver(models.Model):
     objects = models.GeoManager()
 
     def __unicode__(self):
-        return self.name
+        return self.username
 
 class Customer(models.Model):
-    user = models.OneToOneField(User, unique=True)
+    username = models.CharField(max_length=80)
+    password = models.CharField(max_length=80)
+    first_name = models.CharField(max_length=80)
+    last_name = models.CharField(max_length=80)
+    email = models.EmailField(max_length=80)
     birthdate = models.DateField()
     address = models.CharField(max_length=80)
     postcode = models.IntegerField()
@@ -61,7 +69,7 @@ class Customer(models.Model):
 
     favlist = models.ManyToManyField(Driver, related_name='+')
     def __unicode__(self):
-        return self.name
+        return self.username
 
 
 class Car(models.Model):

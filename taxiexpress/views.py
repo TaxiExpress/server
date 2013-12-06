@@ -17,13 +17,18 @@ from django.contrib.gis.measure import Distance, D
 def loginUser(request):
     if request.method == "POST":
         try:
-            customer = Customer.objects.get(user.username=request.POST['username'])  
+            customer = Customer.objects.get(username=request.POST['username'])  
         except ObjectDoesNotExist:
             return HttpResponse(status_code=401, reason_phrase="The username or password was not correct")
-        if customer.user.password == request.POST['password']:
-            request.session['username'] = customer.user.username
-            request.session['user_id'] = customer.user.id
-            return HttpResponse(status_code=200,reason_phrase="Loged In")
+        if customer.password == request.POST['password']:
+            request.session['username'] = customer.username
+            request.session['user_id'] = customer.id
+            response_data = {}
+            response_data['username'] = customer.username
+            response_data['first_name'] = customer.first_name
+            response_data['last_name'] = customer.last_name
+            response_data['email'] = customer.email
+            return HttpResponse(json.dumps(response_data), content_type="application/json")
         else:
             return HttpResponse(status_code=401, reason_phrase="The username or password was not correct")
     else:
@@ -31,16 +36,16 @@ def loginUser(request):
 
 @csrf_exempt
 def registerUser(request):
-        if request.method == "POST":
+    if request.method == "POST":
         passtemp = request.POST['password'];
-        if (Customer.objects.filter(user.username=request.POST['username']).count() > 0):
+        if (Customer.objects.filter(username=request.POST['username']).count() > 0):
             return HttpResponse(status_code=401, reason_phrase="The username is in use")
-        elif (Customer.objects.filter(user.email=request.POST['email']).count() > 0):
+        elif (Customer.objects.filter(email=request.POST['email']).count() > 0):
             return HttpResponse(status_code=401, reason_phrase="The email is in use")
         #elif (passtemp.length() < 4)
         #   return HttpResponse("shortpassword", content_type="text/plain")
         else:
-            c = Customer(user.username=request.POST['username'], user.password=passtemp, user.email=request.POST['email'], user.first_name=['first_name'], user.last_name=['last_name'])
+            c = Customer(username=request.POST['username'], password=passtemp, email=request.POST['email'], first_name=['first_name'], last_name=['last_name'])
             c.save()
             return HttpResponse(status_code=201,reason_phrase="Created")
     else:
