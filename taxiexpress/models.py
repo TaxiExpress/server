@@ -34,7 +34,7 @@ class Driver(models.Model):
     email = models.EmailField(max_length=80)
     birthdate = models.DateField()
     address = models.CharField(max_length=80)
-    postcode = models.IntegerField()
+    postcode = models.CharField(max_length=5)
     city = models.ForeignKey(City)
     phone = models.IntegerField()
     valuation = models.FloatField()
@@ -60,7 +60,7 @@ class Customer(models.Model):
     email = models.EmailField(max_length=80)
     birthdate = models.DateField()
     address = models.CharField(max_length=80)
-    postcode = models.IntegerField()
+    postcode = models.CharField(max_length=5)
     city = models.ForeignKey(City)
     phone = models.IntegerField()
     #Datos de pago
