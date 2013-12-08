@@ -62,8 +62,6 @@ class Customer(models.Model):
     address = models.CharField(max_length=80)
     postcode = models.IntegerField()
     city = models.ForeignKey(City)
-    state = models.ForeignKey(State)
-    country = models.ForeignKey(Country)
     phone = models.IntegerField()
     #Datos de pago
 
