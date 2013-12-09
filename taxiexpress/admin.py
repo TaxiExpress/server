@@ -8,3 +8,8 @@ admin.site.register(Customer)
 admin.site.register(Car)
 admin.site.register(Travel)
 admin.site.register(Report)
+admin.site.register(Country)
+admin.site.register(State)
+admin.site.register(City)
+
+

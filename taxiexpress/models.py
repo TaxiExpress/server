@@ -27,18 +27,17 @@ class City(models.Model):
 
 
 class Driver(models.Model):
-    username = models.CharField(max_length=80)
     password = models.CharField(max_length=80)
-    first_name = models.CharField(max_length=80)
-    last_name = models.CharField(max_length=80)
     email = models.EmailField(max_length=80)
-    birthdate = models.DateField()
-    address = models.CharField(max_length=80)
-    postcode = models.CharField(max_length=5)
-    city = models.ForeignKey(City)
     phone = models.IntegerField()
-    valuation = models.FloatField()
-    votes = models.IntegerField()
+    first_name = models.CharField(max_length=80, blank=True)
+    last_name = models.CharField(max_length=80, blank=True)
+    birthdate = models.DateField(blank=True)
+    address = models.CharField(max_length=80, blank=True)
+    postcode = models.CharField(max_length=5, blank=True)
+    city = models.ForeignKey(City, blank=True)
+    valuation = models.FloatField(blank=True)
+    votes = models.IntegerField(blank=True)
     #image = ???
     #Ponemos la licencia como unique? Y si cambia de dueno?
     license = models.IntegerField()
@@ -50,24 +49,24 @@ class Driver(models.Model):
     objects = models.GeoManager()
 
     def __unicode__(self):
-        return self.username
+        return self.email
 
 class Customer(models.Model):
-    username = models.CharField(max_length=80)
     password = models.CharField(max_length=80)
-    first_name = models.CharField(max_length=80)
-    last_name = models.CharField(max_length=80)
     email = models.EmailField(max_length=80)
-    birthdate = models.DateField()
-    address = models.CharField(max_length=80)
-    postcode = models.CharField(max_length=5)
-    city = models.ForeignKey(City)
     phone = models.IntegerField()
+    first_name = models.CharField(max_length=80, blank=True, null=True)
+    last_name = models.CharField(max_length=80, blank=True, null=True)
+    birthdate = models.DateField(blank=True, null=True)
+    address = models.CharField(max_length=80, blank=True, null=True)
+    postcode = models.CharField(max_length=5, blank=True, null=True)
+    city = models.ForeignKey(City, null=True)
+    isValidated = models.BooleanField(blank=True)
+    validationCode = models.IntegerField(max_length=4, blank=True, null=True)
     #Datos de pago
-
-    favlist = models.ManyToManyField(Driver, related_name='+')
+    favlist = models.ManyToManyField(Driver, related_name='+', blank=True, null=True)
     def __unicode__(self):
-        return self.username
+        return self.email
 
 
 class Car(models.Model):
