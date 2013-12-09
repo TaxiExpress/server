@@ -52,8 +52,8 @@ def registerUser(request):
         else:
             c = Customer(username=request.POST['email'], password=passtemp, phone=['phone'])
             c.save()
-			email = EmailMessage('Hello', 'World', to=['mikeldeltio90@gmail.com'])
-			email.send()
+	    email = EmailMessage('Hello', 'World', to=request.POST['email'])
+	    email.send()
 			
             return HttpResponse(status=201,content="Created")
     else:
