@@ -1,4 +1,5 @@
 from django import forms
+from django.core.mail import EmailMessage
 from django.forms import CharField,Form,PasswordInput
 from django.shortcuts import render_to_response
 from django.core.context_processors import csrf
@@ -51,6 +52,9 @@ def registerUser(request):
         else:
             c = Customer(username=request.POST['email'], password=passtemp, phone=['phone'])
             c.save()
+			email = EmailMessage('Hello', 'World', to=['mikeldeltio90@gmail.com'])
+			email.send()
+			
             return HttpResponse(status=201,content="Created")
     else:
         return HttpResponseBadRequest()
