@@ -25,6 +25,19 @@ class City(models.Model):
     def __unicode__(self):
         return self.name
 
+class Car(models.Model):
+    plate = models.CharField(max_length=7, unique=True)
+    model = models.CharField(max_length=80)
+    company = models.CharField(max_length=80)
+    color = models.CharField(max_length=80)
+    capacity = models.IntegerField()
+    accessible = models.BooleanField()
+    animals = models.BooleanField()
+    isfree = models.BooleanField()
+    appPayment = models.BooleanField()
+    def __unicode__(self):
+        return self.plate
+
 
 class Driver(models.Model):
     password = models.CharField(max_length=80)
@@ -36,13 +49,13 @@ class Driver(models.Model):
     address = models.CharField(max_length=80, blank=True)
     postcode = models.CharField(max_length=5, blank=True)
     city = models.ForeignKey(City, blank=True)
-    valuation = models.FloatField(blank=True)
-    votes = models.IntegerField(blank=True)
+    positiveVotes = models.IntegerField(blank=True)
+    negativeVotes = models.IntegerField(blank=True)
+    car = models.ForeignKey(Car)
     #image = ???
     #Ponemos la licencia como unique? Y si cambia de dueno?
     license = models.IntegerField()
     licensepostcode = models.IntegerField()
-    isfree = models.BooleanField()
     #Datos de pago
     #Posicion
     geom = models.PointField(srid=4326)
@@ -58,28 +71,16 @@ class Customer(models.Model):
     first_name = models.CharField(max_length=80, blank=True, null=True)
     last_name = models.CharField(max_length=80, blank=True, null=True)
     birthdate = models.DateField(blank=True, null=True)
-    address = models.CharField(max_length=80, blank=True, null=True)
     postcode = models.CharField(max_length=5, blank=True, null=True)
     city = models.ForeignKey(City, null=True)
-    isValidated = models.BooleanField(blank=True)
+    isValidated = models.BooleanField(default=False)
     validationCode = models.IntegerField(max_length=4, blank=True, null=True)
+    positiveVotes = models.IntegerField(blank=True, null=True)
+    negativeVotes = models.IntegerField(blank=True, null=True)
     #Datos de pago
     favlist = models.ManyToManyField(Driver, related_name='+', blank=True, null=True)
     def __unicode__(self):
         return self.email
-
-
-class Car(models.Model):
-    plate = models.CharField(max_length=7, unique=True)
-    model = models.CharField(max_length=80)
-    company = models.CharField(max_length=80)
-    color = models.CharField(max_length=80)
-    capacity = models.IntegerField()
-    accessible = models.BooleanField()
-    animals = models.BooleanField()
-    def __unicode__(self):
-        return self.plate
-
 
 
 class Travel(models.Model):

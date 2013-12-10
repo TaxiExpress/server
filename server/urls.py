@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     #url(r'^$', 'taxiexpress.views.index', name='index'),
     url(r'^client/login', 'taxiexpress.views.loginUser', name='loginUser'),
     url(r'^client/register', 'taxiexpress.views.registerUser', name='registerUser'),
+    url(r'^loaddata', 'taxiexpress.views.loadData', name='loaddata'),
     # url(r'^server/', include('server.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

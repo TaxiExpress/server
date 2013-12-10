@@ -26,7 +26,7 @@ ALLOWED_HOSTS = []
 
 #Email 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'MyTaxiExpress.com'
+EMAIL_HOST_USER = 'MyTaxiExpress@gmail.com'
 EMAIL_HOST_PASSWORD = 'carlosmoro'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

@@ -6,7 +6,7 @@ from django.core.context_processors import csrf
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseBadRequest
-from taxiexpress.models import Customer
+from taxiexpress.models import Customer, Country, State, City
 from django.core.exceptions import ObjectDoesNotExist
 from datetime import date
 from django.contrib.gis.geos import Point
@@ -29,6 +29,7 @@ def loginUser(request):
             request.session['user_id'] = customer.id
             response_data = {}
             response_data['email'] = customer.email
+            response_data['phone'] = customer.phone
             if customer.first_name != "":
                 response_data['first_name'] = customer.first_name
             if customer.last_name != "":
@@ -52,9 +53,9 @@ def registerUser(request):
         else:
             c = Customer(username=request.POST['email'], password=passtemp, phone=['phone'])
             c.save()
-	    email = EmailMessage('Hello', 'World', to=request.POST['email'])
-	    email.send()
-			
+            email = EmailMessage('Hello', 'World', to=request.POST['email'])
+            email.send()
+            
             return HttpResponse(status=201,content="Created")
     else:
         return HttpResponseBadRequest()
@@ -67,5 +68,51 @@ def getClosestTaxi(request):
 
         #return JSON with taxi info
 
-
-
+def loadData(request):
+    co = Country(code = 108,name='Espana')
+    co.save()
+    s = State(code = 48, name = 'Bizkaia', country = co)
+    s.save()
+    ci = City(code = 013, name = 'Barakaldo', state = s)
+    ci.save()
+    ci = City(code = 015, name = 'Basauri', state = s)
+    ci.save()
+    ci = City(code = 016, name = 'Berango', state = s)
+    ci.save()
+    ci = City(code = 017, name = 'Bermeo', state = s)
+    ci.save()
+    ci = City(code = 020, name = 'Bilbao', state = s)
+    ci.save()
+    ci = City(code = 027, name = 'Durango', state = s)
+    ci.save()
+    ci = City(code = 036, name = 'Galdakao', state = s)
+    ci.save()
+    ci = City(code = 040, name = 'Gatika', state = s)
+    ci.save()
+    ci = City(code = 043, name = 'Gorliz', state = s)
+    ci.save()
+    ci = City(code = 044, name = 'Getxo', state = s)
+    ci.save()
+    ci = City(code = 046, name = 'Gernika-Lumo', state = s)
+    ci.save()
+    ci = City(code = 054, name = 'Leioa', state = s)
+    ci.save()
+    ci = City(code = 057, name = 'Lekeitio', state = s)
+    ci.save()
+    ci = City(code = 065, name = 'Ugao-Miraballes', state = s)
+    ci.save()
+    ci = City(code = 78, name = 'Portugalete', state = s)
+    ci.save()
+    ci = City(code = 81, name = 'Lezama', state = s)
+    ci.save()
+    ci = City(code = 82, name = 'Santurtzi', state = s)
+    ci.save()
+    ci = City(code = 84, name = 'Sestao', state = s)
+    ci.save()
+    ci = City(code = 85, name = 'Sopelana', state = s)
+    ci.save()
+    ci = City(code = 89, name = 'Urduliz', state = s)
+    ci.save()
+    cu = Customer(email="gorka_12@hotmail.com", password="1111", phone="656111111", first_name="Pepito", last_name="Palotes", city=ci)
+    cu.save()
+    return HttpResponse(status=201,content="Loaded")
