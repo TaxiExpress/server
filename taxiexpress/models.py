@@ -43,22 +43,22 @@ class Driver(models.Model):
     password = models.CharField(max_length=80)
     email = models.EmailField(max_length=80)
     phone = models.IntegerField()
-    first_name = models.CharField(max_length=80, blank=True)
-    last_name = models.CharField(max_length=80, blank=True)
-    birthdate = models.DateField(blank=True)
-    address = models.CharField(max_length=80, blank=True)
-    postcode = models.CharField(max_length=5, blank=True)
-    city = models.ForeignKey(City, blank=True)
-    positiveVotes = models.IntegerField(blank=True)
-    negativeVotes = models.IntegerField(blank=True)
-    car = models.ForeignKey(Car)
+    first_name = models.CharField(max_length=80, blank=True, null=True)
+    last_name = models.CharField(max_length=80, blank=True, null=True)
+    birthdate = models.DateField(blank=True, null=True)
+    address = models.CharField(max_length=80, blank=True, null=True)
+    postcode = models.CharField(max_length=5, blank=True, null=True)
+    city = models.ForeignKey(City, blank=True, null=True)
+    positiveVotes = models.IntegerField(blank=True, default=0)
+    negativeVotes = models.IntegerField(blank=True, default=0)
+    car = models.ForeignKey(Car, null=True)
     #image = ???
     #Ponemos la licencia como unique? Y si cambia de dueno?
-    license = models.IntegerField()
-    licensepostcode = models.IntegerField()
+    license = models.IntegerField(blank=True, null=True)
+    licensepostcode = models.IntegerField(blank=True, null=True)
     #Datos de pago
     #Posicion
-    geom = models.PointField(srid=4326)
+    geom = models.PointField(srid=4326, null=True)
     objects = models.GeoManager()
 
     def __unicode__(self):

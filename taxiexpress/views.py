@@ -6,11 +6,12 @@ from django.core.context_processors import csrf
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseBadRequest
-from taxiexpress.models import Customer, Country, State, City
+from taxiexpress.models import Customer, Country, State, City, Driver
 from django.core.exceptions import ObjectDoesNotExist
 from datetime import date
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import Distance, D
+from django.core import serializers
 import json
 
 # Create your views here.
@@ -34,6 +35,8 @@ def loginUser(request):
                 response_data['first_name'] = customer.first_name
             if customer.last_name != "":
                 response_data['last_name'] = customer.last_name
+            if not (customer.favlist.count() == 0):
+                response_data['favlist'] = customer.favlist
             return HttpResponse(json.dumps(response_data), content_type="application/json")
         else:
             return HttpResponse(status=401, content="The email or password was not correct")
@@ -113,6 +116,13 @@ def loadData(request):
     ci.save()
     ci = City(code = 89, name = 'Urduliz', state = s)
     ci.save()
+    dr = Driver(email="conductor@gmail.com", password="1111", phone="656111112", first_name="Conductor", last_name="DePrimera", city=ci)
+    dr.save()
+    dr2 = Driver(email="conductor2@gmail.com", password="1111", phone="656111113", first_name="Conductor", last_name="DeSegunda", city=ci)
+    dr2.save()
     cu = Customer(email="gorka_12@hotmail.com", password="1111", phone="656111111", first_name="Pepito", last_name="Palotes", city=ci)
     cu.save()
+    cu.favlist.add(dr)
+    cu.favlist.add(dr2)
     return HttpResponse(status=201,content="Loaded")
+
