@@ -56,12 +56,17 @@ def registerUser(request):
         else:
             c = Customer(username=request.POST['email'], password=passtemp, phone=['phone'])
             c.save()
-            email = EmailMessage('Hello', 'World', to=request.POST['email'])
+            email = EmailMessage('Hello', 'World', to=[request.POST['email']])
             email.send()
             
             return HttpResponse(status=201,content="Created")
     else:
         return HttpResponseBadRequest()
+
+def testEmail(request):
+    email = EmailMessage('Hello', 'World', to=['gorka_12@hotmail.com'])
+    email.send()
+    return HttpResponse(status=200,content="OK")
 
 def getClosestTaxi(request):
     if request.GET.get('latitud', "false") != "false":
