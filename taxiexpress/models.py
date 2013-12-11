@@ -52,11 +52,13 @@ class Driver(models.Model):
     positiveVotes = models.IntegerField(blank=True, default=0)
     negativeVotes = models.IntegerField(blank=True, default=0)
     car = models.ForeignKey(Car, null=True)
-    #image = ???
+    image = models.TextField()
     #Ponemos la licencia como unique? Y si cambia de dueno?
     license = models.IntegerField(blank=True, null=True)
     licensepostcode = models.IntegerField(blank=True, null=True)
     #Datos de pago
+    bankAccount = models.CharField(max_length=20)
+    recipientName = models.CharField(max_length=80)
     #Posicion
     geom = models.PointField(srid=4326, null=True)
     objects = models.GeoManager()
@@ -72,6 +74,7 @@ class Customer(models.Model):
     last_name = models.CharField(max_length=80, blank=True, null=True)
     birthdate = models.DateField(blank=True, null=True)
     postcode = models.CharField(max_length=5, blank=True, null=True)
+    image = models.TextField()
     city = models.ForeignKey(City, null=True)
     isValidated = models.BooleanField(default=False)
     validationCode = models.IntegerField(max_length=4, blank=True, null=True)
@@ -88,12 +91,7 @@ class Travel(models.Model):
     driver = models.ForeignKey(Driver)
     starttime = models.DateTimeField()
     endtime = models.DateTimeField()
-    cost = models.FloatField()
+    cost = models.DecimalField(max_digits=8, decimal_places=2)
     startpoint = models.PointField(srid=4326)
     endpoint = models.PointField(srid=4326)
     objects = models.GeoManager()
-
-class Report(models.Model):
-    client = models.ForeignKey(Customer)
-    driver = models.ForeignKey(Driver)
-    report = models.CharField(max_length=255)

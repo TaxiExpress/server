@@ -56,7 +56,10 @@ def registerUser(request):
         else:
             c = Customer(username=request.POST['email'], password=passtemp, phone=['phone'])
             c.save()
-            email = EmailMessage('Hello', 'World', to=[request.POST['email']])
+            code = random.randint(1, 999999)
+            c.validationCode = code
+            c.save()
+            email = EmailMessage('Validation code from Taxiexpress', 'World', to=[request.POST['email']])
             email.send()
             
             return HttpResponse(status=201,content="Created")
