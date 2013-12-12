@@ -2,8 +2,7 @@ from django import forms
 from django.core.mail import EmailMessage
 from django.forms import CharField,Form,PasswordInput
 from django.shortcuts import render_to_response
-from django.core.context_processors import csrf
-from django.views.decorators.csrf import csrf_protect, csrf_exempt
+from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseBadRequest
 from taxiexpress.models import Customer, Country, State, City, Driver
@@ -13,6 +12,7 @@ from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import Distance, D
 from django.core import serializers
 import json
+import random
 
 # Create your views here.
 
@@ -20,11 +20,11 @@ import json
 def loginUser(request):
     if request.method == "POST":
         if request.POST['email'] is None:
-            return HttpResponse(status=401, content="Email not received")
+            return HttpResponse(status=401, content="Debes ingresar un email")
         try:
             customer = Customer.objects.get(email=request.POST['email'])  
         except ObjectDoesNotExist:
-            return HttpResponse(status=401, content="The email or password was not correct")
+            return HttpResponse(status=401, content="Credenciales incorrectas")
         if customer.password == request.POST['password']:
             request.session['email'] = customer.email
             request.session['user_id'] = customer.id
@@ -35,22 +35,22 @@ def loginUser(request):
                 response_data['first_name'] = customer.first_name
             if customer.last_name != "":
                 response_data['last_name'] = customer.last_name
-            if not (customer.favlist.count() == 0):
-                response_data['favlist'] = customer.favlist
+            #if not (customer.favlist.count() == 0):
+            #    response_data['favlist'] = list(customer.favlist.all())
             return HttpResponse(json.dumps(response_data), content_type="application/json")
         else:
-            return HttpResponse(status=401, content="The email or password was not correct")
+            return HttpResponse(status=401, content="Credenciales incorrectas")
     else:
-        return HttpResponseBadRequest()
+        return HttpResponseBadRequest(content="Solicitud POST esperada")
 
 @csrf_exempt
 def registerUser(request):
     if request.method == "POST":
         passtemp = request.POST['password'];
         if (Customer.objects.filter(email=request.POST['email']).count() > 0):
-            return HttpResponse(status=401, content="The email is in use")
+            return HttpResponse(status=401, content="Email en uso")
         if (Customer.objects.filter(phone=request.POST['phone']).count() > 0):
-            return HttpResponse(status=401, content="The phone number is in use")
+            return HttpResponse(status=401, content="Telefono en uso")
         #elif (passtemp.length() < 4)
         #   return HttpResponse("shortpassword", content_type="text/plain")
         else:
@@ -59,10 +59,10 @@ def registerUser(request):
             code = random.randint(1, 999999)
             c.validationCode = code
             c.save()
-            email = EmailMessage('Validation code from Taxiexpress', 'World', to=[request.POST['email']])
+            email = EmailMessage('Verification code from TaxiExpress', 'World', to=[request.POST['email']])
             email.send()
             
-            return HttpResponse(status=201,content="Created")
+            return HttpResponse(status=201,content="Creado")
     else:
         return HttpResponseBadRequest()
 
@@ -76,6 +76,11 @@ def getClosestTaxi(request):
         pointclient = Point(float(request.GET['latitud']), float(request.GET['longitud']))
 
         list_TaxiDrivers = Driver.objects.distance(pointclient).order_by('distance')[0]
+
+def test(request):
+    cu = Customer.objects.get(email='gorka_12@hotmail.com')
+    lista = cu.favlist.all()
+    return HttpResponse(status=201,content=lista)
 
         #return JSON with taxi info
 
@@ -132,5 +137,5 @@ def loadData(request):
     cu.save()
     cu.favlist.add(dr)
     cu.favlist.add(dr2)
-    return HttpResponse(status=201,content="Loaded")
+    return HttpResponse(status=201,content="Cargado")
 

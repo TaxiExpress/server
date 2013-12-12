@@ -74,7 +74,7 @@ class Customer(models.Model):
     last_name = models.CharField(max_length=80, blank=True, null=True)
     birthdate = models.DateField(blank=True, null=True)
     postcode = models.CharField(max_length=5, blank=True, null=True)
-    image = models.TextField()
+    image = models.TextField(blank=True, null=True)
     city = models.ForeignKey(City, null=True)
     isValidated = models.BooleanField(default=False)
     validationCode = models.IntegerField(max_length=4, blank=True, null=True)
