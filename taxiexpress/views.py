@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 from django import forms
 from django.core.mail import EmailMessage
 from django.forms import CharField,Form,PasswordInput
@@ -11,8 +13,12 @@ from datetime import date
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import Distance, D
 from django.core import serializers
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 import json
 import random
+from datetime import datetime
+
 
 # Create your views here.
 
@@ -20,7 +26,7 @@ import random
 def loginUser(request):
     if request.method == "POST":
         if request.POST['email'] is None:
-            return HttpResponse(status=401, content="Debes ingresar un email")
+            return HttpResponse(status=401, content="Debes ingresar una dirección de email")
         try:
             customer = Customer.objects.get(email=request.POST['email'])  
         except ObjectDoesNotExist:
@@ -28,20 +34,27 @@ def loginUser(request):
         if customer.password == request.POST['password']:
             request.session['email'] = customer.email
             request.session['user_id'] = customer.id
-            response_data = {}
-            response_data['email'] = customer.email
-            response_data['phone'] = customer.phone
-            if customer.first_name != "":
-                response_data['first_name'] = customer.first_name
-            if customer.last_name != "":
-                response_data['last_name'] = customer.last_name
-            #if not (customer.favlist.count() == 0):
-            #    response_data['favlist'] = list(customer.favlist.all())
-            return HttpResponse(json.dumps(response_data), content_type="application/json")
+            if customer.phone != request.POST['phone']
+                customer.phone = request.POST['phone']
+                customer.save()
+            datetime_request = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
+            if customer.lastUpdate > datetime_request:
+                response_data = {}
+                response_data['email'] = customer.email
+                response_data['phone'] = customer.phone
+                if customer.first_name != "":
+                    response_data['first_name'] = customer.first_name
+                if customer.last_name != "":
+                    response_data['last_name'] = customer.last_name
+                #if not (customer.favlist.count() == 0):
+                #    response_data['favlist'] = list(customer.favlist.all())
+                return HttpResponse(json.dumps(response_data), content_type="application/json")
+            else:
+                return HttpResponse(status=200,content="OK")
         else:
             return HttpResponse(status=401, content="Credenciales incorrectas")
     else:
-        return HttpResponseBadRequest(content="Solicitud POST esperada")
+        return HttpResponseBadRequest(content="Petición POST esperada")
 
 @csrf_exempt
 def registerUser(request):
@@ -50,19 +63,22 @@ def registerUser(request):
         if (Customer.objects.filter(email=request.POST['email']).count() > 0):
             return HttpResponse(status=401, content="Email en uso")
         if (Customer.objects.filter(phone=request.POST['phone']).count() > 0):
-            return HttpResponse(status=401, content="Telefono en uso")
+            return HttpResponse(status=401, content="Teléfono en uso")
         #elif (passtemp.length() < 4)
         #   return HttpResponse("shortpassword", content_type="text/plain")
         else:
-            c = Customer(username=request.POST['email'], password=passtemp, phone=['phone'])
-            c.save()
-            code = random.randint(1, 999999)
-            c.validationCode = code
-            c.save()
-            email = EmailMessage('Verification code from TaxiExpress', 'World', to=[request.POST['email']])
-            email.send()
-            
-            return HttpResponse(status=201,content="Creado")
+            try:
+                validate_email( request.POST['email'] )
+                c = Customer(username=request.POST['email'], password=passtemp, phone=request.POST['phone'], lastUpdate=datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S'))
+                c.save()
+                code = random.randint(1, 999999)
+                c.validationCode = code
+                c.save()
+                email = EmailMessage('Código de verificación de TaxiExpress', 'World', to=[request.POST['email']])
+                email.send()
+                return HttpResponse(status=201,content="Creado")
+            except ValidationError:
+                HttpResponse(status=401, content="Email no válido")
     else:
         return HttpResponseBadRequest()
 

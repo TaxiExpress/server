@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.gis.db import models
 from django.template.defaultfilters import escape
+from datetime import datetime
+
 #from django.core.urlresolvers import reverse
 
 # Create your models here.
@@ -76,6 +78,7 @@ class Customer(models.Model):
     postcode = models.CharField(max_length=5, blank=True, null=True)
     image = models.TextField(blank=True, null=True)
     city = models.ForeignKey(City, null=True)
+    lastUpdate = models.DateTimeField(default=datetime.now, blank=True)
     isValidated = models.BooleanField(default=False)
     validationCode = models.IntegerField(max_length=4, blank=True, null=True)
     positiveVotes = models.IntegerField(blank=True, null=True)
