@@ -44,9 +44,9 @@ def loginUser(request):
                 response_data['email'] = customer.email
                 response_data['phone'] = customer.phone
                 if customer.first_name != "":
-                    response_data['first_name'] = customer.first_name
+                    response_data['name'] = customer.first_name
                 if customer.last_name != "":
-                    response_data['last_name'] = customer.last_name
+                    response_data['surname'] = customer.last_name
                 response_data['lastUpdate'] = customer.lastUpdate
                 #if not (customer.favlist.count() == 0):
                 #    response_data['favlist'] = list(customer.favlist.all())
