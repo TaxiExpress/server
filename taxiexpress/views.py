@@ -47,6 +47,7 @@ def loginUser(request):
                     response_data['first_name'] = customer.first_name
                 if customer.last_name != "":
                     response_data['last_name'] = customer.last_name
+                response_data['lastUpdate'] = customer.lastUpdate
                 #if not (customer.favlist.count() == 0):
                 #    response_data['favlist'] = list(customer.favlist.all())
                 return HttpResponse(json.dumps(response_data), content_type="application/json")
