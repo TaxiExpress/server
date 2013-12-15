@@ -2,6 +2,7 @@
 
 from django import forms
 from django.core.mail import EmailMessage
+from django.core.mail import EmailMultiAlternatives
 from django.forms import CharField,Form,PasswordInput
 from django.shortcuts import render_to_response
 from django.views.decorators.csrf import csrf_exempt
@@ -74,9 +75,17 @@ def registerUser(request):
                 code = random.randint(1, 999999)
                 c.validationCode = code
                 c.save()
-                email = EmailMessage('Código de verificación de TaxiExpress', 'World', to=[request.POST['email']])
-                email.send()
-                return HttpResponse(status=201,content="Creado")
+                #email = EmailMessage('Confirma tu cuenta de Taxi Express', '¡Bienvenido a Taxi Express! Para comenzar a utilizar nuestros servicios deveras confirmar tu direccion de correo eletronico haciendo click en el siguiente enlace:  ', to=[request.POST['email']])
+                #email.send()
+                
+				subject, from_email, to = 'Confirma tu cuenta de Taxi Express', 'MyTaxiExpress@gmail.com', [request.POST['email']]
+				html_content = 'Bienvenido a Taxi Express! <br> <br> Para comenzar a utilizar nuestros servicios deveras confirmar tu direccion de correo eletronico haciendo click en el siguiente enlace: <br> <br> <a href="https://manage.stripe.com/confirm_email?t=z5roGRDbZdRbvknLfTZHCUSCyvPeznIw"> <br> <br> Un saludo de parte del equipo de Taxi Express.'
+				msg = EmailMessage(subject, html_content, from_email, [to])
+				msg.content_subtype = "html"  # Main content is now text/html
+				msg.send()	
+				
+				
+				return HttpResponse(status=201,content="Creado")
             except ValidationError:
                 HttpResponse(status=401, content="Email no válido")
     else:
@@ -154,4 +163,22 @@ def loadData(request):
     cu.favlist.add(dr)
     cu.favlist.add(dr2)
     return HttpResponse(status=201,content="Cargado")
+	
+
+	def validateUser(request, email,validationCode ):
+    if request.method == "POST":
+        if request.POST['email'] is None:
+            return HttpResponse(status=401, content="Direccion incorrecta")
+        try:
+            customer = Customer.objects.get(email=request.POST['email'])  
+        except ObjectDoesNotExist:
+            return HttpResponse(status=401, content="No es posible validar a este usuario")
+        if customer.validationCode == request.POST['validationCode']:
+			customer.isValidated == true
+			return HttpResponse(status=201,content="El usuario ha sido validado correctamente")
+		else:
+            return HttpResponse(status=401, content="No es posible validar a este usuario")
+
+ 
+
 
