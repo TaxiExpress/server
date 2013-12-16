@@ -166,38 +166,41 @@ def loadData(request):
     return HttpResponse(status=201,content="Cargado")
     
 
-    def validateUser(request, email,validationCode):
-    if request.method == "POST":
-        if request.POST['email'] is None:
+    def validateUser(request):
+    if request.method == "GET":
+        if request.GET['email'] is None:
             return HttpResponse(status=401, content="Dirección incorrecta")
         try:
-            customer = Customer.objects.get(email=request.POST['email'])  
+            customer = Customer.objects.get(email=request.GET['email'])  
         except ObjectDoesNotExist:
             return HttpResponse(status=401, content="No es posible validar a este usuario")
-        if customer.validationCode == request.POST['validationCode']:
+        if customer.validationCode == request.GET['validationCode']:
             customer.isValidated == true
             return HttpResponse(status=201,content="El usuario ha sido validado correctamente")
         else:
             return HttpResponse(status=401, content="No es posible validar a este usuario")
 
 
-    def changePassword(request, email, newPassword):
-    try:
-        customer = Customer.objects.get(email=request.POST['email'])
-    except ObjectDoesNotExist:
-        return HttpResponse(status=401, content="El email introducido no es valido")
-    customer.password = newPassword
-    return HttpResponse(status=201,content="La contraseña ha sido modificada correctamente")
+    def changePassword(request):
+        try:
+            customer = Customer.objects.get(email=request.POST['email'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=401, content="El email introducido no es válido")
+        if customer.password == request.POST['oldPassword']:
+            customer.password = request.POST['newPassword']
+            return HttpResponse(status=201,content="La contraseña ha sido modificada correctamente")
+        else:
+            return HttpResponse(status=401, content="La contraseña actual es incorrecta")
 
-    def updateProfile(request, email, firstName, lastName, newImage):
-    try:
-        customer = Customer.objects.get(email=request.POST['email'])
-    except ObjectDoesNotExist:
-        return HttpResponse(status=401, content="El email introducido no es valido")
-    customer.first_name = firstName
-    customer.last_name = lastName
-    customer.image = newImage
-    return HttpResponse(status=201,content="Perfil del usuario modificado correctamente")
+    def updateProfile(request):
+        try:
+            customer = Customer.objects.get(email=request.POST['email'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=401, content="El email introducido no es válido")
+        customer.first_name = request.POST['firstName']
+        customer.last_name = request.POST['lastName']
+        customer.image = request.POST['newImage']
+        return HttpResponse(status=201,content="Perfil del usuario modificado correctamente")
  
 
 
