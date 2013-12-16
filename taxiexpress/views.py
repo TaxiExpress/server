@@ -185,19 +185,50 @@ def loadData(request):
     try:
         customer = Customer.objects.get(email=request.POST['email'])
     except ObjectDoesNotExist:
-        return HttpResponse(status=401, content="El email introducido no es valido")
+        return HttpResponse(status=401, content="El usuario introducido no es valido")
     customer.password = newPassword
     return HttpResponse(status=201,content="La contraseña ha sido modificada correctamente")
+
 
     def updateProfile(request, email, firstName, lastName, newImage):
     try:
         customer = Customer.objects.get(email=request.POST['email'])
     except ObjectDoesNotExist:
-        return HttpResponse(status=401, content="El email introducido no es valido")
+        return HttpResponse(status=401, content="El usuario introducido no es valido")
     customer.first_name = firstName
     customer.last_name = lastName
     customer.image = newImage
     return HttpResponse(status=201,content="Perfil del usuario modificado correctamente")
+
+
+    def addFavoriteDriver(request, customerEmail, driverEmail):
+    try:
+        customer = Customer.objects.get(customerEmail=request.POST['customerEmail'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=401, content="El usuario introducido no es valido")
+    try:
+        driver = Customer.objects.get(driverEmail=request.POST['driverEmail'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=401, content="El conductor introducido no es valido")
+    customer.favlist.add(driver)
+    customer.save()
+    return HttpResponse(status=201,content="Conductor marcado como favorito correctamente")
+
+
+    def removeFavoriteDriver(request, customerEmail, driverEmail):
+    try:
+        customer = Customer.objects.get(customerEmail=request.POST['customerEmail'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=401, content="El usuario introducido no es valido")
+    try:
+        driver = Customer.objects.get(driverEmail=request.POST['driverEmail'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=401, content="El conductor introducido no es valido")
+    customer.favlist.remove(driver)
+    customer.save()
+    return HttpResponse(status=201,content="Conductor marcado como favorito correctamente")
+
+
  
 
 
