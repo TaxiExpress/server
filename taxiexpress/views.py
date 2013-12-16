@@ -166,7 +166,7 @@ def loadData(request):
     return HttpResponse(status=201,content="Cargado")
     
 
-    def validateUser(request, email,validationCode ):
+    def validateUser(request, email,validationCode):
     if request.method == "POST":
         if request.POST['email'] is None:
             return HttpResponse(status=401, content="Dirección incorrecta")
@@ -180,6 +180,24 @@ def loadData(request):
         else:
             return HttpResponse(status=401, content="No es posible validar a este usuario")
 
+
+    def changePassword(request, email, newPassword):
+    try:
+        customer = Customer.objects.get(email=request.POST['email'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=401, content="El email introducido no es valido")
+    customer.password = newPassword
+    return HttpResponse(status=201,content="La contraseña ha sido modificada correctamente")
+
+    def updateProfile(request, email, firstName, lastName, newImage):
+    try:
+        customer = Customer.objects.get(email=request.POST['email'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=401, content="El email introducido no es valido")
+    customer.first_name = firstName
+    customer.last_name = lastName
+    customer.image = newImage
+    return HttpResponse(status=201,content="Perfil del usuario modificado correctamente")
  
 
 
