@@ -166,7 +166,7 @@ def loadData(request):
     return HttpResponse(status=201,content="Cargado")
     
 
-    def validateUser(request):
+def validateUser(request):
     if request.method == "GET":
         if request.GET['email'] is None:
             return HttpResponse(status=401, content="Dirección incorrecta")
@@ -180,9 +180,9 @@ def loadData(request):
         else:
             return HttpResponse(status=401, content="No es posible validar a este usuario")
 
-
-<<<<<<< HEAD
-    def changePassword(request):
+@csrf_exempt
+def changePassword(request):
+    if request.method == "POST":
         try:
             customer = Customer.objects.get(email=request.POST['email'])
         except ObjectDoesNotExist:
@@ -192,8 +192,12 @@ def loadData(request):
             return HttpResponse(status=201,content="La contraseña ha sido modificada correctamente")
         else:
             return HttpResponse(status=401, content="La contraseña actual es incorrecta")
+    else:
+        return HttpResponseBadRequest()
 
-    def updateProfile(request):
+@csrf_exempt
+def updateProfile(request):
+    if request.method == "POST":
         try:
             customer = Customer.objects.get(email=request.POST['email'])
         except ObjectDoesNotExist:
@@ -201,31 +205,42 @@ def loadData(request):
         customer.first_name = request.POST['firstName']
         customer.last_name = request.POST['lastName']
         customer.image = request.POST['newImage']
+        customer.save()
         return HttpResponse(status=201,content="Perfil del usuario modificado correctamente")
+    else:
+        return HttpResponseBadRequest()
 
-    def addFavoriteDriver(request, customerEmail, driverEmail):
+@csrf_exempt
+def addFavoriteDriver(request):
+    if request.method == "POST":
         try:
-            customer = Customer.objects.get(customerEmail=request.POST['customerEmail'])
+            customer = Customer.objects.get(email=request.POST['customerEmail'])
         except ObjectDoesNotExist:
-            return HttpResponse(status=401, content="El usuario introducido no es valido")
+            return HttpResponse(status=401, content="El usuario introducido no es válido")
         try:
-            driver = Customer.objects.get(driverEmail=request.POST['driverEmail'])
+            driver = Customer.objects.get(email=request.POST['driverEmail'])
         except ObjectDoesNotExist:
-            return HttpResponse(status=401, content="El conductor introducido no es valido")
+            return HttpResponse(status=401, content="El taxista introducido no es válido")
         customer.favlist.add(driver)
         customer.save()
-        return HttpResponse(status=201,content="Conductor marcado como favorito correctamente")
+        return HttpResponse(status=201,content="Taxista añadido a la lista de favoritos")
+    else:
+        return HttpResponseBadRequest()
 
 
-    def removeFavoriteDriver(request, customerEmail, driverEmail):
+@csrf_exempt
+def removeFavoriteDriver(request):
+    if request.method == "POST":
         try:
-            customer = Customer.objects.get(customerEmail=request.POST['customerEmail'])
+            customer = Customer.objects.get(email=request.POST['customerEmail'])
         except ObjectDoesNotExist:
-            return HttpResponse(status=401, content="El usuario introducido no es valido")
+            return HttpResponse(status=401, content="El usuario introducido no es válido")
         try:
-            driver = Customer.objects.get(driverEmail=request.POST['driverEmail'])
+            driver = customer.favlist.get(email=request.POST['driverEmail'])
         except ObjectDoesNotExist:
-            return HttpResponse(status=401, content="El conductor introducido no es valido")
+            return HttpResponse(status=401, content="El taxista no se encuentra en tu lista de favoritos")
         customer.favlist.remove(driver)
         customer.save()
-        return HttpResponse(status=201,content="Conductor marcado como favorito correctamente")
+        return HttpResponse(status=201,content="Taxista eliminado de la lista de favoritos")
+    else:
+        return HttpResponseBadRequest()
