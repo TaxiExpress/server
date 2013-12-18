@@ -14,11 +14,12 @@ DATABASES = {
         'ENGINE': 'django.contrib.gis.db.backends.postgis', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'taxiexpress',                      # Or path to database file if using sqlite3.
         'USER': 'taxiexpress',                      # Not used with sqlite3.
-        'PASSWORD': '1111',                  # Not used with sqlite3.
-        'HOST': '127.0.0.1',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PASSWORD': 'taxidessi',                  # Not used with sqlite3.
+        'HOST': 'taxiexpress.csek9ijjbtb3.us-west-2.rds.amazonaws.com',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+#Usar comando sql en la BBDD: CREATE EXTENSION postgis;
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.4/ref/settings/#allowed-hosts

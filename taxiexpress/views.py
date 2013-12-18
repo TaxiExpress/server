@@ -35,7 +35,7 @@ def loginUser(request):
         if customer.password == request.POST['password']:
             request.session['email'] = customer.email
             request.session['user_id'] = customer.id
-            if customer.phone != request.POST['phone']
+            if customer.phone != request.POST['phone']:
                 customer.phone = request.POST['phone']
                 customer.save()
             datetime_request = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
