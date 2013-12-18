@@ -96,5 +96,7 @@ class Travel(models.Model):
     endtime = models.DateTimeField()
     cost = models.DecimalField(max_digits=8, decimal_places=2)
     startpoint = models.PointField(srid=4326)
+    origin = models.CharField(max_length=80, blank=True, null=True)
     endpoint = models.PointField(srid=4326)
+    destination = models.CharField(max_length=80, blank=True, null=True)
     objects = models.GeoManager()

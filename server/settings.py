@@ -19,7 +19,7 @@ DATABASES = {
         'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
-#Usar comando sql en la BBDD: CREATE EXTENSION postgis;
+#Usar comandos sql en la BBDD: CREATE EXTENSION postgis; y CREATE EXTENSION postgis_topology;
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.4/ref/settings/#allowed-hosts

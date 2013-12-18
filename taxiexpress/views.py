@@ -36,8 +36,7 @@ def loginUser(request):
             request.session['email'] = customer.email
             request.session['user_id'] = customer.id
             if customer.phone != request.POST['phone']:
-                customer.phone = request.POST['phone']
-                customer.save()
+                return HttpResponse(status=401, content="Credenciales incorrectas")
             datetime_request = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
             if customer.lastUpdate > datetime_request:
                 response_data = {}
@@ -76,15 +75,7 @@ def registerUser(request):
                 code = random.randint(1, 999999)
                 c.validationCode = code
                 c.save()
-                #email = EmailMessage('Confirma tu cuenta de Taxi Express', '¡Bienvenido a Taxi Express! Para comenzar a utilizar nuestros servicios deveras confirmar tu direccion de correo eletronico haciendo click en el siguiente enlace:  ', to=[request.POST['email']])
-                #email.send()
-                
-                subject, from_email, to = 'Confirma tu cuenta de Taxi Express', 'MyTaxiExpress@gmail.com', [request.POST['email']]
-                html_content = 'Bienvenido a Taxi Express! <br> <br> Para comenzar a utilizar nuestros servicios deberás confirmar tu dirección de correo eletrónico haciendo click en el siguiente enlace: <br> <br> <a href="https://manage.stripe.com/confirm_email?t=z5roGRDbZdRbvknLfTZHCUSCyvPeznIw"> <br> <br> Un saludo de parte del equipo de Taxi Express.'
-                msg = EmailMessage(subject, html_content, from_email, [to])
-                msg.content_subtype = "html"  # Main content is now text/html
-                msg.send()  
-                
+                #enviar sms de forma mágica con el código
                 
                 return HttpResponse(status=201,content="Creado")
             except ValidationError:
