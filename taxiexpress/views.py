@@ -18,7 +18,10 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 import json
 import random
+import string
+import pytz
 from datetime import datetime
+from django.utils import timezone
 
 
 # Create your views here.
@@ -34,11 +37,13 @@ def loginUser(request):
             return HttpResponse(status=401, content="Credenciales incorrectas email")
         if customer.password == request.POST['password']:
             if customer.phone != request.POST['phone']:
-                return HttpResponse(status=401, content=("Credenciales incorrectas phone" + request.POST['phone'] + string(customer.phone)))
+                return HttpResponse(status=401, content=("Credenciales incorrectas phone" + customer.phone + request.POST['phone']))
             request.session['email'] = customer.email
             request.session['user_id'] = customer.id
             datetime_request = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
-            if customer.lastUpdate > datetime_request:
+            utc=pytz.UTC
+            now_aware = utc.localize(datetime_request)
+            if customer.lastUpdate < now_aware:
                 response_data = {}
                 response_data['email'] = customer.email
                 response_data['phone'] = customer.phone
@@ -46,7 +51,7 @@ def loginUser(request):
                     response_data['name'] = customer.first_name
                 if customer.last_name != "":
                     response_data['surname'] = customer.last_name
-                response_data['lastUpdate'] = customer.lastUpdate
+                #response_data['lastUpdate'] = customer.lastUpdate
                 #if not (customer.favlist.count() == 0):
                 #    response_data['favlist'] = list(customer.favlist.all())
                 return HttpResponse(json.dumps(response_data), content_type="application/json")
@@ -70,7 +75,7 @@ def registerUser(request):
         else:
             try:
                 validate_email( request.POST['email'] )
-                c = Customer(username=request.POST['email'], password=passtemp, phone=request.POST['phone'], lastUpdate=datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S'))
+                c = Customer(username=request.POST['email'], password=passtemp, phone=request.POST['phone'])
                 c.save()
                 code = random.randint(1, 999999)
                 c.validationCode = code
@@ -150,7 +155,7 @@ def loadData(request):
     dr.save()
     dr2 = Driver(email="conductor2@gmail.com", password="1111", phone="656111113", first_name="Conductor", last_name="DeSegunda", city=ci)
     dr2.save()
-    cu = Customer(email="gorka_12@hotmail.com", password="1111", phone="656111111", first_name="Pepito", last_name="Palotes", city=ci)
+    cu = Customer(email="gorka_12@hotmail.com", password="1111", phone="656111111", first_name="Pepito", last_name="Palotes", city=ci, lastUpdate=datetime.strptime('1980-01-01 00:00:01','%Y-%m-%d %H:%M:%S'))
     cu.save()
     cu.favlist.add(dr)
     cu.favlist.add(dr2)

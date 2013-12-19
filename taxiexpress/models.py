@@ -44,7 +44,7 @@ class Car(models.Model):
 class Driver(models.Model):
     password = models.CharField(max_length=80)
     email = models.EmailField(max_length=80)
-    phone = models.IntegerField()
+    phone = models.CharField(max_length=80)
     first_name = models.CharField(max_length=80, blank=True, null=True)
     last_name = models.CharField(max_length=80, blank=True, null=True)
     birthdate = models.DateField(blank=True, null=True)
@@ -71,7 +71,7 @@ class Driver(models.Model):
 class Customer(models.Model):
     password = models.CharField(max_length=80)
     email = models.EmailField(max_length=80)
-    phone = models.IntegerField()
+    phone = models.CharField(max_length=80)
     first_name = models.CharField(max_length=80, blank=True, null=True)
     last_name = models.CharField(max_length=80, blank=True, null=True)
     birthdate = models.DateField(blank=True, null=True)
