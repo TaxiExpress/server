@@ -33,7 +33,7 @@ def loginUser(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=401, content="Credenciales incorrectas email")
         if customer.password == request.POST['password']:
-            if customer.phone != request.POST['phone']:
+            if customer.phone != int(request.POST['phone']):
                 return HttpResponse(status=401, content="Credenciales incorrectas phone")
             request.session['email'] = customer.email
             request.session['user_id'] = customer.id
