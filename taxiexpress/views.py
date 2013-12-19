@@ -167,7 +167,7 @@ def validateUser(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=401, content="No es posible validar a este usuario")
         if customer.validationCode == request.GET['validationCode']:
-            customer.isValidated == true
+            customer.isValidated = true
 			subject, from_email, to = 'Parking Express: Tu contraseña ha sido modificada', 'MyTaxiExpress@gmail.com', [request.POST['email']]
             html_content = 'Bienvenido a Taxi Express! <br> <br> Para comenzar a utilizar nuestros servicios deberás confirmar tu dirección de correo eletrónico haciendo click en el siguiente enlace: <br> <br> <a href="https://manage.stripe.com/confirm_email?t=z5roGRDbZdRbvknLfTZHCUSCyvPeznIw"> <br> <br> Un saludo de parte del equipo de Taxi Express.'
             msg = EmailMessage(subject, html_content, from_email, [to])
