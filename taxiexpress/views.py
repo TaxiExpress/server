@@ -34,7 +34,7 @@ def loginUser(request):
             return HttpResponse(status=401, content="Credenciales incorrectas email")
         if customer.password == request.POST['password']:
             if customer.phone != request.POST['phone']:
-                return HttpResponse(status=401, content=("Credenciales incorrectas phone" + request.POST['phone'] + customer.phone))
+                return HttpResponse(status=401, content=("Credenciales incorrectas phone" + request.POST['phone'] + string(customer.phone)))
             request.session['email'] = customer.email
             request.session['user_id'] = customer.id
             datetime_request = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
