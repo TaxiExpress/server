@@ -177,9 +177,9 @@ def validateUser(request):
             customer.isValidated = true
             subject = 'Parking Express: Tu contraseña ha sido modificada'
             from_email = 'MyTaxiExpress@gmail.com'
-            to = [request.POST['email']]
+            to = [customer.email]
             html_content = 'Bienvenido a Taxi Express! <br> <br> Para comenzar a utilizar nuestros servicios deberás confirmar tu dirección de correo eletrónico haciendo click en el siguiente enlace: <br> <br> <a href="https://manage.stripe.com/confirm_email?t=z5roGRDbZdRbvknLfTZHCUSCyvPeznIw"> <br> <br> Un saludo de parte del equipo de Taxi Express.'
-            msg = EmailMessage(subject, html_content, from_email, [to])
+            msg = EmailMessage(subject, html_content, from_email, to)
             msg.content_subtype = "html"  # Main content is now text/html
             msg.send()
             return HttpResponse(status=201,content="El usuario ha sido validado correctamente")
@@ -194,11 +194,14 @@ def changePassword(request):
             customer = Customer.objects.get(email=request.POST['email'])
         except ObjectDoesNotExist:
             return HttpResponse(status=401, content="El email introducido no es válido")
-        if customer.password == request.POST['oldPassword']:
-            customer.password = request.POST['newPassword']  
-            subject, from_email, to = 'Parking Express: Tu contraseña ha sido modificada', 'MyTaxiExpress@gmail.com', [request.POST['email']]
+        if customer.password == request.POST['oldPass']:
+            customer.password = request.POST['newPass']  
+            customer.save()
+            subject = 'Parking Express: Tu contraseña ha sido modificada'
+            from_email = 'MyTaxiExpress@gmail.com'
+            to = [customer.email]
             html_content = 'Bienvenido a Taxi Express! <br> <br> Para comenzar a utilizar nuestros servicios deberás confirmar tu dirección de correo eletrónico haciendo click en el siguiente enlace: <br> <br> <a href="https://manage.stripe.com/confirm_email?t=z5roGRDbZdRbvknLfTZHCUSCyvPeznIw"> <br> <br> Un saludo de parte del equipo de Taxi Express.'
-            msg = EmailMessage(subject, html_content, from_email, [to])
+            msg = EmailMessage(subject, html_content, from_email, to)
             msg.content_subtype = "html"  # Main content is now text/html
             msg.send()  
             return HttpResponse(status=201,content="La contraseña ha sido modificada correctamente")

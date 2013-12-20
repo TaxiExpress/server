@@ -13,7 +13,8 @@ urlpatterns = patterns('',
     url(r'^email', 'taxiexpress.views.testEmail', name='testEmail'),
     url(r'^test', 'taxiexpress.views.test', name='test'),
     url(r'^client/validate', 'taxiexpress.views.validateUser', name='validateUser'),
-    url(r'^client/changeDetails', 'taxiexpress.views.updateProfile', name='updateProfile'),
+    url(r'^client/changedetails', 'taxiexpress.views.updateProfile', name='updateProfile'),
+    url(r'^client/changepassword', 'taxiexpress.views.changePassword', name='changePassword'),
 
     # url(r'^server/', include('server.foo.urls')),
 
