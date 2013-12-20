@@ -47,9 +47,9 @@ def loginUser(request):
                 response_data = {}
                 response_data['email'] = customer.email
                 response_data['phone'] = customer.phone
-                if customer.first_name != "":
+                if customer.first_name is not None:
                     response_data['name'] = customer.first_name
-                if customer.last_name != "":
+                if customer.last_name is not None:
                     response_data['surname'] = customer.last_name
                 if customer.image is not None:
                     response_data['image'] = customer.image
