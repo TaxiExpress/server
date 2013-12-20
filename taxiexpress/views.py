@@ -43,6 +43,7 @@ def loginUser(request):
             datetime_request = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
             utc=pytz.UTC
             now_aware = utc.localize(datetime_request)
+            print now_aware, lastUpdate
             if customer.lastUpdate < now_aware:
                 response_data = {}
                 response_data['email'] = customer.email
