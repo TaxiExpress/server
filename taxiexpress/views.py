@@ -51,6 +51,8 @@ def loginUser(request):
                     response_data['name'] = customer.first_name
                 if customer.last_name != "":
                     response_data['surname'] = customer.last_name
+                if customer.image is not None:
+                    response_data['image'] = customer.image
                 #response_data['lastUpdate'] = customer.lastUpdate
                 #if not (customer.favlist.count() == 0):
                 #    response_data['favlist'] = list(customer.favlist.all())
