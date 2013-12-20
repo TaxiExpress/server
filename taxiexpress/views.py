@@ -77,7 +77,7 @@ def registerUser(request):
         else:
             try:
                 validate_email( request.POST['email'] )
-                c = Customer(username=request.POST['email'], password=passtemp, phone=request.POST['phone'])
+                c = Customer(email=request.POST['email'], password=passtemp, phone=request.POST['phone'], lastUpdate=datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S'))
                 c.save()
                 code = random.randint(1, 999999)
                 c.validationCode = code
