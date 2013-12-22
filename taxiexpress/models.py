@@ -51,13 +51,14 @@ class Driver(models.Model):
     address = models.CharField(max_length=80, blank=True, null=True)
     postcode = models.CharField(max_length=5, blank=True, null=True)
     city = models.ForeignKey(City, blank=True, null=True)
+    isValidated = models.BooleanField(default=False)
+    validationCode = models.IntegerField(max_length=4, blank=True, null=True)
     positiveVotes = models.IntegerField(blank=True, default=0)
     negativeVotes = models.IntegerField(blank=True, default=0)
     car = models.ForeignKey(Car, null=True)
     image = models.TextField(blank=True, null=True)
     #Ponemos la licencia como unique? Y si cambia de dueno?
     license = models.IntegerField(blank=True, null=True)
-    licensepostcode = models.IntegerField(blank=True, null=True)
     #Datos de pago
     bankAccount = models.CharField(max_length=20)
     recipientName = models.CharField(max_length=80)

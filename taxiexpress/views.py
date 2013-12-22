@@ -115,10 +115,15 @@ def test(request):
 def validateUser(request):
     #IMPORTANTE, el contenido del email no es correcto, hay que actualizarlo.
     if request.method == "GET":
+<<<<<<< HEAD
         if request.GET['email'] is None:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email incorrecto")
+=======
+        if request.GET['phone'] is None:
+            return HttpResponse(status=401, content="Telefono incorrecto")
+>>>>>>> 5db4137affcf8b52ee306ed804457cdde9a4d6c5
         try:
-            customer = Customer.objects.get(email=request.GET['email'])  
+            customer = Customer.objects.get(phone=request.GET['phone'])  
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible validar a este usuario")
         if customer.validationCode == request.GET['validationCode']:
