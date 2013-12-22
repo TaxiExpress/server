@@ -123,10 +123,10 @@ def test(request):
 def validateUser(request):
     #IMPORTANTE, el contenido del email no es correcto, hay que actualizarlo.
     if request.method == "GET":
-        if request.GET['email'] is None:
-            return HttpResponse(status=401, content="Dirección incorrecta")
+        if request.GET['phone'] is None:
+            return HttpResponse(status=401, content="Telefono incorrecto")
         try:
-            customer = Customer.objects.get(email=request.GET['email'])  
+            customer = Customer.objects.get(phone=request.GET['phone'])  
         except ObjectDoesNotExist:
             return HttpResponse(status=401, content="No es posible validar a este usuario")
         if customer.validationCode == request.GET['validationCode']:
