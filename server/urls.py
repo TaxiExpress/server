@@ -10,11 +10,11 @@ urlpatterns = patterns('',
     url(r'^client/login', 'taxiexpress.views.loginUser', name='loginUser'),
     url(r'^client/register', 'taxiexpress.views.registerUser', name='registerUser'),
     url(r'^loaddata', 'taxiexpress.views.loadData', name='loaddata'),
-    url(r'^email', 'taxiexpress.views.testEmail', name='testEmail'),
     url(r'^test', 'taxiexpress.views.test', name='test'),
     url(r'^client/validate', 'taxiexpress.views.validateUser', name='validateUser'),
     url(r'^client/changedetails', 'taxiexpress.views.updateProfile', name='updateProfile'),
     url(r'^client/changepassword', 'taxiexpress.views.changePassword', name='changePassword'),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     # url(r'^server/', include('server.foo.urls')),
 
