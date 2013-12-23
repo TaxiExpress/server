@@ -69,7 +69,7 @@ def registerUser(request):
         else:
             try:
                 c = Customer(username=request.POST['email'], password=passtemp, phone=request.POST['phone'], lastUpdate=datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S'))
-                code = random.randint(1, 999999)
+                code = random.randint(1, 9999)
                 c.validationCode = code
                 c.save()
                 msg = {
@@ -123,10 +123,10 @@ def validateUser(request):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible validar a este usuario")
         if customer.validationCode == request.GET['validationCode']:
             customer.isValidated = true
-            subject = 'Parking Express: Tu contraseña ha sido modificada'
+            subject = 'Taxi Express'
             from_email = 'MyTaxiExpress@gmail.com'
             to = [customer.email]
-            html_content = 'Bienvenido a Taxi Express! <br> <br> Para comenzar a utilizar nuestros servicios deberás confirmar tu dirección de correo eletrónico haciendo click en el siguiente enlace: <br> <br> <a href="https://manage.stripe.com/confirm_email?t=z5roGRDbZdRbvknLfTZHCUSCyvPeznIw"> <br> <br> Un saludo de parte del equipo de Taxi Express.'
+            html_content = 'Bienvenido a Taxi Express! <br> <br> A partir de ahora ya puedes disfrutar de la app mas completa para gestionar tus viajes en taxi.'
             msg = EmailMessage(subject, html_content, from_email, to)
             msg.content_subtype = "html"  # Main content is now text/html
             msg.send()
