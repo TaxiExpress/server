@@ -126,7 +126,7 @@ def validateUser(request):
             subject = 'Taxi Express'
             from_email = 'MyTaxiExpress@gmail.com'
             to = [customer.email]
-            html_content = 'Bienvenido a Taxi Express! <br> <br> A partir de ahora ya puedes disfrutar de la app mas completa para gestionar tus viajes en taxi.'
+            html_content = 'Bienvenido a Taxi Express! <br> <br> Ya esta preparado para disfrutar de la app mas completa para gestionar sus viajes en taxi.'
             msg = EmailMessage(subject, html_content, from_email, to)
             msg.content_subtype = "html"  # Main content is now text/html
             msg.send()
