@@ -159,6 +159,7 @@ def changePassword(request):
 @api_view(['POST'])
 @csrf_exempt
 def updateProfile(request):
+    #Rehacer, no contempla todos los casos.
     try:
         customer = Customer.objects.get(email=request.POST['email'])
     except ObjectDoesNotExist:
