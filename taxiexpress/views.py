@@ -69,7 +69,6 @@ def registerUser(request):
                 c = Customer(username=request.POST['email'], password=passtemp, phone=request.POST['phone'], lastUpdate=datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S'))
                 code = random.randint(1, 9999)
                 c.validationCode = code
-                c.isValidated = false
                 c.save()
                 msg = {
                         'reqtype': 'json',
@@ -121,7 +120,7 @@ def validateUser(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible validar a este usuario")
         if customer.validationCode == request.GET['validationCode']:
-            customer.isValidated = true
+            customer.isValidated = True
             customer.save()
             subject = 'Taxi Express'
             from_email = 'MyTaxiExpress@gmail.com'
