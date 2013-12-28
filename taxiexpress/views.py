@@ -259,3 +259,36 @@ def loadData(request):
     cu.favlist.add(dr)
     cu.favlist.add(dr2)
     return HttpResponse(status=201,content="Cargado")
+
+@api_view(['GET'])
+def recoverPassword(request):
+    #IMPORTANTE, el contenido del email no es correcto, hay que actualizarlo.
+    if request.method == "GET":
+        if request.GET['phone'] is None:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Telefono incorrecto")
+        try:
+            customer = Customer.objects.get(phone=request.GET['phone'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible validar a este usuario")
+        subject = 'Parking Express: Tu contraseña ha sido modificada'
+        from_email = 'MyTaxiExpress@gmail.com'
+        to = [customer.email]
+        html_content = 'Recuperación de contraseña. <br> <br> Tu contraseña es ' + customer.password + '. <br> <br> Un saludo de parte del equipo de Taxi Express.'
+        msg = EmailMessage(subject, html_content, from_email, to)
+        msg.content_subtype = "html"  # Main content is now text/html
+        msg.send()
+        return HttpResponse(status=status.HTTP_201_CREATED,content="Se ha enviado tu contraseña a tu cuenta de correo")
+
+@api_view(['GET'])
+def recoverEmail(request):
+    if request.GET['phone'] is None:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Numero telefono nulo")
+        try:
+            customer = Customer.objects.get(phone=request.GET['phone'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado el usuario")
+        try:
+            emailCus = customer.email
+            return HttpResponse(status=status.HTTP_200_OK,content=emailCus)
+        except Exception:
+            return HttpResponser(status=HTTP_400_BAD_REQUEST, content="Error al devolver el email")
