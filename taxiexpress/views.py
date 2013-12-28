@@ -34,7 +34,7 @@ from rest_framework.renderers import JSONRenderer
 @api_view(['POST'])
 def loginUser(request):
     if request.POST['email'] is None:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes ingresar una dirección de email")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
     try:
         customer = Customer.objects.get(email=request.POST['email'])  
     except ObjectDoesNotExist:
@@ -139,7 +139,6 @@ def validateUser(request):
 @api_view(['POST'])
 @csrf_exempt
 def changePassword(request):
-    #IMPORTANTE, el contenido del email no es correcto, hay que actualizarlo.
     try:
         customer = Customer.objects.get(email=request.POST['email'])
     except ObjectDoesNotExist:
@@ -262,31 +261,30 @@ def loadData(request):
 
 @api_view(['GET'])
 def recoverPassword(request):
-    #IMPORTANTE, el contenido del email no es correcto, hay que actualizarlo.
     if request.method == "GET":
-        if request.GET['phone'] is None:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Telefono incorrecto")
+        if request.GET['email'] is None:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
         try:
-            customer = Customer.objects.get(phone=request.GET['phone'])
+            customer = Customer.objects.get(email=request.GET['email'])
         except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible validar a este usuario")
-        subject = 'Parking Express: Tu contraseña ha sido modificada'
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
+        subject = 'Taxi Express: Recuperar password'
         from_email = 'MyTaxiExpress@gmail.com'
         to = [customer.email]
-        html_content = 'Recuperación de contraseña. <br> <br> Tu contraseña es ' + customer.password + '. <br> <br> Un saludo de parte del equipo de Taxi Express.'
+        html_content = 'Su password es ' + customer.password + '. <br> <br> Un saludo de parte del equipo de Taxi Express.'
         msg = EmailMessage(subject, html_content, from_email, to)
         msg.content_subtype = "html"  # Main content is now text/html
         msg.send()
-        return HttpResponse(status=status.HTTP_201_CREATED,content="Se ha enviado tu contraseña a tu cuenta de correo")
+        return HttpResponse(status=status.HTTP_201_CREATED,content="Se le ha enviado la contraseña a su cuenta de email.")
 
 @api_view(['GET'])
 def recoverEmail(request):
     if request.GET['phone'] is None:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Numero telefono nulo")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un numero de telefono")
         try:
             customer = Customer.objects.get(phone=request.GET['phone'])
         except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado el usuario")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
         try:
             emailCus = customer.email
             return HttpResponse(status=status.HTTP_200_OK,content=emailCus)
