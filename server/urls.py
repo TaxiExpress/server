@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     url(r'^loaddata', 'taxiexpress.views.loadData', name='loaddata'),
     url(r'^test', 'taxiexpress.views.test', name='test'),
     url(r'^client/validate', 'taxiexpress.views.validateUser', name='validateUser'),
-    url(r'^client/changedetails', 'taxiexpress.views.updateProfile', name='updateProfile'),
+    url(r'^client/changedetails', 'taxiexpress.views.updateProfile', name='updateProfileMobile'),
     url(r'^client/changepassword', 'taxiexpress.views.changePassword', name='changePassword'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
