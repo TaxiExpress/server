@@ -114,7 +114,6 @@ def test(request):
 
 @api_view(['GET'])
 def validateUser(request):
-    #IMPORTANTE, el contenido del email no es correcto, hay que actualizarlo.
     if request.method == "GET":
         if request.GET['email'] is None:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email incorrecto")
@@ -159,8 +158,7 @@ def changePassword(request):
 
 @api_view(['POST'])
 @csrf_exempt
-def updateProfile(request):
-    #Rehacer, no contempla todos los casos.
+def updateProfileMobile(request):
     try:
         customer = Customer.objects.get(email=request.POST['email'])
     except ObjectDoesNotExist:
@@ -170,6 +168,43 @@ def updateProfile(request):
     customer.image = request.POST['newImage']
     customer.save()
     return HttpResponse(status=201,content="Perfil del usuario modificado correctamente")
+    
+
+@csrf_exempt
+@api_view(['GET'])
+def recoverPassword(request):
+    if request.method == "GET":
+        if request.GET['email'] is None:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
+        try:
+            customer = Customer.objects.get(email=request.GET['email'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
+        subject = 'Taxi Express: Recuperar password'
+        from_email = 'MyTaxiExpress@gmail.com'
+        to = [customer.email]
+        html_content = 'Su password es ' + customer.password + '. <br> <br> Un saludo de parte del equipo de Taxi Express.'
+        msg = EmailMessage(subject, html_content, from_email, to)
+        msg.content_subtype = "html"  # Main content is now text/html
+        msg.send()
+        return HttpResponse(status=status.HTTP_201_CREATED,content="Se le ha enviado la contraseña a su cuenta de email.")
+
+@csrf_exempt
+@api_view(['GET'])
+def recoverEmail(request):
+    if request.GET['phone'] is None:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un numero de telefono")
+        try:
+            customer = Customer.objects.get(phone=request.GET['phone'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
+        try:
+            emailCus = customer.email
+            return HttpResponse(status=status.HTTP_200_OK,content=emailCus)
+        except Exception:
+            return HttpResponser(status=HTTP_400_BAD_REQUEST, content="Error al devolver el email")    
+    
+    
 
 @api_view(['POST'])
 @csrf_exempt
@@ -259,34 +294,4 @@ def loadData(request):
     cu.favlist.add(dr2)
     return HttpResponse(status=201,content="Cargado")
 
-@api_view(['GET'])
-def recoverPassword(request):
-    if request.method == "GET":
-        if request.GET['email'] is None:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
-        try:
-            customer = Customer.objects.get(email=request.GET['email'])
-        except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
-        subject = 'Taxi Express: Recuperar password'
-        from_email = 'MyTaxiExpress@gmail.com'
-        to = [customer.email]
-        html_content = 'Su password es ' + customer.password + '. <br> <br> Un saludo de parte del equipo de Taxi Express.'
-        msg = EmailMessage(subject, html_content, from_email, to)
-        msg.content_subtype = "html"  # Main content is now text/html
-        msg.send()
-        return HttpResponse(status=status.HTTP_201_CREATED,content="Se le ha enviado la contraseña a su cuenta de email.")
 
-@api_view(['GET'])
-def recoverEmail(request):
-    if request.GET['phone'] is None:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un numero de telefono")
-        try:
-            customer = Customer.objects.get(phone=request.GET['phone'])
-        except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
-        try:
-            emailCus = customer.email
-            return HttpResponse(status=status.HTTP_200_OK,content=emailCus)
-        except Exception:
-            return HttpResponser(status=HTTP_400_BAD_REQUEST, content="Error al devolver el email")
