@@ -99,7 +99,10 @@ def getClosestTaxi(request):
     if request.GET.get('latitud', "false") != "false":
         pointclient = Point(float(request.GET['latitud']), float(request.GET['longitud']))
 
-        list_TaxiDrivers = Driver.objects.distance(pointclient).order_by('distance')[0]
+        closestDriver = Driver.objects.distance(pointclient).order_by('distance')[0]
+        serialDriver = DriverSerializer(closestDriver)
+        return Response(serialDriver.data, status=status.HTTP_200_OK)
+
 
 @api_view(['GET'])
 def test(request):
