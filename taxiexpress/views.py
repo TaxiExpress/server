@@ -112,16 +112,16 @@ def test(request):
 
         #return JSON with taxi info
 
-@api_view(['GET'])
+@api_view(['POST'])
 def validateUser(request):
-    if request.method == "GET":
-        if request.GET['phone'] is None:
+    if request.method == "POST":
+        if request.POST['phone'] is None:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Telefono incorrecto")
         try:
-            customer = Customer.objects.get(phone=request.GET['phone'])  
+            customer = Customer.objects.get(phone=request.POST['phone'])  
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible validar a este usuario")
-        if customer.validationCode == request.GET['validationCode']:
+        if customer.validationCode == request.POST['validationCode']:
             customer.isValidated = True
             customer.save()
             subject = 'Taxi Express'
