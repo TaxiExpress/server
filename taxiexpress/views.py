@@ -168,6 +168,7 @@ def updateProfileMobile(request):
     customer.first_name = request.POST['firstName']
     customer.last_name = request.POST['lastName']
     customer.image = request.POST['newImage']
+    customer.lastUpdate = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
     customer.save()
     return HttpResponse(status=201,content="Perfil del usuario modificado correctamente")
     
@@ -189,7 +190,7 @@ def recoverPassword(request):
         msg = EmailMessage(subject, html_content, from_email, to)
         msg.content_subtype = "html"  # Main content is now text/html
         msg.send()
-        return HttpResponse(status=status.HTTP_201_CREATED,content="Se le ha enviado la contraseña a su cuenta de email.")
+        return HttpResponse(status=status.HTTP_201_CREATED,content="Se ha enviado la contraseña a su cuenta de email.")
 
 @csrf_exempt
 @api_view(['GET'])
@@ -233,7 +234,7 @@ def removeFavoriteDriver(request):
         try:
             driver = customer.favlist.get(email=request.POST['driverEmail'])
         except ObjectDoesNotExist:
-            return HttpResponse(status=401, content="El taxista no se encuentra en tu lista de favoritos")
+            return HttpResponse(status=401, content="El taxista no se encuentra en su lista de favoritos")
         customer.favlist.remove(driver)
         customer.save()
         return HttpResponse(status=201,content="Taxista eliminado de la lista de favoritos")
