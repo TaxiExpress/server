@@ -84,8 +84,6 @@ def registerUser(request):
 
                 response = sms.send_request()
 
-                # Falta saber si devuelve un JSON o un XML, depende de la API a la que haga la POST la libreria.
-
                 
                 return HttpResponse(status=status.HTTP_201_CREATED)
             except ValidationError:
