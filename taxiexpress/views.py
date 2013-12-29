@@ -94,6 +94,7 @@ def registerUser(request):
         HttpResponse(status=status.HTTP_400_BAD_REQUEST)
 
 
+@csrf_exempt
 @api_view(['GET'])
 def getClosestTaxi(request):
     if request.GET.get('latitud', "false") != "false":
@@ -104,6 +105,7 @@ def getClosestTaxi(request):
         return Response(serialDriver.data, status=status.HTTP_200_OK)
 
 
+@csrf_exempt
 @api_view(['GET'])
 def test(request):
     cu = Customer.objects.get(email='gorka_12@hotmail.com')
@@ -135,8 +137,9 @@ def validateUser(request):
         else:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible validar a este usuario")
 
-@api_view(['POST'])
+
 @csrf_exempt
+@api_view(['POST'])
 def changePassword(request):
     try:
         customer = Customer.objects.get(email=request.POST['email'])
@@ -156,8 +159,9 @@ def changePassword(request):
     else:
         return HttpResponse(status=401, content="La contraseña actual es incorrecta")
 
-@api_view(['POST'])
+
 @csrf_exempt
+@api_view(['POST'])
 def updateProfileMobile(request):
     try:
         customer = Customer.objects.get(email=request.POST['email'])
@@ -205,9 +209,8 @@ def recoverEmail(request):
             return HttpResponser(status=HTTP_400_BAD_REQUEST, content="Error al devolver el email")    
     
     
-
-@api_view(['POST'])
 @csrf_exempt
+@api_view(['POST'])
 def addFavoriteDriver(request):
     try:
         customer = Customer.objects.get(email=request.POST['customerEmail'])
@@ -222,8 +225,8 @@ def addFavoriteDriver(request):
     return HttpResponse(status=201,content="Taxista añadido a la lista de favoritos")
 
 
-@api_view(['POST'])
 @csrf_exempt
+@api_view(['POST'])
 def removeFavoriteDriver(request):
         try:
             customer = Customer.objects.get(email=request.POST['customerEmail'])
@@ -238,6 +241,7 @@ def removeFavoriteDriver(request):
         return HttpResponse(status=201,content="Taxista eliminado de la lista de favoritos")
 
 
+@csrf_exempt
 @api_view(['GET'])
 def loadData(request):
     co = Country(code = 108,name='Espana')
