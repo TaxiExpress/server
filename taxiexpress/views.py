@@ -74,8 +74,8 @@ def registerUser(request):
                         'reqtype': 'json',
                         'api_key': '8a352457',
                         'api_secret': '460e58ff',
-                        'from': '34619317759',
-                        'to': '34619317759',
+                        'from': 'Taxi Express',
+                        'to': '+34619317759',
                         'text': 'Su codigo de validacion de Taxi Express es: ' + code
                     }
                 
@@ -83,8 +83,6 @@ def registerUser(request):
                 sms.set_text_info(msg['text'])
 
                 response = sms.send_request()
-
-                # Falta saber si devuelve un JSON o un XML, depende de la API a la que haga la POST la libreria.
 
                 
                 return HttpResponse(status=status.HTTP_201_CREATED)
@@ -148,7 +146,7 @@ def changePassword(request):
     if customer.password == request.POST['oldPass']:
         customer.password = request.POST['newPass']  
         customer.save()
-        subject = 'Taxi Express: Tu contraseña ha sido modificada'
+        subject = 'Taxi Express: Su contraseña ha sido modificada'
         from_email = 'MyTaxiExpress@gmail.com'
         to = [customer.email]
         html_content = 'Le informamos de que su contraseña de Taxi Express ha sido modificada. En el caso en el que no tenga constancia de ello, pongase inmediantamente en contactocon MyTaxiExpress@gmail.com.'
@@ -184,7 +182,7 @@ def recoverPassword(request):
             customer = Customer.objects.get(email=request.GET['email'])
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
-        subject = 'Taxi Express: Recuperar password'
+        subject = 'Taxi Express: Recuperar contraseña'
         from_email = 'MyTaxiExpress@gmail.com'
         to = [customer.email]
         html_content = 'Su password es ' + customer.password + '. <br> <br> Un saludo de parte del equipo de Taxi Express.'
