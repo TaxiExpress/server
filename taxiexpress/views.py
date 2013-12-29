@@ -115,7 +115,7 @@ def test(request):
 @api_view(['GET'])
 def validateUser(request):
     if request.method == "GET":
-        if request.GET['phone'] is None:
+        if request.GET['email'] is None:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Telefono incorrecto")
         try:
             customer = Customer.objects.get(email=request.GET['email'])  
