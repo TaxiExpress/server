@@ -75,7 +75,7 @@ def registerUser(request):
                         'api_key': '8a352457',
                         'api_secret': '460e58ff',
                         'from': 'Taxi Express',
-                        'to': c.email,
+                        'to': c.phone,
                         'text': 'Su codigo de validacion de Taxi Express es: ' + str(code)
                     }
                 
