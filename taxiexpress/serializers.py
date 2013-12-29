@@ -28,4 +28,4 @@ class CustomerSerializer(serializers.ModelSerializer):
     travel_set = TravelSerializer(many=True)
     class Meta:
         model = Customer
-        fields = ('email', 'phone', 'first_name', 'last_name', 'lastUpdate', 'favlist', 'travel_set')
+        fields = ('email', 'phone', 'first_name', 'last_name', 'image', 'lastUpdate', 'favlist', 'travel_set')
