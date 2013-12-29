@@ -76,7 +76,7 @@ def registerUser(request):
                         'api_secret': '460e58ff',
                         'from': 'Taxi Express',
                         'to': c.phone,
-                        'text': 'Su codigo de validacion de Taxi Express es: ' + str(code)
+                        'text': 'Su codigo de validación de Taxi Express es: ' + str(code)
                     }
                 
                 sms = NexmoMessage(msg)
