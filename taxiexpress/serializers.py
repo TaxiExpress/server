@@ -1,11 +1,21 @@
 from django.forms import widgets
 from rest_framework import serializers
-from taxiexpress.models import Customer, Country, State, City, Driver, Travel
+from taxiexpress.models import Customer, Country, State, City, Driver, Travel, Car
+
+class CarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Car
+        fields = ('plate', 'model', 'company', 'capacity', 'accessible', 'animals', 'appPayment')
 
 class DriverSerializer(serializers.ModelSerializer):
+    valuation = serializers.SerializerMethodField('get_valuation')
+    car = CarSerializer()
+
+    def get_valuation(self, obj):
+            return int(5*obj.positiveVotes/(obj.positiveVotes+obj.negativeVotes))
     class Meta:
         model = Driver
-        fields = ('email', 'phone', 'first_name', 'last_name', 'image')
+        fields = ('email', 'phone', 'first_name', 'last_name', 'image', 'valuation', 'car')
 
 class TravelSerializer(serializers.ModelSerializer):
     driver= DriverSerializer()

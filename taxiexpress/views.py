@@ -9,7 +9,7 @@ from django.shortcuts import render_to_response
 from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseBadRequest
-from taxiexpress.models import Customer, Country, State, City, Driver, Travel
+from taxiexpress.models import Customer, Country, State, City, Driver, Travel, Car
 from taxiexpress.serializers import CustomerSerializer, DriverSerializer
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Point
@@ -288,11 +288,15 @@ def loadData(request):
     ci.save()
     ci = City(code = 89, name = 'Urduliz', state = s)
     ci.save()
-    dr = Driver(email="conductor@gmail.com", password="1111", phone="656111112", first_name="Conductor", last_name="DePrimera", city=ci)
+    car = Car(plate='1111AAA', model='Laguna', company='Renault', color='White', capacity=4, accessible=True, animals=False, isfree=True, appPayment=True)
+    car.save()
+    dr = Driver(email="conductor@gmail.com", password="11111111", phone="656111112", first_name="Conductor", last_name="DePrimera", city=ci, positiveVotes=10, negativeVotes=3, car=car)
     dr.save()
-    dr2 = Driver(email="conductor2@gmail.com", password="1111", phone="656111113", first_name="Conductor", last_name="DeSegunda", city=ci)
+    car = Car(plate='2222BBB', model='Cooper', company='Mini', color='White', capacity=3, accessible=False, animals=False, isfree=True, appPayment=False)
+    car.save()
+    dr2 = Driver(email="conductor2@gmail.com", password="11111111", phone="656111113", first_name="Conductor", last_name="DeSegunda", city=ci, positiveVotes=2, negativeVotes=7, car=car)
     dr2.save()
-    cu = Customer(email="gorka_12@hotmail.com", password="1111", phone="656111111", first_name="Pepito", last_name="Palotes", city=ci, lastUpdate=datetime.strptime('1980-01-01 00:00:01','%Y-%m-%d %H:%M:%S'))
+    cu = Customer(email="gorka_12@hotmail.com", password="11111111", phone="656111111", first_name="Pepito", last_name="Palotes", city=ci, lastUpdate=datetime.strptime('1980-01-01 00:00:01','%Y-%m-%d %H:%M:%S'))
     cu.save()
     cu.favlist.add(dr)
     cu.favlist.add(dr2)
