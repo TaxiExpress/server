@@ -9,7 +9,7 @@ from django.shortcuts import render_to_response
 from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseBadRequest
-from taxiexpress.models import Customer, Country, State, City, Driver
+from taxiexpress.models import Customer, Country, State, City, Driver, Travel
 from taxiexpress.serializers import CustomerSerializer, DriverSerializer
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Point
@@ -198,15 +198,15 @@ def recoverPassword(request):
 def recoverEmail(request):
     if request.GET['phone'] is None:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un numero de telefono")
-        try:
-            customer = Customer.objects.get(phone=request.GET['phone'])
-        except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
-        try:
-            emailCus = customer.email
-            return HttpResponse(status=status.HTTP_200_OK,content=emailCus)
-        except Exception:
-            return HttpResponser(status=HTTP_400_BAD_REQUEST, content="Error al devolver el email")    
+    try:
+        customer = Customer.objects.get(phone=request.GET['phone'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
+    try:
+        emailCus = customer.email
+        return HttpResponse(status=status.HTTP_200_OK,content=emailCus)
+    except Exception:
+        return HttpResponser(status=HTTP_400_BAD_REQUEST, content="Error al devolver el email")    
     
     
 @csrf_exempt
@@ -296,6 +296,8 @@ def loadData(request):
     cu.save()
     cu.favlist.add(dr)
     cu.favlist.add(dr2)
+    tr = Travel(customer=cu, driver=dr, starttime=datetime.strptime('2013-01-01 00:00:01','%Y-%m-%d %H:%M:%S'), endtime=datetime.strptime('2013-01-01 00:10:01','%Y-%m-%d %H:%M:%S'), cost=20.10, startpoint=Point(43.15457, -2.56488), origin='Calle Autonomía 35', endpoint=Point(43.16218, -2.56352), destination='Av de las Universidades 24')
+    tr.save()
     return HttpResponse(status=201,content="Cargado")
 
 

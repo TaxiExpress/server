@@ -1,6 +1,6 @@
 from django.forms import widgets
 from rest_framework import serializers
-from taxiexpress.models import Customer, Country, State, City, Driver
+from taxiexpress.models import Customer, Country, State, City, Driver, Travel
 
 class DriverSerializer(serializers.ModelSerializer):
     class Meta:
