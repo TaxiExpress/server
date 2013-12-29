@@ -115,8 +115,8 @@ def test(request):
 @api_view(['GET'])
 def validateUser(request):
     if request.method == "GET":
-        if request.GET['email'] is None:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email incorrecto")
+        if request.GET['phone'] is None:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Telefono incorrecto")
         try:
             customer = Customer.objects.get(phone=request.GET['email'])  
         except ObjectDoesNotExist:
