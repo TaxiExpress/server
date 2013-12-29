@@ -16,7 +16,7 @@ from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import Distance, D
 #from django.core import serializers
 #from django.core.validators import validate_email
-#from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError
 #import json
 import random
 import string
