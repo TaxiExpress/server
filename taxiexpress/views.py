@@ -216,7 +216,7 @@ def addFavoriteDriver(request):
     except ObjectDoesNotExist:
         return HttpResponse(status=401, content="El usuario introducido no es válido")
     try:
-        driver = Customer.favlist.get(email=request.POST['driverEmail'])
+        driver = customer.favlist.get(email=request.POST['driverEmail'])
     except ObjectDoesNotExist:
         return HttpResponse(status=401, content="El taxista introducido no es válido")
     customer.favlist.add(driver)
@@ -232,7 +232,7 @@ def removeFavoriteDriver(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=401, content="El usuario introducido no es válido")
         try:
-            driver = Customer.favlist.get(email=request.POST['driverEmail'])
+            driver = customer.favlist.get(email=request.POST['driverEmail'])
         except ObjectDoesNotExist:
             return HttpResponse(status=401, content="El taxista no se encuentra en su lista de favoritos")
         customer.favlist.remove(driver)
