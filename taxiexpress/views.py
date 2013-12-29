@@ -148,7 +148,7 @@ def changePassword(request):
     if customer.password == request.POST['oldPass']:
         customer.password = request.POST['newPass']  
         customer.save()
-        subject = 'Taxi Express: Tu contraseña ha sido modificada'
+        subject = 'Taxi Express: Su contraseña ha sido modificada'
         from_email = 'MyTaxiExpress@gmail.com'
         to = [customer.email]
         html_content = 'Le informamos de que su contraseña de Taxi Express ha sido modificada. En el caso en el que no tenga constancia de ello, pongase inmediantamente en contactocon MyTaxiExpress@gmail.com.'
@@ -184,7 +184,7 @@ def recoverPassword(request):
             customer = Customer.objects.get(email=request.GET['email'])
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
-        subject = 'Taxi Express: Recuperar password'
+        subject = 'Taxi Express: Recuperar contraseña'
         from_email = 'MyTaxiExpress@gmail.com'
         to = [customer.email]
         html_content = 'Su password es ' + customer.password + '. <br> <br> Un saludo de parte del equipo de Taxi Express.'
