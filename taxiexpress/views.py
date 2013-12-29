@@ -118,7 +118,7 @@ def validateUser(request):
         if request.POST['phone'] is None:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Telefono incorrecto")
         try:
-            customer = Customer.objects.get(phone=request.POST['phone'])  
+            customer = Customer.objects.get(email=request.POST['phone'])  
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible validar a este usuario")
         if customer.validationCode == request.POST['validationCode']:
