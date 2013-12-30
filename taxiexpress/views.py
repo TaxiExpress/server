@@ -246,11 +246,10 @@ def removeTravel(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=401, content="El usuario introducido no es válido")
         try:
-            travel = customer.travel_set.get(id=request.POST['travel_id'])
+            travel = Travel.objects.get(id=request.POST['travel_id'])
         except ObjectDoesNotExist:
             return HttpResponse(status=401, content="El trayecto no se encuentra en su lista de trayectos realizados")
-        customer.travel_set.remove(travel)
-        customer.save()
+        travel.remove()
         return HttpResponse(status=201,content="Trayecto eliminado de la lista")
 
 
