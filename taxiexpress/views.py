@@ -38,7 +38,7 @@ def loginUser(request):
     try:
         customer = Customer.objects.get(email=request.POST['email'])  
     except ObjectDoesNotExist:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas email")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
     if customer.password == request.POST['password']:
         if customer.isValidated == False:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe validar la cuenta antes de conectarse")
@@ -53,7 +53,7 @@ def loginUser(request):
         else:
             return Response(status=status.HTTP_200_OK)
     else:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas password")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 
 
 @csrf_exempt
@@ -61,9 +61,9 @@ def registerUser(request):
     if request.method == "POST":
         passtemp = request.POST['password'];
         if (Customer.objects.filter(email=request.POST['email']).count() > 0):
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email en uso")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email que ha indicado ya está en uso")
         if (Customer.objects.filter(phone=request.POST['phone']).count() > 0):
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Teléfono en uso")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El teléfono que ha indicado ya está en uso")
         #elif (passtemp.length() < 4)
         #   return HttpResponse("shortpassword", content_type="text/plain")
         else:
@@ -78,15 +78,11 @@ def registerUser(request):
                         'api_secret': '460e58ff',
                         'from': 'Taxi Express',
                         'to': c.phone,
-                        'text': 'Su codigo de validación de Taxi Express es: ' + str(code)
-                    }
-                
+                        'text': 'Su código de validación de Taxi Express es: ' + str(code)
+                    }                
                 sms = NexmoMessage(msg)
                 sms.set_text_info(msg['text'])
-
-                response = sms.send_request()
-
-                
+                response = sms.send_request()                
                 return HttpResponse(status=status.HTTP_201_CREATED)
             except ValidationError:
                 HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email no válido")
@@ -118,25 +114,25 @@ def test(request):
 def validateUser(request):
     if request.method == "POST":
         if request.POST['phone'] is None:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Telefono incorrecto")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Teléfono incorrecto")
         try:
             customer = Customer.objects.get(phone=request.POST['phone'])  
 
         except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible validar a este usuario")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible validar esta cuenta")
         if customer.validationCode == int(request.POST['validationCode']):
             customer.isValidated = True
             customer.save()
             subject = 'Taxi Express'
             from_email = 'MyTaxiExpress@gmail.com'
             to = [customer.email]
-            html_content = 'Bienvenido a Taxi Express! <br> <br> Ya esta preparado para disfrutar de la app mas completa para gestionar sus viajes en taxi.'
+            html_content = 'Bienvenido a Taxi Express! <br> <br> Ya puede disfrutar de la app más completa para gestionar sus viajes en taxi.'
             msg = EmailMessage(subject, html_content, from_email, to)
             msg.content_subtype = "html"  # Main content is now text/html
             msg.send()
-            return HttpResponse(status=status.HTTP_201_CREATED,content="El usuario ha sido validado correctamente")
+            return HttpResponse(status=status.HTTP_201_CREATED,content="La cuenta ha sido validada correctamente")
         else:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible validar a este usuario")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible validar esta cuenta")
 
 
 @csrf_exempt
@@ -152,7 +148,7 @@ def changePassword(request):
         subject = 'Taxi Express: Su contraseña ha sido modificada'
         from_email = 'MyTaxiExpress@gmail.com'
         to = [customer.email]
-        html_content = 'Le informamos de que su contraseña de Taxi Express ha sido modificada. En el caso en el que no tenga constancia de ello, pongase inmediantamente en contactocon MyTaxiExpress@gmail.com.'
+        html_content = 'Le informamos de que su contraseña de Taxi Express ha sido modificada. En el caso en el que no tenga constancia de ello, póngase inmediantamente en contacto con MyTaxiExpress@gmail.com.'
         msg = EmailMessage(subject, html_content, from_email, to)
         msg.content_subtype = "html"  # Main content is now text/html
         msg.send()  
@@ -199,7 +195,7 @@ def recoverPassword(request):
 @api_view(['GET'])
 def recoverEmail(request):
     if request.GET['phone'] is None:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un numero de telefono")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un número de teléfono")
     try:
         customer = Customer.objects.get(phone=request.GET['phone'])
     except ObjectDoesNotExist:
