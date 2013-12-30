@@ -241,7 +241,6 @@ def removeFavoriteDriver(request):
         return HttpResponse(status=201,content="Taxista eliminado de la lista de favoritos")
 
 
-
 @csrf_exempt
 @api_view(['POST'])
 def removeTravel(request):

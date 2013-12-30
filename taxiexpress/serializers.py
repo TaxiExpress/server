@@ -21,7 +21,7 @@ class TravelSerializer(serializers.ModelSerializer):
     driver= DriverSerializer()
     class Meta:
         model = Travel
-        fields = ('driver', 'starttime', 'endtime', 'cost', 'startpoint', 'origin', 'endpoint', 'destination')
+        fields = ('id', 'driver', 'starttime', 'endtime', 'cost', 'startpoint', 'origin', 'endpoint', 'destination')
 
 class CustomerSerializer(serializers.ModelSerializer):
     favlist = DriverSerializer(many=True)
