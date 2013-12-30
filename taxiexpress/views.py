@@ -116,23 +116,22 @@ def validateUser(request):
         if request.POST['phone'] is None:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Teléfono incorrecto")
         try:
-            customer = Customer.objects.get(phone=request.POST['phone'])  
-
+            customer = Customer.objects.get(phone=request.POST['phone'])
         except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible validar esta cuenta")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta. Inténtelo de nuevo")
         if customer.validationCode == int(request.POST['validationCode']):
             customer.isValidated = True
             customer.save()
-            subject = 'Taxi Express'
+            subject = '¡Bienvenido a Taxi Express!'
             from_email = 'MyTaxiExpress@gmail.com'
             to = [customer.email]
-            html_content = 'Bienvenido a Taxi Express! <br> <br> Ya puede disfrutar de la app más completa para gestionar sus viajes en taxi.'
+            html_content = '¡Bienvenido a Taxi Express! <br> <br> Ya puede disfrutar de la app más completa para gestionar sus viajes en taxi.'
             msg = EmailMessage(subject, html_content, from_email, to)
             msg.content_subtype = "html"  # Main content is now text/html
             msg.send()
             return HttpResponse(status=status.HTTP_201_CREATED,content="La cuenta ha sido validada correctamente")
         else:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible validar esta cuenta")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta. Inténtelo de nuevo")
 
 
 @csrf_exempt
