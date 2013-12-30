@@ -241,6 +241,23 @@ def removeFavoriteDriver(request):
         return HttpResponse(status=201,content="Taxista eliminado de la lista de favoritos")
 
 
+
+@csrf_exempt
+@api_view(['POST'])
+def removeTravel(request):
+        try:
+            customer = Customer.objects.get(email=request.POST['email'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=401, content="El usuario introducido no es válido")
+        try:
+            travel = customer.travel_set.get(id=request.POST['travel_id'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=401, content="El trayecto no se encuentra en su lista de trayectos realizados")
+        customer.travel_set.remove(travel)
+        customer.save()
+        return HttpResponse(status=201,content="Trayecto eliminado de la lista")
+
+
 @csrf_exempt
 @api_view(['GET'])
 def loadData(request):

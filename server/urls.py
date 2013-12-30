@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^client/changepassword', 'taxiexpress.views.changePassword', name='changePassword'),
     url(r'^client/addfavorite', 'taxiexpress.views.addFavoriteDriver', name='addFavoriteDriver'),
     url(r'^client/removefavorite', 'taxiexpress.views.removeFavoriteDriver', name='removeFavoriteDriver'),
+    url(r'^client/removetravel', 'taxiexpress.views.removeTravel', name='removeTravel'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     # url(r'^server/', include('server.foo.urls')),
