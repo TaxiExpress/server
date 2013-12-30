@@ -40,6 +40,8 @@ def loginUser(request):
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas email")
     if customer.password == request.POST['password']:
+        if customer.isValidated == False:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe validar la cuenta antes de conectarse")
         request.session['email'] = customer.email
         request.session['user_id'] = customer.id
         datetime_request = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
@@ -122,7 +124,7 @@ def validateUser(request):
 
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible validar a este usuario")
-        if customer.validationCode == request.POST['validationCode']:
+        if customer.validationCode == int(request.POST['validationCode']):
             customer.isValidated = True
             customer.save()
             subject = 'Taxi Express'
