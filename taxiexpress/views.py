@@ -249,7 +249,7 @@ def removeTravel(request):
             travel = Travel.objects.get(id=request.POST['travel_id'])
         except ObjectDoesNotExist:
             return HttpResponse(status=401, content="El trayecto no se encuentra en su lista de trayectos realizados")
-        travel.remove()
+        travel.delete()
         return HttpResponse(status=201,content="Trayecto eliminado de la lista")
 
 
