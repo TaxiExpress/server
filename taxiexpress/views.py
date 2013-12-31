@@ -316,4 +316,30 @@ def loadData(request):
     tr.save()
     return HttpResponse(status=201,content="Cargado")
 
+@csrf_exempt
+@api_view(['POST'])
+def loginDriver(request):
+    if request.POST['email'] is None:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
+    try:
+        driver = Driver.objects.get(email=request.POST['email'])  
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
+    if driver.password == request.POST['password']:
+        if driver.isValidated == False:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe validar la cuenta antes de conectarse")
+        request.session['email'] = driver.email
+        request.session['user_id'] = driver.id
+        datetime_request = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
+        utc=pytz.UTC
+        now_aware = utc.localize(datetime_request)
+        if customer.lastUpdate > now_aware:
+            serialDriver = DriverSerializer(driver)
+            return Response(serialDriver.data, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_200_OK)
+    else:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
+
+
 
