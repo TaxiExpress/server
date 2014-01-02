@@ -333,7 +333,7 @@ def loginDriver(request):
         datetime_request = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
         utc=pytz.UTC
         now_aware = utc.localize(datetime_request)
-        if customer.lastUpdate > now_aware:
+        if driver.lastUpdate > now_aware:
             serialDriver = DriverSerializer(driver)
             return Response(serialDriver.data, status=status.HTTP_200_OK)
         else:
