@@ -30,7 +30,7 @@ from rest_framework.renderers import JSONRenderer
 
 
 # Create your views here.
-@method_decorator(csrf_exempt)
+@csrf_exempt
 @api_view(['POST'])
 def loginUser(request):
     if request.POST['email'] is None:
@@ -315,31 +315,5 @@ def loadData(request):
     tr = Travel(customer=cu, driver=dr, starttime=datetime.strptime('2013-01-01 00:00:01','%Y-%m-%d %H:%M:%S'), endtime=datetime.strptime('2013-01-01 00:10:01','%Y-%m-%d %H:%M:%S'), cost=20.10, startpoint=Point(43.15457, -2.56488), origin='Calle Autonomía 35', endpoint=Point(43.16218, -2.56352), destination='Av de las Universidades 24')
     tr.save()
     return HttpResponse(status=201,content="Cargado")
-
-@csrf_exempt
-@api_view(['POST'])
-def loginDriver(request):
-    if request.POST['email'] is None:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
-    try:
-        driver = Driver.objects.get(email=request.POST['email'])  
-    except ObjectDoesNotExist:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
-    if driver.password == request.POST['password']:
-        if driver.isValidated == False:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe validar la cuenta antes de conectarse")
-        request.session['email'] = driver.email
-        request.session['user_id'] = driver.id
-        datetime_request = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
-        utc=pytz.UTC
-        now_aware = utc.localize(datetime_request)
-        if driver.lastUpdate > now_aware:
-            serialDriver = DriverSerializer(driver)
-            return Response(serialDriver.data, status=status.HTTP_200_OK)
-        else:
-            return Response(status=status.HTTP_200_OK)
-    else:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
-
 
 
