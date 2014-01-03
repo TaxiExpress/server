@@ -30,7 +30,7 @@ from rest_framework.renderers import JSONRenderer
 
 
 # Create your views here.
-@csrf_exempt
+@method_decorator(csrf_exempt)
 @api_view(['POST'])
 def loginUser(request):
     if request.POST['email'] is None:
