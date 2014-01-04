@@ -133,7 +133,7 @@ def getNearestTaxies(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=401, content="El email introducido no es válido")
 
-        closestDrivers = Driver.objects.distance(pointclient).filter(car__accesible__in=[customer.fAccesible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True]).order_by('distance')[10]
+        closestDrivers = Driver.objects.distance(pointclient).filter(car__accesible__in=[customer.fAccesible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True]).order_by('distance')[:10]
         serialDriver = DriverSerializer(closestDrivers, many=True)
         return Response(serialDriver.data, status=status.HTTP_200_OK)
     else:
@@ -149,7 +149,7 @@ def getClosestTaxi(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=401, content="El email introducido no es válido")
 
-        closestDriver = Driver.objects.distance(pointclient).filter(car__accesible__in=[customer.fAccesible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True]).order_by('distance')[0]
+        closestDriver = Driver.objects.distance(pointclient).filter(car__accesible__in=[customer.fAccesible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True]).order_by('distance').first()
         serialDriver = DriverSerializer(closestDriver)
         return Response(serialDriver.data, status=status.HTTP_200_OK)
     else:
