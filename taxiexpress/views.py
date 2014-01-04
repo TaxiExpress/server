@@ -113,7 +113,7 @@ def getClosestTaxi(request):
     if request.GET.get('latitud', "false") != "false":
         pointclient = Point(float(request.GET['latitud']), float(request.GET['longitud']))
         try:
-            customer = Customer.objects.get(email=request.POST['email'])
+            customer = Customer.objects.get(email=request.GET['email'])
         except ObjectDoesNotExist:
             return HttpResponse(status=401, content="El email introducido no es válido")
 
@@ -129,7 +129,7 @@ def getNearestTaxies(request):
     if request.GET.get('latitud', "false") != "false":
         pointclient = Point(float(request.GET['latitud']), float(request.GET['longitud']))
         try:
-            customer = Customer.objects.get(email=request.POST['email'])
+            customer = Customer.objects.get(email=request.GET['email'])
         except ObjectDoesNotExist:
             return HttpResponse(status=401, content="El email introducido no es válido")
 
