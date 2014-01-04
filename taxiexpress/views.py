@@ -346,14 +346,7 @@ def loginDriver(request):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe validar la cuenta antes de conectarse")
         request.session['email'] = driver.email
         request.session['user_id'] = driver.id
-        datetime_request = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
-        utc=pytz.UTC
-        now_aware = utc.localize(datetime_request)
-        if driver.lastUpdate > now_aware:
-            serialDriver = DriverSerializer(driver)
-            return Response(serialDriver.data, status=status.HTTP_200_OK)
-        else:
-            return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 
