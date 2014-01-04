@@ -55,6 +55,23 @@ def loginUser(request):
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 
+@csrf_exempt
+@api_view(['POST'])
+def loginDriver(request):
+    if request.POST['email'] is None:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
+    try:
+        driver = Driver.objects.get(email=request.POST['email'])  
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
+    if driver.password == request.POST['password']:
+        if driver.isValidated == False:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe validar la cuenta antes de conectarse")
+        request.session['email'] = driver.email
+        request.session['user_id'] = driver.id
+        return Response(status=status.HTTP_200_OK)
+    else:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 
 @csrf_exempt
 def registerUser(request):
@@ -106,6 +123,37 @@ def getClosestTaxi(request):
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Error al obtener la posicion")
 
+@csrf_exempt
+@api_view(['GET'])
+def getNearestTaxies(request):
+    if request.GET.get('latitud', "false") != "false":
+        pointclient = Point(float(request.GET['latitud']), float(request.GET['longitud']))
+        try:
+            customer = Customer.objects.get(email=request.POST['email'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=401, content="El email introducido no es válido")
+
+        closestDriver = Driver.objects.distance(pointclient).filter(car__accesible__in=[customer.fAccesible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True]).order_by('distance')[10]
+        serialDriver = DriverSerializer(closestDriver)
+        return Response(serialDriver.data, status=status.HTTP_200_OK)
+    else:
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Error al obtener la posicion")
+
+@csrf_exempt
+@api_view(['GET'])
+def getClosestTaxi(request):
+    if request.GET.get('latitud', "false") != "false":
+        pointclient = Point(float(request.GET['latitud']), float(request.GET['longitud']))
+        try:
+            customer = Customer.objects.get(email=request.POST['email'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=401, content="El email introducido no es válido")
+
+        closestDriver = Driver.objects.distance(pointclient).filter(car__accesible__in=[customer.fAccesible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True]).order_by('distance')[0]
+        serialDriver = DriverSerializer(closestDriver)
+        return Response(serialDriver.data, status=status.HTTP_200_OK)
+    else:
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Error al obtener la posicion")
 
 @csrf_exempt
 @api_view(['GET'])
@@ -331,23 +379,5 @@ def loadData(request):
     tr = Travel(customer=cu, driver=dr, starttime=datetime.strptime('2013-01-01 00:00:01','%Y-%m-%d %H:%M:%S'), endtime=datetime.strptime('2013-01-01 00:10:01','%Y-%m-%d %H:%M:%S'), cost=20.10, startpoint=Point(43.15457, -2.56488), origin='Calle Autonomía 35', endpoint=Point(43.16218, -2.56352), destination='Av de las Universidades 24')
     tr.save()
     return HttpResponse(status=201,content="Cargado")
-
-@csrf_exempt
-@api_view(['POST'])
-def loginDriver(request):
-    if request.POST['email'] is None:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
-    try:
-        driver = Driver.objects.get(email=request.POST['email'])  
-    except ObjectDoesNotExist:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
-    if driver.password == request.POST['password']:
-        if driver.isValidated == False:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe validar la cuenta antes de conectarse")
-        request.session['email'] = driver.email
-        request.session['user_id'] = driver.id
-        return Response(status=status.HTTP_200_OK)
-    else:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 
 
