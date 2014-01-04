@@ -95,10 +95,16 @@ def registerUser(request):
 def getClosestTaxi(request):
     if request.GET.get('latitud', "false") != "false":
         pointclient = Point(float(request.GET['latitud']), float(request.GET['longitud']))
+        try:
+            customer = Customer.objects.get(email=request.POST['email'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=401, content="El email introducido no es válido")
 
-        closestDriver = Driver.objects.distance(pointclient).order_by('distance')[0]
+        closestDriver = Driver.objects.distance(pointclient).filter(car__accesible__in=[customer.fAccesible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True]).order_by('distance')[0]
         serialDriver = DriverSerializer(closestDriver)
         return Response(serialDriver.data, status=status.HTTP_200_OK)
+    else:
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Error al obtener la posicion")
 
 
 @csrf_exempt
@@ -112,26 +118,25 @@ def test(request):
 
 @api_view(['POST'])
 def validateUser(request):
-    if request.method == "POST":
-        if request.POST['phone'] is None:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Teléfono incorrecto")
-        try:
-            customer = Customer.objects.get(phone=request.POST['phone'])
-        except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta. Inténtelo de nuevo")
-        if customer.validationCode == int(request.POST['validationCode']):
-            customer.isValidated = True
-            customer.save()
-            subject = '¡Bienvenido a Taxi Express!'
-            from_email = 'MyTaxiExpress@gmail.com'
-            to = [customer.email]
-            html_content = '¡Bienvenido a Taxi Express! <br> <br> Ya puede disfrutar de la app más completa para gestionar sus viajes en taxi.'
-            msg = EmailMessage(subject, html_content, from_email, to)
-            msg.content_subtype = "html"  # Main content is now text/html
-            msg.send()
-            return HttpResponse(status=status.HTTP_201_CREATED,content="La cuenta ha sido validada correctamente")
-        else:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta. Inténtelo de nuevo")
+    if request.POST['phone'] is None:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Teléfono incorrecto")
+    try:
+        customer = Customer.objects.get(phone=request.POST['phone'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta. Inténtelo de nuevo")
+    if customer.validationCode == int(request.POST['validationCode']):
+        customer.isValidated = True
+        customer.save()
+        subject = '¡Bienvenido a Taxi Express!'
+        from_email = 'MyTaxiExpress@gmail.com'
+        to = [customer.email]
+        html_content = '¡Bienvenido a Taxi Express! <br> <br> Ya puede disfrutar de la app más completa para gestionar sus viajes en taxi.'
+        msg = EmailMessage(subject, html_content, from_email, to)
+        msg.content_subtype = "html"  # Main content is now text/html
+        msg.send()
+        return HttpResponse(status=status.HTTP_201_CREATED,content="La cuenta ha sido validada correctamente")
+    else:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta. Inténtelo de nuevo")
 
 
 @csrf_exempt
@@ -174,21 +179,20 @@ def updateProfileMobile(request):
 @csrf_exempt
 @api_view(['GET'])
 def recoverPassword(request):
-    if request.method == "GET":
-        if request.GET['email'] is None:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
-        try:
-            customer = Customer.objects.get(email=request.GET['email'])
-        except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
-        subject = 'Taxi Express: Recuperar contraseña'
-        from_email = 'MyTaxiExpress@gmail.com'
-        to = [customer.email]
-        html_content = 'Su password es ' + customer.password + '. <br> <br> Un saludo de parte del equipo de Taxi Express.'
-        msg = EmailMessage(subject, html_content, from_email, to)
-        msg.content_subtype = "html"  # Main content is now text/html
-        msg.send()
-        return HttpResponse(status=status.HTTP_201_CREATED,content="Se ha enviado la contraseña a su cuenta de email.")
+    if request.GET['email'] is None:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
+    try:
+        customer = Customer.objects.get(email=request.GET['email'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
+    subject = 'Taxi Express: Recuperar contraseña'
+    from_email = 'MyTaxiExpress@gmail.com'
+    to = [customer.email]
+    html_content = 'Su password es ' + customer.password + '. <br> <br> Un saludo de parte del equipo de Taxi Express.'
+    msg = EmailMessage(subject, html_content, from_email, to)
+    msg.content_subtype = "html"  # Main content is now text/html
+    msg.send()
+    return HttpResponse(status=status.HTTP_201_CREATED,content="Se ha enviado la contraseña a su cuenta de email.")
 
 @csrf_exempt
 @api_view(['GET'])
@@ -252,6 +256,18 @@ def removeTravel(request):
         travel.delete()
         return HttpResponse(status=201,content="Trayecto eliminado de la lista")
 
+
+@csrf_exempt
+@api_view(['POST'])
+def updateFilters(request):
+        try:
+            customer = Customer.objects.get(email=request.POST['email'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=401, content="El usuario introducido no es válido")
+        customer.fAccesible = request.POST['accesible']
+        customer.fAnimals = request.POST['animals']
+        customer.fAppPayment = request.POST['appPayment']
+        customer.save()
 
 @csrf_exempt
 @api_view(['GET'])

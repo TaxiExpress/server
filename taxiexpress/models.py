@@ -84,6 +84,10 @@ class Customer(models.Model):
     negativeVotes = models.IntegerField(blank=True, null=True)
     #Datos de pago
     favlist = models.ManyToManyField(Driver, related_name='+', blank=True, null=True)
+    #FilterList
+    fAccessible = models.BooleanField()
+    fAnimals = models.BooleanField()
+    fAppPayment = models.BooleanField()
     def __unicode__(self):
         return self.email
 
