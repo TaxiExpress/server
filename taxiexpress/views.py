@@ -133,8 +133,8 @@ def getNearestTaxies(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=401, content="El email introducido no es válido")
 
-        closestDriver = Driver.objects.distance(pointclient).filter(car__accesible__in=[customer.fAccesible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True]).order_by('distance')[10]
-        serialDriver = DriverSerializer(closestDriver)
+        closestDrivers = Driver.objects.distance(pointclient).filter(car__accesible__in=[customer.fAccesible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True]).order_by('distance')[10]
+        serialDriver = DriverSerializer(closestDrivers, many=True)
         return Response(serialDriver.data, status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Error al obtener la posicion")
