@@ -114,12 +114,13 @@ def getClosestTaxi(request):
         pointclient = Point(float(request.GET['latitud']), float(request.GET['longitud']))
         try:
             customer = Customer.objects.get(email=request.GET['email'])
+            closestDriver = Driver.objects.distance(pointclient).filter(car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity).order_by('distance')[0]
+            serialDriver = DriverSerializer(closestDriver)
+            return Response(serialDriver.data, status=status.HTTP_200_OK)
         except ObjectDoesNotExist:
             return HttpResponse(status=401, content="El email introducido no es válido")
-
-        closestDriver = Driver.objects.distance(pointclient).filter(car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity).order_by('distance')[0]
-        serialDriver = DriverSerializer(closestDriver)
-        return Response(serialDriver.data, status=status.HTTP_200_OK)
+        except IndexError:
+            return HttpResponse(status=status.HTTP_204_NO_CONTENT, content="No se han encontrado taxis")
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Error al obtener la posicion")
 
