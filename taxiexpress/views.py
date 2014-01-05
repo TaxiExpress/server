@@ -298,9 +298,9 @@ def updateFilters(request):
             customer = Customer.objects.get(email=request.POST['email'])
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
-        customer.fAccessible = bool(request.POST['accesible'])
-        customer.fAnimals = bool(request.POST['animals'])
-        customer.fAppPayment = bool(request.POST['appPayment'])
+        customer.fAccessible = (request.POST['accesible'] == 'true')
+        customer.fAnimals = (request.POST['animals'] == 'true'
+        customer.fAppPayment = (request.POST['appPayment'] == 'true')
         customer.fCapacity = request.POST['capacity']
         customer.save()
         return HttpResponse(status=status.HTTP_200_OK,content="Filtros actualizados")
