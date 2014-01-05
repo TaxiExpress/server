@@ -15,7 +15,7 @@ class DriverSerializer(serializers.ModelSerializer):
             return int(5*obj.positiveVotes/(obj.positiveVotes+obj.negativeVotes))
     class Meta:
         model = Driver
-        fields = ('email', 'phone', 'first_name', 'last_name', 'image', 'valuation', 'car')
+        fields = ('email', 'phone', 'first_name', 'last_name', 'image', 'valuation', 'car', 'geom')
 
 class TravelSerializer(serializers.ModelSerializer):
     driver= DriverSerializer()
