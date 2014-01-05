@@ -149,7 +149,7 @@ def getClosestTaxi(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=401, content="El email introducido no es válido")
 
-        closestDriver = Driver.objects.distance(pointclient).filter(car__accesible__in=[customer.fAccesible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True]).order_by('distance').first()
+        closestDriver = Driver.objects.distance(pointclient).filter(car__accesible__in=[customer.fAccesible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity).order_by('distance').first()
         serialDriver = DriverSerializer(closestDriver)
         return Response(serialDriver.data, status=status.HTTP_200_OK)
     else:
@@ -315,6 +315,7 @@ def updateFilters(request):
         customer.fAccesible = request.POST['accesible']
         customer.fAnimals = request.POST['animals']
         customer.fAppPayment = request.POST['appPayment']
+        customer.fCapacity = request.POST['capacity']
         customer.save()
 
 @csrf_exempt

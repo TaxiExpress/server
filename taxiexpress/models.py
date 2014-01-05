@@ -88,6 +88,7 @@ class Customer(models.Model):
     fAccessible = models.BooleanField()
     fAnimals = models.BooleanField()
     fAppPayment = models.BooleanField()
+    fCapacity = models.IntegerField()
     def __unicode__(self):
         return self.email
 
