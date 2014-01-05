@@ -118,7 +118,7 @@ def getClosestTaxi(request):
             serialDriver = DriverSerializer(closestDriver)
             return Response(serialDriver.data, status=status.HTTP_200_OK)
         except ObjectDoesNotExist:
-            return HttpResponse(status=401, content="El email introducido no es válido")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
         except IndexError:
             return HttpResponse(status=status.HTTP_204_NO_CONTENT, content="No se han encontrado taxis")
     else:
@@ -132,7 +132,7 @@ def getNearestTaxies(request):
         try:
             customer = Customer.objects.get(email=request.GET['email'])
         except ObjectDoesNotExist:
-            return HttpResponse(status=401, content="El email introducido no es válido")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
 
         closestDrivers = Driver.objects.distance(pointclient).filter(car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity).order_by('distance')[:10]
         serialDriver = DriverSerializer(closestDrivers, many=True)
@@ -179,7 +179,7 @@ def changePassword(request):
     try:
         customer = Customer.objects.get(email=request.POST['email'])
     except ObjectDoesNotExist:
-        return HttpResponse(status=401, content="El email introducido no es válido")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
     if customer.password == request.POST['oldPass']:
         customer.password = request.POST['newPass']  
         customer.save()
@@ -190,9 +190,9 @@ def changePassword(request):
         msg = EmailMessage(subject, html_content, from_email, to)
         msg.content_subtype = "html"  # Main content is now text/html
         msg.send()  
-        return HttpResponse(status=201,content="La contraseña ha sido modificada correctamente")
+        return HttpResponse(status=status.HTTP_200_OK,content="La contraseña ha sido modificada correctamente")
     else:
-        return HttpResponse(status=401, content="La contraseña actual es incorrecta")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="La contraseña actual es incorrecta")
 
 
 @csrf_exempt
@@ -201,13 +201,13 @@ def updateProfileMobile(request):
     try:
         customer = Customer.objects.get(email=request.POST['email'])
     except ObjectDoesNotExist:
-        return HttpResponse(status=401, content="El email introducido no es válido")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
     customer.first_name = request.POST['firstName']
     customer.last_name = request.POST['lastName']
     customer.image = request.POST['newImage']
     customer.lastUpdate = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
     customer.save()
-    return HttpResponse(status=201,content="Perfil del usuario modificado correctamente")
+    return HttpResponse(status=status.HTTP_200_OK,content="Perfil del usuario modificado correctamente")
     
 
 @csrf_exempt
@@ -250,14 +250,14 @@ def addFavoriteDriver(request):
     try:
         customer = Customer.objects.get(email=request.POST['customerEmail'])
     except ObjectDoesNotExist:
-        return HttpResponse(status=401, content="El usuario introducido no es válido")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
     try:
         driver = Driver.objects.get(email=request.POST['driverEmail'])
     except ObjectDoesNotExist:
-        return HttpResponse(status=401, content="El taxista introducido no es válido")
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El taxista introducido no es válido")
     customer.favlist.add(driver)
     customer.save()
-    return HttpResponse(status=201,content="Taxista añadido a la lista de favoritos")
+    return HttpResponse(status=status.HTTP_201_CREATED,content="Taxista añadido a la lista de favoritos")
 
 
 @csrf_exempt
@@ -266,14 +266,14 @@ def removeFavoriteDriver(request):
         try:
             customer = Customer.objects.get(email=request.POST['customerEmail'])
         except ObjectDoesNotExist:
-            return HttpResponse(status=401, content="El usuario introducido no es válido")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
         try:
             driver = customer.favlist.get(email=request.POST['driverEmail'])
         except ObjectDoesNotExist:
-            return HttpResponse(status=401, content="El taxista no se encuentra en su lista de favoritos")
+            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El taxista no se encuentra en su lista de favoritos")
         customer.favlist.remove(driver)
         customer.save()
-        return HttpResponse(status=201,content="Taxista eliminado de la lista de favoritos")
+        return HttpResponse(status=status.HTTP_200_OK,content="Taxista eliminado de la lista de favoritos")
 
 
 @csrf_exempt
@@ -282,13 +282,13 @@ def removeTravel(request):
         try:
             customer = Customer.objects.get(email=request.POST['email'])
         except ObjectDoesNotExist:
-            return HttpResponse(status=401, content="El usuario introducido no es válido")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
         try:
             travel = Travel.objects.get(id=request.POST['travel_id'])
         except ObjectDoesNotExist:
-            return HttpResponse(status=401, content="El trayecto no se encuentra en su lista de trayectos realizados")
+            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El trayecto no se encuentra en su lista de trayectos realizados")
         travel.delete()
-        return HttpResponse(status=201,content="Trayecto eliminado de la lista")
+        return HttpResponse(status=status.HTTP_200_OK ,content="Trayecto eliminado de la lista")
 
 
 @csrf_exempt
@@ -297,12 +297,14 @@ def updateFilters(request):
         try:
             customer = Customer.objects.get(email=request.POST['email'])
         except ObjectDoesNotExist:
-            return HttpResponse(status=401, content="El usuario introducido no es válido")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
         customer.fAccessible = request.POST['accesible']
         customer.fAnimals = request.POST['animals']
         customer.fAppPayment = request.POST['appPayment']
         customer.fCapacity = request.POST['capacity']
         customer.save()
+        return HttpResponse(status=status.HTTP_200_OK,content="Filtros actualizados")
+
 
 @csrf_exempt
 @api_view(['GET'])
@@ -365,6 +367,6 @@ def loadData(request):
     cu.favlist.add(dr2)
     tr = Travel(customer=cu, driver=dr, starttime=datetime.strptime('2013-01-01 00:00:01','%Y-%m-%d %H:%M:%S'), endtime=datetime.strptime('2013-01-01 00:10:01','%Y-%m-%d %H:%M:%S'), cost=20.10, startpoint=Point(43.15457, -2.56488), origin='Calle Autonomía 35', endpoint=Point(43.16218, -2.56352), destination='Av de las Universidades 24')
     tr.save()
-    return HttpResponse(status=201,content="Cargado")
+    return HttpResponse(status=status.HTTP_201_CREATED,content="Cargado")
 
 
