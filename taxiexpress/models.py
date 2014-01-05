@@ -85,10 +85,10 @@ class Customer(models.Model):
     #Datos de pago
     favlist = models.ManyToManyField(Driver, related_name='+', blank=True, null=True)
     #FilterList
-    fAccessible = models.BooleanField()
-    fAnimals = models.BooleanField()
-    fAppPayment = models.BooleanField()
-    fCapacity = models.IntegerField()
+    fAccessible = models.BooleanField(default=False)
+    fAnimals = models.BooleanField(default=False)
+    fAppPayment = models.BooleanField(default=False)
+    fCapacity = models.IntegerField(default=1)
     def __unicode__(self):
         return self.email
 
