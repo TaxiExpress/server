@@ -51,7 +51,8 @@ def loginUser(request):
             serialCustomer = CustomerSerializer(customer)
             return Response(serialCustomer.data, status=status.HTTP_200_OK)
         else:
-            return Response(status=status.HTTP_200_OK)
+            serialCustomer = CustomerTaxiesTravelsSerializer(customer)
+            return Response(serialCustomer.data, status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 

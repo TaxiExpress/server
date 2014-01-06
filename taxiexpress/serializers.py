@@ -32,3 +32,10 @@ class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = ('email', 'phone', 'first_name', 'last_name', 'image', 'lastUpdate', 'favlist', 'fAccessible', 'fAnimals', 'fAppPayment', 'fCapacity', 'travel_set')
+
+class CustomerTaxiesTravelsSerializer(serializers.ModelSerializer):
+    favlist = DriverSerializer(many=True)
+    travel_set = TravelSerializer(many=True)
+    class Meta:
+        model = Customer
+        fields = ('favlist', 'travel_set')
