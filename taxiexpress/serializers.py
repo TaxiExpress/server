@@ -12,7 +12,10 @@ class DriverSerializer(serializers.ModelSerializer):
     car = CarSerializer()
 
     def get_valuation(self, obj):
-            return int(5*obj.positiveVotes/(obj.positiveVotes+obj.negativeVotes))
+            if (obj.positiveVotes+obj.negativeVote == 0):
+                return 0
+            else:
+                return int(5*obj.positiveVotes/(obj.positiveVotes+obj.negativeVotes))
     class Meta:
         model = Driver
         fields = ('email', 'phone', 'first_name', 'last_name', 'image', 'valuation', 'car', 'geom')
