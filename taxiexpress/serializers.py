@@ -12,7 +12,7 @@ class DriverSerializer(serializers.ModelSerializer):
     car = CarSerializer()
 
     def get_valuation(self, obj):
-            if (obj.positiveVotes+obj.negativeVote == 0):
+            if (obj.positiveVotes+obj.negativeVotes == 0):
                 return 0
             else:
                 return int(5*obj.positiveVotes/(obj.positiveVotes+obj.negativeVotes))
