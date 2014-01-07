@@ -149,7 +149,32 @@ def test(request):
     lista = cu.favlist.all()
     return HttpResponse(status=status.HTTP_200_OK,content=lista)
 
-        #return JSON with taxi info
+
+@csrf_exempt
+@api_view(['POST'])
+def recoverValidationCode(request):
+    if request.POST['phone'] is None:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
+    try:
+        c = Customer.objects.get(email=request.POST['email']) 
+        msg = {
+                'reqtype': 'json',
+                'api_key': '8a352457',
+                'api_secret': '460e58ff',
+                'from': 'Taxi Express',
+                'to': c.phone,
+                'text': 'Su código de validación de Taxi Express es: ' + str( c.validationCode)
+                }                
+        sms = NexmoMessage(msg)
+        sms.set_text_info(msg['text'])
+        response = sms.send_request()                
+        return HttpResponse(status=status.HTTP_201_CREATED)
+    except ValidationError:
+         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Telefono incorrecto")
+
+
+
+
 
 @api_view(['POST'])
 def validateUser(request):
