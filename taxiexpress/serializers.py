@@ -38,4 +38,4 @@ class CustomerTaxiesTravelsSerializer(serializers.ModelSerializer):
     travel_set = TravelSerializer(many=True)
     class Meta:
         model = Customer
-        fields = ('favlist', 'travel_set')
+        fields = ('favlist', 'travel_set','fAccessible', 'fAnimals', 'fAppPayment', 'fCapacity')
