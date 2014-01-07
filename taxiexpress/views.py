@@ -154,7 +154,7 @@ def test(request):
 @api_view(['POST'])
 def recoverValidationCode(request):
     if request.POST['phone'] is None:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un numero de telefono")
     try:
         c = Customer.objects.get(email=request.POST['email']) 
         msg = {
