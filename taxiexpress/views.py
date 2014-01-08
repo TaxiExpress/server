@@ -173,9 +173,6 @@ def recoverValidationCode(request):
          return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Telefono incorrecto")
 
 
-
-
-
 @api_view(['POST'])
 def validateUser(request):
     if request.POST['phone'] is None:
@@ -234,7 +231,95 @@ def updateProfileMobile(request):
     customer.lastUpdate = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
     customer.save()
     return HttpResponse(status=status.HTTP_200_OK,content="Perfil del usuario modificado correctamente")
-    
+
+
+@csrf_exempt
+@api_view(['POST'])
+def updateProfileUser(request):
+    if request.POST['id'] is None:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un id cliente")
+    try:
+        customer = Customer.objects.get(email=request.POST['id'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este cliente")
+    customer.first_name = request.POST['first_name']
+    customer.last_name = request.POST['last_name']
+    customer.postcode = request.POST['postcode']
+    customer.city = request.POST['city']
+    customer.save()
+    return HttpResponse(status=status.HTTP_200_OK,content="Perfil del cliente modificado correctamente")
+
+
+@csrf_exempt
+@api_view(['POST'])
+def updateProfileDriver(request):
+    if request.POST['id'] is None:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un id taxista")
+    try:
+        driver = Driver.objects.get(email=request.POST['id'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este taxista")
+    driver.first_name = request.POST['first_name']
+    driver.last_name = request.POST['last_name']
+    driver.address = request.POST['address']
+    driver.postcode = request.POST['postcode']
+    driver.city = request.POST['city']
+    driver.license = request.POST['license']
+    driver.bankAccount = request.POST['bankAccount']
+    driver.recipientName = request.POST['recipientName']
+    driver.save()
+    return HttpResponse(status=status.HTTP_200_OK,content="Perfil del taxista modificado correctamente")
+
+
+@csrf_exempt
+@api_view(['POST'])
+def updateCar(request):
+    if request.POST['plate'] is None:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una matricula")
+    try:
+        car = Car.objects.get(email=request.GET['plate'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Vehiculo no encontrado")
+    car.plate = request.POST['plate']
+    car.model = request.POST['model']
+    car.company = request.POST['company']
+    car.color = request.POST['color']
+    car.capacity = request.POST['capacity']
+    car.accessible = request.POST['accessible']
+    car.animals = request.POST['animals']
+    car.appPayment = request.POST['appPayment']
+    car.save()
+    return HttpResponse(status=status.HTTP_200_OK,content="Coche modificado correctamente")
+
+
+@csrf_exempt
+@api_view(['GET'])
+def recoverCountries(request):
+    countries = Country.objects.all()
+    return HttpResponse(status=status.HTTP_200_OK,content=countries)    
+
+
+@csrf_exempt
+@api_view(['GET'])
+def recoverStates(request):
+    if request.GET['country'] is None:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un codigo de pais")
+    try:
+        states = State.objects.get(country=request.GET['country'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado este pais")
+    return HttpResponse(status=status.HTTP_200_OK,content=states)
+
+@csrf_exempt
+@api_view(['GET'])
+def recoverCities(request):
+    if request.GET['state'] is None:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un codigo de provincia")
+    try:
+        cities = City.objects.get(state=request.GET['state'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado esta provincia")
+    return HttpResponse(status=status.HTTP_200_OK,content=cities)
 
 @csrf_exempt
 @api_view(['GET'])
