@@ -44,6 +44,7 @@ def loginUser(request):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe validar la cuenta antes de conectarse")
         request.session['email'] = customer.email
         request.session['user_id'] = customer.id
+        request.session['Customer'] = True
         datetime_request = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
         utc=pytz.UTC
         now_aware = utc.localize(datetime_request)
