@@ -218,7 +218,7 @@ def changePassword(request):
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="La contraseña actual es incorrecta")
 
-
+#¿Estamos usando este metodo?
 @csrf_exempt
 @api_view(['POST'])
 def updateProfileMobile(request):
@@ -240,7 +240,7 @@ def updateProfileUser(request):
     if request.POST['id'] is None:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un id cliente")
     try:
-        customer = Customer.objects.get(email=request.POST['id'])
+        customer = Customer.objects.get(id=request.POST['id'])
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este cliente")
     customer.first_name = request.POST['first_name']
@@ -257,7 +257,7 @@ def updateProfileDriver(request):
     if request.POST['id'] is None:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un id taxista")
     try:
-        driver = Driver.objects.get(email=request.POST['id'])
+        driver = Driver.objects.get(id=request.POST['id'])
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este taxista")
     driver.first_name = request.POST['first_name']
@@ -278,7 +278,7 @@ def updateCar(request):
     if request.POST['plate'] is None:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una matricula")
     try:
-        car = Car.objects.get(email=request.GET['plate'])
+        car = Car.objects.get(plate=request.GET['plate'])
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Vehiculo no encontrado")
     car.plate = request.POST['plate']
