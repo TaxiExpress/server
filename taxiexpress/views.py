@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseBadRequest
 from taxiexpress.models import Customer, Country, State, City, Driver, Travel, Car
-from taxiexpress.serializers import CustomerSerializer, DriverSerializer, CustomerTaxiesTravelsSerializer
+from taxiexpress.serializers import CarSerializer, CustomerCompleteSerializer, DriverSerializer, CustomerTaxiesTravelsSerializer, CustomerTaxiesTravelsSerializer, CustomerTravelsSerializer, CustomerProfileSerializer, CustomerProfileTaxiesSerializer, CustomerProfileTravels, CustomerTaxiesSerializer
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import Distance, D
@@ -49,7 +49,7 @@ def loginUser(request):
         utc=pytz.UTC
         now_aware = utc.localize(datetime_request)
         if customer.lastUpdate > now_aware:
-            serialCustomer = CustomerSerializer(customer)
+            serialCustomer = CustomerCompleteSerializer(customer)
             return Response(serialCustomer.data, status=status.HTTP_200_OK)
         else:
             serialCustomer = CustomerTaxiesTravelsSerializer(customer)
