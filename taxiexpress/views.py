@@ -28,7 +28,6 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 
-
 # Create your views here.
 @csrf_exempt
 @api_view(['POST'])
@@ -249,6 +248,7 @@ def updateProfileUser(request):
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este cliente")
     customer.first_name = request.POST['first_name']
     customer.last_name = request.POST['last_name']
+    customer.image = request.POST['image']
     customer.postcode = request.POST['postcode']
     customer.city = request.POST['city']
     customer.save()
@@ -266,6 +266,7 @@ def updateProfileDriver(request):
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este taxista")
     driver.first_name = request.POST['first_name']
     driver.last_name = request.POST['last_name']
+    driver.image = request.POST['image']
     driver.address = request.POST['address']
     driver.postcode = request.POST['postcode']
     driver.city = request.POST['city']
