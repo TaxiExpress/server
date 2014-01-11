@@ -118,6 +118,7 @@ def loginUserBeta(request):
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 
+
 @csrf_exempt
 @api_view(['POST'])
 def loginDriver(request):
