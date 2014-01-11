@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseBadRequest
 from taxiexpress.models import Customer, Country, State, City, Driver, Travel, Car
-from taxiexpress.serializers import CarSerializer, CustomerCompleteSerializer, DriverSerializer, CustomerTaxiesTravelsSerializer, CustomerTaxiesTravelsSerializer, CustomerTravelsSerializer, CustomerProfileSerializer, CustomerProfileTaxiesSerializer, CustomerProfileTravels, CustomerTaxiesSerializer
+from taxiexpress.serializers import CarSerializer, DriverSerializer, CustomerCompleteSerializer, CustomerTaxiesTravelsSerializer, CustomerTravelsSerializer, CustomerProfileSerializer, CustomerProfileTaxiesSerializer, CustomerProfileTravelsSerializer, CustomerTaxiesSerializer
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import Distance, D
@@ -56,6 +56,67 @@ def loginUser(request):
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 
+
+@csrf_exempt
+@api_view(['POST'])
+def loginUserBeta(request):
+    if request.POST['email'] is None:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
+    try:
+        customer = Customer.objects.get(email=request.POST['email'])  
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
+    if customer.password == request.POST['password']:
+        if customer.isValidated == False:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe validar la cuenta antes de conectarse")
+        request.session['email'] = customer.email
+        request.session['user_id'] = customer.id
+        request.session['Customer'] = True
+        datetime_profile = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
+        datetime_taxies = datetime.strptime(request.POST['lastUpdateTaxies'], '%Y-%m-%d %H:%M:%S')
+        datetime_travels = datetime.strptime(request.POST['lastUpdateTravels'], '%Y-%m-%d %H:%M:%S')
+        utc=pytz.UTC
+        profile_aware = utc.localize(datetime_profile)
+        taxies_aware = utc.localize(datetime_taxies)
+        travels_aware = utc.localize(datetime_travels)
+        upProfile = False
+        upTaxies = False
+        upTravels = False
+        #primero comprobamos si necesitamos actualizar
+        if customer.lastUpdate > profile_aware:
+            upProfile = True
+        if customer.lastUpdateTaxies > taxies_aware:
+            upTaxies = True
+        if customer.lastUpdateTravels > travels_aware:
+            upTravels = True
+        #ahora comprobamos todos los casos posibles
+        if upProfile:
+            if upTaxies and upTravels:
+                serialCustomer = CustomerCompleteSerializer(customer)
+                return Response(serialCustomer.data, status=status.HTTP_200_OK)
+            elif upTaxies and not upTravels:
+                serialCustomer = CustomerProfileTaxiesSerializer(customer)
+                return Response(serialCustomer.data, status=status.HTTP_200_OK)
+            elif not upTaxies and upTravels:
+                serialCustomer = CustomerProfileTravelsSerializer(customer)
+                return Response(serialCustomer.data, status=status.HTTP_200_OK)
+            else: # upTaxies y upTravels son False
+                serialCustomer = CustomerProfileSerializer(customer)
+                return Response(serialCustomer.data, status=status.HTTP_200_OK)
+        else: #upProfile es False
+            if upTaxies and upTravels:
+                serialCustomer = CustomerTaxiesTravelsSerializer(customer)
+                return Response(serialCustomer.data, status=status.HTTP_200_OK)
+            elif upTaxies and not upTravels:
+                serialCustomer = CustomerTaxiesSerializer(customer)
+                return Response(serialCustomer.data, status=status.HTTP_200_OK)
+            elif not upTaxies and upTravels:
+                serialCustomer = CustomerTravelsSerializer(customer)
+                return Response(serialCustomer.data, status=status.HTTP_200_OK)
+            else: # upTaxies y upTravels son False
+                return Response(status=status.HTTP_200_OK, content="Logueado. Nada que actualizar")
+    else:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 
 @csrf_exempt
 @api_view(['POST'])

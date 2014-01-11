@@ -64,7 +64,7 @@ class CustomerProfileTaxiesSerializer(serializers.ModelSerializer):
         fields = ('favlist','email', 'phone', 'first_name', 'last_name', 'image', 'lastUpdate', 'fAccessible', 'fAnimals', 'fAppPayment', 'fCapacity')
 
 #Este serializer devuelve el perfil del Customer + lista de viajes
-class CustomerProfileTravels(serializers.ModelSerializer):
+class CustomerProfileTravelsSerializer(serializers.ModelSerializer):
     travel_set = TravelSerializer(many=True)
     class Meta:
         model = Customer
