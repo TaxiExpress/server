@@ -105,4 +105,5 @@ class Travel(models.Model):
     origin = models.CharField(max_length=80, blank=True, null=True)
     endpoint = models.PointField(srid=4326)
     destination = models.CharField(max_length=80, blank=True, null=True)
+    visible = models.BooleanField(default=True)
     objects = models.GeoManager()
