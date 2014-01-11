@@ -248,6 +248,9 @@ def updateProfileUser(request):
     customer.image = request.POST['image']
     customer.postcode = request.POST['postcode']
     customer.city = request.POST['city']
+    customer.lastUpdate = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
+    customer.lastUpdateTravels = datetime.strptime(request.POST['lastUpdateTravels'], '%Y-%m-%d %H:%M:%S')
+    customer.lastUpdateTaxies = datetime.strptime(request.POST['lastUpdateTaxies'], '%Y-%m-%d %H:%M:%S')
     customer.save()
     return HttpResponse(status=status.HTTP_200_OK,content="Perfil del cliente modificado correctamente")
 
@@ -298,16 +301,16 @@ def updateCar(request):
 @csrf_exempt
 @api_view(['POST'])
 def updateFilters(request):
-        try:
-            customer = Customer.objects.get(email=request.POST['email'])
-        except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
-        customer.fAccessible = (request.POST['accesible'] == 'true')
-        customer.fAnimals = (request.POST['animals'] == 'true')
-        customer.fAppPayment = (request.POST['appPayment'] == 'true')
-        customer.fCapacity = request.POST['capacity']
-        customer.save()
-        return HttpResponse(status=status.HTTP_200_OK,content="Filtros actualizados")
+    try:
+        customer = Customer.objects.get(email=request.POST['email'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
+    customer.fAccessible = (request.POST['accesible'] == 'true')
+    customer.fAnimals = (request.POST['animals'] == 'true')
+    customer.fAppPayment = (request.POST['appPayment'] == 'true')
+    customer.fCapacity = request.POST['capacity']
+    customer.save()
+    return HttpResponse(status=status.HTTP_200_OK,content="Filtros actualizados")
 
     
 
