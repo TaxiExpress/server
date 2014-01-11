@@ -7,10 +7,24 @@ class CarSerializer(serializers.ModelSerializer):
         model = Car
         fields = ('plate', 'model', 'company', 'capacity', 'accessible', 'animals', 'appPayment')
 
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = ('code', 'name')
+
+class StateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = State
+        fields = ('code', 'name')
+
+class CitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = ('code', 'name')
+
 class DriverSerializer(serializers.ModelSerializer):
     valuation = serializers.SerializerMethodField('get_valuation')
     car = CarSerializer()
-
     def get_valuation(self, obj):
             if (obj.positiveVotes+obj.negativeVotes == 0):
                 return 0

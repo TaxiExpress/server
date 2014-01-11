@@ -435,7 +435,7 @@ def removeTravel(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
         try:
-            travel = Travel.objects.get(id=request.POST['travel_id'])
+            travel = customer.travel_set.get(id=request.POST['travel_id'])
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El trayecto no se encuentra en su lista de trayectos realizados")
         customer.lastUpdateTravels = datetime.strptime(request.POST['lastUpdateTravels'], '%Y-%m-%d %H:%M:%S')
@@ -450,30 +450,33 @@ def removeTravel(request):
 @api_view(['GET'])
 def getCountries(request):
     countries = Country.objects.all()
-    return HttpResponse(status=status.HTTP_200_OK,content=countries)    
+    serialCountries = CountrySerializer(countries, many=True)
+    return Response(serialCountries.data, status=status.HTTP_200_OK)
 
 @csrf_exempt
 @api_view(['GET'])
 def getStates(request):
-    if request.GET['state'] is None:
+    if request.GET['country'] is None:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un codigo de provincia")
     try:
-        states = State.objects.get(country=request.GET['state'])
+        country = Country.objects.get(code=request.GET['country'])
+        serialStates = StateSerializer(country.state_set, many=True)
+        return Response(serialStates.data, status=status.HTTP_200_OK)
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado esta provincia")
-    return HttpResponse(status=status.HTTP_200_OK,content=states)
 
 
 @csrf_exempt
 @api_view(['GET'])
 def getCities(request):
-    if request.GET['city'] is None:
+    if request.GET['state'] is None:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un codigo de ciudad")
     try:
-        cities = City.objects.get(state=request.GET['city'])
+        state = State.objects.get(code=request.GET['state'])
+        serialCities = CitySerializer(state.city_set, many=True)
+        return Response(serialStates.data, status=status.HTTP_200_OK)
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado esta ciudad")
-    return HttpResponse(status=status.HTTP_200_OK,content=cities)
 
 
 
