@@ -249,8 +249,6 @@ def updateProfileUser(request):
     customer.postcode = request.POST['postcode']
     customer.city = request.POST['city']
     customer.lastUpdate = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
-    customer.lastUpdateTravels = datetime.strptime(request.POST['lastUpdateTravels'], '%Y-%m-%d %H:%M:%S')
-    customer.lastUpdateTaxies = datetime.strptime(request.POST['lastUpdateTaxies'], '%Y-%m-%d %H:%M:%S')
     customer.save()
     return HttpResponse(status=status.HTTP_200_OK,content="Perfil del cliente modificado correctamente")
 
