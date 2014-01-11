@@ -300,7 +300,7 @@ def updateCar(request):
 
 @csrf_exempt
 @api_view(['GET'])
-def recoverCountries(request):
+def getCountries(request):
     countries = Country.objects.all()
     return HttpResponse(status=status.HTTP_200_OK,content=countries)    
 
@@ -318,7 +318,7 @@ def recoverStates(request):
 
 @csrf_exempt
 @api_view(['GET'])
-def recoverCities(request):
+def getCities(request):
     if request.GET['state'] is None:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un codigo de provincia")
     try:
