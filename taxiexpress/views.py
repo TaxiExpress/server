@@ -56,6 +56,7 @@ def loginUser(request):
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 
+
 @csrf_exempt
 @api_view(['POST'])
 def loginDriver(request):
@@ -73,6 +74,7 @@ def loginDriver(request):
         return Response(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
+
 
 @csrf_exempt
 def registerUser(request):
@@ -106,11 +108,10 @@ def registerUser(request):
                 HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email no válido")
     else:
         HttpResponse(status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
-
+        
+        
+        
+        
 @csrf_exempt
 @api_view(['GET'])
 def getClosestTaxi(request):
@@ -127,6 +128,7 @@ def getClosestTaxi(request):
             return HttpResponse(status=status.HTTP_204_NO_CONTENT, content="No se han encontrado taxis")
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Error al obtener la posicion")
+
 
 @csrf_exempt
 @api_view(['GET'])
@@ -151,7 +153,6 @@ def test(request):
     cu = Customer.objects.get(email='gorka_12@hotmail.com')
     lista = cu.favlist.all()
     return HttpResponse(status=status.HTTP_200_OK,content=lista)
-
 
 
 
@@ -246,10 +247,8 @@ def updateFilters(request):
         customer.fCapacity = request.POST['capacity']
         customer.save()
         return HttpResponse(status=status.HTTP_200_OK,content="Filtros actualizados")
+
     
-
-
-
 
 
 @api_view(['POST'])
@@ -273,7 +272,7 @@ def validateUser(request):
         return HttpResponse(status=status.HTTP_201_CREATED,content="La cuenta ha sido validada correctamente")
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta. Inténtelo de nuevo")
-
+        
 
 @csrf_exempt
 @api_view(['POST'])
@@ -315,6 +314,7 @@ def recoverPassword(request):
     msg.send()
     return HttpResponse(status=status.HTTP_201_CREATED,content="Se ha enviado la contraseña a su cuenta de email.")
 
+
 @csrf_exempt
 @api_view(['GET'])
 def recoverEmail(request):
@@ -333,7 +333,7 @@ def recoverEmail(request):
 
 @csrf_exempt
 @api_view(['POST'])
-def recoverValidationCode(request):
+def recoverValidationCodeCustomer(request):
     if request.POST['phone'] is None:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un numero de telefono")
     try:
@@ -355,11 +355,37 @@ def recoverValidationCode(request):
         else
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Usuario ya validado")
     except ValidationError:
-         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Telefono incorrecto")        
+         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Telefono incorrecto")       
+    
+         
+@csrf_exempt
+@api_view(['POST'])
+def recoverValidationCodeDriver(request):
+    if request.POST['phone'] is None:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un numero de telefono")
+    try:
+        c = Driver.objects.get(phone=request.POST['phone']) 
+        
+        if customer.isValidated == False
+            msg = {
+                    'reqtype': 'json',
+                    'api_key': '8a352457',
+                    'api_secret': '460e58ff',
+                    'from': 'Taxi Express',
+                    'to': c.phone,
+                    'text': 'Su código de validación de Taxi Express es: ' + str( c.validationCode)
+                    }                
+            sms = NexmoMessage(msg)
+            sms.set_text_info(msg['text'])
+            response = sms.send_request()                
+            return HttpResponse(status=status.HTTP_201_CREATED)
+        else
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Usuario ya validado")
+    except ValidationError:
+         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Telefono incorrecto")       
         
     
     
-
 
 @csrf_exempt
 @api_view(['POST'])
@@ -410,7 +436,6 @@ def removeTravel(request):
 
 
 
-
 @csrf_exempt
 @api_view(['GET'])
 def getCountries(request):
@@ -427,6 +452,7 @@ def getStates(request):
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado esta provincia")
     return HttpResponse(status=status.HTTP_200_OK,content=states)
+
 
 @csrf_exempt
 @api_view(['GET'])
