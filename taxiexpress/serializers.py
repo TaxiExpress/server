@@ -33,7 +33,7 @@ class CustomerCompleteSerializer(serializers.ModelSerializer):
     travel_set = TravelSerializer(many=True)
     class Meta:
         model = Customer
-        fields = ('email', 'phone', 'first_name', 'last_name', 'image', 'lastUpdate', 'favlist', 'fAccessible', 'fAnimals', 'fAppPayment', 'fCapacity', 'travel_set')
+        fields = ('email', 'phone', 'first_name', 'last_name', 'image', 'lastUpdate','lastUpdateFavorites','lastUpdateTravels', 'favlist', 'fAccessible', 'fAnimals', 'fAppPayment', 'fCapacity', 'travel_set')
 
 #Este serializer devuelve la lista de taxistas favoritos + lista de viajes
 class CustomerTaxiesTravelsSerializer(serializers.ModelSerializer):
@@ -41,14 +41,14 @@ class CustomerTaxiesTravelsSerializer(serializers.ModelSerializer):
     travel_set = TravelSerializer(many=True)
     class Meta:
         model = Customer
-        fields = ('favlist', 'travel_set')
+        fields = ('favlist', 'travel_set','lastUpdateFavorites','lastUpdateTravels')
 
 #Este serializer devuelve la lista de viajes
 class CustomerTravelsSerializer(serializers.ModelSerializer):
     travel_set = TravelSerializer(many=True)
     class Meta:
         model = Customer
-        fields = ('travel_set')
+        fields = ('travel_set','lastUpdateTravels')
 
 #Este serializer devuelve solo el perfil del Customer
 class CustomerProfileSerializer(serializers.ModelSerializer):
@@ -61,18 +61,18 @@ class CustomerProfileTaxiesSerializer(serializers.ModelSerializer):
     favlist = DriverSerializer(many=True)
     class Meta:
         model = Customer
-        fields = ('favlist','email', 'phone', 'first_name', 'last_name', 'image', 'lastUpdate', 'fAccessible', 'fAnimals', 'fAppPayment', 'fCapacity')
+        fields = ('favlist','email', 'phone', 'first_name', 'last_name', 'image', 'lastUpdate','lastUpdateFavorites', 'fAccessible', 'fAnimals', 'fAppPayment', 'fCapacity')
 
 #Este serializer devuelve el perfil del Customer + lista de viajes
 class CustomerProfileTravelsSerializer(serializers.ModelSerializer):
     travel_set = TravelSerializer(many=True)
     class Meta:
         model = Customer
-        fields = ('travel_set','email', 'phone', 'first_name', 'last_name', 'image', 'lastUpdate', 'fAccessible', 'fAnimals', 'fAppPayment', 'fCapacity')
+        fields = ('travel_set','email', 'phone', 'first_name', 'last_name', 'image', 'lastUpdate','lastUpdateTravels', 'fAccessible', 'fAnimals', 'fAppPayment', 'fCapacity')
 
 #Este serializer devuelve solo la lista de taxistas favoritos
 class CustomerTaxiesSerializer(serializers.ModelSerializer):
     favlist = DriverSerializer(many=True)
     class Meta:
         model = Customer
-        fields = ('favlist')
+        fields = ('favlist','lastUpdateFavorites')
