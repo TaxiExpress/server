@@ -114,7 +114,7 @@ def loginUserBeta(request):
                 serialCustomer = CustomerTravelsSerializer(customer)
                 return Response(serialCustomer.data, status=status.HTTP_200_OK)
             else: # upTaxies y upTravels son False
-                return Response(status=status.HTTP_200_OK, content="Logueado. Nada que actualizar")
+                return Response(status=status.HTTP_200_OK, content="Logueado. Todos sus datos estan actualizados.")
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 
@@ -307,6 +307,7 @@ def updateFilters(request):
     customer.fAnimals = (request.POST['animals'] == 'true')
     customer.fAppPayment = (request.POST['appPayment'] == 'true')
     customer.fCapacity = request.POST['capacity']
+    customer.lastUpdate = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
     customer.save()
     return HttpResponse(status=status.HTTP_200_OK,content="Filtros actualizados")
 
@@ -460,6 +461,8 @@ def addFavoriteDriver(request):
         driver = Driver.objects.get(email=request.POST['driverEmail'])
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El taxista introducido no es válido")
+    
+    customer.lastUpdateFavourites = datetime.strptime(request.POST['lastUpdateFavourites'], '%Y-%m-%d %H:%M:%S')
     customer.favlist.add(driver)
     customer.save()
     return HttpResponse(status=status.HTTP_201_CREATED,content="Taxista añadido a la lista de favoritos")
@@ -477,6 +480,7 @@ def removeFavoriteDriver(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El taxista no se encuentra en su lista de favoritos")
         customer.favlist.remove(driver)
+        customer.lastUpdateFavourites = datetime.strptime(request.POST['lastUpdateFavourites'], '%Y-%m-%d %H:%M:%S')
         customer.save()
         return HttpResponse(status=status.HTTP_200_OK,content="Taxista eliminado de la lista de favoritos")
 
@@ -492,6 +496,8 @@ def removeTravel(request):
             travel = Travel.objects.get(id=request.POST['travel_id'])
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El trayecto no se encuentra en su lista de trayectos realizados")
+        customer.lastUpdateTravels = datetime.strptime(request.POST['lastUpdateTravels'], '%Y-%m-%d %H:%M:%S')
+        customer.save()
         travel.delete()
         return HttpResponse(status=status.HTTP_200_OK ,content="Trayecto eliminado de la lista")
 
