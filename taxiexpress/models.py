@@ -59,8 +59,8 @@ class Driver(models.Model):
     #Ponemos la licencia como unique? Y si cambia de dueno?
     license = models.IntegerField(blank=True, null=True)
     #Datos de pago
-    bankAccount = models.CharField(max_length=20)
-    recipientName = models.CharField(max_length=80)
+    bankAccount = models.CharField(max_length=20, blank=True, null=True)
+    recipientName = models.CharField(max_length=80, blank=True, null=True)
     #Posicion
     geom = models.PointField(srid=4326, null=True)
     objects = models.GeoManager()
