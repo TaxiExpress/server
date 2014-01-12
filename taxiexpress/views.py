@@ -261,8 +261,8 @@ def validateUser(request):
         customer = Customer.objects.get(phone=request.POST['phone'])
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta. Inténtelo de nuevo")
-    if customer.validationCode == int(request.POST['validationCode']):
-        if customer.isValidated == False :
+    if customer.isValidated == False:
+        if customer.validationCode == int(request.POST['validationCode']):
             customer.isValidated = True
             customer.save()
             subject = '¡Bienvenido a Taxi Express!'
@@ -273,10 +273,10 @@ def validateUser(request):
             msg.content_subtype = "html"  # Main content is now text/html
             msg.send()
             return HttpResponse(status=status.HTTP_201_CREATED,content="La cuenta ha sido validada correctamente")
-        else:        
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta. La cuenta ya esta validada.")
-    else:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta, codigo incorrecto.")
+        else:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta. Inténtelo de nuevo")
+    else:        
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Esta cuenta ya está validada.")
         
 
 @csrf_exempt
