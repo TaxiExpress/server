@@ -308,8 +308,8 @@ def recoverValidationCodeCustomer(request):
     if request.POST['phone'] is None:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un numero de telefono")
     try:
-        c = Customer.objects.get(phone=request.POST['phone']) 
-        if c.isValidated == False:
+        customer = Customer.objects.get(phone=request.POST['phone']) 
+        if customer.isValidated == False:
             msg = {
                     'reqtype': 'json',
                     'api_key': '8a352457',
@@ -334,9 +334,9 @@ def recoverValidationCodeDriver(request):
     if request.POST['phone'] is None:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un numero de telefono")
     try:
-        d = Driver.objects.get(phone=request.POST['phone']) 
+        driver = Driver.objects.get(phone=request.POST['phone']) 
         
-        if customer.isValidated == False:
+        if driver.isValidated == False:
             msg = {
                     'reqtype': 'json',
                     'api_key': '8a352457',
@@ -351,7 +351,7 @@ def recoverValidationCodeDriver(request):
             return HttpResponse(status=status.HTTP_201_CREATED)
         else:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Usuario ya validado")
-    except ValidationError:
+    except ObjectDoesNotExist:
          return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Telefono incorrecto")       
         
     
