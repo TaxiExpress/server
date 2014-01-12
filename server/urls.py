@@ -7,7 +7,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     #url(r'^$', 'taxiexpress.views.index', name='index'),
-    url(r'^client/login', 'taxiexpress.views.loginUser', name='loginUser'),
+    url(r'^client/login', 'taxiexpress.views.loginUserBeta', name='loginUserBeta'),
     url(r'^client/register', 'taxiexpress.views.registerUser', name='registerUser'),
     url(r'^client/validateuser', 'taxiexpress.views.validateUser', name='validateUser'),
     url(r'^client/recovervalidationcodecustomer', 'taxiexpress.views.recoverValidationCodeCustomer', name='recoverValidationCodeCustomer'),
