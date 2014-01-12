@@ -114,7 +114,7 @@ def loginUserBeta(request):
                 serialCustomer = CustomerTravelsSerializer(customer)
                 return Response(serialCustomer.data, status=status.HTTP_200_OK)
             else: # upTaxies y upTravels son False
-                return Response(status=status.HTTP_200_OK, content="Logueado. Todos sus datos están actualizados.")
+                return HttpResponse(status=status.HTTP_200_OK, content="Logueado.")
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 
