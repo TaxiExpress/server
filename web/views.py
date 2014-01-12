@@ -79,3 +79,35 @@ def updateCarWeb(request):
     car.appPayment = request.POST['appPayment']
     car.save()
     return HttpResponse(status=status.HTTP_200_OK,content="Coche modificado correctamente")
+
+
+@csrf_exempt
+@api_view(['GET'])
+def getCountries(request):
+    countries = Country.objects.all()
+    serialCountries = CountrySerializer(countries, many=True)
+    return Response(serialCountries.data, status=status.HTTP_200_OK)
+
+@csrf_exempt
+@api_view(['GET'])
+def getStates(request):
+    if request.GET['country'] is None:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un codigo de provincia")
+    try:
+        country = Country.objects.get(code=request.GET['country'])
+        serialStates = StateSerializer(country.state_set, many=True)
+        return Response(serialStates.data, status=status.HTTP_200_OK)
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado esta provincia")
+
+@csrf_exempt
+@api_view(['GET'])
+def getCities(request):
+    if request.GET['state'] is None:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un codigo de ciudad")
+    try:
+        state = State.objects.get(code=request.GET['state'])
+        serialCities = CitySerializer(state.city_set, many=True)
+        return Response(serialStates.data, status=status.HTTP_200_OK)
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado esta ciudad")
