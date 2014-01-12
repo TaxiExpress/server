@@ -309,7 +309,7 @@ def recoverValidationCodeCustomer(request):
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un numero de telefono")
     try:
         c = Customer.objects.get(phone=request.POST['phone']) 
-        if customer.isValidated == False:
+        if c.isValidated == False:
             msg = {
                     'reqtype': 'json',
                     'api_key': '8a352457',
@@ -324,7 +324,7 @@ def recoverValidationCodeCustomer(request):
             return HttpResponse(status=status.HTTP_201_CREATED)
         else:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Usuario ya validado")
-    except ValidationError:
+    except ObjectDoesNotExist:
          return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Telefono incorrecto")       
     
          
