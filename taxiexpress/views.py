@@ -85,7 +85,7 @@ def loginUserBeta(request):
         #primero comprobamos si necesitamos actualizar
         if customer.lastUpdate != profile_aware:
             upProfile = True
-        if customer.lastUpdateTaxies !=  taxies_aware:
+        if customer.lastUpdateFavorites !=  taxies_aware:
             upTaxies = True
         if customer.lastUpdateTravels !=  travels_aware:
             upTravels = True
