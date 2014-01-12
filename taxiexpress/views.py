@@ -55,11 +55,11 @@ def loginUser(request):
         upTaxies = False
         upTravels = False
         #primero comprobamos si necesitamos actualizar
-        if customer.lastUpdate <= profile_aware:
+        if customer.lastUpdate > profile_aware:
             upProfile = True
-        if customer.lastUpdateFavorites <=  taxies_aware:
+        if customer.lastUpdateFavorites >  taxies_aware:
             upTaxies = True
-        if customer.lastUpdateTravels <=  travels_aware:
+        if customer.lastUpdateTravels >  travels_aware:
             upTravels = True
         #ahora comprobamos todos los casos posibles
         if upProfile:
