@@ -262,7 +262,7 @@ def validateUser(request):
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta. Inténtelo de nuevo")
     if customer.validationCode == int(request.POST['validationCode']):
-        if customer.isValidated == True:
+        if customer.isValidated == False :
             customer.isValidated = True
             customer.save()
             subject = '¡Bienvenido a Taxi Express!'
