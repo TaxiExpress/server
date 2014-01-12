@@ -5,7 +5,6 @@ from nexmo import NexmoMessage
 from django.core.mail import EmailMessage
 from django.core.mail import EmailMultiAlternatives
 #from django.forms import CharField,Form,PasswordInput
-from django.shortcuts import render_to_response
 from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseBadRequest
@@ -20,9 +19,7 @@ from django.core.exceptions import ValidationError
 #import json
 import random
 import string
-import pytz
 from datetime import datetime
-from django.utils import timezone
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -47,10 +44,6 @@ def loginUser(request):
         datetime_profile = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
         datetime_taxies = datetime.strptime(request.POST['lastUpdateFavorites'], '%Y-%m-%d %H:%M:%S')
         datetime_travels = datetime.strptime(request.POST['lastUpdateTravels'], '%Y-%m-%d %H:%M:%S')
-        utc=pytz.UTC
-        profile_aware = utc.localize(datetime_profile)
-        taxies_aware = utc.localize(datetime_taxies)
-        travels_aware = utc.localize(datetime_travels)
         upProfile = False
         upTaxies = False
         upTravels = False
