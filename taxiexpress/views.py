@@ -44,34 +44,6 @@ def loginUser(request):
         request.session['email'] = customer.email
         request.session['user_id'] = customer.id
         request.session['Customer'] = True
-        datetime_request = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
-        utc=pytz.UTC
-        now_aware = utc.localize(datetime_request)
-        if customer.lastUpdate > now_aware:
-            serialCustomer = CustomerCompleteSerializer(customer)
-            return Response(serialCustomer.data, status=status.HTTP_200_OK)
-        else:
-            serialCustomer = CustomerTaxiesTravelsSerializer(customer)
-            return Response(serialCustomer.data, status=status.HTTP_200_OK)
-    else:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
-
-
-@csrf_exempt
-@api_view(['POST'])
-def loginUserBeta(request):
-    if request.POST['email'] is None:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
-    try:
-        customer = Customer.objects.get(email=request.POST['email'])  
-    except ObjectDoesNotExist:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
-    if customer.password == request.POST['password']:
-        if customer.isValidated == False:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe validar la cuenta antes de conectarse")
-        request.session['email'] = customer.email
-        request.session['user_id'] = customer.id
-        request.session['Customer'] = True
         datetime_profile = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
         datetime_taxies = datetime.strptime(request.POST['lastUpdateFavorites'], '%Y-%m-%d %H:%M:%S')
         datetime_travels = datetime.strptime(request.POST['lastUpdateTravels'], '%Y-%m-%d %H:%M:%S')
@@ -114,7 +86,7 @@ def loginUserBeta(request):
                 serialCustomer = CustomerTravelsSerializer(customer)
                 return Response(serialCustomer.data, status=status.HTTP_200_OK)
             else: # upTaxies y upTravels son False
-                return HttpResponse(status=status.HTTP_200_OK, content="Logueado.")
+                return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 
