@@ -73,7 +73,7 @@ def loginUserBeta(request):
         request.session['user_id'] = customer.id
         request.session['Customer'] = True
         datetime_profile = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
-        datetime_taxies = datetime.strptime(request.POST['lastUpdateTaxies'], '%Y-%m-%d %H:%M:%S')
+        datetime_taxies = datetime.strptime(request.POST['lastUpdateFavorites'], '%Y-%m-%d %H:%M:%S')
         datetime_travels = datetime.strptime(request.POST['lastUpdateTravels'], '%Y-%m-%d %H:%M:%S')
         utc=pytz.UTC
         profile_aware = utc.localize(datetime_profile)
@@ -114,7 +114,7 @@ def loginUserBeta(request):
                 serialCustomer = CustomerTravelsSerializer(customer)
                 return Response(serialCustomer.data, status=status.HTTP_200_OK)
             else: # upTaxies y upTravels son False
-                return Response(status=status.HTTP_200_OK, content="Logueado. Todos sus datos estan actualizados.")
+                return Response(status=status.HTTP_200_OK, content="Logueado. Todos sus datos están actualizados.")
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 
