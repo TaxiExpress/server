@@ -105,6 +105,7 @@ def loginDriver(request):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe validar la cuenta antes de conectarse")
         request.session['email'] = driver.email
         request.session['user_id'] = driver.id
+        request.session['Customer'] = False
         return Response(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
@@ -501,8 +502,6 @@ def updateProfileDriverWeb(request):
     return HttpResponse(status=status.HTTP_200_OK,content="Perfil del taxista modificado correctamente")
 
 
-
-
 @csrf_exempt
 @api_view(['POST'])
 def updateCarWeb(request):
@@ -522,6 +521,8 @@ def updateCarWeb(request):
     car.appPayment = request.POST['appPayment']
     car.save()
     return HttpResponse(status=status.HTTP_200_OK,content="Coche modificado correctamente")
+
+
 @csrf_exempt
 @api_view(['GET'])
 def loadData(request):
@@ -571,11 +572,11 @@ def loadData(request):
     ci.save()
     car = Car(plate='1111AAA', model='Laguna', company='Renault', color='White', capacity=4, accessible=True, animals=False, isfree=True, appPayment=True)
     car.save()
-    dr = Driver(email="conductor@gmail.com", password="11111111", phone="656111112", first_name="Conductor", last_name="DePrimera", city=ci, positiveVotes=10, negativeVotes=3, car=car)
+    dr = Driver(email="conductor@gmail.com", password="11111111", phone="656111112", first_name="Conductor", last_name="DePrimera", city=ci, positiveVotes=10, negativeVotes=3, car=car, geom=Point(43.2618425, -2.9327811))
     dr.save()
     car = Car(plate='2222BBB', model='Cooper', company='Mini', color='White', capacity=3, accessible=False, animals=False, isfree=True, appPayment=False)
     car.save()
-    dr2 = Driver(email="conductor2@gmail.com", password="11111111", phone="656111113", first_name="Conductor", last_name="DeSegunda", city=ci, positiveVotes=2, negativeVotes=7, car=car)
+    dr2 = Driver(email="conductor2@gmail.com", password="11111111", phone="656111113", first_name="Conductor", last_name="DeSegunda", city=ci, positiveVotes=2, negativeVotes=7, car=car, geom=Point(43.264116, -2.9237662))
     dr2.save()
     cu = Customer(email="gorka_12@hotmail.com", password="11111111", phone="656111111", first_name="Pepito", last_name="Palotes", city=ci, lastUpdate=datetime.strptime('1980-01-01 00:00:01','%Y-%m-%d %H:%M:%S'))
     cu.save()
