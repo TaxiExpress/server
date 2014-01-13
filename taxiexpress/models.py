@@ -61,6 +61,7 @@ class Driver(models.Model):
     #Datos de pago
     bankAccount = models.CharField(max_length=20, blank=True, null=True)
     recipientName = models.CharField(max_length=80, blank=True, null=True)
+    pushID = models.TextField(blank=True, null=True)
     #Posicion
     geom = models.PointField(srid=4326, null=True)
     objects = models.GeoManager()
@@ -91,6 +92,7 @@ class Customer(models.Model):
     fAnimals = models.BooleanField(default=False)
     fAppPayment = models.BooleanField(default=False)
     fCapacity = models.IntegerField(default=1)
+    pushID = models.TextField(blank=True, null=True)
     def __unicode__(self):
         return self.email
 
@@ -105,5 +107,7 @@ class Travel(models.Model):
     origin = models.CharField(max_length=80, blank=True, null=True)
     endpoint = models.PointField(srid=4326)
     destination = models.CharField(max_length=80, blank=True, null=True)
+    appPayment = models.BooleanField(default=False)
+    isPaid = models.BooleanField(default=False)
     visible = models.BooleanField(default=True)
     objects = models.GeoManager()
