@@ -1,7 +1,7 @@
 # Create your views here.
 from django import forms
 #from django.forms import CharField,Form,PasswordInput
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseBadRequest
@@ -111,3 +111,16 @@ def getCities(request):
         return Response(serialStates.data, status=status.HTTP_200_OK)
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado esta ciudad")
+
+@csrf_exempt
+@api_view(['GET'])
+def logout(request):
+    if request.session['email'] is not None:
+        del request.session['email']
+        del request.session['user_id']
+        del request.session['Customer']
+        request.session.modified = True
+    return redirect('index')
+
+
+
