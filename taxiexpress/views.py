@@ -299,7 +299,7 @@ def recoverEmail(request):
         emailCus = customer.email
         return HttpResponse(status=status.HTTP_200_OK,content=emailCus)
     except Exception:
-        return HttpResponser(status=HTTP_400_BAD_REQUEST, content="Error al devolver el email")    
+        return HttpResponse(status=HTTP_400_BAD_REQUEST, content="Error al devolver el email")    
         
 
 @csrf_exempt
