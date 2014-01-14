@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<script>
+    document.createElement('nav');
+    /* left part is not needed for your situation but an example for you */
+    document.createElement('header');
+    document.createElement('section');
+    document.createElement('article');
+    document.createElement('aside');
+    document.createElement('footer');
+    document.createElement('hgroup');
+</script>
+<html lang="es">
+<head> 
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <title>TaxiExpress</title>
+        <meta name="description" content="TaxiExpress Website">
+        <meta name="author" content="Made by DESSI02">
+        <meta http-equiv="X-UA-Compatible" content="IE=9">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
+        <link href="{{STATIC_URL}}css/login.css" rel="stylesheet" type="text/css">
+        <link href="{{STATIC_URL}}css/validationwindow.css" rel="stylesheet" type="text/css">
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+        <script type="text/javascript" src="{{STATIC_URL}}js/validationcode.js"></script>
+        <script defer type="text/javascript" src="{{STATIC_URL}}js/rememberpassword.js"></script>
+
+        <script>
+            function showValidationCodeWindow()
+            {
+                {% if status == 400 or statusValidation == 401 %}
+                    $('.overlay-container').fadeIn(function() {
+                        window.setTimeout(function(){
+                            $('.window-container.zoomin').addClass('window-container-visible');
+                        }, 100);
+                    });
+                {% endif %}
+            }
+           window.onload=showValidationCodeWindow;
+        </script>
+    </head>
+    <body>      
+        <div class="header-index">
+            <div class="bg">
+                <div class="logo h-left"> 
+                    <a href="/"><img src="{{STATIC_URL}}img/logo.png" alt="Logo" /></a>
+                </div>
+                <button type="submit" class="h-right action act-submit forgotpassword">
+                    <span>
+                        <b>¿Contraseña?</b>
+                    </span>
+                </button>
+                <div class="login h-right">
+                    <form id="login-form" action="" method="POST">
+                        {% csrf_token %}
+                        <fieldset class="fms-block">
+                            <ul>
+                                <li class="placeholder">
+                                    <span class="textfield">
+                                        {% if status == 401 or status == 400 %}
+                                            <input type="email" id="email" name="email" required="required" value = {{email}} placeholder="email" tabindex="1">
+                                        {% else %}
+                                            <input type="email" id="email" name="email" required="required" value placeholder="email" tabindex="1">
+                                        {% endif %}
+                                    </span>                                    
+                                    <input class="tipo" type="radio" name="tipo" length=2 value="C" 
+                                    {% if tipo != "D" %}
+                                        checked = "checked"
+                                    {% endif %}
+                                    >
+                                    <span class="typeLabel">Cliente</span>
+                                    <input class="tipo" type="radio" name="tipo" length=2 value="D"
+                                    {% if tipo == "D" %}
+                                        checked = "checked"
+                                    {% endif %}
+                                    >
+                                    <span class="typeLabel">Taxista</span>
+                                </li>
+                                <li class="placeholder">
+                                    <span class="textfield">
+                                        {% if status == 401 or status == 400 %}
+                                            <input type="password" id="password" name="password" required="required" placeholder ="contraseña" value = {{password}} tabindex="2">
+                                        {% else %}
+                                            <input type="password" id="password" name="password" required="required" placeholder ="contraseña" value tabindex="2">
+                                        {% endif %}
+                                    </span>
+                                    <p class="forgotpass h-stext h-center">
+                                        <a class="forgotpassword" tabindex="4" href="" title="¿Has olvidado tu contraseña?">¿Has olvidado tu contraseña?</a>
+                                    </p>
+                                </li>
+                                <li class="cf">
+                                    <button id="submit_button" tabindex=5 type="submit" class="h-right action act-submit">
+                                        <span>
+                                            <b>Entrar</b>
+                                            <span></span>
+                                        </span>
+                                    </button>
+                                </li>
+                            </ul>
+                            <p class="h-left error ff-txt-error">{{error}}</p>                       
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div> 
+        <div class="slogan-header">
+            <div class="bg ">
+                <div class="slogan">
+                    <div class="h-left">
+                        <img src="{{STATIC_URL}}img/inicio.png" class="phone" alt="Teléfono" />
+                    </div>
+                    <div class="text-index h-left">
+                        <h1>Localiza tu taxi en pocos minutos</h1>
+                        <p>Selecciona el taxi mas cercano o el que mas te guste...</p>
+                        <a href="register.html" class="btnregister">Registro</a>
+                    </div>
+                </div>
+            </div>
+        </div>  
+
+        <div class="clear_10"></div>        
+        <div class="bg">                
+            <div class="contenido">              
+                <div class="client-driver">
+                    <a href="client.html"><img class="img_center" src="{{STATIC_URL}}img/tomar_taxi.jpg" alt="cliente"></a>
+                </div>
+
+                <div class="client-driver">
+                    <a href="driver.html"><img class="img_center" src="{{STATIC_URL}}img/taxi.jpg" alt="taxista"></a>
+                </div>
+            </div>
+        </div> 
+        <div class="clear_10"></div>   
+        <div class="bg">    
+            <div class="contenido">
+                <div class="client-driver centered">
+                    Como <span class="boldtype">cliente</span> podrás buscar y seleccionar el taxista que mas se adecue a tus necesidades. 
+                    Ponte en contacto directamente con el taxista!
+                </div> 
+
+                <div class="client-driver centered">
+                    Como <span class="boldtype">taxista</span> Acepta y Rechaza los servicios más facilmente. Ponte en contacto directamente 
+                    con el cliente!
+                </div> 
+            </div>
+        </div>
+        <div class="clear_10"></div> 
+        <div class="bg">
+            <div class="footer clear">
+                <div class="navigation">
+                    <ul>
+                        <li><a href="faq.html">F.A.Q.</a></li>
+                        <li><a href="map.html">Mapa Web</a></li>
+                        <li><a href="termsofuse.html">Términos de uso</a></li>
+                        <li class="laster"><a href="legalnotice.html">Aviso Legal</a></li>
+                    </ul>
+                </div>
+                <div class="author">Copyright © 2014, DESSI - Deusto</div>
+            </div> 
+        </div>   
+        <div class="overlay-container"> 
+            <div class="window-container zoomin">
+                <form id="validation-form" action="validateCode" method="POST"> 
+                    {% csrf_token %}
+                    <h3>Validación de la cuenta</h3>
+                    <span class="popupText">Introduce Teléfono y código recibido en el móvil<br/>
+                    <input type="hidden" name="tipo" value={{tipo}}> 
+                    {% if statusValidation == 401 %}
+                        <input type="tel" id="phone" name="phone" maxlength=80 required="required" value = {{phone}} placeholder="Teléfono" tabindex="1">
+                        <input type="number" id="validationCode" name="validationCode" maxlength=4 required="required" value = {{validationCode}} placeholder="Codigo Validación" tabindex="2">
+                    {% else %}
+                        <input type="tel" id="phone" name="phone" maxlength=80 required="required" value placeholder="Teléfono" tabindex="1">
+                        <input type="number" id="validationCode" name="validationCode" maxlength=4 required="required" value placeholder="Codigo Validación" tabindex="2">
+                    {% endif %}    
+                    
+                    <input type="button" value="Volver a solicitar código de validación" class="validationRef validation"/>   
+                    <p class="h-left error ff-txt-error">{{errorValidation}}</p>
+                    </span>
+                    <button id="validation_button" type="submit" class="acept"><span>Aceptar</span></button>
+                    <input type="button" value= "Cancelar" class="close"/>    
+                </form>
+            </div>
+        </div> 
+<!--         <div class="overlay-container-password"> 
+            <div class="window-container-password zoomin">
+                {% csrf_token %}
+                <h3>Recuperar contraseña</h3>
+                <span class="popupText">Introduce email<br/>
+                <input type="text" id="email" name="email" maxlength=80 required="required" value placeholder="email" tabindex="2">
+   
+                <p class="h-left error ff-txt-error">{{errorValidationEmail}}</p>
+                </span>
+                <button id="validation_button" type="submit" class="aceptEmail"><span>Aceptar</span></button>
+                <input type="button" value= "Cancelar" class="closeEmail"/>       
+            </div>
+        </div>    -->
+    </body>
+</html>
