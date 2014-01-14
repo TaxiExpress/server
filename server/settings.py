@@ -137,6 +137,7 @@ INSTALLED_APPS = (
     'django.contrib.gis',
     'rest_framework',
     'taxiexpress',
+    'web',
 )
 
 # A sample logging configuration. The only tangible logging
