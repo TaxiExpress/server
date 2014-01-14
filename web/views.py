@@ -60,7 +60,7 @@ def loginDriver(request):
         request.session['email'] = driver.email
         request.session['user_id'] = driver.id
         request.session['Customer'] = False
-        return Response(status=status.HTTP_200_OK)
+        return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 
@@ -158,7 +158,8 @@ def updateProfileUserWeb(request):
     customer.last_name = request.POST['last_name']
     customer.image = request.POST['image']
     customer.postcode = request.POST['postcode']
-    customer.city = int(request.POST['city'])
+    #Comentado hasta saber como actualizar
+    #customer.city = int(request.POST['city'])
     customer.save()
     return HttpResponse(status=status.HTTP_200_OK,content="Perfil del cliente modificado correctamente")
 
@@ -177,14 +178,14 @@ def updateProfileDriverWeb(request):
     driver.image = request.POST['image']
     driver.address = request.POST['address']
     driver.postcode = request.POST['postcode']
-    driver.city = int(request.POST['city'])
+    #Comentado hasta saber como actualizar
+    #driver.city = int(request.POST['city'])
     driver.license = request.POST['license']
     #Habría que comprobar si appPayment == True antes de asignar estos campos. Se va a permitir actualizar appPayment en esta misma vista?
-    driver.bankAccount = request.POST['bankAccount']
-    driver.recipientName = request.POST['recipientName']
+    #driver.bankAccount = request.POST['bankAccount']
+    #driver.recipientName = request.POST['recipientName']
     driver.save()
     return HttpResponse(status=status.HTTP_200_OK,content="Perfil del taxista modificado correctamente")
-
 
 @csrf_exempt
 @api_view(['POST'])
@@ -342,17 +343,22 @@ def legalnotice(request):
     return render(request, 'AppWeb/legalnotice.html', {})  
 
 def mantclient_data(request):   
-    if 'user_id' in request.session:
-        if request.session['Customer'] == True:
-            customer = get_object_or_404(Customer, id=request.session['user_id'])
-            return render(request, 'AppWeb/mantclient_data.html', {'client':customer}) 
-        else:
-            request.session['email'] = ''
-            request.session['user_id'] = ''
-            request.session['Customer'] = ''
-            return redirect('/')    
+    if request.method == "POST":
+        response = updateProfileUserWeb(request)
+        customer = get_object_or_404(Customer, id=request.session['user_id'])
+        return render(request, 'AppWeb/mantclient_data.html', {'client':customer, 'error':response.content})
     else:
-        return redirect('/')
+        if 'user_id' in request.session:
+            if request.session['Customer'] == True:
+                customer = get_object_or_404(Customer, id=request.session['user_id'])
+                return render(request, 'AppWeb/mantclient_data.html', {'client':customer}) 
+            else:
+                request.session['email'] = ''
+                request.session['user_id'] = ''
+                request.session['Customer'] = ''
+                return redirect('/')    
+        else:
+            return redirect('/')
 
 def mantclient_preferences(request):
     if 'user_id' in request.session:
@@ -368,17 +374,22 @@ def mantclient_preferences(request):
         return redirect('/')
 
 def mantdriver_data(request):
-    if 'user_id' in request.session:
-        if request.session['Customer'] == False:
-            driver = get_object_or_404(Driver, id=request.session['user_id'])
-            return render(request, 'AppWeb/mantdriver_data.html', {'driver':driver}) 
-        else:
-            request.session['email'] = ''
-            request.session['user_id'] = ''
-            request.session['Customer'] = ''
-            return redirect('/')            
+    if request.method == "POST":
+        response = updateProfileDriverWeb(request)
+        driver = get_object_or_404(Driver, id=request.session['user_id'])
+        return render(request, 'AppWeb/mantdriver_data.html', {'driver':driver, 'error':response.content})
     else:
-        return redirect('/')
+        if 'user_id' in request.session:
+            if request.session['Customer'] == False:
+                driver = get_object_or_404(Driver, id=request.session['user_id'])
+                return render(request, 'AppWeb/mantdriver_data.html', {'driver':driver}) 
+            else:
+                request.session['email'] = ''
+                request.session['user_id'] = ''
+                request.session['Customer'] = ''
+                return redirect('/')            
+        else:
+            return redirect('/')
 
 def mantdriver_car(request):
     if 'user_id' in request.session:

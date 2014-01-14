@@ -89,3 +89,7 @@ input, textarea, select, button {
     margin-bottom: 8px;
     text-align: right;
 }
+
+.closebuttom{
+    width: 150px;
+}

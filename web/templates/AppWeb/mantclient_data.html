@@ -39,11 +39,11 @@
                        <fieldset class="fms-block"> 
                             <ul>
                                 <li class="placeholder">
-                                    <input type="text" class="emailSession" name="email" value="{{client.email}}" disabled> 
-                                    <img src="{{STATIC_URL}}img/laura.png" alt="Perfil" />
+                                    <img onload="mostrarEnBase64()" id="fotoSession" src="{{client.image}}" alt="no hay foto"/>
                                 </li>
 
-                                <li class="cf">
+                                <li class="placeholder closebuttom">
+                                    <input type="text" class="emailSession" name="email" value="{{client.email}}" disabled> 
                                     <button id="submit_button" tabindex=5 type="submit" class="h-right action act-submit">    
                                         <span>
                                             <b>Cerrar Sesión</b>
@@ -75,11 +75,11 @@
                     <form name="mantclient" id="mantclient" action="" method="POST">                      
                         {% csrf_token %}
                         <div class="pic">
-                            <!-- <img id="picture" src="#"/>
-                            <input type="file" name="imagen" accept="image/gif, image/jpeg, image/png" class="photo"/> -->
-                            <img onload="mostrarEnBase64()" id="foto" src="" alt="no hay foto"/>
+                            <img onload="mostrarEnBase64()" id="foto" src="{{client.image}}" alt="no hay foto"/>
                             <input onchange="javascript:drawImageOnCanvas();" type="file" accept="image/gif, image/jpeg, image/png" id="archivo" class="photo"/>
+                            <input type="hidden" name="image" id="URLdelafoto" value="{{client.image}}">
                         </div>
+                        <input type="hidden" name="id" value={{client.id}}>
                         <div class="col1 maintenance">                        
                             <input type="text" name="first_name" maxlength="80" placeholder="Nombre" required = "required" 
                             {% if client.first_name == None %}
@@ -142,6 +142,7 @@
                             {% endif %}
 
                         </div>
+                        <p class="registerError">{{error}}</p>
                         <div class="clr"><button class="btn" type="submit">Actualizar</button></div>
                     </form> 
                 </div>

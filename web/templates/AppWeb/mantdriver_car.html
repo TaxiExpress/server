@@ -37,11 +37,11 @@
                        <fieldset class="fms-block"> 
                             <ul>
                                 <li class="placeholder">
-                                    <input type="text" class="emailSession" name="email" value="{{email}}"  disabled>
-                                    <img src="{{STATIC_URL}}img/laura.png" alt="Perfil" />
+                                    <img onload="mostrarEnBase64()" id="fotoSession" src="{{driver.image}}" alt="no hay foto"/>
                                 </li>
 
-                                <li class="cf">
+                                <li class="placeholder closebuttom">
+                                    <input type="text" class="emailSession" name="email" value="{{email}}"  disabled>
                                     <button id="submit_button" tabindex=5 type="submit" class="h-right action act-submit">    
                                         <span>
                                             <b>Cerrar Sesión</b>
@@ -54,7 +54,7 @@
                     </form>
                 </div>                
             </div>
-
+            <div class="clear_10"></div>
         </div>  
 <!--        <div class="bg titulo">
             <h1>Registrate y empieza a viajar!</h1>
@@ -121,6 +121,7 @@
                                 {% endif %}
                             </p>
                         </div>
+                        <p class="registerError">{{error}}</p>
                         <div class="clr"><button class="btn" type="submit">Actualizar</button></div>
                     </form> 
                 </div>

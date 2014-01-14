@@ -32,12 +32,12 @@ function drawImageOnCanvas(){
             var dataURL = canvas.toDataURL("image/jpeg")
             //Tenemos la foto en b64 en dataURL. Se la ponemos en el src de la foto.
             document.getElementById("foto").src = dataURL;
+            document.getElementById("fotoSession").src = dataURL;
         }
     }
     fileReader.readAsDataURL(file); 
 }
 
 function mostrarEnBase64(){
-    //Ya lo tenemos en base64 en el src de la foto. Con ello hacemos lo que se quiera.
-    document.getElementById("URLdelafoto").innerText = document.getElementById("foto").src;
+    $('#URLdelafoto').val(document.getElementById("foto").src);
 }

@@ -37,11 +37,11 @@
                        <fieldset class="fms-block"> 
                             <ul>
                                 <li class="placeholder">
-                                    <input type="text" class="emailSession" name="email" value="{{driver.email}}" disabled>
-                                    <img src="{{STATIC_URL}}img/laura.png" alt="Perfil" />
+                                    <img onload="mostrarEnBase64()" id="fotoSession" src="{{driver.image}}" alt="no hay foto"/>
                                 </li>
 
-                                <li class="cf">
+                                <li class="placeholder closebuttom">
+                                    <input type="text" class="emailSession" name="email" value="{{driver.email}}" disabled>                                    
                                     <button id="submit_button" tabindex=5 type="submit" class="h-right action act-submit">    
                                         <span>
                                             <b>Cerrar Sesión</b>
