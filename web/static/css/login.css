@@ -1,0 +1,227 @@
+/*.login {
+    margin-top: 12px;
+}*/
+
+form, input, button{
+    padding: 0;
+    margin: 0;
+
+}
+
+.login{
+    margin-top: 10px;
+}
+
+.h-right {
+    float: right;
+}
+
+.h-left {
+    float: left;
+}
+
+.h-center{
+    float: center;
+}
+
+/*.bg .remember input[type=checkbox] {
+    vertical-align: middle;
+    margin-right: 4px;
+}*/
+
+.bg .tipo {
+    margin-right: 4px;
+    vertical-align: middle;
+    position: relative;
+    bottom: 2px;
+}
+
+.bg .typeLabel{
+    font-size: 13px;  
+    margin-right: 10px;
+
+}
+
+.h-stext, .h-stext-link {
+    color: #999;
+    font-size: 11px;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1.3;
+}
+
+.fms-block {
+padding: 0 16px 12px;
+/*margin: 16px 0 0;*/
+border: 0;
+}
+
+.fms-block>ul>li {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: top;
+    margin-left: 4px;
+}
+
+.placeholder{
+    position: relative;;
+}
+
+.fms-block .placeholder .textfield {
+    width: 125px;
+}
+
+.fms-block .error {
+    position: absolute;
+    top: 1px;
+    margin: 0 0 0 45px;
+    font-size: 11px;
+    color: #a02b27;
+}
+
+.textfield {
+    display: block;
+    padding: 0 6px;
+    background-color: white;
+    box-shadow: inset 0 10px 10px -10px rgba(0,0,0,0.1);
+    border: 1px solid #ddd;
+    border-top-color: #ccc;
+    border-radius: 4px;
+    -webkit-transition: box-shadow .3s ease,border-color .2s ease;
+    transition: box-shadow .3s ease,border-color .2s ease;
+}
+
+.textfield input[type="password"], .textfield input[type="text"], .textfield input[type="email"], .textfield textarea, .textfield select{
+    display: block;
+    width: 100%;
+    min-height: 16px;
+    border: 0;
+    padding: 4px 0;
+    background: 0;
+    font-size: 13px;
+}
+
+input[type="text"], textarea, select {
+    font: 13px/16px Sans-serif,Helvetica,Arial;
+}
+
+/*.bg .remember, .bg .forgotpass {
+    margin-top: 2px;
+    font-size: 11px;
+    text-align: left;
+}*/
+
+.bg .tipo, .bg .forgotpass {
+    margin-top: 2px;
+    font-size: 11px;
+    text-align: left;
+}
+
+.bg .forgotpass a{
+    color: #228ccf;
+}
+
+.bg .forgotpass {
+    position: absolute;
+    white-space: nowrap;
+    padding-top: 4px;
+}
+
+.cf:after{
+    clear: both;
+}
+
+.cf:before, .cf:after{
+    content: " ";
+    display: table;
+}
+
+.ff-txt-error, .h-stext.ff-txt-error {
+    color: #a02b27;
+}
+
+.action.act-submit>span{
+    border-color: #097db1 #0b6690 #0b6690;
+    background: linear-gradient(#1098d3, #077cb1);
+}
+
+.action.act-submit>span, .action.act-submit.disabled:hover>span, .action.act-submit.disabled:active>span {
+    border-color: #097db1 #0b6690 #0b6690;
+    background: -webkit-linear-gradient(#1098d3,#077cb1);
+    background: -moz-linear-gradient(#1098d3,#077cb1);
+    background: linear-gradient(#1098d3,#077cb1);
+}
+
+.action {
+    position: relative;
+    font-size: 11px;
+    color: #666;
+    text-align: center;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.action>span{
+    position: relative;
+    height: 24px;
+    width: 80px;
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 25px;
+    padding: 0 8px;
+}
+
+.action b {
+    padding: 0 8px;
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: bold;
+    line-height: 25px;
+    -webkit-transition: opacity .2s ease-out;
+    transition: opacity .2s ease-out;
+}
+
+.action:not(.act-feedback)>span {filter: none!important;}
+
+.act-submit span{
+    box-shadow: inset 0 1px rgba(255,255,255,019);
+}
+
+.act-submit b, .act-launch b, .act-danger b {
+    text-shadow: 0 1px rgba(0,0,0,0.35);
+    color: white;
+}
+
+.error:empty;{
+    display: none;
+}
+
+input, textarea, select, button {
+    vertical-align: middle;
+}
+
+button {
+    display: inline-block;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    vertical-align: middle;
+    background: 0;
+    border: 0;
+    outline: 0;
+    font: 11px/13px Sans-serif,Helvetica,Arial;
+    color: #666;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+#login-form{
+    height: auto;
+}

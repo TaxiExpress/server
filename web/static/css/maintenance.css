@@ -1,0 +1,123 @@
+.span2{
+	width:130px;
+	margin-left: 10px
+}
+
+.span10{
+	width: 730px;
+	margin-left: 30px;
+}
+
+[class*="span"]{
+	float: left;
+	min-height: 430px;
+	margin-bottom: 50px;
+}
+
+.tabs ul{
+	list-style:none;
+	margin-bottom:10px;
+	padding-left: 15px;
+}
+
+.tabs a{
+	font:normal 13px PT Sans,Arial;
+/*	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:13px;
+	font-weight:normal;*/
+	line-height:1.2;
+	padding:14px 8px;
+	margin:0;
+	text-decoration:none;
+	display:block;
+	color:#01669a;
+}
+
+.tabs > ul > li.first{
+	border-top:none;
+}
+
+.tabs .nav > li > a:hover{
+	background:inherit;
+}
+
+.tabs .nav > li > a.active,.tabs .nav > li > a.active:hover{
+	background:#f1f9fc;
+}
+
+.tabs > ul > li{
+	border-top:1px solid #eee;
+}
+
+
+.contenido{
+	margin-top: 50px;
+}
+
+
+.col1{
+	width:50%;
+	float: left;
+	margin-top: 20px;
+}
+
+.col2{
+	width:50%;
+	float: right;
+	margin-top: 20px;
+}
+
+.pic{
+	width: 480px;
+	max-height: 123px;
+	padding: 20px 0px 0px 0px;
+}
+
+.pic img{
+	border: 1px solid #dfdfdf;
+ 	width: 120px ;
+ 	height: 120px;
+}
+
+.photo{
+	float: right;
+	margin-top: 100px;
+}
+
+.maintenance select{
+	margin-left: 10px;
+	color:#5d5d5d;
+}
+
+.lblcountry, .lblstate, .lblcity{
+	width: 25%;
+	float: left;
+	margin-bottom: 20px;
+}
+
+.cbocountry, .cbostate, .cbocity{
+	width: 75%;
+	float: right;
+	margin-bottom: 20px;
+}
+
+ .lblcity{
+	width: 25%;
+	float: left;
+	margin-bottom: 12px;
+}
+
+.cbocity{
+	width: 75%;
+	float: right;
+	margin-bottom: 12px;
+}
+
+.selcity{
+	width: 150px;
+}
+
+.update{
+	margin-left: 28px;
+}
+

@@ -1,0 +1,91 @@
+form, input, button{
+    padding: 0;
+    margin: 0;
+
+}
+
+#close-form img {
+width: 40px;
+height: 40px;
+border: 0px;
+margin-left: 10px;
+}
+
+.h-right {
+    float: right;
+}
+
+.h-left {
+    float: left;
+}
+
+.h-center{
+    float: center;
+}
+
+
+.fms-block {
+padding: 0 16px 12px;
+/*margin: 16px 0 0;*/
+border: 0;
+}
+
+.fms-block>ul>li {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-left: 4px;
+}
+
+.placeholder{
+    position: relative;
+    margin-top: 13px;
+}
+
+.fms-block .placeholder .textfield {
+    width: 125px;
+}
+
+.textfield {
+    display: block;
+    padding: 0 6px;
+    background-color: white;
+    box-shadow: inset 0 10px 10px -10px rgba(0,0,0,0.1);
+    border: 1px solid #ddd;
+    border-top-color: #ccc;
+    border-radius: 4px;
+    -webkit-transition: box-shadow .3s ease,border-color .2s ease;
+    transition: box-shadow .3s ease,border-color .2s ease;
+}
+
+.cf:after{
+    clear: both;
+}
+
+.cf:before, .cf:after{
+    content: " ";
+    display: table;
+}
+
+input, textarea, select, button {
+    vertical-align: middle;
+}
+
+.action {
+    background: 0;
+    border: 0;
+    color: #01669a;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+#close-form{
+    height: auto;
+}
+
+.emailSession{
+    color: #5d5d5d;
+    border: none;
+    background-color: inherit;
+    margin-bottom: 8px;
+    text-align: right;
+}
