@@ -270,7 +270,7 @@ def changePassword(request):
 @csrf_exempt
 @api_view(['GET'])
 def recoverPassword(request):
-    if request.GET['email'] is None:
+    if request.GET['email'] == '':
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
     try:
         customer = Customer.objects.get(email=request.GET['email'])
