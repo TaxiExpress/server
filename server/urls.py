@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^driver/login', 'taxiexpress.views.loginDriver', name='loginDriver'),
     url(r'^loaddata', 'taxiexpress.views.loadData', name='loaddata'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^recoverPassword', 'taxiexpress.views.recoverPassword', name='recoverPassword'),
 
     # url(r'^server/', include('server.foo.urls')),
 
@@ -31,4 +32,24 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+
+        #url para la Web
+    url(r'^$', 'web.views.index', name='index'),
+    url(r'^map', 'web.views.map', name='map'),
+    url(r'^client', 'web.views.client', name='client'),
+    url(r'^driver', 'web.views.driver', name='driver'),
+    url(r'^faq', 'web.views.faq', name='faq'),
+    url(r'^legalnotice', 'web.views.legalnotice', name='legalnotice'),
+    url(r'^register', 'web.views.register', name='register'),
+    url(r'^mantclient_data', 'web.views.mantclient_data', name='mantclient_data'),
+    url(r'^mantclient_preferences', 'web.views.mantclient_preferences', name='mantclient_preferences'),
+    url(r'^mantdriver_data', 'web.views.mantdriver_data', name='mantdriver_data'),
+    url(r'^mantdriver_car', 'web.views.mantdriver_car', name='mantdriver_car'),
+    url(r'^mantdriver_bankAccount', 'web.views.mantdriver_bankAccount', name='mantdriver_bankAccount'),
+    url(r'^termsofuse', 'web.views.termsofuse', name='termsofuse'),
+    url(r'^validateCode', 'web.views.validateCode', name='validateCode'),
+    url(r'^logout', 'web.views.logout', name='logout'),
+    url(r'^updateProfileUserWeb', 'web.views.updateProfileUserWeb', name='updateProfileUserWeb'),
+    url(r'^updateProfileDriverWeb', 'web.views.updateProfileDriverWeb', name='updateProfileDriverWeb'),
+    url(r'^updateCarWeb', 'web.views.updateCarWeb', name='updateCarWeb'),
 )
