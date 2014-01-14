@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<script>
+    document.createElement('nav');
+    /* left part is not needed for your situation but an example for you */
+    document.createElement('header');
+    document.createElement('section');
+    document.createElement('article');
+    document.createElement('aside');
+    document.createElement('footer');
+    document.createElement('hgroup');
+</script>
+<html lang="es">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <title>TaxiExpress</title>
+        <meta name="description" content="TaxiExpress Website">
+        <meta name="author" content="Made by DESSI02">
+        <meta http-equiv="X-UA-Compatible" content="IE=9">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
+        <link href="{{STATIC_URL}}css/maintenance.css" rel="stylesheet" type="text/css">
+        <link href="{{STATIC_URL}}css/closesession.css" rel="stylesheet" type="text/css">
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+        <script type="text/javascript" src="{{STATIC_URL}}js/loadpotho.js"></script>
+
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="header">
+            <div class="bg">
+                <div class="logo h-left"> 
+                    <a href="/"><img src="{{STATIC_URL}}img/logo.png" alt="Logo" /></a>
+                </div>
+                <div class="login h-right">
+                    <form id="close-form" action="logout" method="POST">
+                       <fieldset class="fms-block"> 
+                            <ul>
+                                <li class="placeholder">
+                                    <input type="text" class="emailSession" name="email" value="{{client.email}}" disabled> 
+                                    <img src="{{STATIC_URL}}img/laura.png" alt="Perfil" />
+                                </li>
+
+                                <li class="cf">
+                                    <button id="submit_button" tabindex=5 type="submit" class="h-right action act-submit">    
+                                        <span>
+                                            <b>Cerrar Sesión</b>
+                                            <span></span>
+                                        </span>
+                                    </button>
+                                </li>
+                            </ul>                      
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        
+        </div>  
+<!--        <div class="bg titulo">
+            <h1>Registrate y empieza a viajar!</h1>
+        </div> -->          
+        <div class="bg">                
+            <div class="contenido">
+                <aside id="sidebar" class="span2">
+                    <div class="tabs">
+                        <ul class="menu nav">
+                            <li class="first" ><a href="mantclient_data.html" class="active">Perfil de usuario</a></li>
+                            <li><a href="mantclient_preferences.html">Preferencias de búsqueda</a></li>
+                        </ul>
+                    </div>
+                </aside>
+                <div class="span10">
+                    <form name="mantclient" id="mantclient" action="" method="POST">                      
+                        {% csrf_token %}
+                        <div class="pic">
+                            <!-- <img id="picture" src="#"/>
+                            <input type="file" name="imagen" accept="image/gif, image/jpeg, image/png" class="photo"/> -->
+                            <img onload="mostrarEnBase64()" id="foto" src="" alt="no hay foto"/>
+                            <input onchange="javascript:drawImageOnCanvas();" type="file" accept="image/gif, image/jpeg, image/png" id="archivo" class="photo"/>
+                        </div>
+                        <div class="col1 maintenance">                        
+                            <input type="text" name="first_name" maxlength="80" placeholder="Nombre" required = "required" 
+                            {% if client.first_name == None %}
+                                >
+                            {% else %}
+                                value="{{client.first_name}}">
+                            {% endif %}
+
+                            <input type="text" name="last_name" maxlength="80" placeholder="Apellido" required = "required" 
+                            {% if client.last_name == None %}
+                                >
+                            {% else %}
+                                value="{{client.last_name}}">
+                            {% endif %}
+
+                            <input type="email" name="email" maxlength="80" placeholder="Email" required = "required"
+                            {% if client.email == None %}
+                                >
+                            {% else %}
+                                value="{{client.email}}">
+                            {% endif %}
+
+                            <input type="tel" name="phone" maxlength="80" placeholder="Teléfono" required = "required"
+                            {% if client.phone == None %}
+                                >
+                            {% else %}
+                                value="{{client.phone}}">
+                            {% endif %}
+                           
+                        </div>
+                        <div class="col2 maintenance">
+                            <p>
+                                <div class="lblcountry"><label>País</label></div>
+                                <div class="cbocountry"><select id = "country" name="country" class="selcity">
+                                    <option value = "108">España</option>
+                                    <option value = "109">Francia</option>
+                                </select></div>
+                            </p>
+                            <p>
+                                <div class="lblstate"><label>Provincia</label></div>
+                                <div class="cbostate"><select id = "state" name="state" class="selcity">
+                                    <option value = "48">Bizkaia</option>
+                                    <option value = "49">Zamora</option>
+                                </select></div>
+                            </p>
+                            <p>
+                                <div class="lblcity"><label>Municipio</label></div>
+                                <div class="cbocity"><select id = "city" name="city" class="selcity">
+                                    <option value = "013">Barakaldo</option>
+                                    <option value = "016">Berango</option>
+                                    <option value = "020">Bilbao</option>
+                                    <option value = "089">Urduliz</option>                            
+                                </select></div>
+                            </p>
+                            <input type="text" name="postcode" maxlength="5" placeholder="Código Postal" 
+                            {% if client.postcode == None %}
+                                >
+                            {% else %}
+                                value="{{client.postcode}}">
+                            {% endif %}
+
+                        </div>
+                        <div class="clr"><button class="btn" type="submit">Actualizar</button></div>
+                    </form> 
+                </div>
+            </div>
+        </div>
+        <div class="bg">
+            <div class="footer clear">
+                <div class="navigation">
+                    <ul>
+                        <li><a href="faq.html">F.A.Q.</a></li>
+                        <li><a href="map.html">Mapa Web</a></li>
+                        <li><a href="termsofuse.html">Términos de uso</a></li>
+                        <li class="laster"><a href="legalnotice.html">Aviso Legal</a></li>
+                    </ul>
+                </div>
+                <div class="author">Copyright © 2014, DESSI - Deusto</div>
+            </div> 
+        </div>      
+    </body>
+</html>
