@@ -68,7 +68,7 @@ def loginDriver(request):
 @csrf_exempt
 def registerUser(request):
     if request.method == "POST":
-        passtemp = request.POST['password'];
+        passtemp = request.POST['password']
         if (Customer.objects.filter(email=request.POST['email']).count() > 0):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email que ha indicado ya está en uso")
         if (Customer.objects.filter(phone=request.POST['phone']).count() > 0):
@@ -138,11 +138,11 @@ def registerDriver(request):
                 sms = NexmoMessage(msg)
                 sms.set_text_info(msg['text'])
                 response = sms.send_request()                
-                return HttpResponse(status=201)
+                return HttpResponse(status=status.HTTP_201_CREATED)
             except ValidationError:
-                HttpResponse(status=401, content="Email no válido")
+                HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email no válido")
     else:
-        HttpResponse(status=400)
+        HttpResponse(status=status.HTTP_400_BAD_REQUEST)
 
 
 @csrf_exempt
@@ -158,7 +158,7 @@ def updateProfileUserWeb(request):
     customer.last_name = request.POST['last_name']
     customer.image = request.POST['image']
     customer.postcode = request.POST['postcode']
-    customer.city = request.POST['city']
+    customer.city = int(request.POST['city'])
     customer.save()
     return HttpResponse(status=status.HTTP_200_OK,content="Perfil del cliente modificado correctamente")
 
@@ -177,8 +177,9 @@ def updateProfileDriverWeb(request):
     driver.image = request.POST['image']
     driver.address = request.POST['address']
     driver.postcode = request.POST['postcode']
-    driver.city = request.POST['city']
+    driver.city = int(request.POST['city'])
     driver.license = request.POST['license']
+    #Habría que comprobar si appPayment == True antes de asignar estos campos. Se va a permitir actualizar appPayment en esta misma vista?
     driver.bankAccount = request.POST['bankAccount']
     driver.recipientName = request.POST['recipientName']
     driver.save()
@@ -273,11 +274,11 @@ def validateCode(request):
 @api_view(['POST'])
 def validateDriver(request):
     if request.POST['phone'] is None:
-        return HttpResponse(status=401, content="Teléfono incorrecto")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Teléfono incorrecto")
     try:
         driver = Driver.objects.get(phone=request.POST['phone'])
     except ObjectDoesNotExist:
-        return HttpResponse(status=401, content="Error al validar esta cuenta. Inténtelo de nuevo")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta. Inténtelo de nuevo")
     if driver.validationCode == int(request.POST['validationCode']):
         driver.isValidated = True
         driver.save()
@@ -288,9 +289,9 @@ def validateDriver(request):
         msg = EmailMessage(subject, html_content, from_email, to)
         msg.content_subtype = "html"  # Main content is now text/html
         msg.send()
-        return HttpResponse(status=201,content="La cuenta ha sido validada correctamente")
+        return HttpResponse(status=status.HTTP_201_CREATED,content="La cuenta ha sido validada correctamente")
     else:
-        return HttpResponse(status=401, content="Error al validar esta cuenta. Inténtelo de nuevo")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta. Inténtelo de nuevo")
 
 @csrf_exempt
 def index(request):
