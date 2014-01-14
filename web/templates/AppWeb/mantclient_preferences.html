@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<script>
+    document.createElement('nav');
+    /* left part is not needed for your situation but an example for you */
+    document.createElement('header');
+    document.createElement('section');
+    document.createElement('article');
+    document.createElement('aside');
+    document.createElement('footer');
+    document.createElement('hgroup');
+</script>
+<html lang="es">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <title>TaxiExpress</title>
+        <meta name="description" content="TaxiExpress Website">
+        <meta name="author" content="Made by DESSI02">
+        <meta http-equiv="X-UA-Compatible" content="IE=9">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
+        <link href="{{STATIC_URL}}css/maintenance.css" rel="stylesheet" type="text/css">
+        <link href="{{STATIC_URL}}css/closesession.css" rel="stylesheet" type="text/css">
+
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="header">
+            <div class="bg">
+                <div class="logo h-left"> 
+                    <a href="/"><img src="{{STATIC_URL}}img/logo.png" alt="Logo" /></a>
+                </div>
+                <div class="login h-right">
+                    <form id="close-form" action="logout" method="POST">
+                       <fieldset class="fms-block"> 
+                            <ul>
+                                <li class="placeholder">
+                                    <input type="text" class="emailSession" name="email" value="{{client.email}}" disabled>
+                                    <img src="{{STATIC_URL}}img/laura.png" alt="Perfil" />
+                                </li>
+
+                                <li class="cf">
+                                    <button id="submit_button" tabindex=5 type="submit" class="h-right action act-submit">    
+                                        <span>
+                                            <b>Cerrar Sesión</b>
+                                            <span></span>
+                                        </span>
+                                    </button>
+                                </li>
+                            </ul>                      
+                        </fieldset>
+                    </form>
+                </div>            
+            </div>
+
+        </div>  
+<!--        <div class="bg titulo">
+            <h1>Registrate y empieza a viajar!</h1>
+        </div> -->          
+        <div class="bg">                
+            <div class="contenido">
+                <aside id="sidebar" class="span2">
+                    <div class="tabs">
+                        <ul class="menu nav">
+                            <li class="first" ><a href="mantclient_data.html">Perfil de usuario</a></li>
+                            <li><a href="mantclient_preferences.html" class="active">Preferencias de búsqueda</a></li>
+                        </ul>
+                    </div>
+                </aside>
+                 <div class="span10">
+                    <form name="mantclient" id="mantclient" action="" method="POST">                      
+                        {% csrf_token %}
+                        <div class="col1 maintenance">
+                            <p>
+                                {% if client.fAccessible %}
+                                    <input type="checkbox" name="fAccessible" checked = "checked">Taxis habilitados para minusválidos
+                                {% else %}
+                                    <input type="checkbox" name="fAccessible">Taxis habilitados para minusválidos
+                                {% endif %}
+                            </p>
+                            <p>
+                                {% if client.fAnimals %}
+                                    <input type="checkbox" name="fAnimals" checked = "checked">Taxis que admitan animales
+                                {% else %}
+                                    <input type="checkbox" name="fAnimals">Taxis que admitan animales
+                                {% endif %}
+                            </p> 
+                            <p>
+                                {% if client.fAppPayment %}
+                                    <input type="checkbox" name="fAppPayment" checked = "checked">Taxis que permitan el pago a través de la aplicación
+                                {% else %}
+                                    <input type="checkbox" name="fAppPayment">Taxis que permitan el pago a través de la aplicación
+                                {% endif %}
+                            </p>
+                            <input type="number" id="fCapacity" name="fcapacity" placeholder="Capacidad"> 
+                        </div>
+                        <div class="clr"><button class="btn" type="submit">Actualizar</button></div>
+                    </form> 
+                </div>
+            </div>
+        </div>
+        <div class="bg">
+            <div class="footer clear">
+                <div class="navigation">
+                    <ul>
+                        <li><a href="faq.html">F.A.Q.</a></li>
+                        <li><a href="map.html">Mapa Web</a></li>
+                        <li><a href="termsofuse.html">Términos de uso</a></li>
+                        <li class="laster"><a href="legalnotice.html">Aviso Legal</a></li>
+                    </ul>
+                </div>
+                <div class="author">Copyright © 2014, DESSI - Deusto</div>
+            </div> 
+        </div>      
+    </body>
+</html>
