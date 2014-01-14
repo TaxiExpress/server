@@ -1,7 +1,3 @@
-/*.login {
-    margin-top: 12px;
-}*/
-
 form, input, button{
     padding: 0;
     margin: 0;
@@ -9,15 +5,18 @@ form, input, button{
 }
 
 .login{
-    margin-top: 10px;
+    margin-top: 20px;
+    margin-bottom: -15px;
 }
 
 .h-right {
     float: right;
+    width:50%;
 }
 
 .h-left {
     float: left;
+    width:50%;
 }
 
 .h-center{
@@ -37,7 +36,7 @@ form, input, button{
 }
 
 .bg .typeLabel{
-    font-size: 13px;  
+    font-size: 11px;  
     margin-right: 10px;
 
 }
@@ -73,7 +72,7 @@ border: 0;
 
 .fms-block .error {
     position: absolute;
-    top: 1px;
+    top: 8px;
     margin: 0 0 0 45px;
     font-size: 11px;
     color: #a02b27;
@@ -91,12 +90,27 @@ border: 0;
     transition: box-shadow .3s ease,border-color .2s ease;
 }
 
-.textfield input[type="password"], .textfield input[type="text"], .textfield input[type="email"], .textfield textarea, .textfield select{
+.textfield input::-webkit-input-placeholder {
+    font-family: Open Sans;
+    font-weight: 100;
+    color:  #ccc;
+}
+.textfield input:-moz-placeholder { /* Firefox 18- */
+    font-family: Open Sans;
+    font-weight: 100;
+    color:  #ccc;}
+
+.textfield input::-moz-placeholder {  /* Firefox 19+ */
+    font-family: Open Sans;
+    font-weight: 100;
+    color:  #ccc;}
+
+.textfield input[type="password"], .textfield input[type="text"], .textfield input[type="email"]{
     display: block;
     width: 100%;
-    min-height: 16px;
+    height: 25px;
     border: 0;
-    padding: 4px 0;
+    padding: 5px 3px 5px;
     background: 0;
     font-size: 13px;
 }
@@ -113,12 +127,12 @@ input[type="text"], textarea, select {
 
 .bg .tipo, .bg .forgotpass {
     margin-top: 2px;
-    font-size: 11px;
+    font-size: 10px;
     text-align: left;
 }
 
 .bg .forgotpass a{
-    color: #228ccf;
+    color: #ccc;
 }
 
 .bg .forgotpass {
@@ -207,21 +221,115 @@ input, textarea, select, button {
     vertical-align: middle;
 }
 
-button {
-    display: inline-block;
-    width: auto;
-    height: auto;
-    overflow: visible;
-    vertical-align: middle;
-    background: 0;
-    border: 0;
-    outline: 0;
-    font: 11px/13px Sans-serif,Helvetica,Arial;
-    color: #666;
-    white-space: nowrap;
-    cursor: pointer;
+
+.btn {
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    font-weight: 100;
+    font-size: 13px;
+    color: #333;
+    margin-top:0px;
+    padding: 9px 16px;
+    background: -moz-linear-gradient(
+        top,
+        #E6B906 0%,
+        #ffcc00);
+    background: -webkit-gradient(
+        linear, left top, left bottom, 
+        from(#E6B906),
+        to(#ffcc00));
+    background: linear-gradient(#E6B906,#ffcc00);
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: 0px solid #171717;
+    -moz-box-shadow:
+        0px 1px 3px rgba(148,068,148,0.5),
+        inset 0px 0px 0px rgba(129,123,209,0);
+    -webkit-box-shadow:
+        0px 1px 3px rgba(148,068,148,0.5),
+        inset 0px 0px 0px rgba(129,123,209,0);
+    box-shadow:
+        0px 1px 3px rgba(148,068,148,0.5),
+        inset 0px 0px 0px rgba(129,123,209,0);
+    text-shadow:
+        0px -1px 0px rgba(148,086,148,0.4),
+        0px 1px 0px rgba(255,255,255,0.3);
+    cursor:pointer;
+}
+
+.btn:hover {
+    border-color: #34bff3 rgba(0,0,0,0.1) #0568a6;
+    background: #E6B906;
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffcc00), color-stop(100%, #E6B906));
+    background: -webkit-linear-gradient(#ffcc00,#E6B906);
+    background: -moz-linear-gradient(#ffcc00,#E6B906);
+    background: -o-linear-gradient(#ffcc00,#E6B906);
+    -pie-background: linear-gradient(#ffcc00,#E6B906);
+    background: linear-gradient(#ffcc00,#E6B906);
+
 }
 
 #login-form{
     height: auto;
+}
+
+.registerDiv{
+    font-family: Open Sans, Arial;
+    font-weight: 100;
+    margin-top:40px;
+    margin-bottom:70px;
+    text-align: right;
+}
+
+.registerDiv strong{
+    color:#555;
+    font-size:18px;
+    line-height: 30px;
+    display: block;
+    font-weight: 100;
+}
+.registerDiv a{
+    font-size:22px;
+}
+
+.registerDiv{
+    font-size:20px;
+    color:#bbb;
+    display: block;
+}
+
+.articles{
+    margin:0 auto;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+article{
+    display:inline-block;
+    width:220px;
+    font-family: Open Sans, Arial;
+    font-weight: 100;
+    text-align: center;
+    margin-right:40px;
+}
+
+.articles  img{
+    width:45px;
+    height:45px;
+    float:center;
+}
+
+.articles  h1{
+    font-size:27px;
+    font-family: Open Sans, Arial;
+    font-weight: 100;
+    margin-bottom: -5px;
+}
+
+.articles  p{
+    font-size:15px;
+}
+
+.last{
+    margin-right: 0px!important;
 }

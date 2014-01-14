@@ -1,10 +1,10 @@
-@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:100,400,700);
 
 body{  
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	font: normal 14px PT Sans,Arial;
+	font: normal 14px Open Sans,Arial;
 	line-height:22px;
 	color:#5d5d5d;
 	background-color:#fcfcfc;
@@ -38,29 +38,25 @@ a:focus {
 	line-height:35px;
 }*/
 
-.phone {height:300px; bottom:0px; position:relative; display:block; margin:-20px auto;}
+.phone {height:460px; float:right; bottom:0px; position:relative; display:block;}
+.icon {height:100px; width:100; float:left; position:relative; display:block;border-radius: 10px; margin-left:60px;margin-top: 20px}
 
 .slogan-header {
     width: 100%;
-    height: 350px;
+    height: 500px;
     float: left;
     clear: both;
-    margin: 0;
+    margin-bottom: 50px;
     padding: 0;
     position: relative;
     /*z-index: 1;*/
-    background: #1e5799;
-    background: -moz-linear-gradient(top, #1e5799 0%, #7db9e8 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(100%,#7db9e8));
-    background: -webkit-linear-gradient(top, #1e5799 0%,#7db9e8 100%);
-    background: -o-linear-gradient(top, #1e5799 0%,#7db9e8 100%);
-    background: -ms-linear-gradient(top, #1e5799 0%,#7db9e8 100%);
-    background: linear-gradient(to bottom, #1e5799 0%,#7db9e8 100%);
+    background: #0079ca url('../img/back.jpg') no-repeat center;
+    background-size: 100% ;
 }
 
 .slogan-header h1 {
     font-size: 2.5em;
-    margin: 30px 0px 10px 0px;
+    margin: 110px 0px 10px 0px;
     width: 100%;
     float: left;
     clear: both;
@@ -68,7 +64,8 @@ a:focus {
     color: #fff;
     text-shadow: 0 1px 1px rgba(0,0,0,.2);
     font-weight: 100;
-    line-height: 1.23em;
+    line-height: 1.45em;
+    padding-bottom: 60px;
 }
 
 .slogan-header p {
@@ -81,7 +78,7 @@ a:focus {
 
 .slogan {
     float:left;
-    padding: 40px 0px 0px 50px;
+    padding: 40px 0px 0px 0px;
 }
 
 /*  CABECERA  */
@@ -104,7 +101,6 @@ a:focus {
 }
 
 .text-index{
-	margin-left: 150px;
 	width: 50%;
 }
 
@@ -124,13 +120,13 @@ a:focus {
 }
 
 .logo img {
-	width:150px;
+	width:170px;
 	border:0px;
 }
 
 .bg {
 	margin:auto;
-	width:900px;
+	width:1000px;
 	/*z-index: 2;*/
 }
 
@@ -139,7 +135,7 @@ a:focus {
 
 .wrap {
 	margin:40px auto;
-	width:900px;
+	width:1000px;
 	z-index: 2;
 	min-height:200px;
 }
@@ -163,7 +159,7 @@ a:focus {
 }
 
 .cabecera{
-	font-family:Pt Sans;
+	font-family:Open Sans;
 	margin-top:20px!important;
 	margin-bottom:-40px!important;
 	height:55px;
@@ -172,7 +168,7 @@ a:focus {
 
 /*.cabecera h3{
 	font-size:14px;
-	width:900px;
+	width:1000px;
 	margin:auto;
 	padding-top:5px;
 	padding-bottom:5px;
@@ -180,35 +176,33 @@ a:focus {
 }
 */
 .titulo{
-	margin-top:20px;
+  margin-top:40px;
+	margin-bottom:40px;
 	/*padding-bottom:20px;*/
-	border-bottom:2px solid #eee;
 }
 
 .titulo h1{
-	font-family:Pt Sans;
-	font-size:33px;
-	line-height:33px;
+	font-family:Open Sans;
+	font-size:38px;
+	line-height:37px;
 	text-align:center;
-	padding-top:-10px;
-	text-transform:uppercase;
+  font-weight: 100;
 	color:#555;
 }
 
 .titulo h3{
-	width:600px;
+	width:85%;
 	margin: auto;
-	font-family:Pt Sans;
-	font-size:14px;
-	font-weight:normal;
+	font-family:Open Sans;
+	font-size:26px;
+	font-weight:100;
 	line-height:22px;
 	text-align:center;
-	margin-bottom:-10px;
-	color:#888;
+	color:#ffcc00;
 }
 
 .titulo h2{
-	font-family:Pt Sans;
+	font-family:Open Sans;
 	font-size:23px;
 	line-height:23px;
 	text-align:center;
@@ -223,9 +217,9 @@ a:focus {
 
 /*  FOOTER  */
 .footer{	
-	font-family: PT Sans; 
+	font-family: Open Sans; 
 	position: relative;
-	margin-top: 50px;
+	margin-top: 70px;
 	height:70px;
 	clear:both;
 	width:100%;
@@ -440,7 +434,7 @@ background-color: rgba(255, 255, 255, 0.8);
 }
 
 .btn {
-	font-family: Pt Sans, Arial, Helvetica, sans-serif;
+	font-family: Open Sans, Arial, Helvetica, sans-serif;
 	font-size: 13px;
 	color: #ffffff;
 	margin-top:15px;
@@ -497,11 +491,12 @@ background-color: rgba(255, 255, 255, 0.8);
 }
 
 /*Validación errores*/
-.registerError:empty;{
+.registerError:emOpeny;{
     display: none;
 }
 
 .registerError{
+  clear:both;
 	margin: 0 auto;
     color: #a02b27;
 }
@@ -514,4 +509,56 @@ background-color: rgba(255, 255, 255, 0.8);
 
 .hidefieldError{
 	display: none;
+}
+
+
+.cuadro{
+  clear:both;
+  position: relative;
+  background: url('../img/separador.png') bottom no-repeat;
+  min-height:386px;
+  margin-bottom: 100px;
+}
+
+
+.imagenI {
+  width:50%;
+  float:left;
+  padding-left:20px;
+  padding-top:30px;
+}
+
+.imagenI img{
+  float:right;
+}
+
+.textoD{
+  float:right;
+  width:45%;
+  padding-top:30px;
+
+  
+}
+
+.textoD ul{
+  padding-left:30px;
+  line-height:32px;
+}
+
+.textoD h3{
+  color:#444;
+  font-size:26px;
+  font-weight:100;
+  margin-top:10px;
+  margin-left:-30px!important;
+}
+
+.left75{
+  width: 55%;
+  float:left;
+}
+
+.right25{
+  width: 44%;
+  float:right;
 }

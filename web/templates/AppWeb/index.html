@@ -45,11 +45,6 @@
                 <div class="logo h-left"> 
                     <a href="/"><img src="{{STATIC_URL}}img/logo.png" alt="Logo" /></a>
                 </div>
-                <button type="submit" class="h-right action act-submit forgotpassword">
-                    <span>
-                        <b>¿Contraseña?</b>
-                    </span>
-                </button>
                 <div class="login h-right">
                     <form id="login-form" action="" method="POST">
                         {% csrf_token %}
@@ -58,9 +53,9 @@
                                 <li class="placeholder">
                                     <span class="textfield">
                                         {% if status == 401 or status == 400 %}
-                                            <input type="email" id="email" name="email" required="required" value = {{email}} placeholder="email" tabindex="1">
+                                            <input type="email" id="email" name="email" required="required" value = {{email}} placeholder="Email" tabindex="1">
                                         {% else %}
-                                            <input type="email" id="email" name="email" required="required" value placeholder="email" tabindex="1">
+                                            <input type="email" id="email" name="email" required="required" value placeholder="Email" tabindex="1">
                                         {% endif %}
                                     </span>                                    
                                     <input class="tipo" type="radio" name="tipo" length=2 value="C" 
@@ -79,9 +74,9 @@
                                 <li class="placeholder">
                                     <span class="textfield">
                                         {% if status == 401 or status == 400 %}
-                                            <input type="password" id="password" name="password" required="required" placeholder ="contraseña" value = {{password}} tabindex="2">
+                                            <input type="password" id="password" name="password" required="required" placeholder ="Contraseña" value = {{password}} tabindex="2">
                                         {% else %}
-                                            <input type="password" id="password" name="password" required="required" placeholder ="contraseña" value tabindex="2">
+                                            <input type="password" id="password" name="password" required="required" placeholder ="Contraseña" value tabindex="2">
                                         {% endif %}
                                     </span>
                                     <p class="forgotpass h-stext h-center">
@@ -89,12 +84,7 @@
                                     </p>
                                 </li>
                                 <li class="cf">
-                                    <button id="submit_button" tabindex=5 type="submit" class="h-right action act-submit">
-                                        <span>
-                                            <b>Entrar</b>
-                                            <span></span>
-                                        </span>
-                                    </button>
+                                    <button id="submit_button" tabindex=5 type="submit" class="btn">»</button>
                                 </li>
                             </ul>
                             <p class="h-left error ff-txt-error">{{error}}</p>                       
@@ -106,45 +96,81 @@
         <div class="slogan-header">
             <div class="bg ">
                 <div class="slogan">
-                    <div class="h-left">
+                    <div class="h-right">
                         <img src="{{STATIC_URL}}img/inicio.png" class="phone" alt="Teléfono" />
                     </div>
                     <div class="text-index h-left">
-                        <h1>Localiza tu taxi en pocos minutos</h1>
-                        <p>Selecciona el taxi mas cercano o el que mas te guste...</p>
-                        <a href="register.html" class="btnregister">Registro</a>
+                        <h1>Pide tu taxi más cercano<br/>de forma eficiente y rápida</h1>
+                        <br/>
+                        <a href="https://itunes.apple.com/es/app/selfiecam!/id761439919?mt=8"><img src="{{STATIC_URL}}img/ios.png" alt="" /></a>
+                        <a href="https://play.google.com/store?hl=es"><img src="{{STATIC_URL}}img/play.png" alt="" /></a>
                     </div>
                 </div>
             </div>
         </div>  
-
-        <div class="clear_10"></div>        
-        <div class="bg">                
-            <div class="contenido">              
-                <div class="client-driver">
-                    <a href="client.html"><img class="img_center" src="{{STATIC_URL}}img/tomar_taxi.jpg" alt="cliente"></a>
-                </div>
-
-                <div class="client-driver">
-                    <a href="driver.html"><img class="img_center" src="{{STATIC_URL}}img/taxi.jpg" alt="taxista"></a>
-                </div>
+<br/>
+        <div class="bg">
+            <div class="text-index left75 registerDiv">
+                <strong>Si todavía no tienes cuenta, <a href="register.html">regístrate</a></strong>
+                <small>Version 1.0, Febrero 2014</small>
             </div>
-        </div> 
-        <div class="clear_10"></div>   
-        <div class="bg">    
-            <div class="contenido">
-                <div class="client-driver centered">
-                    Como <span class="boldtype">cliente</span> podrás buscar y seleccionar el taxista que mas se adecue a tus necesidades. 
-                    Ponte en contacto directamente con el taxista!
-                </div> 
-
-                <div class="client-driver centered">
-                    Como <span class="boldtype">taxista</span> Acepta y Rechaza los servicios más facilmente. Ponte en contacto directamente 
-                    con el cliente!
-                </div> 
+            <div class="right25">
+                <img src="{{STATIC_URL}}img/icon.png" class="icon" alt="Teléfono" />
             </div>
         </div>
-        <div class="clear_10"></div> 
+        <div class="bg cuadro">
+            <div class="imagenI">
+                <img src="{{STATIC_URL}}img/doubleScreen.png" alt="" />  
+            </div>  
+            <div class="textoD">
+                <ul>
+                    <h3>TaxiExpress nos permite ...</h3>
+                    - Solicitar el taxi más cercano<br/>
+                    - Buscar un taxi determinado<br/>
+                    - Almacenar y buscar taxistas favoritos<br/>
+                    - Ver detalle de los trayectos realizados<br/>
+                    - Pagar a través de la propia app<br/>
+                    - Valorar el servicio del taxista<br/>
+                </ul>
+                <a href="client.html">Ver más características >></a><br/>
+                <a href="driver.html">Si eres taxista >></a>
+            </div>          
+        </div>
+        <div class="bg">
+            <div class="titulo">
+                <h1>No es una simple aplicación</h1>
+                <h3>Atractiva, sofisticada y cargada de funcionalidades</h3>
+            </div>      
+            <div class="articles">
+                <article>
+                    <img src="{{STATIC_URL}}img/icon/design.png" alt="" />
+                    <h1>Diseño intuitivo</h1>
+                    <p>Su interfaz sencilla, intuitiva y atractiva, te ayuda a encontrar el taxi que mejor se adapte a tus necesidades.</p>
+                </article>
+                <article>
+                    <img src="{{STATIC_URL}}img/icon/marker.png" alt="" />
+                    <h1>Geolocalización</h1>
+                    <p>Podrás filtrar las búsquedas de taxistas hacer según tus preferencias, obteniendo los resultados más adaptados.</p>
+                </article>
+                <article class="last">
+                    <img src="{{STATIC_URL}}img/icon/payment.png" alt="" />
+                    <h1>Pagos vía App</h1>
+                    <p>Si el taxista lo permite, los clientes que contraten sus servicios, podrán hacer el pago a través de la propia app.</p>
+                </article>
+            </div>
+            <div class="articles">
+                <article>
+                    <img src="{{STATIC_URL}}img/icon/computer.png" alt="" />
+                    <h1>Gestión Web</h1>
+                    <p>Podrás consultar y modificar datos de tu cuenta a través de la propia web, siendo éstos compartido con la app móvil.</p>
+                </article>
+                <article class="last">
+                    <img src="{{STATIC_URL}}img/icon/statistics.png" alt="" />
+                    <h1>Estadísticas</h1>
+                    <p>El taxista tendrá a su alcance una serie de gráficos y estadísticas que le permitirán mejorar su rendimiento.</p>
+                </article>
+            </div>
+        </div>
         <div class="bg">
             <div class="footer clear">
                 <div class="navigation">
