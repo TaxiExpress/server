@@ -78,7 +78,8 @@ def registerUser(request):
         #   return HttpResponse("shortpassword", content_type="text/plain")
         else:
             try:
-                c = Customer(email=request.POST['email'], password=passtemp, phone=request.POST['phone'])
+                tmpPhone = '+34' + request.POST['phone']
+                c = Customer(email=request.POST['email'], password=passtemp, phone=tmpPhone)
                 code = random.randint(1000, 9999)
                 c.validationCode = code
                 c.save()
@@ -116,7 +117,8 @@ def registerDriver(request):
                 car.save()
 
                 #Driver data
-                d = Driver(email=request.POST['email'], password=request.POST['password'], phone=request.POST['phone'],
+                tmpPhone = '+34' + request.POST['phone']
+                d = Driver(email=request.POST['email'], password=request.POST['password'], phone=tmpPhone,
                     first_name=request.POST['first_name'], last_name=request.POST['last_name'], license =request.POST['license'],
                     car = car)
 
