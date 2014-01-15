@@ -315,7 +315,7 @@ def index(request):
         if request.session['user_id'] is None:
             return render(request, 'AppWeb/index.html')       
         else:
-            if request.session['Customer'] = True:
+            if request.session['Customer'] == True:
                return redirect('mantclient_data') 
             else:
                 return redirect('mantdriver_data') 
