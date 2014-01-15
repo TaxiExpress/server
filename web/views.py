@@ -310,7 +310,14 @@ def index(request):
                 return redirect('mantdriver_data')
         return render(request, 'AppWeb/index.html', {'status': response.status_code, 'error': response.content, 
             'email':request.POST['email'], 'password':request.POST['password'], 'tipo':request.POST['tipo']}) 
-    return render(request, 'AppWeb/index.html')          
+    else:
+        if request.session['user_id'] is None:
+            return render(request, 'AppWeb/index.html')       
+        else:
+            if request.session['Customer'] = True:
+               return redirect('mantclient_data') 
+            else:
+                return redirect('mantdriver_data') 
 
 @csrf_exempt
 def register(request):
