@@ -313,12 +313,12 @@ def index(request):
     else:
         print "Peticion GET"
         if request.session.get('user_id', False):
-            return render(request, 'AppWeb/index.html')       
-        else:
             if request.session['Customer'] == True:
                return redirect('mantclient_data') 
             else:
-                return redirect('mantdriver_data') 
+                return redirect('mantdriver_data')  
+        else:
+            return render(request, 'AppWeb/index.html')   
 
 @csrf_exempt
 def register(request):
