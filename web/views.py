@@ -148,7 +148,7 @@ def registerDriver(request):
 @csrf_exempt
 @api_view(['POST'])
 def updateProfileUserWeb(request):
-    if request.session.get('user_id', False):   
+    if 'user_id' in request.session: 
         try:
             customer = Customer.objects.get(id=request.session['user_id'])
         except ObjectDoesNotExist:
@@ -169,7 +169,7 @@ def updateProfileUserWeb(request):
 @csrf_exempt
 @api_view(['POST'])
 def updateProfileDriverWeb(request):
-    if request.session.get('user_id', False):
+    if 'user_id' in request.session:
         try:
             driver = Driver.objects.get(id=request.session['user_id'])
         except ObjectDoesNotExist:
@@ -194,7 +194,7 @@ def updateProfileDriverWeb(request):
 @csrf_exempt
 @api_view(['POST'])
 def updateCarWeb(request):
-    if request.session.get('user_id', False):
+    if 'user_id' in request.session:
         try:
             driver = Driver.objects.get(id=request.session['user_id'])
             car = driver.car
@@ -248,7 +248,7 @@ def getCities(request):
 
 @csrf_exempt
 def logout(request):
-    if request.session['email'] is not None:
+    if 'user_id' in request.session:
         del request.session['email']
         del request.session['user_id']
         del request.session['Customer']
@@ -314,7 +314,7 @@ def index(request):
         return render(request, 'AppWeb/index.html', {'status': response.status_code, 'error': response.content, 
             'email':request.POST['email'], 'password':request.POST['password'], 'tipo':request.POST['tipo']}) 
     else:
-        if request.session.get('user_id', False):
+        if 'user_id' in request.session:
             if request.session['Customer'] == True:
                return redirect('mantclient_data') 
             else:
