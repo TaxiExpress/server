@@ -244,7 +244,6 @@ def getCities(request):
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado esta ciudad")
 
 @csrf_exempt
-@api_view(['GET'])
 def logout(request):
     if request.session['email'] is not None:
         del request.session['email']
