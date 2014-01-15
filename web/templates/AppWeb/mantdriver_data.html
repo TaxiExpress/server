@@ -52,7 +52,7 @@
                             {% if driver.phone == None %}
                                 >
                             {% else %}
-                                value="{{driver.phone}}">
+                                value="{{driver.phone|cut:"+34"}}">
                             {% endif %}
                             <input type="number" name="license" placeholder="Número de licencia" required = "required"
                             {% if driver.license == None %}

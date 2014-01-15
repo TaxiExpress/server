@@ -54,7 +54,7 @@
                             {% if client.phone == None %}
                                 >
                             {% else %}
-                                value="{{client.phone}}">
+                                value="{{client.phone|cut:"+34"}}">
                             {% endif %}
                            
                         </div>
