@@ -148,68 +148,71 @@ def registerDriver(request):
 @csrf_exempt
 @api_view(['POST'])
 def updateProfileUserWeb(request):
-    if request.session['user_id'] is None:
+    if request.session.get('user_id', False):   
+        try:
+            customer = Customer.objects.get(id=request.session['user_id'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este cliente")
+        customer.first_name = request.POST['first_name']
+        customer.last_name = request.POST['last_name']
+        customer.image = request.POST['image']
+        customer.postcode = request.POST['postcode']
+        #Comentado hasta saber como actualizar
+        #customer.city = int(request.POST['city'])
+        customer.lastUpdate = datetime.now()
+        customer.save()
+        return HttpResponse(status=status.HTTP_200_OK,content="Perfil del cliente modificado correctamente")
+    else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe estar conectado para realizar esta operación")
-    try:
-        customer = Customer.objects.get(id=request.session['user_id'])
-    except ObjectDoesNotExist:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este cliente")
-    customer.first_name = request.POST['first_name']
-    customer.last_name = request.POST['last_name']
-    customer.image = request.POST['image']
-    customer.postcode = request.POST['postcode']
-    #Comentado hasta saber como actualizar
-    #customer.city = int(request.POST['city'])
-    customer.lastUpdate = datetime.now()
-    customer.save()
-    return HttpResponse(status=status.HTTP_200_OK,content="Perfil del cliente modificado correctamente")
 
 
 @csrf_exempt
 @api_view(['POST'])
 def updateProfileDriverWeb(request):
-    if request.session['user_id'] is None:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un id taxista")
-    try:
-        driver = Driver.objects.get(id=request.session['user_id'])
-    except ObjectDoesNotExist:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este taxista")
-    driver.first_name = request.POST['first_name']
-    driver.last_name = request.POST['last_name']
-    driver.image = request.POST['image']
-    driver.address = request.POST['address']
-    driver.postcode = request.POST['postcode']
-    #Comentado hasta saber como actualizar
-    #driver.city = int(request.POST['city'])
-    driver.license = request.POST['license']
-    #Habría que comprobar si appPayment == True antes de asignar estos campos. Se va a permitir actualizar appPayment en esta misma vista?
-    #driver.bankAccount = request.POST['bankAccount']
-    #driver.recipientName = request.POST['recipientName']
-    driver.lastUpdate = datetime.now()
-    driver.save()
-    return HttpResponse(status=status.HTTP_200_OK,content="Perfil del taxista modificado correctamente")
+    if request.session.get('user_id', False):
+        try:
+            driver = Driver.objects.get(id=request.session['user_id'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este taxista")
+        driver.first_name = request.POST['first_name']
+        driver.last_name = request.POST['last_name']
+        driver.image = request.POST['image']
+        driver.address = request.POST['address']
+        driver.postcode = request.POST['postcode']
+        #Comentado hasta saber como actualizar
+        #driver.city = int(request.POST['city'])
+        driver.license = request.POST['license']
+        #Habría que comprobar si appPayment == True antes de asignar estos campos. Se va a permitir actualizar appPayment en esta misma vista?
+        #driver.bankAccount = request.POST['bankAccount']
+        #driver.recipientName = request.POST['recipientName']
+        driver.lastUpdate = datetime.now()
+        driver.save()
+        return HttpResponse(status=status.HTTP_200_OK,content="Perfil del taxista modificado correctamente")
+    else:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe estar conectado para realizar esa operación")
 
 @csrf_exempt
 @api_view(['POST'])
 def updateCarWeb(request):
-    if request.session['user_id'] is None:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una matricula")
-    try:
-        driver = Driver.objects.get(id=request.session['user_id'])
-        car = driver.car
-    except ObjectDoesNotExist:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Vehiculo no encontrado")
-    car.plate = request.POST['plate']
-    car.model = request.POST['model']
-    car.company = request.POST['company']
-    car.color = request.POST['color']
-    car.capacity = request.POST['capacity']
-    car.accessible = request.POST['accessible']
-    car.animals = request.POST['animals']
-    car.appPayment = request.POST['appPayment']
-    car.driver.lastUpdate = datetime.now()
-    car.save()
-    return HttpResponse(status=status.HTTP_200_OK,content="Coche modificado correctamente")
+    if request.session.get('user_id', False):
+        try:
+            driver = Driver.objects.get(id=request.session['user_id'])
+            car = driver.car
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Vehiculo no encontrado")
+        car.plate = request.POST['plate']
+        car.model = request.POST['model']
+        car.company = request.POST['company']
+        car.color = request.POST['color']
+        car.capacity = request.POST['capacity']
+        car.accessible = request.POST['accessible']
+        car.animals = request.POST['animals']
+        car.appPayment = request.POST['appPayment']
+        car.driver.lastUpdate = datetime.now()
+        car.save()
+        return HttpResponse(status=status.HTTP_200_OK,content="Coche modificado correctamente")
+    else:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe estar conectado para realizar esa operación")
 
 
 @csrf_exempt
@@ -311,7 +314,6 @@ def index(request):
         return render(request, 'AppWeb/index.html', {'status': response.status_code, 'error': response.content, 
             'email':request.POST['email'], 'password':request.POST['password'], 'tipo':request.POST['tipo']}) 
     else:
-        print "Peticion GET"
         if request.session.get('user_id', False):
             if request.session['Customer'] == True:
                return redirect('mantclient_data') 
