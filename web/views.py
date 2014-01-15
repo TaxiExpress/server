@@ -312,7 +312,7 @@ def index(request):
             'email':request.POST['email'], 'password':request.POST['password'], 'tipo':request.POST['tipo']}) 
     else:
         print "Peticion GET"
-        if request.session['user_id'] is None:
+        if request.session.get('user_id', False):
             return render(request, 'AppWeb/index.html')       
         else:
             if request.session['Customer'] == True:
