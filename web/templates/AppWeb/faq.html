@@ -1,36 +1,11 @@
-<!DOCTYPE html>
-<script>
-    document.createElement('nav');
-    /* left part is not needed for your situation but an example for you */
-    document.createElement('header');
-    document.createElement('section');
-    document.createElement('article');
-    document.createElement('aside');
-    document.createElement('footer');
-    document.createElement('hgroup');
-</script>
-<html lang="es">
-<head> 
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta charset="utf-8">
-        <title>TaxiExpress</title>
-        <meta name="description" content="TaxiExpress Website">
-        <meta name="author" content="Made by DESSI02">
-        <meta http-equiv="X-UA-Compatible" content="IE=9">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
-        <link href="{{STATIC_URL}}css/accordion.css" rel="stylesheet" type="text/css">
-		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-		<script defer type="text/javascript" src="{{STATIC_URL}}js/accordion.js"></script>
-    </head>
-    <body>		
-        <div class="header">
-            <div class="bg">
-                <div class="logo"> 
-                    <a href="/"><img src="{{STATIC_URL}}img/logo.png" alt="Logo" /></a>
-                </div>
-            </div>
-        </div>   	
+{% extends "AppWeb/base.html" %}
+
+{% block head %}
+<link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
+<link href="{{STATIC_URL}}css/accordion.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}  
 		<div class="bg titulo">
 			<h1>Preguntas Frecuentes</h1>
 		</div>			
@@ -65,20 +40,9 @@
 	        	</div> 
 			</div>
 		</div>
-		<div class="bg">
-            <div class="footer clear">
-                <div class="navigation">
-                    <ul>
-                        <li><a href="faq.html">F.A.Q.</a></li>
-                        <li><a href="map.html">Mapa Web</a></li>
-                        <li><a href="termsofuse.html">Términos de uso</a></li>
-                        <li class="laster"><a href="legalnotice.html">Aviso Legal</a></li>
-                    </ul>
-                </div>
-                <div class="author">Copyright © 2014, DESSI - Deusto</div>
-            </div> 
-		</div>	
+{% endblock %}
 
-    </body>
-
-</html>
+{% block scripts %}
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script defer type="text/javascript" src="{{STATIC_URL}}js/accordion.js"></script>
+{% endblock %}

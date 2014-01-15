@@ -40,7 +40,7 @@
                 </article>
                 <article id="driver">
                   <div class="registerDriverForm">
-                <form name="createaccountDriver" id="createaccountDriver" action="" method="POST" onsubmit="return validateDriver();">            
+                <form name="createaccountDriver" id="createaccountDriver" action="" method="POST" onsubmit="return validateDriver();" autocomplete="off">            
                   {% csrf_token %}
                   <input type="hidden" name="tipo" value="D">
                   <input type="email" name="email" maxlength="80" placeholder="Email" required = "required">
