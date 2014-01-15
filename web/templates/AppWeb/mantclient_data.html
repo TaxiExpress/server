@@ -95,14 +95,14 @@
                                 value="{{client.last_name}}">
                             {% endif %}
 
-                            <input type="email" name="email" maxlength="80" placeholder="Email" required = "required"
+                            <input type="email" name="email" maxlength="80" placeholder="Email" required = "required" disabled
                             {% if client.email == None %}
                                 >
                             {% else %}
                                 value="{{client.email}}">
                             {% endif %}
 
-                            <input type="tel" name="phone" maxlength="80" placeholder="Teléfono" required = "required"
+                            <input type="tel" name="phone" maxlength="80" placeholder="Teléfono" required = "required" disabled
                             {% if client.phone == None %}
                                 >
                             {% else %}
