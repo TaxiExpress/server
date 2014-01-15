@@ -2,6 +2,7 @@
 
 # Create your views here.
 from django import forms
+from nexmo import NexmoMessage
 from django.core.mail import EmailMessage
 #from django.forms import CharField,Form,PasswordInput
 from django.shortcuts import render_to_response, redirect, render, get_object_or_404
