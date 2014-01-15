@@ -311,6 +311,7 @@ def index(request):
         return render(request, 'AppWeb/index.html', {'status': response.status_code, 'error': response.content, 
             'email':request.POST['email'], 'password':request.POST['password'], 'tipo':request.POST['tipo']}) 
     else:
+        print "Peticion GET"
         if request.session['user_id'] is None:
             return render(request, 'AppWeb/index.html')       
         else:
