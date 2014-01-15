@@ -83,7 +83,7 @@
 
     <div class="overlay-container"> 
             <div class="window-container zoomin">
-                <form id="validation-form" action="validateCode" method="POST">
+                <form id="validation-form" action="validateCode" method="POST" onsubmit="return ConcatPrefixPhone();">
                     {% csrf_token %}
                     <h3>Validación de la cuenta</h3>
                     <span class="popupText">Introduce Teléfono y código recibido en el móvil<br/>

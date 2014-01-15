@@ -96,3 +96,7 @@ function validateDriver() {
     }
     return result;
 }
+
+function ConcatPrefixPhone(){
+        $('#phone').val("+34" + $('#phone').val());
+}
