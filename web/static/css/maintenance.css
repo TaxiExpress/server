@@ -1,5 +1,5 @@
 .span2{
-	width:130px;
+	width:230px;
 	margin-left: 10px
 }
 
@@ -42,7 +42,7 @@
 }
 
 .tabs .nav > li > a.active,.tabs .nav > li > a.active:hover{
-	background:#f1f9fc;
+	background:#f8f8f8;
 }
 
 .tabs > ul > li{

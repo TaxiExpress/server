@@ -21,23 +21,6 @@
         <link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
         <link href="{{STATIC_URL}}css/login.css" rel="stylesheet" type="text/css">
         <link href="{{STATIC_URL}}css/validationwindow.css" rel="stylesheet" type="text/css">
-        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-        <script type="text/javascript" src="{{STATIC_URL}}js/validationcode.js"></script>
-        <script defer type="text/javascript" src="{{STATIC_URL}}js/rememberpassword.js"></script>
-
-        <script>
-            function showValidationCodeWindow()
-            {
-                {% if status == 400 or statusValidation == 401 %}
-                    $('.overlay-container').fadeIn(function() {
-                        window.setTimeout(function(){
-                            $('.window-container.zoomin').addClass('window-container-visible');
-                        }, 100);
-                    });
-                {% endif %}
-            }
-           window.onload=showValidationCodeWindow;
-        </script>
     </head>
     <body>      
         <div class="header-index">
@@ -221,4 +204,20 @@
             </div>
         </div>    -->
     </body>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/validationcode.js"></script>
+    <script defer type="text/javascript" src="{{STATIC_URL}}js/rememberpassword.js"></script>
+    <script>
+        function showValidationCodeWindow()
+        {
+            {% if status == 400 or statusValidation == 401 %}
+                $('.overlay-container').fadeIn(function() {
+                    window.setTimeout(function(){
+                        $('.window-container.zoomin').addClass('window-container-visible');
+                    }, 100);
+                });
+            {% endif %}
+        }
+       window.onload=showValidationCodeWindow;
+    </script>
 </html>
