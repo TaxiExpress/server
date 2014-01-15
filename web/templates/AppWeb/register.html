@@ -1,144 +1,87 @@
-<!DOCTYPE html>
-<script>
-    document.createElement('nav');
-    /* left part is not needed for your situation but an example for you */
-    document.createElement('header');
-    document.createElement('section');
-    document.createElement('article');
-    document.createElement('aside');
-    document.createElement('footer');
-    document.createElement('hgroup');
-</script>
-<html lang="es">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta charset="utf-8">
-		<title>TaxiExpress</title>
-		<meta name="description" content="TaxiExpress Website">
-		<meta name="author" content="Made by DESSI02">
-   		<meta http-equiv="X-UA-Compatible" content="IE=9">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
-		<link href="{{STATIC_URL}}css/login.css" rel="stylesheet" type="text/css">
-        <link href="{{STATIC_URL}}css/validationwindow.css" rel="stylesheet" type="text/css">
-		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-		<script src="http://malsup.github.com/jquery.form.js"></script>
-        <script defer type="text/javascript" src="{{STATIC_URL}}js/tabs.js"></script>
-        <script defer type="text/javascript" src="{{STATIC_URL}}js/validationFields.js"></script>
-        <script defer type="text/javascript" src="{{STATIC_URL}}js/clearFields.js"></script>
-    	<script defer type="text/javascript" src="{{STATIC_URL}}js/validationcode.js"></script>
-        <script>
-            function showValidationCodeWindow()
-            {
-                {% if status == 201 %}
-                    $('.overlay-container').fadeIn(function() {
-                        window.setTimeout(function(){
-                            $('.window-container.zoomin').addClass('window-container-visible');
-                        }, 100);
-                    });
-                {% endif %}
-            }
-           window.onload=showValidationCodeWindow;
-        </script>
-		<!--[if lt IE 9]>
-			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-	</head>
-	<body>
-        <div class="header">
-            <div class="bg">
-                <div class="logo"> 
-                    <a href="/"><img src="{{STATIC_URL}}img/logo.png" alt="Logo" /></a>
-                </div>
-            </div>
-        </div> 	
-<!-- 		<div class="bg titulo">
-			<h1>Registrate y empieza a viajar!</h1>
-		</div> -->			
-		<div class="bg">				
-			<div class="contenido">
-				<section class="wrapper">
-					{{codigo}}
-				    <ul class="tabs">
-				      <li><a href="#client">Cliente</a></li>
-				      <li><a href="#driver">Taxista</a></li>
-				    </ul>
-				    <div class="clr"></div>
-				    <section class="block">
-				    	<article id="client">
-				        	<div class="registerClientForm">
-								<form name="createaccountClient" id="createaccountClient" action="" method="POST" onsubmit="return validateClient();">		
-									{% csrf_token %}	
-									<input type="hidden" name="tipo" value="C">		
-									<input type="email" name="email" maxlength="80" placeholder="Email" required = "required">
-									<input type="tel" name="phone" maxlength="80" placeholder="Teléfono" required = "required">
-									<input type="password" name="password" maxlength="80" placeholder="Contraseña" required = "required"><span class="passwordError hidefieldError">*</span>
-									<input type="password" name="passwordCon" maxlength="80" placeholder="Confirmar contraseña" required = "required"><span class="passwordError hidefieldError">*</span>
-									<br><span>Al hacer clic en registrar, aceptas los <a href="termsofuse">términos del uso</a>.</span>	
-									<p class="registerError">{{error}}</p> 		
-									<button class="btn" type="submit">Registrar</button>
-								</form>
-				        	</div>
-<!-- 				        <div class="imagenD2">
-								<img src="images/registro.png" alt="" />
-							</div>	 -->
-				      	</article>
-				      	<article id="driver">
-				        	<div class="registerDriverForm">
-								<form name="createaccountDriver" id="createaccountDriver" action="" method="POST" onsubmit="return validateDriver();">						
-									{% csrf_token %}
-									<input type="hidden" name="tipo" value="D">
-									<input type="email" name="email" maxlength="80" placeholder="Email" required = "required">
-									<input type="tel" name="phone" maxlength="80" placeholder="Teléfono" required = "required">
-									<input type="text" name="first_name" maxlength="80" placeholder="Nombre" required = "required">
-									<input type="text" name="last_name" maxlength="80" placeholder="Apellido" required = "required">
-									<input type="password" name="password" maxlength="80" placeholder="Contraseña" required = "required"><span class="passwordError hidefieldError">*</span>
-									<input type="password" name="passwordCon" maxlength="80" placeholder="Confirmar contraseña" required = "required"><span class="passwordError hidefieldError">*</span>
-									<br><span>Datos del coche</span>
-									<input type="number" name="license" placeholder="Número de licencia" required = "required">
-									<input type="text" name="plate" maxlength="7" placeholder="Matrícula" required = "required">
-									<input type="text" name="model" maxlength="80" placeholder="Modelo" required = "required">
-									<input type="number" name="capacity" placeholder="Capacidad" required = "required">
-									<br>
-							        <p>
-							            <input type="checkbox" name="accessible" value="True">Taxi habilitado para minusválidos
-							        </p>
-							        <p>
-		                                <input type="checkbox" name="animals" value="True">Se admiten animales
-							        </p>
-							        <p>
-							        	<input type="checkbox" name="appPayment" value="True">Se admite pago a través de la aplicación
-							        </p>
-							        <span class="italic">Si admite pago a través de la aplicación deberá especificar <br>Cuenta Bancaria y Nombre del Titular</span>
-							        <input type="text" name="bankAccount" maxlength="20" placeholder="Número de cuenta"><span class="accountError hidefieldError">*</span>
-									<input type="text" name="recipientName" maxlength="80" placeholder="Titular"><span class="accountError hidefieldError">*</span>
-									<br><span>Al hacer clic en registrar, aceptas los <a href="termsofuse">términos del uso</a>.</span>	
-									<p class="registerError">{{error}}</p>			
-									<button class="btn" type="submit">Registrar</button>
-								</form>
-				        	</div>
-<!-- 				        <div class="imagenD2">
-								<img src="images/registro.png" alt="" />
-							</div>	 -->
-				      	</article>
-				    </section>
-				</section>
-			</div>
-		</div>
-		<div class="bg">
-            <div class="footer clear">
-                <div class="navigation">
-                    <ul>
-                        <li><a href="faq.html">F.A.Q.</a></li>
-                        <li><a href="map.html">Mapa Web</a></li>
-                        <li><a href="termsofuse.html">Términos de uso</a></li>
-                        <li class="laster"><a href="legalnotice.html">Aviso Legal</a></li>
-                    </ul>
-                </div>
-                <div class="author">Copyright © 2014, DESSI - Deusto</div>
-            </div> 
-		</div>		
-		<div class="overlay-container"> 
+{% extends "AppWeb/base.html" %}
+
+{% block head %}
+<link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
+<link href="{{STATIC_URL}}css/login.css" rel="stylesheet" type="text/css">
+<link href="{{STATIC_URL}}css/validationwindow.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+<!--<div class="bg titulo">
+      <h1>Registrate y empieza a viajar!</h1>
+    </div> -->      
+    <div class="bg">        
+      <div class="contenido">
+        <section class="wrapper">
+          {{codigo}}
+            <ul class="tabs">
+              <li><a href="#client">Cliente</a></li>
+              <li><a href="#driver">Taxista</a></li>
+            </ul>
+            <div class="clr"></div>
+            <section class="block">
+              <article id="client">
+                  <div class="registerClientForm">
+                <form name="createaccountClient" id="createaccountClient" action="" method="POST" onsubmit="return validateClient();" autocomplete="off">    
+                  {% csrf_token %}  
+                  <input type="hidden" name="tipo" value="C">   
+                  <input type="email" name="email" maxlength="80" placeholder="Email" required = "required">
+                  <input type="tel" name="phone" maxlength="80" placeholder="Teléfono" required = "required">
+                  <input type="password" name="password" maxlength="80" placeholder="Contraseña" required = "required"><span class="passwordError hidefieldError">*</span>
+                  <input type="password" name="passwordCon" maxlength="80" placeholder="Confirmar contraseña" required = "required"><span class="passwordError hidefieldError">*</span>
+                  <br><span>Al hacer clic en registrar, aceptas los <a href="termsofuse">términos del uso</a>.</span> 
+                  <p class="registerError">{{error}}</p>    
+                  <button class="btn" type="submit">Registrar</button>
+                </form>
+                  </div>
+<!--                <div class="imagenD2">
+                <img src="images/registro.png" alt="" />
+              </div>   -->
+                </article>
+                <article id="driver">
+                  <div class="registerDriverForm">
+                <form name="createaccountDriver" id="createaccountDriver" action="" method="POST" onsubmit="return validateDriver();">            
+                  {% csrf_token %}
+                  <input type="hidden" name="tipo" value="D">
+                  <input type="email" name="email" maxlength="80" placeholder="Email" required = "required">
+                  <input type="tel" name="phone" maxlength="80" placeholder="Teléfono" required = "required">
+                  <input type="text" name="first_name" maxlength="80" placeholder="Nombre" required = "required">
+                  <input type="text" name="last_name" maxlength="80" placeholder="Apellido" required = "required">
+                  <input type="password" name="password" maxlength="80" placeholder="Contraseña" required = "required"><span class="passwordError hidefieldError">*</span>
+                  <input type="password" name="passwordCon" maxlength="80" placeholder="Confirmar contraseña" required = "required"><span class="passwordError hidefieldError">*</span>
+                  <br><span>Datos del coche</span>
+                  <input type="number" name="license" placeholder="Número de licencia" required = "required">
+                  <input type="text" name="plate" maxlength="7" placeholder="Matrícula" required = "required">
+                  <input type="text" name="model" maxlength="80" placeholder="Modelo" required = "required">
+                  <input type="number" name="capacity" placeholder="Capacidad" required = "required">
+                  <br>
+                      <p>
+                          <input type="checkbox" name="accessible" value="True">Taxi habilitado para minusválidos
+                      </p>
+                      <p>
+                                    <input type="checkbox" name="animals" value="True">Se admiten animales
+                      </p>
+                      <p>
+                        <input type="checkbox" name="appPayment" value="True">Se admite pago a través de la aplicación
+                      </p>
+                      <span class="italic">Si admite pago a través de la aplicación deberá especificar <br>Cuenta Bancaria y Nombre del Titular</span>
+                      <input type="text" name="bankAccount" maxlength="20" placeholder="Número de cuenta"><span class="accountError hidefieldError">*</span>
+                  <input type="text" name="recipientName" maxlength="80" placeholder="Titular"><span class="accountError hidefieldError">*</span>
+                  <br><span>Al hacer clic en registrar, aceptas los <a href="termsofuse">términos del uso</a>.</span> 
+                  <p class="registerError">{{error}}</p>      
+                  <button class="btn" type="submit">Registrar</button>
+                </form>
+                  </div>
+<!--                <div class="imagenD2">
+                <img src="images/registro.png" alt="" />
+              </div>   -->
+                </article>
+            </section>
+        </section>
+      </div>
+    </div>
+
+    <div class="overlay-container"> 
             <div class="window-container zoomin">
                 <form id="validation-form" action="validateCode" method="POST">
                     {% csrf_token %}
@@ -161,5 +104,29 @@
                 </form>
             </div>
         </div>  
-	</body>
-</html>
+{% endblock %}
+
+{% block scripts %}
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<script defer type="text/javascript" src="{{STATIC_URL}}js/tabs.js"></script>
+<script defer type="text/javascript" src="{{STATIC_URL}}js/validationFields.js"></script>
+<script defer type="text/javascript" src="{{STATIC_URL}}js/clearFields.js"></script>
+<script defer type="text/javascript" src="{{STATIC_URL}}js/validationcode.js"></script>
+<script>
+  function showValidationCodeWindow()
+  {
+      {% if status == 201 %}
+          $('.overlay-container').fadeIn(function() {
+              window.setTimeout(function(){
+                  $('.window-container.zoomin').addClass('window-container-visible');
+              }, 100);
+          });
+      {% endif %}
+  }
+ window.onload=showValidationCodeWindow;
+</script>
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+{% endblock %}

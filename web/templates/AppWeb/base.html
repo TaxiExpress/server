@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head> 
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="description" content="TaxiExpress Website">
+        <meta name="author" content="TaxiExpress">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        {% block head %}{% endblock %}
+    </head>
+    <body>    
+        <div class="header">
+            <div class="bg">
+                <div class="logo"> 
+                    <a href="/"><img src="{{STATIC_URL}}img/logo.png" alt="Logo" /></a>
+                </div>
+            </div>
+        </div> 
+        {% block content %}{% endblock %}
+        <div class="bg">
+            <div class="footer clear">
+                <div class="navigation">
+                    <ul>
+                        <li><a href="faq.html">F.A.Q.</a></li>
+                        <li><a href="map.html">Mapa Web</a></li>
+                        <li><a href="termsofuse.html">Términos de uso</a></li>
+                        <li class="laster"><a href="legalnotice.html">Aviso Legal</a></li>
+                    </ul>
+                </div>
+                <div class="author">Copyright © 2014 TaxiExpress</div>
+            </div>
+        </div>  
+    </body>
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script defer type="text/javascript" src="{{STATIC_URL}}js/slider.js"></script>
+    <script>
+        document.createElement('nav');
+        document.createElement('header');
+        document.createElement('section');
+        document.createElement('article');
+        document.createElement('aside');
+        document.createElement('footer');
+        document.createElement('hgroup');
+    </script>
+    {% block scripts %}{% endblock %}
+</html>
