@@ -14,25 +14,15 @@
                     <a href="/"><img src="{{STATIC_URL}}img/logo.png" alt="Logo" /></a>
                 </div>
                 <div class="login h-right">
-                    <form id="close-form" action="logout" method="POST">
-                       <fieldset class="fms-block"> 
-                            <ul>
-                                <li class="placeholder">
-                                    <img onload="mostrarEnBase64()" id="fotoSession" src="{{client.image}}" alt="no hay foto"/>
-                                </li>
-
-                                <li class="placeholder closebuttom">
-                                    <input type="text" class="emailSession" name="email" value="{{client.email}}" disabled> 
-                                    <button id="submit_button" tabindex=5 type="submit" class="h-right action act-submit">    
-                                        <span>
-                                            <b>Cerrar Sesión</b>
-                                            <span></span>
-                                        </span>
-                                    </button>
-                                </li>
-                            </ul>                      
-                        </fieldset>
-                    </form>
+                   <fieldset class="fms-block"> 
+                        <div class="avatar">
+                            <img id="fotoSession" src="{{client.image}}" alt="no hay foto"/>
+                        </div>
+                        <div class="info">
+                            <span id="email">{{client.email}}</span> 
+                            <a href="logout">Cerrar sesión</a>
+                        </div>                      
+                    </fieldset>
                 </div>
             </div>        
         </div>
