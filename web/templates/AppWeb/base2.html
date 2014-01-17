@@ -16,7 +16,19 @@
                 <div class="login h-right">
                    <fieldset class="fms-block"> 
                         <div class="avatar">
-                            <img id="fotoSession" src="{{client.image}}" alt="no hay foto"/>
+                            {% if client.image != null %}
+                                {% if client.image == "" %}
+                                    <img id="fotoSession" src="{{STATIC_URL}}img/user.png" alt="no hay foto"/>
+                                {% else %}
+                                    <img id="fotoSession" src="{{client.image}}" alt="no hay foto"/>
+                                {% endif %}
+                            {% else %}
+                                {% if driver.image == "" %}
+                                    <img id="fotoSession" src="{{STATIC_URL}}img/user.png" alt="no hay foto"/>
+                                {% else %}
+                                    <img id="fotoSession" src="{{driver.image}}" alt="no hay foto"/>
+                                {% endif %}
+                            {% endif %}
                         </div>
                         <div class="info">
                             <span id="email">{{client.email}}</span> 
