@@ -31,7 +31,11 @@
                             {% endif %}
                         </div>
                         <div class="info">
-                            <span id="email">{{client.email}}</span> 
+                            {% if client.image != null %}
+                                <span id="email">{{client.email}}</span> 
+                            {% else %}
+                                <span id="email">{{driver.email}}</span> 
+                            {% endif %}
                             <a href="logout">Cerrar sesión</a>
                         </div>                      
                     </fieldset>
