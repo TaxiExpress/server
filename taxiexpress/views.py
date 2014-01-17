@@ -203,6 +203,39 @@ def updateProfile(request):
 
 @csrf_exempt
 @api_view(['POST'])
+def updateDriverPosition(request):
+    if request.POST['email'] is None:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="email inexistente")
+    try:
+        driver = Driver.objects.get(email=request.POST['email'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
+    if request.POST.get('latitud', "false") != "false":
+        pointclient = Point(float(request.POST['latitud']), float(request.POST['longitud']))
+        driver.geom = pointclient
+        driver.save()
+        return HttpResponse(status=status.HTTP_200_OK,content="Posicion del taxista actualizada")
+    else
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="punto inexistente")
+
+
+@csrf_exempt
+@api_view(['POST'])
+def updateDriverAvailable(request):
+    if request.POST['email'] is None:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="email inexistente")
+    try:
+        driver = Driver.objects.get(email=request.POST['email'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
+    newStatus = request.POST['available']
+    driver.available = newStatus
+    driver.save()
+    return HttpResponse(status=status.HTTP_200_OK,content="Disponibilidad del taxista actualizada")
+
+
+@csrf_exempt
+@api_view(['POST'])
 def updateFilters(request):
     try:
         customer = Customer.objects.get(email=request.POST['email'])
