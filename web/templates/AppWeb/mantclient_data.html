@@ -23,24 +23,27 @@
                     <form name="mantclient" id="mantclient" action="" method="POST">                      
                         {% csrf_token %}
                         <div class="pic">
-                            <img onload="mostrarEnBase64()" id="foto" src="{{client.image}}" alt="no hay foto"/>
-                            <input onchange="javascript:drawImageOnCanvas();" type="file" accept="image/gif, image/jpeg, image/png" id="archivo" class="photo"/>
-                            <input type="hidden" name="image" id="URLdelafoto" value="{{client.image}}">
-                        </div>
-                        <input type="hidden" name="id" value={{client.id}}>
-                        <div class="col1 maintenance">                        
-                            <input type="text" name="first_name" maxlength="80" placeholder="Nombre" required = "required" 
-                            {% if client.first_name == None %}
-                                >
+                            {% if client.image == "" %}
+                                <img id="foto" src="{{STATIC_URL}}img/user.png" alt="no hay foto"/>
+                                <input type="hidden" name="image" id="URLdelafoto" value="">
                             {% else %}
-                                value="{{client.first_name}}">
+                                <img id="foto" src="{{STATIC_URL}}img/user.png" alt="no hay foto"/>
+                                <input type="hidden" name="image" id="URLdelafoto" value="{{client.first_name}}">
+                            {% endif %}
+                            <input onchange="javascript:drawImageOnCanvas();" type="file" accept="image/gif, image/jpeg, image/png" id="archivo" class="photo"/>
+                        </div>
+                        <input type="hidden" name="id" value="{{client.id}}">
+                        <div class="col1 maintenance">                        
+                            {% if client.first_name == None %}
+                                <input type="text" name="first_name" maxlength="80" placeholder="Nombre" required = "required" >
+                            {% else %}
+                                <input type="text" name="first_name" maxlength="80" placeholder="Nombre" required = "required" value="{{client.first_name}}">
                             {% endif %}
 
-                            <input type="text" name="last_name" maxlength="80" placeholder="Apellido" required = "required" 
                             {% if client.last_name == None %}
-                                >
+                                <input type="text" name="last_name" maxlength="80" placeholder="Apellido" required = "required">
                             {% else %}
-                                value="{{client.last_name}}">
+                                 <input type="text" name="last_name" maxlength="80" placeholder="Apellido" required = "required" value="{{client.last_name}}">
                             {% endif %}
 
                             <input type="email" name="email" maxlength="80" placeholder="Email" required = "required" disabled
