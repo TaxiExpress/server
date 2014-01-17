@@ -19,6 +19,7 @@ from django.core.exceptions import ValidationError
 #import json
 import random
 import string
+import requests
 from datetime import datetime
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -156,6 +157,39 @@ def getClosestTaxi(request):
             return HttpResponse(status=status.HTTP_204_NO_CONTENT, content="No se han encontrado taxis")
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Error al obtener la posicion")
+
+@csrf_exempt
+@api_view(['GET'])
+def getClosestTaxiBeta(request):
+    if request.GET.get('latitud', "false") != "false":
+        pointclient = Point(float(request.GET['latitud']), float(request.GET['longitud']))
+        origin = request.GET['origin']
+        try:
+            customer = Customer.objects.get(email=request.GET['email'])
+            closestDrivers = Driver.objects.distance(pointclient).filter(car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity).order_by('distance')[:5]
+            travel = Travel(customer=customer, startpoint=pointclient, origin=request.GET['startpoint'])
+            valuation = 0
+            if (customer.positiveVotes+customer.negativeVotes > 0):
+                valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
+            #post_data = [('pushID1', closestDrivers[0].pushID),('pushID2', closestDrivers[1].pushID),('pushID3', closestDrivers[2].pushID),('pushID4', closestDrivers[3].pushID),('pushID5', closestDrivers[4].pushID),('origin', origin),('startpoint', pointclient),('travelID', travel.id),('valuation', valuation),('phone', customer.phone),('device', 'android')] 
+            post_data = [('pushID', 'APA91bHJRkpSjXvlFA7L94ybyalAeW0BxE0Z1K4g99onHvXLIFgptSJDhBIMXckY9HBzaBpEWo4Se9zUCd2KjzWUHCJ5TLac-qF-Hu8ozi7Uoe14ZFRg2_c82xmL4ZXgMfuhec4UUd-eu_SkYsMPRt2bqNZ0K5Uzgpwd2en9454w8-f3c7pyEK0'), ('title', 'Pues que bien'), ('device', 'android'),('reqMessage', 'world')]
+            result = urllib2.urlopen('http://localhost:8080/send', urllib.urlencode(post_data))
+            print result
+            return HttpResponse(status=status.HTTP_200_OK)
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
+        except IndexError:
+            return HttpResponse(status=status.HTTP_204_NO_CONTENT, content="No se han encontrado taxis")
+    else:
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Error al obtener la posicion")
+
+@csrf_exempt
+@api_view(['GET'])
+def testPush(request):
+    userdata = {"pushID": "APA91bHJRkpSjXvlFA7L94ybyalAeW0BxE0Z1K4g99onHvXLIFgptSJDhBIMXckY9HBzaBpEWo4Se9zUCd2KjzWUHCJ5TLac-qF-Hu8ozi7Uoe14ZFRg2_c82xmL4ZXgMfuhec4UUd-eu_SkYsMPRt2bqNZ0K5Uzgpwd2en9454w8-f3c7pyEK0", "title": "Pues que bien", "device": "android", "reqMessage": "world"}
+    resp = requests.post('http://localhost:8080/send', params=userdata)
+    print resp
+    return HttpResponse(status=status.HTTP_200_OK)
 
 
 @csrf_exempt
@@ -493,13 +527,13 @@ def loadData(request):
     ci.save()
     car = Car(plate='1111AAA', model='Laguna', company='Renault', color='White', capacity=4, accessible=True, animals=False, isfree=True, appPayment=True)
     car.save()
-    dr = Driver(email="conductor@gmail.com", password="11111111", phone="+34656111112", first_name="Conductor", last_name="DePrimera", city=ci, validationCode=1234, positiveVotes=10, negativeVotes=3, car=car, geom=Point(43.2618425, -2.9327811))
+    dr = Driver(email="conductor@gmail.com", password="11111111", phone="+34656111112", first_name="Conductor", last_name="DePrimera", city=ci, validationCode=1234, positiveVotes=10, negativeVotes=3, car=car, geom=Point(43.2618425, -2.9327811), isValidated=True)
     dr.save()
     car = Car(plate='2222BBB', model='Cooper', company='Mini', color='White', capacity=3, accessible=False, animals=False, isfree=True, appPayment=False)
     car.save()
-    dr2 = Driver(email="conductor2@gmail.com", password="11111111", phone="+34656111113", first_name="Conductor", last_name="DeSegunda", city=ci, validationCode=1234, positiveVotes=2, negativeVotes=7, car=car, geom=Point(43.264116, -2.9237662))
+    dr2 = Driver(email="conductor2@gmail.com", password="11111111", phone="+34656111113", first_name="Conductor", last_name="DeSegunda", city=ci, validationCode=1234, positiveVotes=2, negativeVotes=7, car=car, geom=Point(43.264116, -2.9237662), isValidated=True)
     dr2.save()
-    cu = Customer(email="gorka_12@hotmail.com", password="11111111", phone="+34656111111", first_name="Pepito", last_name="Palotes", city=ci, validationCode=1234, lastUpdate=datetime.strptime('1980-01-01 00:00:01','%Y-%m-%d %H:%M:%S'))
+    cu = Customer(email="gorka_12@hotmail.com", password="11111111", phone="+34656111111", first_name="Pepito", last_name="Palotes", city=ci, validationCode=1234, lastUpdate=datetime.strptime('1980-01-01 00:00:01','%Y-%m-%d %H:%M:%S'), isValidated=True)
     cu.save()
     cu.favlist.add(dr)
     cu.favlist.add(dr2)
