@@ -24,9 +24,14 @@
                     <form name="mantdriver" id="mantdriver" action="" method="POST">                      
                         {% csrf_token %}
                         <div class="pic">
-                            <img onload="mostrarEnBase64()" id="foto" src="{{driver.image}}" alt="no hay foto"/>
+                            {% if driver.image == "" %}
+                                <img id="foto" src="{{STATIC_URL}}img/user.png" alt="no hay foto"/>
+                                <input type="hidden" name="image" id="URLdelafoto" value="">
+                            {% else %}
+                                <img id="foto" src="{{client.image}}" alt="no hay foto"/>
+                                <input type="hidden" name="image" id="URLdelafoto" value="{{driver.image}}">
+                            {% endif %}
                             <input onchange="javascript:drawImageOnCanvas();" type="file" accept="image/gif, image/jpeg, image/png" id="archivo" class="photo"/>
-                            <input type="hidden" name="image" id="URLdelafoto" value="{{driver.image}}">
                         </div>
                         <input type="hidden" name="id" value={{driver.id}}>
                         <div class="col1 maintenance">
