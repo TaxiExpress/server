@@ -1,6 +1,6 @@
 .span2{
 	width:230px;
-	margin-left: 10px
+	margin-left: -15px
 }
 
 .span10{
@@ -42,7 +42,7 @@
 }
 
 .tabs .nav > li > a.active,.tabs .nav > li > a.active:hover{
-	background:#f8f8f8;
+	background:#f0f0f0;
 }
 
 .tabs > ul > li{

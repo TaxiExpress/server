@@ -27,14 +27,16 @@
 .fms-block .avatar img {
     width: 42px;
     height: 42px;
-    border-radius:2px;
+    border-radius:21px;
 }
 
 .fms-block .info {
     display:block;
     float:right;
+    padding-top: 4px;
 }
 
 .fms-block .info span, .fms-block .info a{
+    line-height: 18px;
     display:block;
 }
