@@ -16,7 +16,7 @@ from django.contrib.gis.measure import Distance, D
 #from django.core import serializers
 #from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
-#import json
+import json
 import random
 import string
 import requests
@@ -84,7 +84,9 @@ def loginUser(request):
                 serialCustomer = CustomerTravelsSerializer(customer)
                 return Response(serialCustomer.data, status=status.HTTP_200_OK)
             else: # upTaxies y upTravels son False
-                return HttpResponse(status=status.HTTP_200_OK)
+                response_data = {}
+                response_data['sessionID'] = customer.sessionID
+                return HttpResponse(json.dumps(response_data), content_type="application/json")
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 
