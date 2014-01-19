@@ -436,8 +436,8 @@ background-color: rgba(255, 255, 255, 0.8);
     font-weight: 100;
     font-size: 13px;
     color: #333;
-    margin-top:0px;
-    padding: 9px 16px;
+    margin-top: 10px;
+    padding: 7px 16px;
     background: -moz-linear-gradient(
         top,
         #E6B906 0%,
@@ -494,10 +494,12 @@ background-color: rgba(255, 255, 255, 0.8);
     display: none;
 }
 
-.registerError{
-  clear:both;
-	margin: 0 auto;
-    color: #a02b27;
+.registerError {
+  clear: both;
+  font-size: 13px;
+  margin: auto 3px auto;
+  color: #a02b27;
+  line-height: 45px;
 }
 
 .showfieldError{
