@@ -97,7 +97,7 @@ def registerUser(request):
                     }                
                 sms = NexmoMessage(msg)
                 sms.set_text_info(msg['text'])
-                response = sms.send_request()                
+                #response = sms.send_request()                
                 return HttpResponse(status=status.HTTP_201_CREATED)
             except ValidationError:
                 HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email no válido")
