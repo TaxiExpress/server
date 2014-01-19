@@ -162,20 +162,19 @@
                 <form id="validation-form" action="validateCode" method="POST" onsubmit="return ConcatPrefixPhone();"> 
                     {% csrf_token %}
                     <h3>Validación de la cuenta</h3>
-                    <span class="popupText">Introduce Teléfono y código recibido en el móvil<br/>
-                    <input type="hidden" name="tipo" value={{tipo}}> 
-                    {% if statusValidation == 401 %}
-                        <input type="tel" id="phone" name="phone" maxlength=80 required="required" value = {{phone}} placeholder="Teléfono" tabindex="1">
-                        <input type="number" id="validationCode" name="validationCode" maxlength=4 required="required" value = {{validationCode}} placeholder="Codigo Validación" tabindex="2">
-                    {% else %}
-                        <input type="tel" id="phone" name="phone" maxlength=80 required="required" value placeholder="Teléfono" tabindex="1">
-                        <input type="number" id="validationCode" name="validationCode" maxlength=4 required="required" value placeholder="Codigo Validación" tabindex="2">
-                    {% endif %}    
-                    
-                    <input type="button" value="Volver a solicitar código de validación" class="validationRef validation"/>   
-                    <p class="h-left error ff-txt-error">{{errorValidation}}</p>
+                    <span class="popupText">Introduce el teléfono y el código recibido por SMS<br/>
+                        <input type="hidden" name="tipo" value={{tipo}}> 
+                        {% if statusValidation == 401 %}
+                            <input type="tel" id="phone" name="phone" maxlength="12" required="required" value="{{phone}}" placeholder="Teléfono" tabindex="1">
+                            <input type="number" id="validationCode" name="validationCode" maxlength="4" required="required" value=" {{validationCode}}" placeholder="Codigo" tabindex="2">
+                        {% else %}
+                            <input type="tel" id="phone" name="phone" maxlength="12" required="required" value placeholder="Teléfono" tabindex="1">
+                            <input type="number" id="validationCode" name="validationCode" maxlength="4" required="required" value placeholder="Codigo" tabindex="2">
+                        {% endif %}    
+                        <p class="h-left error ff-txt-error">{{errorValidation}}</p><br/>                        
+                        <input type="button" value="Volver a solicitar código de validación >>" class="validationRef validation"/>   
                     </span>
-                    <button id="validation_button" type="submit" class="acept"><span>Aceptar</span></button>
+                    <button id="validation_button" type="submit" class="acept" value="aceptar"></button>
                     <input type="button" value= "Cancelar" class="close"/>    
                 </form>
             </div>

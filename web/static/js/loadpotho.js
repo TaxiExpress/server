@@ -37,7 +37,3 @@ function drawImageOnCanvas(){
     }
     fileReader.readAsDataURL(file); 
 }
-
-function mostrarEnBase64(){
-    $('#URLdelafoto').val(document.getElementById("foto").src);
-}

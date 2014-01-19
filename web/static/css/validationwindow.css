@@ -21,7 +21,7 @@
 	 background: #fcfcfc;
 	 margin: 8em auto;
 	 width: 350px;
-	 padding: 10px 20px 20px;
+	 padding: 20px 70px 70px 70px;
 	 text-align: left;
 	 z-index: 1;
 	 border-radius: 3px;
@@ -42,7 +42,7 @@
  }
 
  .acept, .close {
-	 margin: 10px 20px 0px 20px;
+	 margin: 10px -15px 0px 20px;
 	 background: #fafafa;
 	 background: -moz-linear-gradient(top, #fafafa 0%, #f4f4f4 40%, #e5e5e5 100%);
 	 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fafafa), color-stop(40%,#f4f4f4), color-stop(100%,#e5e5e5));
@@ -103,7 +103,7 @@
 
 .window-container h3 {
 	margin: 1em 0 0.5em;
-	font-family: "Oleo Script";
+	font-family: Open sans;
 	font-weight: normal;
 	font-size: 25px;
 	text-align: center;
