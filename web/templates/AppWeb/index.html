@@ -165,7 +165,7 @@
                     <span class="popupText">Introduce el teléfono y el código recibido por SMS<br/>
                         <input type="hidden" name="tipo" value={{tipo}}> 
                         {% if statusValidation == 401 %}
-                            <input type="tel" id="phone" name="phone" maxlength="12" required="required" value="{{phone}}" placeholder="Teléfono" tabindex="1">
+                            <input type="tel" id="phone" name="phone" maxlength="12" required="required" value="{{phone|cut:"+34"}}" placeholder="Teléfono" tabindex="1">
                             <input type="number" id="validationCode" name="validationCode" maxlength="4" required="required" value=" {{validationCode}}" placeholder="Codigo" tabindex="2">
                         {% else %}
                             <input type="tel" id="phone" name="phone" maxlength="12" required="required" value placeholder="Teléfono" tabindex="1">
