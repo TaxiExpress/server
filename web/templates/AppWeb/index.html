@@ -25,7 +25,7 @@
                             <ul>
                                 <li class="placeholder">
                                     <span class="textfield">
-                                        <input type="email" id="email" name="email" required="required" value="{{request.POST.email}}" placeholder="Email" tabindex="1">
+                                        <input type="email" id="email" name="email" required value="{{request.POST.email}}" placeholder="Email" tabindex="1">
                                     </span>                                    
                                     <input class="tipo" type="radio" name="tipo" length=2 value="C" 
                                     {% if tipo != "D" %}
@@ -42,7 +42,7 @@
                                 </li>
                                 <li class="placeholder">
                                     <span class="textfield">
-                                        <input type="password" id="password" name="password" required="required" placeholder ="Contraseña" value = "{{request.POST.password}}" tabindex="2">
+                                        <input type="password" id="password" name="password" required placeholder ="Contraseña" value = "{{request.POST.password}}" tabindex="2">
                                     </span>
                                     <p class="forgotpass h-stext h-center">
                                         <a class="forgotpassword" tabindex="4" href="" title="¿Has olvidado tu contraseña?">¿Has olvidado tu contraseña?</a>
@@ -157,11 +157,11 @@
                     <span class="popupText">Introduce el teléfono y el código recibido por SMS<br/>
                         <input type="hidden" name="tipo" value={{tipo}}> 
                         {% if statusValidation == 401 %}
-                            <input type="tel" id="phone" name="phone" maxlength="12" required="required" value="{{phone|cut:"+34"}}" placeholder="Teléfono" tabindex="1">
-                            <input type="text" id="validationCode" name="validationCode" maxlength="4" required="required" value=" {{validationCode}}" placeholder="Codigo" tabindex="2">
+                            <input type="tel" id="phone" name="phone" maxlength="12" required value="{{phone|cut:"+34"}}" placeholder="Teléfono" tabindex="1">
+                            <input type="text" id="validationCode" name="validationCode" maxlength="4" required value=" {{validationCode}}" placeholder="Codigo" tabindex="2">
                         {% else %}
-                            <input type="tel" id="phone" name="phone" maxlength="12" required="required"  placeholder="Teléfono" tabindex="1">
-                            <input type="text" id="validationCode" name="validationCode" maxlength="4" required="required" value placeholder="Codigo" tabindex="2">
+                            <input type="tel" id="phone" name="phone" maxlength="12" required  placeholder="Teléfono" tabindex="1">
+                            <input type="text" id="validationCode" name="validationCode" maxlength="4" required value placeholder="Codigo" tabindex="2">
                         {% endif %}    
                         <p class="h-left error ff-txt-error">{{errorValidation}}</p><br/>                        
                         <input type="button" value="Volver a solicitar código de validación >>" class="validationRef validation"/>   
@@ -176,7 +176,7 @@
                 {% csrf_token %}
                 <h3>Recuperar contraseña</h3>
                 <span class="popupText">Introduce email<br/>
-                <input type="text" id="email" name="email" maxlength=80 required="required" value placeholder="email" tabindex="2">
+                <input type="text" id="email" name="email" maxlength=80 required value placeholder="email" tabindex="2">
    
                 <p class="h-left error ff-txt-error">{{errorValidationEmail}}</p>
                 </span>

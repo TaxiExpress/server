@@ -23,10 +23,10 @@
                 <div class="registerClientForm">
                   <form name="createaccountClient" id="createaccountClient" action="" method="POST" onsubmit="return validateClient();" autocomplete="off">    
                       <input type="hidden" name="tipo" value="C">   
-                      <input type="email" name="email" maxlength="80" placeholder="Email" required = "required" value="{{request.POST.email}}">
-                      <input type="tel" name="phone" maxlength="80" placeholder="Teléfono" required = "required" value="{{request.POST.phone}}">
-                      <input type="password" name="password" maxlength="80" placeholder="Contraseña" required = "required" value="{{request.POST.password}}"><span class="passwordError hidefieldError">*</span>
-                      <input type="password" name="passwordCon" maxlength="80" placeholder="Confirmar contraseña" required = "required" value="{{request.POST.passwordCon}}"><span class="passwordError hidefieldError">*</span>
+                      <input type="email" name="email" maxlength="80" placeholder="Email" required value="{{request.POST.email}}">
+                      <input type="tel" name="phone" maxlength="80" placeholder="Teléfono" required value="{{request.POST.phone}}">
+                      <input type="password" name="password" maxlength="80" placeholder="Contraseña" required value="{{request.POST.password}}"><span class="passwordError hidefieldError">*</span>
+                      <input type="password" name="passwordCon" maxlength="80" placeholder="Confirmar contraseña" required value="{{request.POST.passwordCon}}"><span class="passwordError hidefieldError">*</span>
                       <br><span>Al hacer clic en registrar, aceptas los <a href="termsofuse">términos del uso</a>.</span> 
                       <p class="registerError">{{error}}</p>    
                       <button class="btn" type="submit">Registrar</button>
@@ -41,12 +41,12 @@
                     <form name="createaccountDriver" id="createaccountDriver" action="" method="POST" onsubmit="return validateDriver();" autocomplete="off">            
                         {% csrf_token %}
                         <input type="hidden" name="tipo" value="D">
-                        <input type="email" name="email" maxlength="80" placeholder="Email" required = "required" value="{{request.POST.email}}">
-                        <input type="tel" name="phone" maxlength="80" placeholder="Teléfono" required = "required" value="{{request.POST.phone}}">
-                        <input type="text" name="first_name" maxlength="80" placeholder="Nombre" required = "required" value="{{request.POST.first_name}}">
-                        <input type="text" name="last_name" maxlength="80" placeholder="Apellido" required = "required" value="{{request.POST.last_name}}">
-                        <input type="password" name="password" maxlength="80" placeholder="Contraseña" required = "required" value="{{request.POST.password}}"><span class="passwordError hidefieldError">*</span>
-                        <input type="password" name="passwordCon" maxlength="80" placeholder="Confirmar contraseña" required = "required" value="{{request.POST.passwordCon}}"><span class="passwordError hidefieldError">*</span>
+                        <input type="email" name="email" maxlength="80" placeholder="Email" required value="{{request.POST.email}}">
+                        <input type="tel" name="phone" maxlength="80" placeholder="Teléfono" required value="{{request.POST.phone}}">
+                        <input type="text" name="first_name" maxlength="80" placeholder="Nombre" required value="{{request.POST.first_name}}">
+                        <input type="text" name="last_name" maxlength="80" placeholder="Apellido" required value="{{request.POST.last_name}}">
+                        <input type="password" name="password" maxlength="80" placeholder="Contraseña" required value="{{request.POST.password}}"><span class="passwordError hidefieldError">*</span>
+                        <input type="password" name="passwordCon" maxlength="80" placeholder="Confirmar contraseña" required value="{{request.POST.passwordCon}}"><span class="passwordError hidefieldError">*</span>
                         <br><span>Datos del coche</span><br>
                         <input type="number" name="license" placeholder="Número de licencia" required value="{{request.POST.license}}">
                         <input type="text" name="plate" maxlength="7" placeholder="Matrícula" required value="{{request.POST.plate}}">
@@ -87,11 +87,11 @@
                     <span class="popupText">Introduce Teléfono y código recibido en el móvil<br/>
                     <input type="hidden" name="tipo" value={{tipo}}>
                     {% if statusValidation == 401 %}
-                        <input type="tel" id="phone" name="phone" maxlength=80 required="required" value = "{{phone|cut:"+34"}}" placeholder="Teléfono" tabindex="1">
-                        <input type="number" id="validationCode" name="validationCode" maxlength=4 required="required" value = {{validationCode}} placeholder="Codigo Validación" tabindex="2">
+                        <input type="tel" id="phone" name="phone" maxlength=80 required value = "{{phone|cut:"+34"}}" placeholder="Teléfono" tabindex="1">
+                        <input type="number" id="validationCode" name="validationCode" maxlength=4 required value = {{validationCode}} placeholder="Codigo Validación" tabindex="2">
                     {% else %}
-                        <input type="tel" id="phone" name="phone" maxlength=80 required="required" value placeholder="Teléfono" tabindex="1">
-                        <input type="number" id="validationCode" name="validationCode" maxlength=4 required="required" value placeholder="Codigo Validación" tabindex="2">
+                        <input type="tel" id="phone" name="phone" maxlength=80 required value placeholder="Teléfono" tabindex="1">
+                        <input type="number" id="validationCode" name="validationCode" maxlength=4 required value placeholder="Codigo Validación" tabindex="2">
                     {% endif %}    
                     
                     <input type="button" value="Volver a solicitar código de validación" class="validationRef validation"/>   
