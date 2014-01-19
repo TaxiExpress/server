@@ -161,41 +161,45 @@ def getClosestTaxi(request):
 @csrf_exempt
 @api_view(['GET'])
 def getClosestTaxiBeta(request):
-    if request.GET.get('latitud', "false") != "false":
+    if 'latitud' in request.GET:
         pointclient = Point(float(request.GET['latitud']), float(request.GET['longitud']))
         origin = request.GET['origin']
         try:
             customer = Customer.objects.get(email=request.GET['email'])
-            closestDrivers = Driver.objects.distance(pointclient).filter(car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity).order_by('distance')[:5]
-            travel = Travel(customer=customer, startpoint=pointclient, origin=request.GET['startpoint'])
-            valuation = 0
-            if (customer.positiveVotes+customer.negativeVotes > 0):
-                valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
-            #post_data = [('pushID1', closestDrivers[0].pushID),('pushID2', closestDrivers[1].pushID),('pushID3', closestDrivers[2].pushID),('pushID4', closestDrivers[3].pushID),('pushID5', closestDrivers[4].pushID),('origin', origin),('startpoint', pointclient),('travelID', travel.id),('valuation', valuation),('phone', customer.phone),('device', 'android')] 
-            post_data = [('pushID', 'APA91bHJRkpSjXvlFA7L94ybyalAeW0BxE0Z1K4g99onHvXLIFgptSJDhBIMXckY9HBzaBpEWo4Se9zUCd2KjzWUHCJ5TLac-qF-Hu8ozi7Uoe14ZFRg2_c82xmL4ZXgMfuhec4UUd-eu_SkYsMPRt2bqNZ0K5Uzgpwd2en9454w8-f3c7pyEK0'), ('title', 'Pues que bien'), ('device', 'android'),('reqMessage', 'world')]
-            result = urllib2.urlopen('http://localhost:8080/send', urllib.urlencode(post_data))
-            print result
-            return HttpResponse(status=status.HTTP_200_OK)
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
-        except IndexError:
+        closestDrivers = Driver.objects.distance(pointclient).filter(car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity).order_by('distance')[:5]
+        if closestDrivers.count() == 0:
             return HttpResponse(status=status.HTTP_204_NO_CONTENT, content="No se han encontrado taxis")
+        travel = Travel(customer=customer, startpoint=pointclient, origin=request.GET['startpoint'])
+        valuation = 0
+        if (customer.positiveVotes+customer.negativeVotes > 0):
+            valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
+        closestDriversFilter = closestDrivers
+        if closestDrivers.count() >= 5:
+            closestDriversFilter = closestDriver[:5]
+        post_data = {"origin": origin, "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": "android"} 
+        for i in range(closestDriversFilter.count()):
+            post_data["pushID"+str(i)] = closestDriversFilter[i]
+        resp = requests.post('http://localhost:8080/send', params=post_data)
+        print resp
+        return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Error al obtener la posicion")
 
 @csrf_exempt
 @api_view(['GET'])
 def testPush(request):
-    userdata = {"pushID": "APA91bHJRkpSjXvlFA7L94ybyalAeW0BxE0Z1K4g99onHvXLIFgptSJDhBIMXckY9HBzaBpEWo4Se9zUCd2KjzWUHCJ5TLac-qF-Hu8ozi7Uoe14ZFRg2_c82xmL4ZXgMfuhec4UUd-eu_SkYsMPRt2bqNZ0K5Uzgpwd2en9454w8-f3c7pyEK0", "title": "Pues que bien", "device": "android", "reqMessage": "world"}
+    userdata = {"pushId": "APA91bHJRkpSjXvlFA7L94ybyalAeW0BxE0Z1K4g99onHvXLIFgptSJDhBIMXckY9HBzaBpEWo4Se9zUCd2KjzWUHCJ5TLac-qF-Hu8ozi7Uoe14ZFRg2_c82xmL4ZXgMfuhec4UUd-eu_SkYsMPRt2bqNZ0K5Uzgpwd2en9454w8-f3c7pyEK0", "title": "Pues que bien", "device": "android", "reqMessage": "world"}
     resp = requests.post('http://localhost:8080/send', params=userdata)
-    print resp
+    print resp.status_code
     return HttpResponse(status=status.HTTP_200_OK)
 
 
 @csrf_exempt
 @api_view(['GET'])
 def getNearestTaxies(request):
-    if request.GET.get('latitud', "false") != "false":
+    if 'latitud' in request.GET:
         pointclient = Point(float(request.GET['latitud']), float(request.GET['longitud']))
         try:
             customer = Customer.objects.get(email=request.GET['email'])
@@ -238,34 +242,36 @@ def updateProfile(request):
 @csrf_exempt
 @api_view(['POST'])
 def updateDriverPosition(request):
-    if request.POST['email'] is None:
+    if 'email' in request.POST:
+        try:
+            driver = Driver.objects.get(email=request.POST['email'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
+        if request.POST.get('latitud', "false") != "false":
+            pointclient = Point(float(request.POST['latitud']), float(request.POST['longitud']))
+            driver.geom = pointclient
+            driver.save()
+            return HttpResponse(status=status.HTTP_200_OK,content="Posicion del taxista actualizada")
+        else:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="punto inexistente")
+    else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="email inexistente")
-    try:
-        driver = Driver.objects.get(email=request.POST['email'])
-    except ObjectDoesNotExist:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
-    if request.POST.get('latitud', "false") != "false":
-        pointclient = Point(float(request.POST['latitud']), float(request.POST['longitud']))
-        driver.geom = pointclient
-        driver.save()
-        return HttpResponse(status=status.HTTP_200_OK,content="Posicion del taxista actualizada")
-    else
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="punto inexistente")
 
 
 @csrf_exempt
 @api_view(['POST'])
 def updateDriverAvailable(request):
-    if request.POST['email'] is None:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="email inexistente")
-    try:
-        driver = Driver.objects.get(email=request.POST['email'])
-    except ObjectDoesNotExist:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
-    newStatus = request.POST['available']
-    driver.available = newStatus
-    driver.save()
-    return HttpResponse(status=status.HTTP_200_OK,content="Disponibilidad del taxista actualizada")
+    if 'email' in request.POST:
+        try:
+            driver = Driver.objects.get(email=request.POST['email'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
+        newStatus = request.POST['available']
+        driver.available = newStatus
+        driver.save()
+        return HttpResponse(status=status.HTTP_200_OK,content="Disponibilidad del taxista actualizada")
+    else:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email inexistente")
 
 
 @csrf_exempt
@@ -288,28 +294,29 @@ def updateFilters(request):
 
 @api_view(['POST'])
 def validateUser(request):
-    if request.POST['phone'] is None:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Teléfono incorrecto")
-    try:
-        customer = Customer.objects.get(phone=request.POST['phone'])
-    except ObjectDoesNotExist:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta. Inténtelo de nuevo")
-    if customer.isValidated == False:
-        if customer.validationCode == int(request.POST['validationCode']):
-            customer.isValidated = True
-            customer.save()
-            subject = '¡Bienvenido a Taxi Express!'
-            from_email = 'MyTaxiExpress@gmail.com'
-            to = [customer.email]
-            html_content = '¡Bienvenido a Taxi Express! <br> <br> Ya puede disfrutar de la app más completa para gestionar sus viajes en taxi.'
-            msg = EmailMessage(subject, html_content, from_email, to)
-            msg.content_subtype = "html"  # Main content is now text/html
-            msg.send()
-            return HttpResponse(status=status.HTTP_201_CREATED,content="La cuenta ha sido validada correctamente")
-        else:
+    if 'phone' in request.POST:
+        try:
+            customer = Customer.objects.get(phone=request.POST['phone'])
+        except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta. Inténtelo de nuevo")
-    else:        
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Esta cuenta ya está validada.")
+        if customer.isValidated == False:
+            if customer.validationCode == int(request.POST['validationCode']):
+                customer.isValidated = True
+                customer.save()
+                subject = '¡Bienvenido a Taxi Express!'
+                from_email = 'MyTaxiExpress@gmail.com'
+                to = [customer.email]
+                html_content = '¡Bienvenido a Taxi Express! <br> <br> Ya puede disfrutar de la app más completa para gestionar sus viajes en taxi.'
+                msg = EmailMessage(subject, html_content, from_email, to)
+                msg.content_subtype = "html"  # Main content is now text/html
+                msg.send()
+                return HttpResponse(status=status.HTTP_201_CREATED,content="La cuenta ha sido validada correctamente")
+            else:
+                return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta. Inténtelo de nuevo")
+        else:        
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Esta cuenta ya está validada.")
+    else:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Teléfono incorrecto")
         
 
 @csrf_exempt
@@ -356,70 +363,73 @@ def recoverPassword(request):
 @csrf_exempt
 @api_view(['GET'])
 def recoverEmail(request):
-    if request.GET['phone'] is None:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un número de teléfono")
-    try:
-        customer = Customer.objects.get(phone=request.GET['phone'])
-    except ObjectDoesNotExist:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
-    try:
-        emailCus = customer.email
-        return HttpResponse(status=status.HTTP_200_OK,content=emailCus)
-    except Exception:
-        return HttpResponse(status=HTTP_400_BAD_REQUEST, content="Error al devolver el email")    
+    if 'phone' in request.GET:   
+        try:
+            customer = Customer.objects.get(phone=request.GET['phone'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
+        try:
+            emailCus = customer.email
+            return HttpResponse(status=status.HTTP_200_OK,content=emailCus)
+        except Exception:
+            return HttpResponse(status=HTTP_400_BAD_REQUEST, content="Error al devolver el email")
+    else:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un número de teléfono") 
         
 
 @csrf_exempt
 @api_view(['POST'])
 def recoverValidationCodeCustomer(request):
-    if request.POST['phone'] is None:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un numero de telefono")
-    try:
-        customer = Customer.objects.get(phone=request.POST['phone']) 
-        if customer.isValidated == False:
-            msg = {
-                    'reqtype': 'json',
-                    'api_key': '8a352457',
-                    'api_secret': '460e58ff',
-                    'from': 'Taxi Express',
-                    'to': c.phone,
-                    'text': 'Su código de validación de Taxi Express es: ' + str( c.validationCode)
-                    }                
-            sms = NexmoMessage(msg)
-            sms.set_text_info(msg['text'])
-            response = sms.send_request()                
-            return HttpResponse(status=status.HTTP_201_CREATED)
-        else:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Usuario ya validado")
-    except ObjectDoesNotExist:
-         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Telefono incorrecto")       
+    if 'phone' in request.POST:
+        try:
+            customer = Customer.objects.get(phone=request.POST['phone']) 
+            if customer.isValidated == False:
+                msg = {
+                        'reqtype': 'json',
+                        'api_key': '8a352457',
+                        'api_secret': '460e58ff',
+                        'from': 'Taxi Express',
+                        'to': c.phone,
+                        'text': 'Su código de validación de Taxi Express es: ' + str( c.validationCode)
+                        }                
+                sms = NexmoMessage(msg)
+                sms.set_text_info(msg['text'])
+                response = sms.send_request()                
+                return HttpResponse(status=status.HTTP_201_CREATED)
+            else:
+                return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Usuario ya validado")
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Telefono incorrecto")  
+    else:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un numero de telefono")     
     
          
 @csrf_exempt
 @api_view(['POST'])
 def recoverValidationCodeDriver(request):
-    if request.POST['phone'] is None:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un numero de telefono")
-    try:
-        driver = Driver.objects.get(phone=request.POST['phone']) 
-        
-        if driver.isValidated == False:
-            msg = {
-                    'reqtype': 'json',
-                    'api_key': '8a352457',
-                    'api_secret': '460e58ff',
-                    'from': 'Taxi Express',
-                    'to': d.phone,
-                    'text': 'Su código de validación de Taxi Express es: ' + str( d.validationCode)
-                    }                
-            sms = NexmoMessage(msg)
-            sms.set_text_info(msg['text'])
-            response = sms.send_request()                
-            return HttpResponse(status=status.HTTP_201_CREATED)
-        else:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Usuario ya validado")
-    except ObjectDoesNotExist:
-         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Telefono incorrecto")       
+    if 'phone' in request.POST:     
+        try:
+            driver = Driver.objects.get(phone=request.POST['phone']) 
+            
+            if driver.isValidated == False:
+                msg = {
+                        'reqtype': 'json',
+                        'api_key': '8a352457',
+                        'api_secret': '460e58ff',
+                        'from': 'Taxi Express',
+                        'to': d.phone,
+                        'text': 'Su código de validación de Taxi Express es: ' + str( d.validationCode)
+                        }                
+                sms = NexmoMessage(msg)
+                sms.set_text_info(msg['text'])
+                response = sms.send_request()                
+                return HttpResponse(status=status.HTTP_201_CREATED)
+            else:
+                return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Usuario ya validado")
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Telefono incorrecto")
+    else:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un numero de telefono")    
         
     
     
@@ -445,35 +455,35 @@ def addFavoriteDriver(request):
 @csrf_exempt
 @api_view(['POST'])
 def removeFavoriteDriver(request):
-        try:
-            customer = Customer.objects.get(email=request.POST['customerEmail'])
-        except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
-        try:
-            driver = customer.favlist.get(email=request.POST['driverEmail'])
-        except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El taxista no se encuentra en su lista de favoritos")
-        customer.favlist.remove(driver)
-        customer.lastUpdateFavorites = datetime.strptime(request.POST['lastUpdateFavorites'], '%Y-%m-%d %H:%M:%S')
-        customer.save()
-        return HttpResponse(status=status.HTTP_200_OK,content="Taxista eliminado de la lista de favoritos")
+    try:
+        customer = Customer.objects.get(email=request.POST['customerEmail'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
+    try:
+        driver = customer.favlist.get(email=request.POST['driverEmail'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El taxista no se encuentra en su lista de favoritos")
+    customer.favlist.remove(driver)
+    customer.lastUpdateFavorites = datetime.strptime(request.POST['lastUpdateFavorites'], '%Y-%m-%d %H:%M:%S')
+    customer.save()
+    return HttpResponse(status=status.HTTP_200_OK,content="Taxista eliminado de la lista de favoritos")
 
 
 @csrf_exempt
 @api_view(['POST'])
 def removeTravel(request):
-        try:
-            customer = Customer.objects.get(email=request.POST['email'])
-        except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
-        try:
-            travel = customer.travel_set.get(id=request.POST['travel_id'])
-        except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El trayecto no se encuentra en su lista de trayectos realizados")
-        customer.lastUpdateTravels = datetime.strptime(request.POST['lastUpdateTravels'], '%Y-%m-%d %H:%M:%S')
-        customer.save()
-        travel.delete()
-        return HttpResponse(status=status.HTTP_200_OK ,content="Trayecto eliminado de la lista")
+    try:
+        customer = Customer.objects.get(email=request.POST['email'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
+    try:
+        travel = customer.travel_set.get(id=request.POST['travel_id'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El trayecto no se encuentra en su lista de trayectos realizados")
+    customer.lastUpdateTravels = datetime.strptime(request.POST['lastUpdateTravels'], '%Y-%m-%d %H:%M:%S')
+    customer.save()
+    travel.delete()
+    return HttpResponse(status=status.HTTP_200_OK ,content="Trayecto eliminado de la lista")
 
 
 
