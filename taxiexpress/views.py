@@ -171,16 +171,15 @@ def getClosestTaxiBeta(request):
         closestDrivers = Driver.objects.distance(pointclient).filter(car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity).order_by('distance')[:5]
         if closestDrivers.count() == 0:
             return HttpResponse(status=status.HTTP_204_NO_CONTENT, content="No se han encontrado taxis")
+        elif closestDrivers.count() > 5:
+            closestDrivers = closestDrivers[:5]
         travel = Travel(customer=customer, startpoint=pointclient, origin=request.GET['startpoint'])
         valuation = 0
         if (customer.positiveVotes+customer.negativeVotes > 0):
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
-        closestDriversFilter = closestDrivers
-        if closestDrivers.count() >= 5:
-            closestDriversFilter = closestDriver[:5]
         post_data = {"origin": origin, "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": "android"} 
-        for i in range(closestDriversFilter.count()):
-            post_data["pushID"+str(i)] = closestDriversFilter[i]
+        for i in range(closestDrivers.count()):
+            post_data["pushID"+str(i)] = closestDrivers[i]
         resp = requests.post('http://localhost:8080/send', params=post_data)
         print resp
         return HttpResponse(status=status.HTTP_200_OK)

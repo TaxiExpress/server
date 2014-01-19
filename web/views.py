@@ -29,41 +29,43 @@ from taxiexpress.views import validateUser
 @csrf_exempt
 @api_view(['POST'])
 def loginUser(request):
-    if request.POST['email'] is None:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
-    try:
-        customer = Customer.objects.get(email=request.POST['email'])  
-    except ObjectDoesNotExist:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
-    if customer.password == request.POST['password']:
-        if customer.isValidated == False:
-            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Debe validar la cuenta antes de conectarse")
-        request.session['email'] = customer.email
-        request.session['user_id'] = customer.id
-        request.session['Customer'] = True
-        return HttpResponse(status=status.HTTP_200_OK)
+    if 'email' in request.POST:     
+        try:
+            customer = Customer.objects.get(email=request.POST['email'])  
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
+        if customer.password == request.POST['password']:
+            if customer.isValidated == False:
+                return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Debe validar la cuenta antes de conectarse")
+            request.session['email'] = customer.email
+            request.session['user_id'] = customer.id
+            request.session['Customer'] = True
+            return HttpResponse(status=status.HTTP_200_OK)
+        else:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
     else:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
 
 
 @csrf_exempt
 @api_view(['POST'])
 def loginDriver(request):
-    if request.POST['email'] is None:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
-    try:
-        driver = Driver.objects.get(email=request.POST['email'])  
-    except ObjectDoesNotExist:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
-    if driver.password == request.POST['password']:
-        if driver.isValidated == False:
-            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Debe validar la cuenta antes de conectarse")
-        request.session['email'] = driver.email
-        request.session['user_id'] = driver.id
-        request.session['Customer'] = False
-        return HttpResponse(status=status.HTTP_200_OK)
+    if 'email' in request.POST:
+        try:
+            driver = Driver.objects.get(email=request.POST['email'])  
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
+        if driver.password == request.POST['password']:
+            if driver.isValidated == False:
+                return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Debe validar la cuenta antes de conectarse")
+            request.session['email'] = driver.email
+            request.session['user_id'] = driver.id
+            request.session['Customer'] = False
+            return HttpResponse(status=status.HTTP_200_OK)
+        else:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
     else:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
 
 
 @csrf_exempt
@@ -226,26 +228,28 @@ def getCountries(request):
 @csrf_exempt
 @api_view(['GET'])
 def getStates(request):
-    if request.GET['country'] is None:
+    if 'country' in request.GET:  
+        try:
+            country = Country.objects.get(code=request.GET['country'])
+            serialStates = StateSerializer(country.state_set, many=True)
+            return Response(serialStates.data, status=status.HTTP_200_OK)
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado esta provincia")
+    else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un codigo de provincia")
-    try:
-        country = Country.objects.get(code=request.GET['country'])
-        serialStates = StateSerializer(country.state_set, many=True)
-        return Response(serialStates.data, status=status.HTTP_200_OK)
-    except ObjectDoesNotExist:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado esta provincia")
 
 @csrf_exempt
 @api_view(['GET'])
 def getCities(request):
-    if request.GET['state'] is None:
+    if 'state' in request.GET:
+        try:
+            state = State.objects.get(code=request.GET['state'])
+            serialCities = CitySerializer(state.city_set, many=True)
+            return Response(serialStates.data, status=status.HTTP_200_OK)
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado esta ciudad")
+    else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un codigo de ciudad")
-    try:
-        state = State.objects.get(code=request.GET['state'])
-        serialCities = CitySerializer(state.city_set, many=True)
-        return Response(serialStates.data, status=status.HTTP_200_OK)
-    except ObjectDoesNotExist:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado esta ciudad")
 
 @csrf_exempt
 def logout(request):
