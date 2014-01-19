@@ -110,23 +110,35 @@ def registerDriver(request):
     if request.method == "POST":
         passtemp = request.POST['password'];
         if (Driver.objects.filter(email=request.POST['email']).count() > 0):
-            return HttpResponse(status=401, content="El email que ha indicado ya está en uso")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email que ha indicado ya está en uso")
         if (Driver.objects.filter(phone=request.POST['phone']).count() > 0):
-            return HttpResponse(status=401, content="El teléfono que ha indicado ya está en uso")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El teléfono que ha indicado ya está en uso")
         else:
             try:
                 #Car data
+                if 'accessible' in request.POST:
+                    accessible = True
+                else:
+                    accessible = False
+                if 'animals' in request.POST:
+                    animals = True
+                else:
+                    animals = False
+                if 'appPayment' in request.POST:
+                    appPayment = True
+                else:
+                    appPayment = False
                 car = Car(plate=request.POST['plate'], model=request.POST['model'],capacity=request.POST['capacity'],
-                    accessible=request.POST['accessible'], animals=request.POST['animals'],appPayment=request.POST['appPayment'])
+                    accessible=accessible, animals=animals,appPayment=appPayment)
                 car.save()
 
                 #Driver data
                 tmpPhone = '+34' + request.POST['phone']
                 d = Driver(email=request.POST['email'], password=request.POST['password'], phone=tmpPhone,
                     first_name=request.POST['first_name'], last_name=request.POST['last_name'], license =request.POST['license'],
-                    car = car, image="")
+                    car = car)
 
-                if (request.POST['appPayment'] == '1'):
+                if 'appPayment' in request.POST:
                     d.bankAccount = request.POST['bankAccount']
                     d.recipientName = request.POST['recipientName']
 
@@ -144,7 +156,7 @@ def registerDriver(request):
                     }                
                 sms = NexmoMessage(msg)
                 sms.set_text_info(msg['text'])
-                response = sms.send_request()                
+                #response = sms.send_request()                
                 return HttpResponse(status=status.HTTP_201_CREATED)
             except ValidationError:
                 HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email no válido")
@@ -204,7 +216,7 @@ def updateProfileDriverWeb(request):
         try:
             driver = Driver.objects.get(id=request.session['user_id'])
         except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este taxista")
+            return HttpResponse(status=401, content="No es posible encontrar a este taxista")
         driver.first_name = request.POST['first_name']
         driver.last_name = request.POST['last_name']
         driver.image = request.POST['image']
@@ -213,17 +225,44 @@ def updateProfileDriverWeb(request):
         #Comentado hasta saber como actualizar
         #driver.city = int(request.POST['city'])
         driver.license = request.POST['license']
-        #Habría que comprobar si appPayment == True antes de asignar estos campos. Se va a permitir actualizar appPayment en esta misma vista?
-        #driver.bankAccount = request.POST['bankAccount']
-        #driver.recipientName = request.POST['recipientName']
         driver.lastUpdate = datetime.now()
         driver.save()
+        return HttpResponse(status=200,content="Perfil del taxista modificado correctamente")
+    else:
+        return HttpResponse(status=401, content="Debe estar conectado para realizar esa operación")
+@csrf_exempt
+#@api_view(['POST'])
+def updateBankAccountWeb(request):
+    if 'user_id' in request.session:
+        try:
+            driver = Driver.objects.get(id=request.session['user_id'])
+            car = Car.objects.get(plate=driver.car)
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este taxista")
+
+        if 'appPayment' in request.POST:
+            car.appPayment = True
+            car.save()
+            driver.bankAccount = request.POST['bankAccount']
+            driver.recipientName = request.POST['recipientName']
+            driver.lastUpdate = datetime.now()
+            driver.car = car
+            driver.save()
+        else:
+            car.appPayment = False
+            car.save()
+            driver.bankAccount = ""
+            driver.recipientName = ""
+            driver.lastUpdate = datetime.now()
+            driver.car = car
+            driver.save()
+            
         return HttpResponse(status=status.HTTP_200_OK,content="Perfil del taxista modificado correctamente")
     else:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe estar conectado para realizar esa operación")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe estar conectado para realizar esa operación") 
 
 @csrf_exempt
-@api_view(['POST'])
+#@api_view(['POST'])
 def updateCarWeb(request):
     if 'user_id' in request.session:
         try:
@@ -236,15 +275,23 @@ def updateCarWeb(request):
         car.company = request.POST['company']
         car.color = request.POST['color']
         car.capacity = request.POST['capacity']
-        car.accessible = request.POST['accessible']
-        car.animals = request.POST['animals']
-        car.appPayment = request.POST['appPayment']
-        car.driver.lastUpdate = datetime.now()
+        if 'accessible' in request.POST:
+            car.accessible = True
+        else:
+            car.accessible = False
+        if 'animals' in request.POST:
+            car.animals = True
+        else:
+            car.animals = False
+        if 'appPayment' in request.POST:
+            car.appPayment = True
+        else:
+            car.appPayment = False
+        car.lastUpdate = datetime.now()
         car.save()
         return HttpResponse(status=status.HTTP_200_OK,content="Coche modificado correctamente")
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe estar conectado para realizar esa operación")
-
 
 @csrf_exempt
 @api_view(['GET'])
@@ -479,31 +526,44 @@ def mantdriver_changePassword(request):
             return redirect('/')
 
 def mantdriver_car(request):
-    if 'user_id' in request.session:
-        if request.session['Customer'] == False:
-            driver = get_object_or_404(Driver, id=request.session['user_id'])
-            car = get_object_or_404(Car, plate=driver.car)
-            return render(request, 'AppWeb/mantdriver_car.html', {'car': car, 'driver': driver}) 
-        else:
-            request.session['email'] = ''
-            request.session['user_id'] = ''
-            request.session['Customer'] = ''
-            return redirect('/') 
+    if request.method == "POST":
+        response = updateCarWeb(request)
+        driver = get_object_or_404(Driver, id=request.session['user_id'])
+        car = get_object_or_404(Car, plate=driver.car)
+        return render(request, 'AppWeb/mantdriver_car.html', {'car': car, 'driver': driver, 'error':response.content})
     else:
-        return redirect('/')
+        if 'user_id' in request.session:
+            if request.session['Customer'] == False:
+                driver = get_object_or_404(Driver, id=request.session['user_id'])
+                car = get_object_or_404(Car, plate=driver.car)
+                return render(request, 'AppWeb/mantdriver_car.html', {'car': car, 'driver': driver}) 
+            else:
+                request.session['email'] = ''
+                request.session['user_id'] = ''
+                request.session['Customer'] = ''
+                return redirect('/') 
+        else:
+            return redirect('/')
 
 def mantdriver_bankAccount(request):
-    if 'user_id' in request.session:
-        if request.session['Customer'] == False:
-            driver = get_object_or_404(Driver, id=request.session['user_id'])
-            return render(request, 'AppWeb/mantdriver_bankAccount.html', {'driver':driver})
-        else:
-            request.session['email'] = ''
-            request.session['user_id'] = ''
-            request.session['Customer'] = ''
-            return redirect('/')     
+    if request.method == "POST":
+        response = updateBankAccountWeb(request)
+        driver = get_object_or_404(Driver, id=request.session['user_id'])
+        car = get_object_or_404(Car, plate=driver.car)
+        return render(request, 'AppWeb/mantdriver_bankAccount.html', {'car': car, 'driver': driver, 'error':response.content})
     else:
-        return redirect('/')    
+        if 'user_id' in request.session:
+            if request.session['Customer'] == False:
+                driver = get_object_or_404(Driver, id=request.session['user_id'])
+                car = get_object_or_404(Car, plate=driver.car)
+                return render(request, 'AppWeb/mantdriver_bankAccount.html', {'car': car, 'driver':driver})
+            else:
+                request.session['email'] = ''
+                request.session['user_id'] = ''
+                request.session['Customer'] = ''
+                return redirect('/')     
+        else:
+            return redirect('/')     
 
 def termsofuse(request):
     return render(request, 'AppWeb/termsofuse.html', {}) 

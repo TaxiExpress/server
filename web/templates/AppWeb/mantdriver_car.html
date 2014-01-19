@@ -25,48 +25,28 @@
                     <form name="mantdriver" id="mantdriver" action="" method="POST">                      
                         {% csrf_token %}
                         <div class="col1 maintenance">
-                            <input type="text" name="plate" maxlength="7" placeholder="Matrícula" required = "required"
-                            {% if car.plate == None %}
-                                >
-                            {% else %}
-                                value="{{car.plate}}">
-                            {% endif %}
-                            <input type="text" name="model" maxlength="80" placeholder="Modelo" required = "required"
-                            {% if car.model == None %}
-                                >
-                            {% else %}
-                                value="{{car.model}}">
-                            {% endif %}
-                            <input type="text" name="company" maxlength="80" placeholder="Marca"
-                            {% if car.company == None %}
-                                >
-                            {% else %}
+                            <input type="text" name="plate" maxlength="7" placeholder="Matrícula" required = "required" value="{{car.plate}}">
+
+                            <input type="text" name="model" maxlength="80" placeholder="Modelo" required = "required" value="{{car.model}}">
+
+                            <input type="text" name="company" maxlength="80" placeholder="Marca" 
                                 value="{{car.company}}">
-                            {% endif %}
-                            <input type="text" name="color" maxlength="80" placeholder="Color"
-                            {% if car.color == None %}
-                                >
-                            {% else %}
-                                value="{{car.color}}">
-                            {% endif %}
-                            <input type="number" name="capacity" placeholder="Capacidad" required = "required"
-                            {% if car.capacity == None %}
-                                >
-                            {% else %}
-                                value="{{car.capacity}}">
-                            {% endif %}
+
+                            <input type="text" name="color" maxlength="80" placeholder="Color" value="{{car.color}}">
+
+                            <input type="number" name="capacity" placeholder="Capacidad" required = "required" value="{{car.capacity}}">
+
                             <br>
                             <p>
                                 {% if car.accessible %}
-                                    <input type="checkbox" name="accessible" checked = "checked">Taxi habilitado para minusválidos
+                                    <input type="checkbox" name="accessible" checked>Taxi habilitado para minusválidos
                                 {% else %}
                                     <input type="checkbox" name="accessible">Taxi habilitado para minusválidos
                                 {% endif %}
-                            <!-- </p>
-                            <p> -->
+
                                 </br>
                                 {% if car.animals %}
-                                    <input type="checkbox" name="animals" checked = "checked">Se admiten animales
+                                    <input type="checkbox" name="animals" checked>Se admiten animales
                                 {% else %}
                                     <input type="checkbox" name="animals">Se admiten animales
                                 {% endif %}

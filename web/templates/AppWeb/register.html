@@ -21,17 +21,37 @@
             <section class="block">
               <article id="client">
                   <div class="registerClientForm">
-                <form name="createaccountClient" id="createaccountClient" action="" method="POST" onsubmit="return validateClient();" autocomplete="off">    
-                  {% csrf_token %}  
-                  <input type="hidden" name="tipo" value="C">   
-                  <input type="email" name="email" maxlength="80" placeholder="Email" required = "required">
-                  <input type="tel" name="phone" maxlength="80" placeholder="Teléfono" required = "required">
-                  <input type="password" name="password" maxlength="80" placeholder="Contraseña" required = "required"><span class="passwordError hidefieldError">*</span>
-                  <input type="password" name="passwordCon" maxlength="80" placeholder="Confirmar contraseña" required = "required"><span class="passwordError hidefieldError">*</span>
-                  <br><span>Al hacer clic en registrar, aceptas los <a href="termsofuse">términos del uso</a>.</span> 
-                  <p class="registerError">{{error}}</p>    
-                  <button class="btn" type="submit">Registrar</button>
-                </form>
+                    <form name="createaccountDriver" id="createaccountDriver" action="" method="POST" onsubmit="return validateDriver();" autocomplete="off">            
+                        {% csrf_token %}
+                        <input type="hidden" name="tipo" value="D">
+                        <input type="email" name="email" maxlength="80" placeholder="Email" required = "required">
+                        <input type="tel" name="phone" maxlength="80" placeholder="Teléfono" required = "required">
+                        <input type="text" name="first_name" maxlength="80" placeholder="Nombre" required = "required">
+                        <input type="text" name="last_name" maxlength="80" placeholder="Apellido" required = "required">
+                        <input type="password" name="password" maxlength="80" placeholder="Contraseña" required = "required"><span class="passwordError hidefieldError">*</span>
+                        <input type="password" name="passwordCon" maxlength="80" placeholder="Confirmar contraseña" required = "required"><span class="passwordError hidefieldError">*</span>
+                        <br><span>Datos del coche</span><br>
+                        <input type="number" name="license" placeholder="Número de licencia" required = "required">
+                        <input type="text" name="plate" maxlength="7" placeholder="Matrícula" required = "required">
+                        <input type="text" name="model" maxlength="80" placeholder="Modelo" required = "required">
+                        <input type="number" name="capacity" placeholder="Capacidad" required = "required">
+                        <br>
+                            <p>
+                                <input type="checkbox" name="accessible">Taxi habilitado para minusválidos
+                            </p>
+                            <p>
+                                <input type="checkbox" name="animals">Se admiten animales
+                            </p>
+                            <p>
+                                <input type="checkbox" name="appPayment">Se admite pago a través de la aplicación
+                            </p>
+                            <span class="italic">Si admite pago a través de la aplicación deberá especificar <br>Cuenta Bancaria y Nombre del Titular</span>
+                            <input type="text" name="bankAccount" maxlength="20" placeholder="Número de cuenta"><span class="accountError hidefieldError">*</span>
+                        <input type="text" name="recipientName" maxlength="80" placeholder="Titular"><span class="accountError hidefieldError">*</span>
+                        <br><span>Al hacer clic en registrar, aceptas los <a href="termsofuse">términos del uso</a>.</span> 
+                        <p class="registerError">{{error}}</p>      
+                        <button class="btn" type="submit">Registrar</button>
+                    </form>
                   </div>
 <!--                <div class="imagenD2">
                 <img src="images/registro.png" alt="" />
