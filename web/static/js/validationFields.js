@@ -5,7 +5,6 @@ function validateClient() {
     var errorString = ''; 
     var result = true ; 
 
-
     var passwordValue = $('#createaccountClient input[name=password]').fieldValue(); 
     var repeatPasswordValue = $('#createaccountClient input[name=passwordCon]').fieldValue();         
     // passwordValue and repeatPasswordValue are arrays
@@ -70,12 +69,8 @@ function validateDriver() {
     }
 
     //If the value of AppPayment is 'Si' the value of 'bankAccount' and 'recipientName'  must be set
-
-    alert($('#createaccountDriver select[name=appPayment]').checked);
-    alert($('#createaccountDriver select[name=appPayment]').fieldValue);
-    alert($('#createaccountDriver select[name=appPayment]').val());
-    if ($('#createaccountDriver select[name=appPayment]').fieldValue() == 'True') {
-        if ($('#createaccountDriver input[name=bankAccount]').fieldValue() == '' || $('#createaccountDriver input[name=recipientName]').fieldValue() == ''){
+    if($("input[name=appPayment]").is(':checked')) {  
+        if ($('input[name=bankAccount]').fieldValue() == '' || $('input[name=recipientName]').fieldValue() == ''){
             if (errorString == ''){          
                 errorString = 'Debe introducir Número de cuenta bancaria y Titular de la cuenta';
             }
@@ -86,7 +81,7 @@ function validateDriver() {
             $('#createaccountDriver .accountError').removeClass('hidefieldError');    
             result = false;
         }
-    }
+    } 
 
     if (result == false) {
         $('#createaccountDriver .registerError').html(errorString); 

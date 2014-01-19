@@ -74,19 +74,19 @@
                   <input type="text" name="model" maxlength="80" placeholder="Modelo" required = "required">
                   <input type="number" name="capacity" placeholder="Capacidad" required = "required">
                   <br>
-                      <p>
-                          <input type="checkbox" name="accessible" value="True">Taxi habilitado para minusválidos
-                      </p>
-                      <p>
-                                    <input type="checkbox" name="animals" value="True">Se admiten animales
-                      </p>
-                      <p>
-                        <input type="checkbox" name="appPayment" value="True">Se admite pago a través de la aplicación
-                      </p>
-                      <span class="italic">Si admite pago a través de la aplicación deberá especificar <br>Cuenta Bancaria y Nombre del Titular</span>
-                      <input type="text" name="bankAccount" maxlength="20" placeholder="Número de cuenta"><span class="accountError hidefieldError">*</span>
-                  <input type="text" name="recipientName" maxlength="80" placeholder="Titular"><span class="accountError hidefieldError">*</span>
-                  <br><span>Al hacer clic en registrar, aceptas los <a href="termsofuse">términos del uso</a>.</span> 
+                  <p>
+                    <input type="checkbox" name="accessible" value="True">Taxi habilitado para minusválidos
+                  </p>
+                  <p>
+                    <input type="checkbox" name="animals" value="True">Se admiten animales
+                  </p>
+                  <p>
+                    <input type="checkbox" name="appPayment" value="True">Se admite pago a través de la aplicación
+                  </p>
+                  <span class="italic">Si admite pago a través de la aplicación deberá especificar <br>Cuenta Bancaria y Nombre del Titular</span>
+                  <input type="text" name="bankAccount" maxlength="20" placeholder="Número de cuenta" disabled><span class="accountError hidefieldError">*</span>
+                  <input type="text" name="recipientName" maxlength="80" placeholder="Titular" disabled><span class="accountError hidefieldError">*</span>
+                  <br><span>Al hacer clic en registrar, aceptas los <a href="termsofuse">términos del uso</a>.</span>
                   <p class="registerError">{{error}}</p>      
                   <button class="btn" type="submit">Registrar</button>
                 </form>
@@ -132,6 +132,7 @@
 <script defer type="text/javascript" src="{{STATIC_URL}}js/validationFields.js"></script>
 <script defer type="text/javascript" src="{{STATIC_URL}}js/clearFields.js"></script>
 <script defer type="text/javascript" src="{{STATIC_URL}}js/validationcode.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/appPaymentCheck.js"></script>
 <script>
   function showValidationCodeWindow()
   {
