@@ -154,6 +154,8 @@ def getClosestTaxi(request):
         pointclient = Point(float(request.GET['latitud']), float(request.GET['longitud']))
         try:
             customer = Customer.objects.get(email=request.GET['email'])
+            if customer.sessionID != request.GET['sessionID']:
+                return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
             closestDriver = Driver.objects.distance(pointclient).filter(car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity).order_by('distance')[0]
             serialDriver = DriverSerializer(closestDriver)
             return Response(serialDriver.data, status=status.HTTP_200_OK)
@@ -174,6 +176,8 @@ def getClosestTaxiBeta(request):
             customer = Customer.objects.get(email=request.GET['email'])
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
+        if customer.sessionID != request.GET['sessionID']:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
         closestDrivers = Driver.objects.distance(pointclient).filter(car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity).order_by('distance')[:5]
         if closestDrivers.count() == 0:
             return HttpResponse(status=status.HTTP_204_NO_CONTENT, content="No se han encontrado taxis")
@@ -210,7 +214,8 @@ def getNearestTaxies(request):
             customer = Customer.objects.get(email=request.GET['email'])
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
-
+        if customer.sessionID != request.GET['sessionID']:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
         closestDrivers = Driver.objects.distance(pointclient).filter(car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity).order_by('distance')[:10]
         serialDriver = DriverSerializer(closestDrivers, many=True)
         return Response(serialDriver.data, status=status.HTTP_200_OK)
@@ -236,6 +241,8 @@ def updateProfile(request):
         customer = Customer.objects.get(email=request.POST['email'])
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
+    if customer.sessionID != request.POST['sessionID']:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
     customer.first_name = request.POST['firstName']
     customer.last_name = request.POST['lastName']
     customer.image = request.POST['newImage']
@@ -286,6 +293,8 @@ def updateFilters(request):
         customer = Customer.objects.get(email=request.POST['email'])
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
+    if customer.sessionID != request.POST['sessionID']:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
     customer.fAccessible = (request.POST['accesible'] == 'true')
     customer.fAnimals = (request.POST['animals'] == 'true')
     customer.fAppPayment = (request.POST['appPayment'] == 'true')
@@ -331,6 +340,8 @@ def changePassword(request):
         customer = Customer.objects.get(email=request.POST['email'])
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
+    if customer.sessionID != request.POST['sessionID']:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
     if customer.password == request.POST['oldPass']:
         customer.password = request.POST['newPass']  
         customer.save()
@@ -467,6 +478,8 @@ def addFavoriteDriver(request):
         customer = Customer.objects.get(email=request.POST['customerEmail'])
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
+    if customer.sessionID != request.GET['sessionID']:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
     try:
         driver = Driver.objects.get(email=request.POST['driverEmail'])
     except ObjectDoesNotExist:
@@ -485,6 +498,8 @@ def removeFavoriteDriver(request):
         customer = Customer.objects.get(email=request.POST['customerEmail'])
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
+    if customer.sessionID != request.GET['sessionID']:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
     try:
         driver = customer.favlist.get(email=request.POST['driverEmail'])
     except ObjectDoesNotExist:
@@ -502,6 +517,8 @@ def removeTravel(request):
         customer = Customer.objects.get(email=request.POST['email'])
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
+    if customer.sessionID != request.GET['sessionID']:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
     try:
         travel = customer.travel_set.get(id=request.POST['travel_id'])
     except ObjectDoesNotExist:
