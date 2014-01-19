@@ -18,6 +18,7 @@
                             <li><a href="mantdriver_changePassword.html">Modificar Contraseña</a></li>
                             <li><a href="mantdriver_car.html">Datos del vehículo</a></li>
                             <li><a href="mantdriver_bankAccount.html" class="active">Datos bancarios</a></li>
+                            <li><a href="mantdriver_TravelGraphic.html">Trayectos realizados</a></li>
                         </ul>
                     </div>
                 </aside>
@@ -25,18 +26,21 @@
                     <form name="mantdriver" id="mantdriver" action="" method="POST">                      
                         {% csrf_token %}
                         <div class="col1 maintenance">
-                            <input type="text" name="bankAccount" maxlength="20" placeholder="Número de cuenta"
-                            {% if driver.bankAccount == None %}
-                                >
+                            <p>
+                                {% if car.appPayment %}
+                                    <input type="checkbox" name="appPayment" checked>Se admite pago a través de la aplicación
+                                {% else %}
+                                    <input type="checkbox" name="appPayment">Se admite pago a través de la aplicación
+                                {% endif %}
+                            </p>
+                            <span class="italic">Si admite pago a través de la aplicación deberá especificar Cuenta Bancaria y Nombre del Titular</span>
+                            {% if car.appPayment %}
+                                <input type="text" name="bankAccount" maxlength="20" placeholder="Número de cuenta" value="{{driver.bankAccount}}">
+                                <input type="text" name="recipientName" maxlength="80" placeholder="Titular" value="{{driver.recipientName}}">
                             {% else %}
-                                value="{{driver.bankAccount}}">
+                                <input type="text" name="bankAccount" maxlength="20" placeholder="Número de cuenta" value="{{driver.bankAccount}}" disabled>
+                                <input type="text" name="recipientName" maxlength="80" placeholder="Titular" value="{{driver.recipientName}}" disabled>
                             {% endif %}
-                            <input type="text" name="recipientName" maxlength="80" placeholder="Titular"
-                            {% if driver.recipientName == None %}
-                                >
-                            {% else %}
-                                value="{{driver.recipientName}}">
-                            {% endif %}  
                         </div>
                         <p class="registerError">{{error}}</p>
                         <div class="clr"><button class="btn" type="submit">Actualizar</button></div>
@@ -47,6 +51,7 @@
 {% endblock %}
 
 {% block scripts %}
+    <script type="text/javascript" src="{{STATIC_URL}}js/appPaymentCheck.js"></script>
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->

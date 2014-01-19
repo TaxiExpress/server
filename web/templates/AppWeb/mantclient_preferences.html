@@ -23,29 +23,30 @@
                 <div class="span10">
                     <form name="mantclient" id="mantclient" action="" method="POST">                      
                         {% csrf_token %}
-                        <div class="col1 maintenance">
+                        <div class="col1 maintenance preferences">
+                            <input type="hidden" name="email" value="{{client.email}}">
                             <p>
                                 {% if client.fAccessible %}
-                                    <input type="checkbox" name="fAccessible" checked = "checked">Taxis habilitados para minusválidos
+                                    <input type="checkbox" id="accessible" name="accessible" checked/>Taxis habilitados para minusválidos
                                 {% else %}
-                                    <input type="checkbox" name="fAccessible">Taxis habilitados para minusválidos
+                                    <input type="checkbox" id="accessible" name="accessible">Taxis habilitados para minusválidos
                                 {% endif %}
                             </p>
                             <p>
                                 {% if client.fAnimals %}
-                                    <input type="checkbox" name="fAnimals" checked = "checked">Taxis que admitan animales
+                                    <input type="checkbox" id="animals" name="animals" checked>Taxis que admitan animales
                                 {% else %}
-                                    <input type="checkbox" name="fAnimals">Taxis que admitan animales
+                                    <input type="checkbox" id="animals" name="animals">Taxis que admitan animales
                                 {% endif %}
                             </p> 
                             <p>
                                 {% if client.fAppPayment %}
-                                    <input type="checkbox" name="fAppPayment" checked = "checked">Taxis que permitan el pago a través de la aplicación
+                                    <input type="checkbox" id="appPayment" name="appPayment" checked>Taxis que permitan el pago a través de la aplicación
                                 {% else %}
-                                    <input type="checkbox" name="fAppPayment">Taxis que permitan el pago a través de la aplicación
+                                    <input type="checkbox" id="appPayment" name="appPayment">Taxis que permitan el pago a través de la aplicación
                                 {% endif %}
                             </p>
-                            <input type="number" id="fCapacity" name="fcapacity" placeholder="Capacidad"> 
+                            <input type="number" id="capacity" name="capacity" placeholder="Capacidad" value="{{client.fCapacity}}"> 
                         </div>
                         <p class="registerError">{{error}}</p>
                         <div class="clr"><button class="btn" type="submit">Actualizar</button></div>

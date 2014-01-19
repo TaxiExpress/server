@@ -15,10 +15,10 @@
                     <div class="tabs">
                         <ul class="menu nav">
                             <li class="first" ><a href="mantdriver_data.html">Perfil de usuario</a></li>
-                            <li><a href="mantdriver_changePassword.html" class="active">Modificar Contraseña</a></li>
+                            <li><a href="mantdriver_changePassword.html">Modificar Contraseña</a></li>
                             <li><a href="mantdriver_car.html">Datos del vehículo</a></li>
                             <li><a href="mantdriver_bankAccount.html">Datos bancarios</a></li>
-                            <li><a href="mantdriver_TravelGraphic.html">Trayectos realizados</a></li>
+                            <li><a href="mantdriver_TravelGraphic.html" class="active">Trayectos realizados</a></li>
                         </ul>
                     </div>
                 </aside>
@@ -26,13 +26,8 @@
                     <form name="mantdriver" id="mantdriver" action="" method="POST" onsubmit="return validateDriverPassword();">                      
                         {% csrf_token %}
                         <div class="col1 maintenance">
-                            <input type="hidden" name="email" value="{{driver.email}}">
-                            <input type="password" name="oldPass" maxlength="80" placeholder="Contraseña Actual" required>
-                            <input type="password" name="newPass" maxlength="80" placeholder="Nueva Contraseña" required><span class="passwordError hidefieldError">*</span>
-                            <input type="password" name="newPass2" maxlength="80" placeholder="Confirme Contraseña" required><span class="passwordError hidefieldError">*</span> 
+                           
                         </div>
-                        <p class="registerError">{{error}}</p>
-                        <div class="clr"><button class="btn" type="submit">Actualizar</button></div>
                     </form> 
                 </div>
             </div>
