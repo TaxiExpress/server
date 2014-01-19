@@ -25,11 +25,7 @@
                             <ul>
                                 <li class="placeholder">
                                     <span class="textfield">
-                                        {% if status == 401 or status == 400 %}
-                                            <input type="email" id="email" name="email" required="required" value = {{email}} placeholder="Email" tabindex="1">
-                                        {% else %}
-                                            <input type="email" id="email" name="email" required="required" value placeholder="Email" tabindex="1">
-                                        {% endif %}
+                                        <input type="email" id="email" name="email" required="required" value="{{request.POST.email}}" placeholder="Email" tabindex="1">
                                     </span>                                    
                                     <input class="tipo" type="radio" name="tipo" length=2 value="C" 
                                     {% if tipo != "D" %}
@@ -46,11 +42,7 @@
                                 </li>
                                 <li class="placeholder">
                                     <span class="textfield">
-                                        {% if status == 401 or status == 400 %}
-                                            <input type="password" id="password" name="password" required="required" placeholder ="Contraseña" value = {{password}} tabindex="2">
-                                        {% else %}
-                                            <input type="password" id="password" name="password" required="required" placeholder ="Contraseña" value tabindex="2">
-                                        {% endif %}
+                                        <input type="password" id="password" name="password" required="required" placeholder ="Contraseña" value = "{{request.POST.password}}" tabindex="2">
                                     </span>
                                     <p class="forgotpass h-stext h-center">
                                         <a class="forgotpassword" tabindex="4" href="" title="¿Has olvidado tu contraseña?">¿Has olvidado tu contraseña?</a>
