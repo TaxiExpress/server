@@ -345,6 +345,27 @@ def changePassword(request):
 
 
 @csrf_exempt
+@api_view(['POST'])
+def changePasswordDriver(request):
+    try:
+        driver = Driver.objects.get(email=request.POST['email'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=401, content="El email introducido no es válido")
+    if driver.password == request.POST['oldPass']:
+        driver.password = request.POST['newPass']  
+        driver.save()
+        subject = 'Taxi Express: Su contraseña ha sido modificada'
+        from_email = 'MyTaxiExpress@gmail.com'
+        to = [driver.email]
+        html_content = 'Le informamos de que su contraseña de Taxi Express ha sido modificada. En el caso en el que no tenga constancia de ello, póngase inmediantamente en contacto con MyTaxiExpress@gmail.com.'
+        msg = EmailMessage(subject, html_content, from_email, to)
+        msg.content_subtype = "html"  # Main content is now text/html
+        msg.send()  
+        return HttpResponse(status=200,content="La contraseña ha sido modificada correctamente")
+    else:
+        return HttpResponse(status=401, content="La contraseña actual es incorrecta")
+
+@csrf_exempt
 @api_view(['GET'])
 def recoverPassword(request):
     if request.GET['email'] == '':

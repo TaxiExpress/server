@@ -25,6 +25,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from taxiexpress.views import validateUser
 from taxiexpress.views import changePassword
+from taxiexpress.views import changePasswordDriver
 
 
 @csrf_exempt
@@ -81,7 +82,8 @@ def registerUser(request):
         #   return HttpResponse("shortpassword", content_type="text/plain")
         else:
             try:
-                c = Customer(email=request.POST['email'], password=passtemp, phone=request.POST['phone'])
+                tmpPhone = '+34' + request.POST['phone']
+                c = Customer(email=request.POST['email'], password=passtemp, phone=tmpPhone)
                 code = random.randint(1000, 9999)
                 c.validationCode = code
                 c.save()
@@ -119,7 +121,8 @@ def registerDriver(request):
                 car.save()
 
                 #Driver data
-                d = Driver(email=request.POST['email'], password=request.POST['password'], phone=request.POST['phone'],
+                tmpPhone = '+34' + request.POST['phone']
+                d = Driver(email=request.POST['email'], password=request.POST['password'], phone=tmpPhone,
                     first_name=request.POST['first_name'], last_name=request.POST['last_name'], license =request.POST['license'],
                     car = car)
 
@@ -420,6 +423,24 @@ def mantdriver_data(request):
             if request.session['Customer'] == False:
                 driver = get_object_or_404(Driver, id=request.session['user_id'])
                 return render(request, 'AppWeb/mantdriver_data.html', {'driver':driver}) 
+            else:
+                request.session['email'] = ''
+                request.session['user_id'] = ''
+                request.session['Customer'] = ''
+                return redirect('/')            
+        else:
+            return redirect('/')
+
+def mantdriver_changePassword(request):
+    if request.method == "POST":
+        response = changePasswordDriver(request)
+        driver = get_object_or_404(Driver, id=request.session['user_id'])
+        return render(request, 'AppWeb/mantdriver_changePassword.html', {'driver':driver, 'error':response.content})
+    else:
+        if 'user_id' in request.session:
+            if request.session['Customer'] == False:
+                driver = get_object_or_404(Driver, id=request.session['user_id'])
+                return render(request, 'AppWeb/mantdriver_changePassword.html', {'driver':driver}) 
             else:
                 request.session['email'] = ''
                 request.session['user_id'] = ''
