@@ -478,6 +478,7 @@ def addFavoriteDriver(request):
         customer = Customer.objects.get(email=request.POST['customerEmail'])
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
+    print customer.sessionID
     if customer.sessionID != request.POST['sessionID']:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
     try:
