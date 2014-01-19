@@ -414,7 +414,7 @@ def mantdriver_car(request):
         if request.session['Customer'] == False:
             driver = get_object_or_404(Driver, id=request.session['user_id'])
             car = get_object_or_404(Car, plate=driver.car)
-            return render(request, 'AppWeb/mantdriver_car.html', {'car': car, 'email': driver.email}) 
+            return render(request, 'AppWeb/mantdriver_car.html', {'car': car, 'driver': driver}) 
         else:
             request.session['email'] = ''
             request.session['user_id'] = ''
