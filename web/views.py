@@ -74,10 +74,11 @@ def loginDriver(request):
 def registerUser(request):
     if request.method == "POST":
         passtemp = request.POST['password']
+        tmpPhone = '+34' + request.POST['phone']
         if (Customer.objects.filter(email=request.POST['email']).count() > 0):
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email que ha indicado ya está en uso")
-        if (Customer.objects.filter(phone=request.POST['phone']).count() > 0):
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El teléfono que ha indicado ya está en uso")
+            return HttpResponse(status=HTTP_401_UNAUTHORIZED, content="El email que ha indicado ya está en uso")
+        if (Customer.objects.filter(phone=tmpPhone).count() > 0):
+            return HttpResponse(status=HTTP_401_UNAUTHORIZED, content="El teléfono que ha indicado ya está en uso")
         #elif (passtemp.length() < 4)
         #   return HttpResponse("shortpassword", content_type="text/plain")
         else:
@@ -109,10 +110,11 @@ def registerUser(request):
 def registerDriver(request):
     if request.method == "POST":
         passtemp = request.POST['password'];
+        tmpPhone = '+34' + request.POST['phone']
         if (Driver.objects.filter(email=request.POST['email']).count() > 0):
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email que ha indicado ya está en uso")
-        if (Driver.objects.filter(phone=request.POST['phone']).count() > 0):
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El teléfono que ha indicado ya está en uso")
+            return HttpResponse(status=HTTP_401_UNAUTHORIZED, content="El email que ha indicado ya está en uso")
+        if (Driver.objects.filter(phone=tmpPhone).count() > 0):
+            return HttpResponse(status=HTTP_401_UNAUTHORIZED, content="El teléfono que ha indicado ya está en uso")
         else:
             try:
                 #Car data
@@ -133,7 +135,7 @@ def registerDriver(request):
                 car.save()
 
                 #Driver data
-                tmpPhone = '+34' + request.POST['phone']
+
                 d = Driver(email=request.POST['email'], password=request.POST['password'], phone=tmpPhone,
                     first_name=request.POST['first_name'], last_name=request.POST['last_name'], license =request.POST['license'],
                     car = car)
