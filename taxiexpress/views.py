@@ -167,6 +167,7 @@ def getClosestTaxi(request):
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Error al obtener la posicion")
 
+
 @csrf_exempt
 @api_view(['GET'])
 def getClosestTaxiBeta(request):
@@ -192,10 +193,41 @@ def getClosestTaxiBeta(request):
         for i in range(closestDrivers.count()):
             post_data["pushID"+str(i+1)] = closestDrivers[i].pushID
         resp = requests.post('http://localhost:8080/send', params=post_data)
-        print resp
-        return HttpResponse(status=status.HTTP_200_OK)
+        response_data = {}
+        response_data['travelID'] = travel.id
+        return HttpResponse(json.dumps(response_data), content_type="application/json")
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Error al obtener la posicion")
+
+
+@csrf_exempt
+@api_view(['GET'])
+def acceptTravel(request):
+    if 'email' in request.GET:
+        try:
+            driver = Driver.objects.get(email=request.GET['email'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
+        try:
+            travel = Travel.objects.get(travel=request.GET['travelID'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El viaje no existe")
+        if travel.accepted:
+            return HttpResponse(status=status.HTTP_409_CONFLICT, content="El viaje no está disponible")
+        travel.driver = driver
+        travel.accepted = True
+        travel.save()
+        driverpos = Point(float(request.GET['latitude']), float(request.GET['longitude'])
+        driver.isfree = False
+        driver.geom = driverpos
+        driver.save()
+        post_data = {"travelID": travel.id, "pushId": travel.customer.id, "travelID": travel.id, "latitude": str(driverpos.x), "longitude": str(driverpos.y), "device": "android"} 
+        resp = requests.post('http://localhost:8080/send', params=post_data)
+        return HttpResponse(status=status.HTTP_200_OK)
+    else:
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
+
+
 
 @csrf_exempt
 @api_view(['GET'])
