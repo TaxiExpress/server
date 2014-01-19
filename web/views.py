@@ -172,6 +172,30 @@ def updateProfileUserWeb(request):
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe estar conectado para realizar esta operación")
 
+@csrf_exempt
+#@api_view(['POST'])
+def updateFiltersWeb(request):
+    try:
+        customer = Customer.objects.get(email=request.POST['email'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
+    if 'accessible' in request.POST:
+        customer.fAccessible = True
+    else:
+        customer.fAccessible = False
+    if 'animals' in request.POST:
+        customer.fAnimals = True
+    else:
+        customer.fAnimals = False
+    if 'appPayment' in request.POST:
+        customer.fAppPayment = True
+    else:
+        customer.fAppPayment = False
+
+    customer.fCapacity = request.POST['capacity']
+    customer.lastUpdate = datetime.now()
+    customer.save()
+    return HttpResponse(status=status.HTTP_200_OK,content="Filtros actualizados")
 
 @csrf_exempt
 @api_view(['POST'])
@@ -401,17 +425,22 @@ def mantclient_changePassword(request):
             return redirect('/')
 
 def mantclient_preferences(request):
-    if 'user_id' in request.session:
-        if request.session['Customer'] == True:
-            customer = get_object_or_404(Customer, id=request.session['user_id'])
-            return render(request, 'AppWeb/mantclient_preferences.html', {'client':customer})
-        else:
-            request.session['email'] = ''
-            request.session['user_id'] = ''
-            request.session['Customer'] = ''
-            return redirect('/')               
+    if request.method == "POST":
+        response = updateFiltersWeb(request)
+        customer = get_object_or_404(Customer, id=request.session['user_id'])
+        return render(request, 'AppWeb/mantclient_preferences.html', {'client':customer, 'error':response.content})
     else:
-        return redirect('/')
+        if 'user_id' in request.session:
+            if request.session['Customer'] == True:
+                customer = get_object_or_404(Customer, id=request.session['user_id'])
+                return render(request, 'AppWeb/mantclient_preferences.html', {'client':customer})
+            else:
+                request.session['email'] = ''
+                request.session['user_id'] = ''
+                request.session['Customer'] = ''
+                return redirect('/')               
+        else:
+            return redirect('/')
 
 def mantdriver_data(request):
     if request.method == "POST":
