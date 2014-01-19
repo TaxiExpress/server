@@ -478,7 +478,7 @@ def addFavoriteDriver(request):
         customer = Customer.objects.get(email=request.POST['customerEmail'])
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
-    if customer.sessionID != request.GET['sessionID']:
+    if customer.sessionID != request.POST['sessionID']:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
     try:
         driver = Driver.objects.get(email=request.POST['driverEmail'])
@@ -498,7 +498,7 @@ def removeFavoriteDriver(request):
         customer = Customer.objects.get(email=request.POST['customerEmail'])
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
-    if customer.sessionID != request.GET['sessionID']:
+    if customer.sessionID != request.POST['sessionID']:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
     try:
         driver = customer.favlist.get(email=request.POST['driverEmail'])
@@ -517,7 +517,7 @@ def removeTravel(request):
         customer = Customer.objects.get(email=request.POST['email'])
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
-    if customer.sessionID != request.GET['sessionID']:
+    if customer.sessionID != request.POST['sessionID']:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
     try:
         travel = customer.travel_set.get(id=request.POST['travel_id'])
