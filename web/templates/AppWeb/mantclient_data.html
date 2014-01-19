@@ -35,31 +35,13 @@
                         </div>
                         <input type="hidden" name="id" value="{{client.id}}">
                         <div class="col1 maintenance">                        
-                            {% if client.first_name == None %}
-                                <input type="text" name="first_name" maxlength="80" placeholder="Nombre" required = "required" >
-                            {% else %}
-                                <input type="text" name="first_name" maxlength="80" placeholder="Nombre" required = "required" value="{{client.first_name}}">
-                            {% endif %}
+                            <input type="text" name="first_name" maxlength="80" placeholder="Nombre" required value="{{client.first_name}}">
 
-                            {% if client.last_name == None %}
-                                <input type="text" name="last_name" maxlength="80" placeholder="Apellido" required = "required">
-                            {% else %}
-                                 <input type="text" name="last_name" maxlength="80" placeholder="Apellido" required = "required" value="{{client.last_name}}">
-                            {% endif %}
+                            <input type="text" name="last_name" maxlength="80" placeholder="Apellido" required = "required" value="{{client.last_name}}">
 
-                            <input type="email" name="email" maxlength="80" placeholder="Email" required = "required" disabled
-                            {% if client.email == None %}
-                                >
-                            {% else %}
-                                value="{{client.email}}">
-                            {% endif %}
+                            <input type="email" name="email" maxlength="80" placeholder="Email" required = "required" disabled value="{{client.email}}">
 
-                            <input type="tel" name="phone" maxlength="80" placeholder="Teléfono" required = "required" disabled
-                            {% if client.phone == None %}
-                                >
-                            {% else %}
-                                value="{{client.phone|cut:"+34"}}">
-                            {% endif %}
+                            <input type="tel" name="phone" maxlength="80" placeholder="Teléfono" required = "required" disabled value="{{client.phone|cut:"+34"}}">
                            
                         </div>
                         <div class="col2 maintenance">
@@ -86,12 +68,7 @@
                                     <option value = "089">Urduliz</option>                            
                                 </select></div>
                             </p>
-                            <input type="text" name="postcode" maxlength="5" placeholder="Código Postal" 
-                            {% if client.postcode == None %}
-                                >
-                            {% else %}
-                                value="{{client.postcode}}">
-                            {% endif %}
+                            <input type="text" name="postcode" maxlength="5" placeholder="Código Postal" value="{{client.postcode}}">
 
                         </div>
                         <p class="registerError">{{error}}</p>
