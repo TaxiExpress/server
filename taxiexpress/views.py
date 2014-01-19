@@ -183,7 +183,7 @@ def getClosestTaxiBeta(request):
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
         post_data = {"origin": origin, "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": "android"} 
         for i in range(closestDrivers.count()):
-            post_data["pushID"+str(i)] = closestDrivers[i]
+            post_data["pushID"+str(i+1)] = closestDrivers[i].pushID
         resp = requests.post('http://localhost:8080/send', params=post_data)
         print resp
         return HttpResponse(status=status.HTTP_200_OK)
