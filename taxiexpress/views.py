@@ -26,6 +26,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 
+def sessionID_generator(size=10, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for x in range(size))
+
 # Create your views here.
 @csrf_exempt
 @api_view(['POST'])
@@ -42,6 +45,7 @@ def loginUser(request):
         request.session['email'] = customer.email
         request.session['user_id'] = customer.id
         request.session['Customer'] = True
+        customer.sessionID = sessionID_generator()
         datetime_profile = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
         datetime_taxies = datetime.strptime(request.POST['lastUpdateFavorites'], '%Y-%m-%d %H:%M:%S')
         datetime_travels = datetime.strptime(request.POST['lastUpdateTravels'], '%Y-%m-%d %H:%M:%S')
