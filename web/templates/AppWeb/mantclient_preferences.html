@@ -15,11 +15,12 @@
                     <div class="tabs">
                         <ul class="menu nav">
                             <li class="first" ><a href="mantclient_data.html">Perfil de usuario</a></li>
+                            <li><a href="mantclient_changePassword.html">Modificar Contraseña</a></li>
                             <li><a href="mantclient_preferences.html" class="active">Preferencias de búsqueda</a></li>
                         </ul>
                     </div>
                 </aside>
-                 <div class="span10">
+                <div class="span10">
                     <form name="mantclient" id="mantclient" action="" method="POST">                      
                         {% csrf_token %}
                         <div class="col1 maintenance">
@@ -46,6 +47,7 @@
                             </p>
                             <input type="number" id="fCapacity" name="fcapacity" placeholder="Capacidad"> 
                         </div>
+                        <p class="registerError">{{error}}</p>
                         <div class="clr"><button class="btn" type="submit">Actualizar</button></div>
                     </form> 
                 </div>

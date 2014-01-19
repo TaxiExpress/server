@@ -24,6 +24,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from taxiexpress.views import validateUser
+from taxiexpress.views import changePassword
 
 
 @csrf_exempt
@@ -370,6 +371,24 @@ def mantclient_data(request):
             if request.session['Customer'] == True:
                 customer = get_object_or_404(Customer, id=request.session['user_id'])
                 return render(request, 'AppWeb/mantclient_data.html', {'client':customer}) 
+            else:
+                request.session['email'] = ''
+                request.session['user_id'] = ''
+                request.session['Customer'] = ''
+                return redirect('/')    
+        else:
+            return redirect('/')
+
+def mantclient_changePassword(request):   
+    if request.method == "POST":
+        response = changePassword(request)
+        customer = get_object_or_404(Customer, id=request.session['user_id'])
+        return render(request, 'AppWeb/mantclient_changePassword.html', {'client':customer, 'error':response.content})
+    else:
+        if 'user_id' in request.session:
+            if request.session['Customer'] == True:
+                customer = get_object_or_404(Customer, id=request.session['user_id'])
+                return render(request, 'AppWeb/mantclient_changePassword.html', {'client':customer}) 
             else:
                 request.session['email'] = ''
                 request.session['user_id'] = ''
