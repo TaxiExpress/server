@@ -565,7 +565,20 @@ def mantdriver_bankAccount(request):
                 request.session['Customer'] = ''
                 return redirect('/')     
         else:
+            return redirect('/')    
+
+def mantdriver_TravelGraphic(request):
+    if 'user_id' in request.session:
+        if request.session['Customer'] == False:
+            driver = get_object_or_404(Driver, id=request.session['user_id'])
+            return render(request, 'AppWeb/mantdriver_TravelGraphic.html', {'driver':driver})
+        else:
+            request.session['email'] = ''
+            request.session['user_id'] = ''
+            request.session['Customer'] = ''
             return redirect('/')     
+    else:
+        return redirect('/')  
 
 def termsofuse(request):
     return render(request, 'AppWeb/termsofuse.html', {}) 
