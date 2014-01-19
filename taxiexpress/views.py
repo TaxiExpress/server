@@ -46,6 +46,7 @@ def loginUser(request):
         request.session['user_id'] = customer.id
         request.session['Customer'] = True
         customer.sessionID = sessionID_generator()
+        customer.save()
         datetime_profile = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
         datetime_taxies = datetime.strptime(request.POST['lastUpdateFavorites'], '%Y-%m-%d %H:%M:%S')
         datetime_travels = datetime.strptime(request.POST['lastUpdateTravels'], '%Y-%m-%d %H:%M:%S')
@@ -478,7 +479,6 @@ def addFavoriteDriver(request):
         customer = Customer.objects.get(email=request.POST['customerEmail'])
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
-    print customer.sessionID
     if customer.sessionID != request.POST['sessionID']:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
     try:
