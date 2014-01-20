@@ -219,7 +219,7 @@ def acceptTravel(request):
         travel.accepted = True
         travel.save()
         driverpos = Point(float(request.POST['latitude']), float(request.POST['longitude']))
-        driver.isfree = False
+        driver.car.isfree = False
         driver.geom = driverpos
         driver.save()
         post_data = {"travelID": travel.id, "pushId": travel.customer.id, "latitude": str(driverpos.x), "longitude": str(driverpos.y), "device": "android"} 
@@ -260,6 +260,7 @@ def travelCompleted(request):
         travel.endpoint = Point(float(request.POST['latitude']), float(request.POST['longitude']))
         travel.endtime = datetime.now()
         travel.appPayment = (request.POST['appPayment'] == "True")
+        travel.driver.car.isfree = True
         if !travel.appPayment:
             travel.isPaid = True
         travel.save()
