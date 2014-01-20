@@ -137,5 +137,17 @@
 
 #validation-form .error{
 	font-size: 13px;
-	margin: 0px 0px 0px 20px;
+}
+
+#validation-form .h-left {
+    float: left;
+    width: 100%;
+}
+
+#validation-form .error:empty;{
+    display: none;
+}
+
+#validation-form .ff-txt-error, .h-stext.ff-txt-error {
+    color: #a02b27;
 }
