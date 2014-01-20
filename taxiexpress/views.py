@@ -217,7 +217,7 @@ def acceptTravel(request):
         travel.driver = driver
         travel.accepted = True
         travel.save()
-        driverpos = Point(float(request.POST['latitude']), float(request.POST['longitude'])
+        driverpos = Point(float(request.POST['latitude']), float(request.POST['longitude']))
         driver.isfree = False
         driver.geom = driverpos
         driver.save()
@@ -232,15 +232,16 @@ def acceptTravel(request):
 def travelStarted(request):
     if 'travelID' in request.POST: 
         try:
-            travel = Travel.objects.get(travel=request.POST['travelID'])
+            travel = Travel.objects.get(id=request.POST['travelID'])
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
         if request.POST['email'] != travel.driver.email:
             return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
         travel.origin = request.POST['origin']
-        travel.startpoint = Point(float(request.POST['latitude']), float(request.POST['longitude'])
+        travel.startpoint = Point(float(request.POST['latitude']), float(request.POST['longitude']))
         travel.starttime = datetime.now()
         travel.save()
+        return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
 
