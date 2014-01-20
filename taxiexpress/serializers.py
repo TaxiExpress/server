@@ -22,6 +22,11 @@ class CitySerializer(serializers.ModelSerializer):
         model = City
         fields = ('code', 'name')
 
+class DriverDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Driver
+        fields = ('first_name', 'last_name')
+
 class DriverSerializer(serializers.ModelSerializer):
     valuation = serializers.SerializerMethodField('get_valuation')
     car = CarSerializer()

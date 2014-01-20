@@ -107,7 +107,8 @@ def loginDriver(request):
         request.session['email'] = driver.email
         request.session['user_id'] = driver.id
         request.session['Customer'] = False
-        return Response(status=status.HTTP_200_OK)
+        driverNameSurname = DriverDataSerializer(driver)
+        return Response(driverNameSurname.data, status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 
