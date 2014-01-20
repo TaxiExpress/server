@@ -446,10 +446,7 @@ def mantclient_data(request):
                 customer = get_object_or_404(Customer, id=request.session['user_id'])
                 return render(request, 'AppWeb/mantclient_data.html', {'client':customer}) 
             else:
-                request.session['email'] = ''
-                request.session['user_id'] = ''
-                request.session['Customer'] = ''
-                return redirect('/')    
+                logout(request)    
         else:
             return redirect('/')
 
@@ -464,10 +461,7 @@ def mantclient_changePassword(request):
                 customer = get_object_or_404(Customer, id=request.session['user_id'])
                 return render(request, 'AppWeb/mantclient_changePassword.html', {'client':customer}) 
             else:
-                request.session['email'] = ''
-                request.session['user_id'] = ''
-                request.session['Customer'] = ''
-                return redirect('/')    
+                logout(request)    
         else:
             return redirect('/')
 
@@ -500,10 +494,7 @@ def mantdriver_data(request):
                 driver = get_object_or_404(Driver, id=request.session['user_id'])
                 return render(request, 'AppWeb/mantdriver_data.html', {'driver':driver}) 
             else:
-                request.session['email'] = ''
-                request.session['user_id'] = ''
-                request.session['Customer'] = ''
-                return redirect('/')            
+                logout(request)            
         else:
             return redirect('/')
 
@@ -518,10 +509,7 @@ def mantdriver_changePassword(request):
                 driver = get_object_or_404(Driver, id=request.session['user_id'])
                 return render(request, 'AppWeb/mantdriver_changePassword.html', {'driver':driver}) 
             else:
-                request.session['email'] = ''
-                request.session['user_id'] = ''
-                request.session['Customer'] = ''
-                return redirect('/')            
+                logout(request)            
         else:
             return redirect('/')
 
@@ -538,10 +526,7 @@ def mantdriver_car(request):
                 car = get_object_or_404(Car, plate=driver.car)
                 return render(request, 'AppWeb/mantdriver_car.html', {'car': car, 'driver': driver}) 
             else:
-                request.session['email'] = ''
-                request.session['user_id'] = ''
-                request.session['Customer'] = ''
-                return redirect('/') 
+                logout(request) 
         else:
             return redirect('/')
 
@@ -558,10 +543,7 @@ def mantdriver_bankAccount(request):
                 car = get_object_or_404(Car, plate=driver.car)
                 return render(request, 'AppWeb/mantdriver_bankAccount.html', {'car': car, 'driver':driver})
             else:
-                request.session['email'] = ''
-                request.session['user_id'] = ''
-                request.session['Customer'] = ''
-                return redirect('/')     
+                logout(request)     
         else:
             return redirect('/')    
 
@@ -571,10 +553,7 @@ def mantdriver_TravelGraphic(request):
             driver = get_object_or_404(Driver, id=request.session['user_id'])
             return render(request, 'AppWeb/mantdriver_TravelGraphic.html', {'driver':driver})
         else:
-            request.session['email'] = ''
-            request.session['user_id'] = ''
-            request.session['Customer'] = ''
-            return redirect('/')     
+            logout(request)    
     else:
         return redirect('/')  
 
