@@ -23,7 +23,7 @@ from django.utils import timezone
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from taxiexpress.views import validateUser, changePassword, changePasswordDriver
+from taxiexpress.views import validateUser, changePassword, changePasswordDriver, recoverValidationCodeCustomer, recoverValidationCodeDriver
 
 
 @csrf_exempt
@@ -592,3 +592,20 @@ def getTravelsByMonth(request):
 
 def termsofuse(request):
     return render(request, 'AppWeb/termsofuse.html', {}) 
+
+def recoverValidationCodeWeb(request):
+    if request.is_ajax():
+        try:
+            if request.POST["tipo"] == 'C':
+                response = recoverValidationCodeCustomer(request)  
+            else:
+                response = recoverValidationCodeDriver(request)
+            
+            if response.status_code == 201:
+                msg = 'Se ha enviado un SMS con el código de validación a su teléfono'
+            else:
+                msg = response.content 
+       
+            return HttpResponse(msg)
+        except KeyError:
+            return HttpResponse('Error')   

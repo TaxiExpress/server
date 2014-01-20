@@ -22,8 +22,28 @@ $(document).ready(function() {
 	    });
     });
     $('.validationRef').click(function(){
-        //Volver a pedir codigo de validación
-        alert("codigo de validación");
+    	//alert($('.tipo').val());
+        if ($('#phone').val() == ""){
+        	$('#validation-form .error').html('Debe ingresar un numero de teléfono'); 
+        }
+        else{
+        	tmpPhone = '+34' + $('#phone').val()
+	        $.ajax({
+		        type: "POST",
+		        url: "/recoverValidationCode/",
+		        data: {
+		            csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+		            tipo: $('.tipo').val(),
+		            phone: tmpPhone,
+		        },
+		        success: function(content) {
+		            $('#validation-form .error').html(content);
+		        },
+		        error: function(xhr, textStatus, errorThrown) {
+		            alert("Please report this error: "+errorThrown+xhr.status+xhr.responseText);
+		        }
+	    	});	
+    	}	
      });
 });
 
