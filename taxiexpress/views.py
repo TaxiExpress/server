@@ -475,8 +475,8 @@ def recoverValidationCodeCustomer(request):
                         'api_key': '8a352457',
                         'api_secret': '460e58ff',
                         'from': 'Taxi Express',
-                        'to': c.phone,
-                        'text': 'Su código de validación de Taxi Express es: ' + str( c.validationCode)
+                        'to': customer.phone,
+                        'text': 'Su código de validación de Taxi Express es: ' + str( customer.validationCode)
                         }                
                 sms = NexmoMessage(msg)
                 sms.set_text_info(msg['text'])
@@ -503,8 +503,8 @@ def recoverValidationCodeDriver(request):
                         'api_key': '8a352457',
                         'api_secret': '460e58ff',
                         'from': 'Taxi Express',
-                        'to': d.phone,
-                        'text': 'Su código de validación de Taxi Express es: ' + str( d.validationCode)
+                        'to': driver.phone,
+                        'text': 'Su código de validación de Taxi Express es: ' + str( driver.validationCode)
                         }                
                 sms = NexmoMessage(msg)
                 sms.set_text_info(msg['text'])
