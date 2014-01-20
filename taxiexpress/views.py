@@ -222,7 +222,7 @@ def acceptTravel(request):
         driver.isfree = False
         driver.geom = driverpos
         driver.save()
-        post_data = {"travelID": travel.id, "pushId": travel.customer.id, "travelID": travel.id, "latitude": str(driverpos.x), "longitude": str(driverpos.y), "device": "android"} 
+        post_data = {"travelID": travel.id, "pushId": travel.customer.id, "latitude": str(driverpos.x), "longitude": str(driverpos.y), "device": "android"} 
         resp = requests.post('http://localhost:8080/send', params=post_data)
         return HttpResponse(status=status.HTTP_200_OK)
     else:
@@ -242,6 +242,30 @@ def travelStarted(request):
         travel.startpoint = Point(float(request.POST['latitude']), float(request.POST['longitude']))
         travel.starttime = datetime.now()
         travel.save()
+        return HttpResponse(status=status.HTTP_200_OK)
+    else:
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
+
+@csrf_exempt
+@api_view(['POST'])
+def travelCompleted(request):
+    if 'travelID' in request.POST: 
+        try:
+            travel = Travel.objects.get(id=request.POST['travelID'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
+        if request.POST['email'] != travel.driver.email:
+            return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
+        travel.destination = request.POST['destination']
+        travel.endpoint = Point(float(request.POST['latitude']), float(request.POST['longitude']))
+        travel.endtime = datetime.now()
+        travel.appPayment = (request.POST['appPayment'] == "True")
+        if !travel.appPayment:
+            travel.isPaid = True
+        travel.save()
+        if travel.appPayment:
+            post_data = {"travelID": travel.id, "pushId": travel.customer.id, "cost": request.POST['cost'], "device": "android"} 
+            resp = requests.post('http://localhost:8080/send', params=post_data)
         return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
