@@ -171,8 +171,8 @@ def getClosestTaxi(request):
 @csrf_exempt
 @api_view(['GET'])
 def getClosestTaxiBeta(request):
-    if 'latitud' in request.GET:
-        pointclient = Point(float(request.GET['latitud']), float(request.GET['longitud']))
+    if 'latitude' in request.GET:
+        pointclient = Point(float(request.GET['latitude']), float(request.GET['longitude']))
         origin = request.GET['origin']
         try:
             customer = Customer.objects.get(email=request.GET['email'])
@@ -201,23 +201,23 @@ def getClosestTaxiBeta(request):
 
 
 @csrf_exempt
-@api_view(['GET'])
+@api_view(['POST'])
 def acceptTravel(request):
-    if 'email' in request.GET:
+    if 'email' in request.POST:
         try:
-            driver = Driver.objects.get(email=request.GET['email'])
+            driver = Driver.objects.get(email=request.POST['email'])
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
         try:
-            travel = Travel.objects.get(travel=request.GET['travelID'])
+            travel = Travel.objects.get(travel=request.POST['travelID'])
         except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El viaje no existe")
+            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
         if travel.accepted:
             return HttpResponse(status=status.HTTP_409_CONFLICT, content="El viaje no está disponible")
         travel.driver = driver
         travel.accepted = True
         travel.save()
-        driverpos = Point(float(request.GET['latitude']), float(request.GET['longitude'])
+        driverpos = Point(float(request.POST['latitude']), float(request.POST['longitude'])
         driver.isfree = False
         driver.geom = driverpos
         driver.save()
@@ -227,6 +227,22 @@ def acceptTravel(request):
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
 
+@csrf_exempt
+@api_view(['POST'])
+def travelStarted(request):
+    if 'travelID' in request.POST: 
+        try:
+            travel = Travel.objects.get(travel=request.POST['travelID'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
+        if request.POST['email'] != travel.driver.email:
+            return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
+        travel.origin = request.POST['origin']
+        travel.startpoint = Point(float(request.POST['latitude']), float(request.POST['longitude'])
+        travel.starttime = datetime.now()
+        travel.save()
+    else:
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
 
 
 @csrf_exempt
