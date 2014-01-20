@@ -580,5 +580,17 @@ def mantdriver_TravelGraphic(request):
     else:
         return redirect('/')  
 
+def getTravelsByMonth(request):
+    if 'user_id' in request.session:
+        driver = get_object_or_404(Driver, id=request.session['user_id'])
+        travels = driver.travel_set
+        response_data = {}
+        for i in range(1,12):
+            response_data[i] = travels.filter(starttime__month=i).count()
+        return HttpResponse(json.dumps(response_data), content_type="application/json")
+    else:
+        return redirect('/')  
+
+
 def termsofuse(request):
     return render(request, 'AppWeb/termsofuse.html', {}) 
