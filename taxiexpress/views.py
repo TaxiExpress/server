@@ -212,7 +212,7 @@ def acceptTravel(request):
         try:
             travel = Travel.objects.get(travel=request.POST['travelID'])
         except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
+            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no está disponible")
         if travel.accepted:
             return HttpResponse(status=status.HTTP_409_CONFLICT, content="El viaje no está disponible")
         travel.driver = driver
@@ -276,6 +276,8 @@ def travelCompleted(request):
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
 
+@csrf_exempt
+@api_view(['POST'])
 def travelPaid(request):
     if 'travelID' in request.POST:
         try:
@@ -290,6 +292,23 @@ def travelPaid(request):
         travel.save()
         post_data = {"travelID": travel.id, "pushId": travel.driver.pushID, "paid": "true", "device": "android"}
         resp = requests.post('http://localhost:8080/send', params=post_data)
+        return HttpResponse(status=status.HTTP_200_OK)
+    else:
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
+
+@csrf_exempt
+@api_view(['POST'])
+def cancelTravel(request):
+    if 'travelID' in request.POST:
+        try:
+            travel = Travel.objects.get(id=request.POST['travelID'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
+        if request.POST['email'] != travel.customer.email:
+            return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
+        if request.POST['sessionID'] != travel.customer.sessionID:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
+        travel.delete()
         return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
