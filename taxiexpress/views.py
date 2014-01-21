@@ -186,7 +186,7 @@ def getClosestTaxiBeta(request):
             return HttpResponse(status=status.HTTP_204_NO_CONTENT, content="No se han encontrado taxis")
         elif closestDrivers.count() > 5:
             closestDrivers = closestDrivers[:5]
-        travel = Travel(customer=customer, startpoint=pointclient, origin=request.GET['startpoint'])
+        travel = Travel(customer=customer, startpoint=pointclient, origin=request.GET['origin'])
         valuation = 0
         if (customer.positiveVotes+customer.negativeVotes > 0):
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
