@@ -31,7 +31,7 @@ urlpatterns = patterns('',
     url(r'^test', 'taxiexpress.views.testPush', name='testPush'),
     url(r'^loaddata', 'taxiexpress.views.loadData', name='loaddata'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^recoverPassword', 'taxiexpress.views.recoverPassword', name='recoverPassword'),
+    url(r'^recoverpassword', 'taxiexpress.views.recoverPassword', name='recoverPassword'),
 
     # url(r'^server/', include('server.foo.urls')),
 
