@@ -85,8 +85,23 @@
 }
 
 .maintenance select{
-	margin-left: 10px;
-	color:#5d5d5d;
+	margin-left: 0px;
+	color:#666;
+	width: 330px;
+	height: 34px;
+	padding: 0px 0px 0px 10px;
+	border: 1px solid #DDDDDD;
+	font-size: 13px;
+	border-radius: 4px;
+}
+
+.observation{
+	margin-left: 0px;
+	color:#666;
+	padding: 0px 0px 0px 10px;
+	border: 1px solid #DDDDDD;
+	font-size: 13px;
+	border-radius: 4px;
 }
 
 .lblcountry, .lblstate, .lblcity{
