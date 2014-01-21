@@ -85,20 +85,37 @@
 }
 
 .maintenance select{
-	margin-left: 10px;
-	color:#5d5d5d;
+	margin-left: 0px;
+	color:#666;
+	width: 330px;
+	height: 34px;
+	padding: 0px 0px 0px 10px;
+	border: 1px solid #DDDDDD;
+	font-size: 13px;
+	border-radius: 4px;
+}
+
+.observation{
+	margin-left: 0px;
+	color:#666;
+	padding: 0px 0px 0px 10px;
+	border: 1px solid #DDDDDD;
+	font-size: 13px;
+	border-radius: 4px;
 }
 
 .lblcountry, .lblstate, .lblcity{
 	width: 25%;
 	float: left;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
+	margin-top: 12px;
 }
 
 .cbocountry, .cbostate, .cbocity{
 	width: 75%;
 	float: right;
-	margin-bottom: 20px;
+	margin-bottom: 5px;
+	margin-top: 5px;
 }
 
  .lblcity{
@@ -108,8 +125,6 @@
 }
 
 .cbocity{
-	width: 75%;
-	float: right;
 	margin-bottom: 12px;
 }
 

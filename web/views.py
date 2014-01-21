@@ -9,7 +9,7 @@ from django.shortcuts import render_to_response, redirect, render, get_object_or
 from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseBadRequest
-from taxiexpress.models import Customer, Country, State, City, Driver, Travel, Car
+from taxiexpress.models import Customer, Country, State, City, Driver, Travel, Car, Observations
 from taxiexpress.serializers import CarSerializer, DriverSerializer, CustomerCompleteSerializer, CustomerTaxiesTravelsSerializer, CustomerTravelsSerializer, CustomerProfileSerializer, CustomerProfileTaxiesSerializer, CustomerProfileTravelsSerializer, CustomerTaxiesSerializer
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Point
@@ -587,4 +587,29 @@ def recoverValidationCodeWeb(request):
        
             return HttpResponse(msg)
         except KeyError:
-            return HttpResponse('Error')   
+            return HttpResponse('Error')  
+    else:
+        return redirect('/')  
+
+def contact(request):   
+    if request.method == "POST":
+        if 'accessible' in request.POST:
+            tmpPhone = True
+        else:
+            tmpPhone = False
+        o = Observations(name = request.POST['name'], phone = tmpPhone, email = request.POST['email'], 
+            tipo = request.POST['tipo'], observations = request.POST['observations'])
+        
+        o.save()    
+ 
+        subject = 'Recibidida Petición'
+        from_email = 'MyTaxiExpress@gmail.com'
+        to = [o.email]
+        html_content =  '¡Muchas gracias ' + str(o.name) + ' por ponerte en contacto con nosotros! <br> <br> Su petición ha sido correctamente registrada y sera estudiada por nuestro equipo.'
+        msg = EmailMessage(subject, html_content, from_email, to)
+        msg.content_subtype = "html"  # Main content is now text/html
+        msg.send()
+        return redirect('/')
+
+    else:
+        return render(request, 'AppWeb/contact.html', {})  

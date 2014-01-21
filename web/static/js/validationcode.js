@@ -3,7 +3,6 @@ $(document).ready(function() {
         $('.overlay-container').fadeOut().end().find('.window-container').removeClass('window-container-visible');
     });
     $('.acept').click(function() {
-        //alert('aceptar');
         $.ajax({
 	        type: "POST",
 	        url: 'validateCode',  
@@ -22,8 +21,7 @@ $(document).ready(function() {
 	    });
     });
     $('.validationRef').click(function(){
-    	//alert($('.tipo').val());
-        if ($('#phone').val() == ""){
+    	if ($('#phone').val() == ""){
         	$('#validation-form .error').html('Debe ingresar un numero de teléfono'); 
         }
         else{

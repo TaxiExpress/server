@@ -59,5 +59,6 @@ urlpatterns = patterns('',
     url(r'^updateProfileDriverWeb', 'web.views.updateProfileDriverWeb', name='updateProfileDriverWeb'),
     url(r'^updateCarWeb', 'web.views.updateCarWeb', name='updateCarWeb'),
     url(r'^recoverValidationCode', 'web.views.recoverValidationCodeWeb', name='recoverValidationCodeWeb'),
+    url(r'^contact', 'web.views.contact', name='contact'),
     url(r'^statistics/getTravelsByMonth', 'web.views.getTravelsByMonth', name='getTravelsByMonth'),
 )

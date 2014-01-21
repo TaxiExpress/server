@@ -115,3 +115,12 @@ class Travel(models.Model):
     visible = models.BooleanField(default=True)
     accepted = models.BooleanField(default=False)
     objects = models.GeoManager()
+
+class Observations(models.Model):
+    name = models.CharField(max_length=80)
+    phone = models.CharField(max_length=80, blank=True, null=True)
+    email = models.EmailField(max_length=80)
+    tipo = models.IntegerField(max_length=2)
+    observations = models.TextField(max_length=200)
+    def __unicode__(self):
+        return self.email

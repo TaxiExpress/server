@@ -1,0 +1,41 @@
+﻿{% extends "AppWeb/base.html" %}
+
+{% block head %}
+<link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
+<link href="{{STATIC_URL}}css/maintenance.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+        <div class="bg titulo">
+            <h1>Ponte en contacto con nosotros!!!</h1>
+        </div>			
+        <div class="bg">				
+            <div class="contenido contact">
+                <form name="contact-form" id="contact" action="" method="POST">                      
+                    {% csrf_token %}
+                    <div class="pic">
+                    <div class="col1 maintenance">                        
+                        <input type="text" name="name" maxlength="80" placeholder="Nombre" required>
+
+                        <input type="tel" name="phone" maxlength="12" placeholder="Teléfono">
+
+                        <input type="email" name="email" maxlength="80" placeholder="Email" required>
+
+                        <p>
+                            <select id = "tipo" name="tipo" class="seltipo">
+                                <option value = "1">Sugerencia</option>
+                                <option value = "2">Incidencia</option>
+                                <option value = "3">Otra</option>
+                            </select>
+                        </p>
+                        <textarea rows="10" cols="100" wrap="soft" name="observations" class="observation" maxlength="200" placeholder="Observaciones" required></textarea>                      
+                    </div>
+                    <p class="registerError">{{error}}</p>
+                    <div class="clr"><button class="btn" type="submit">Enviar</button></div>
+                </form> 
+            </div>
+        </div>        
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
