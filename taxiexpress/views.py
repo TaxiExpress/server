@@ -193,7 +193,11 @@ def getClosestTaxiBeta(request):
         post_data = {"origin": origin, "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": "android"} 
         for i in range(closestDrivers.count()):
             post_data["pushID"+str(i)] = closestDrivers[i].pushID
-        resp = requests.post('http://localhost:8080/sendClosestTaxi', params=post_data)
+        try:
+            resp = requests.post('http://localhost:8080/sendClosestTaxi', params=post_data)
+        except requests.ConnectionError:
+            travel.delete()
+            return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
         response_data = {}
         response_data['travelID'] = travel.id
         return HttpResponse(json.dumps(response_data), content_type="application/json")
@@ -273,8 +277,7 @@ def travelCompleted(request):
             try:
                 post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "false","device": "android"} 
                 resp = requests.post('http://localhost:8080/send', params=post_data)
-            except requests.exceptions.ConnectionError:
-                travel.delete()
+            except requests.ConnectionError:
                 return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
         return HttpResponse(status=status.HTTP_200_OK)
     else:
@@ -334,8 +337,11 @@ def getLastTravel(request):
 @csrf_exempt
 @api_view(['GET'])
 def testPush(request):
-    userdata = {"pushId": "APA91bHJRkpSjXvlFA7L94ybyalAeW0BxE0Z1K4g99onHvXLIFgptSJDhBIMXckY9HBzaBpEWo4Se9zUCd2KjzWUHCJ5TLac-qF-Hu8ozi7Uoe14ZFRg2_c82xmL4ZXgMfuhec4UUd-eu_SkYsMPRt2bqNZ0K5Uzgpwd2en9454w8-f3c7pyEK0", "title": "Pues que bien", "device": "android", "reqMessage": "world"}
-    resp = requests.post('http://localhost:8080/send', params=userdata)
+    try:
+        userdata = {"pushId": "APA91bHJRkpSjXvlFA7L94ybyalAeW0BxE0Z1K4g99onHvXLIFgptSJDhBIMXckY9HBzaBpEWo4Se9zUCd2KjzWUHCJ5TLac-qF-Hu8ozi7Uoe14ZFRg2_c82xmL4ZXgMfuhec4UUd-eu_SkYsMPRt2bqNZ0K5Uzgpwd2en9454w8-f3c7pyEK0", "title": "Pues que bien", "device": "android", "reqMessage": "world"}
+        resp = requests.post('http://localhost:8080/send', params=userdata)
+    except requests.ConnectionError:
+        return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
     print resp.status_code
     return HttpResponse(status=status.HTTP_200_OK)
 
