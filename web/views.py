@@ -338,25 +338,29 @@ def logout(request):
 
 @csrf_exempt
 def validateCode(request):
-    if request.POST['tipo'] == 'C':
-        response = validateUser(request)
-        if response.status_code == 201:
-            customer = Customer.objects.get(phone=request.POST['phone'])
-            request.session['email'] = customer.email
-            request.session['user_id'] = customer.id
-            request.session['Customer'] = True
-            return redirect('mantclient_data') 
+    if request.is_ajax():
+        try:
+            if request.POST['tipo'] == 'C':
+                response = validateUser(request)
+                if response.status_code == 201:
+                    customer = Customer.objects.get(phone=request.POST['phone'])
+                    request.session['email'] = customer.email
+                    request.session['user_id'] = customer.id
+                    request.session['Customer'] = True
+                    return HttpResponse(response.status_code) 
+            else:
+                response = validateDriver(request)
+                if response.status_code == 201:
+                    driver = Driver.objects.get(phone=request.POST['phone'])
+                    request.session['email'] = driver.email
+                    request.session['user_id'] = driver.id
+                    request.session['Customer'] = False
+                    return HttpResponse(response.status_code)
+            return HttpResponse(response.content) 
+        except KeyError:
+            return HttpResponse('Error')  
     else:
-        response = validateDriver(request)
-        if response.status_code == 201:
-            driver = Driver.objects.get(phone=request.POST['phone'])
-            request.session['email'] = driver.email
-            request.session['user_id'] = driver.id
-            request.session['Customer'] = False
-            return redirect('mantdriver_data')
-    return render(request, 'AppWeb/index.html', {'statusValidation': response.status_code, 'errorValidation': response.content, 
-            'phone':request.POST['phone'], 'validationCode':request.POST['validationCode'], 'tipo': request.POST['tipo']}) 
-
+        return redirect('/')
 
 @api_view(['POST'])
 def validateDriver(request):
