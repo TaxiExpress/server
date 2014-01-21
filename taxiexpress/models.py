@@ -85,8 +85,8 @@ class Customer(models.Model):
     lastUpdateTravels = models.DateTimeField(default=datetime.now, blank=True)
     isValidated = models.BooleanField(default=False)
     validationCode = models.IntegerField(max_length=4, blank=True, null=True)
-    positiveVotes = models.IntegerField(blank=True, null=True)
-    negativeVotes = models.IntegerField(blank=True, null=True)
+    positiveVotes = models.IntegerField(default=0)
+    negativeVotes = models.IntegerField(default=0)
     #Datos de pago
     favlist = models.ManyToManyField(Driver, related_name='+', blank=True, null=True)
     #FilterList
