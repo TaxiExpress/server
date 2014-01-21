@@ -605,7 +605,7 @@ def contact(request):
         subject = 'Recibidida Petición'
         from_email = 'MyTaxiExpress@gmail.com'
         to = [o.email]
-        html_content =  '¡Muchas gracias ' + str(o.name) + ' por ponerte en contacto con nosotros! <br> <br> Su petición ha sido correctamente registrada y sera estudiada por nuestro equipo.'
+        html_content =  '¡Muchas gracias ' + str(o.name) + ' por ponerse en contacto con nosotros! <br> <br> Su petición ha sido correctamente registrada y sera estudiada por nuestro equipo.'
         msg = EmailMessage(subject, html_content, from_email, to)
         msg.content_subtype = "html"  # Main content is now text/html
         msg.send()
