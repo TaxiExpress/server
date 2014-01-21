@@ -395,19 +395,20 @@ def updateProfile(request):
 @csrf_exempt
 @api_view(['POST'])
 def updateDriverPosition(request):
-    if request.POST['email'] is None:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
-    try:
-        driver = Driver.objects.get(email=request.POST['email'])
-    except ObjectDoesNotExist:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
-    if request.POST['latitude'] != None:
-        pointclient = Point(float(request.POST['latitude']), float(request.POST['longitude']))
-        driver.geom = pointclient
-        driver.save()
-        return HttpResponse(status=status.HTTP_200_OK,content="Posicion del taxista actualizada")
+    if 'email' in request.POST:
+        try:
+            driver = Driver.objects.get(email=request.POST['email'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
+        if 'latitude' in request.POST:
+            pointclient = Point(float(request.POST['latitude']), float(request.POST['longitude']))
+            driver.geom = pointclient
+            driver.save()
+            return HttpResponse(status=status.HTTP_200_OK,content="Posicion del taxista actualizada")
+        else:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="punto inexistente")
     else:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="punto inexistente")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="email inexistente")
 
 
 @csrf_exempt
