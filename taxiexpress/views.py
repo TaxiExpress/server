@@ -196,8 +196,8 @@ def getClosestTaxiBeta(request):
         try:
             resp = requests.post('http://localhost:8080/sendClosestTaxi', params=post_data)
         except requests.ConnectionError:
-            #travel.delete()
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
+        travel.save()
         response_data = {}
         response_data['travelID'] = travel.id
         return HttpResponse(json.dumps(response_data), content_type="application/json")
