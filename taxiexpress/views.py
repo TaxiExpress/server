@@ -265,7 +265,12 @@ def travelCompleted(request):
             travel.isPaid = True
         travel.save()
         if travel.appPayment:
-            post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "device": "android"} 
+            post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "true","device": "android"} 
+            resp = requests.post('http://localhost:8080/send', params=post_data)
+        else:
+            travel.isPaid = True
+            travel.save()
+            post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "false","device": "android"} 
             resp = requests.post('http://localhost:8080/send', params=post_data)
         return HttpResponse(status=status.HTTP_200_OK)
     else:
