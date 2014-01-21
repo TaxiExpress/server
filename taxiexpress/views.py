@@ -270,8 +270,13 @@ def travelCompleted(request):
         else:
             travel.isPaid = True
             travel.save()
-            post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "false","device": "android"} 
-            resp = requests.post('http://localhost:8080/send', params=post_data)
+            try:
+                post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "false","device": "android"} 
+                resp = requests.post('http://localhost:8080/send', params=post_data)
+            except requests.ConnectionError:
+                travel.delete()
+                return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
+
         return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
