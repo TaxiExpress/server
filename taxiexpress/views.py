@@ -297,6 +297,19 @@ def travelPaid(request):
 
 @csrf_exempt
 @api_view(['GET'])
+def getLastTravel(request):
+    if 'email' in request.GET:
+        try:
+            customer = Customer.objects.get(email=request.GET['email'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
+        travel = customer.travel_set.order_by('starttime')[0]
+        return Response(TravelSerializer(travel), status=status.HTTP_200_OK)
+    else:
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Email no válido")
+
+@csrf_exempt
+@api_view(['GET'])
 def testPush(request):
     userdata = {"pushId": "APA91bHJRkpSjXvlFA7L94ybyalAeW0BxE0Z1K4g99onHvXLIFgptSJDhBIMXckY9HBzaBpEWo4Se9zUCd2KjzWUHCJ5TLac-qF-Hu8ozi7Uoe14ZFRg2_c82xmL4ZXgMfuhec4UUd-eu_SkYsMPRt2bqNZ0K5Uzgpwd2en9454w8-f3c7pyEK0", "title": "Pues que bien", "device": "android", "reqMessage": "world"}
     resp = requests.post('http://localhost:8080/send', params=userdata)
