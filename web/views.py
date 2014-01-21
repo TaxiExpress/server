@@ -15,7 +15,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import Distance, D
 from django.core.exceptions import ValidationError
-#import json
+import json
 import random
 import string
 from datetime import datetime
@@ -562,7 +562,7 @@ def getTravelsByMonth(request):
         driver = get_object_or_404(Driver, id=request.session['user_id'])
         travels = driver.travel_set
         response_data = {}
-        for i in range(1,12):
+        for i in range(1,13):
             response_data[i] = travels.filter(starttime__month=i).count()
         return HttpResponse(json.dumps(response_data), content_type="application/json")
     else:
