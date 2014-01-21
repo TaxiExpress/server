@@ -188,7 +188,7 @@ def getClosestTaxiBeta(request):
             closestDrivers = closestDrivers[:5]
         travel = Travel(customer=customer, startpoint=pointclient, origin=request.GET['origin'])
         valuation = 0
-        if (int(customer.positiveVotes)+int(customer.negativeVotes)) > 0:
+        if (customer.positiveVotes+customer.negativeVotes) > 0:
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
         post_data = {"origin": origin, "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": "android"} 
         for i in range(closestDrivers.count()):
