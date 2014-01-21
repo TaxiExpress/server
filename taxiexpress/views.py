@@ -222,7 +222,7 @@ def acceptTravel(request):
         driver.car.isfree = False
         driver.geom = driverpos
         driver.save()
-        post_data = {"travelID": travel.id, "pushId": travel.customer.id, "latitude": str(driverpos.x), "longitude": str(driverpos.y), "device": "android"} 
+        post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "latitude": str(driverpos.x), "longitude": str(driverpos.y), "device": "android"} 
         resp = requests.post('http://localhost:8080/send', params=post_data)
         return HttpResponse(status=status.HTTP_200_OK)
     else:
@@ -265,8 +265,26 @@ def travelCompleted(request):
             travel.isPaid = True
         travel.save()
         if travel.appPayment:
-            post_data = {"travelID": travel.id, "pushId": travel.customer.id, "cost": request.POST['cost'], "device": "android"} 
+            post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "device": "android"} 
             resp = requests.post('http://localhost:8080/send', params=post_data)
+        return HttpResponse(status=status.HTTP_200_OK)
+    else:
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
+
+def travelPaid(request):
+    if 'travelID' in request.POST:
+        try:
+            travel = Travel.objects.get(id=request.POST['travelID'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
+        if request.POST['email'] != travel.customer.email:
+            return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
+        if request.POST['sessionID'] != travel.customer.sessionID:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
+        travel.isPaid = True
+        travel.save()
+        post_data = {"travelID": travel.id, "pushId": travel.driver.pushID, "paid": "true", "device": "android"}
+        resp = requests.post('http://localhost:8080/send', params=post_data)
         return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
