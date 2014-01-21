@@ -353,8 +353,8 @@ def updateDriverPosition(request):
             driver = Driver.objects.get(email=request.POST['email'])
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
-        if request.POST.get('latitud', "false") != "false":
-            pointclient = Point(float(request.POST['latitud']), float(request.POST['longitud']))
+        if 'latitude' in request.POST:
+            pointclient = Point(float(request.POST['latitude']), float(request.POST['longitude']))
             driver.geom = pointclient
             driver.save()
             return HttpResponse(status=status.HTTP_200_OK,content="Posicion del taxista actualizada")
@@ -372,8 +372,7 @@ def updateDriverAvailable(request):
             driver = Driver.objects.get(email=request.POST['email'])
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
-        newStatus = request.POST['available']
-        driver.available = newStatus
+        driver.available = (request.POST['available'] == 'true')
         driver.save()
         return HttpResponse(status=status.HTTP_200_OK,content="Disponibilidad del taxista actualizada")
     else:
