@@ -5,7 +5,7 @@ $(document).ready(function() {
     $('.acept').click(function() {
         $.ajax({
 	        type: "POST",
-	        url: 'validateCode',  
+	        url: 'validatecode',  
 	        data: {
 	            csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
 	            tipo: $('.tipo').val(),
@@ -28,7 +28,7 @@ $(document).ready(function() {
         	tmpPhone = '+34' + $('#phone').val()
 	        $.ajax({
 		        type: "POST",
-		        url: "/recoverValidationCode/",
+		        url: "/recovervalidationcode/",
 		        data: {
 		            csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
 		            tipo: $('.tipo').val(),
