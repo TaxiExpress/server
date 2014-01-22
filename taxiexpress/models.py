@@ -8,6 +8,8 @@ from datetime import datetime
 # Create your models here.
 
 class Country(models.Model):
+    class Meta:
+        verbose_name_plural = "Countries"
     code = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=80)
     def __unicode__(self):
@@ -21,6 +23,8 @@ class State(models.Model):
         return self.name
 
 class City(models.Model):
+    class Meta:
+        verbose_name_plural = "Cities"
     code = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=80)
     state = models.ForeignKey(State)
