@@ -120,7 +120,7 @@ class Travel(models.Model):
     accepted = models.BooleanField(default=False)
     objects = models.GeoManager()
 
-class Observations(models.Model):
+class Observation(models.Model):
     name = models.CharField(max_length=80)
     phone = models.CharField(max_length=80, blank=True, null=True)
     email = models.EmailField(max_length=80)
