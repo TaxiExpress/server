@@ -10,5 +10,4 @@ admin.site.register(Travel)
 admin.site.register(Country)
 admin.site.register(State)
 admin.site.register(City)
-
-
+admin.site.register(Observations)
