@@ -66,4 +66,5 @@ urlpatterns = patterns('',
     url(r'^recovervalidationcode', 'web.views.recoverValidationCodeWeb', name='recoverValidationCodeWeb'),
     url(r'^contact', 'web.views.contact', name='contact'),
     url(r'^statistics/gettravelsbymonth', 'web.views.getTravelsByMonth', name='getTravelsByMonth'),
+    url(r'^getcountries', 'web.views.getCountries', name='getCountries'),
 )
