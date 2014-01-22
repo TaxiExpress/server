@@ -419,13 +419,12 @@ border: 1px solid #DDDDDD;
 color: #666;
 font-size: 13px;
 border-radius: 4px;
-background-color: rgba(255, 255, 255, 0.8);
 }
 
 .registerClientForm input[type="checkbox"], .registerDriverForm input[type="checkbox"], .maintenance input[type="checkbox"]{
-	height: 20px;
-	width: 20px;
-	margin: 3px 3px 3px 4px;
+	height: 15px;
+	width: 15px;
+	margin: 3px 7px 3px 4px;
 	vertical-align: middle;
     position: relative;
     bottom: 2px;
