@@ -339,7 +339,7 @@ def logout(request):
 @csrf_exempt
 def validateCode(request):
     if request.is_ajax():
-        #try:
+        try:
             if request.POST['tipo'] == 'C':
                 response = validateUser(request)
                 if response.status_code == 201:
@@ -357,8 +357,8 @@ def validateCode(request):
                     request.session['Customer'] = False
                     return HttpResponse(response.status_code)
             return HttpResponse(response.content) 
-        #except KeyError:
-            #return HttpResponse('Error')  
+        except KeyError:
+            return HttpResponse('Error')  
     else:
         return redirect('/')
 
