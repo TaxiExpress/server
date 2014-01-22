@@ -597,10 +597,10 @@ def recoverValidationCodeWeb(request):
 
 def contact(request):   
     if request.method == "POST":
-        if 'accessible' in request.POST:
-            tmpPhone = True
+        if 'phone' in request.POST:
+            tmpPhone = '+34' + request.POST['phone']
         else:
-            tmpPhone = False
+            tmpPhone = ""
         o = Observation(name = request.POST['name'], phone = tmpPhone, email = request.POST['email'], 
             tipo = request.POST['tipo'], observations = request.POST['observations'])
         
