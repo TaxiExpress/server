@@ -23,7 +23,7 @@ $(document).ready(function() {
 		            csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
 		            tipo: tipo,
 		            phone: tmpPhone,
-		            validationCode: $('#validationcode').val() ,
+		            validationCode: $('#validationCode').val() ,
 		        },
 		        success: function(content) {
 		        	if (content == '201'){
