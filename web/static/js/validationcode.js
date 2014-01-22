@@ -18,7 +18,7 @@ $(document).ready(function() {
 			tmpPhone = '+34' + $('#phone').val()
 		    $.ajax({
 		        type: "POST",
-		        url: "/validateCode/",
+		        url: "/validatecode/",
 		        data: {
 		            csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
 		            tipo: tipo,
