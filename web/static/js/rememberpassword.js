@@ -3,7 +3,7 @@ $(document).ready(function() {
     	alert('pasa');
         	$.ajax({
 		        type: "GET",
-		        url: 'recoverPassword',  
+		        url: 'recoverpassword',  
 		        data: {
 		            csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
 		            email: $('#email').val(),
