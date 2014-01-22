@@ -26,12 +26,12 @@
                     <form name="mantdriver" id="mantdriver" action="" method="POST">                      
                         {% csrf_token %}
                         <div class="col1 maintenance">
-                            <input type="text" name="plate" maxlength="7" placeholder="Matrícula" required value="{{car.plate}}">
-
-                            <input type="text" name="model" maxlength="80" placeholder="Modelo" required value="{{car.model}}">
-
                             <input type="text" name="company" maxlength="80" placeholder="Marca" 
                                 value="{{car.company}}">
+                                
+                            <input type="text" name="model" maxlength="80" placeholder="Modelo" required value="{{car.model}}">
+    
+                            <input type="text" name="plate" maxlength="7" placeholder="Matrícula" required value="{{car.plate}}">
 
                             <input type="text" name="color" maxlength="80" placeholder="Color" value="{{car.color}}">
 
