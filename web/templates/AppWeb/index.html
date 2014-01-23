@@ -166,23 +166,9 @@
                 </form>
             </div>
         </div> 
-<!--         <div class="overlay-container-password"> 
-            <div class="window-container-password zoomin">
-                {% csrf_token %}
-                <h3>Recuperar contraseña</h3>
-                <span class="popupText">Introduce email<br/>
-                <input type="text" id="email" name="email" maxlength=80 required value placeholder="email" tabindex="2">
-   
-                <p class="h-left error ff-txt-error">{{errorValidationEmail}}</p>
-                </span>
-                <button id="validation_button" type="submit" class="aceptEmail"><span>Aceptar</span></button>
-                <input type="button" value= "Cancelar" class="closeEmail"/>       
-            </div>
-        </div>    -->
     </body>
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="{{STATIC_URL}}js/validationcode.js"></script>
-    <script defer type="text/javascript" src="{{STATIC_URL}}js/rememberpassword.js"></script>
     <script defer type="text/javascript" src="{{STATIC_URL}}js/validationFields.js"></script>
     <script>
         function showValidationCodeWindow()

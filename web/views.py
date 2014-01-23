@@ -23,7 +23,7 @@ from django.utils import timezone
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from taxiexpress.views import validateUser, changePassword, changePasswordDriver, recoverValidationCodeCustomer, recoverValidationCodeDriver
+from taxiexpress.views import validateUser, changePassword, changePasswordDriver, recoverValidationCodeCustomer, recoverValidationCodeDriver,recoverPassword
 
 
 @csrf_exempt
@@ -617,3 +617,33 @@ def contact(request):
 
     else:
         return render(request, 'AppWeb/contact.html', {})  
+
+def rememberPassword(request):   
+    if 'tipo' in request.GET:
+        if request.GET['tipo'] == "C":
+            response = recoverPassword(request)
+            if response.status_code == 201:
+                return redirect('/') 
+        else:
+            response = recoverPasswordDriver(request)
+            if response.status_code == 201:
+                return redirect('/')
+        return render(request, 'AppWeb/rememberpassword.html', {'status': response.status_code, 'error': response.content}) 
+    else:
+        return render(request, 'AppWeb/rememberpassword.html', {})  
+
+def recoverPasswordDriver(request):
+    if request.GET['email'] == '':
+        return HttpResponse(status=401, content="Debe ingresar una dirección de email")
+    try:
+        driver = Driver.objects.get(email=request.GET['email'])
+    except ObjectDoesNotExist:
+        return HttpResponse(status=401, content="No es posible encontrar a este usuario")
+    subject = 'Taxi Express: Recuperar contraseña'
+    from_email = 'MyTaxiExpress@gmail.com'
+    to = [driver.email]
+    html_content = 'Su password es ' + driver.password + '. <br> <br> Un saludo de parte del equipo de Taxi Express.'
+    msg = EmailMessage(subject, html_content, from_email, to)
+    msg.content_subtype = "html"  # Main content is now text/html
+    msg.send()
+    return HttpResponse(status=201,content="Se ha enviado la contraseña a su cuenta de email.")

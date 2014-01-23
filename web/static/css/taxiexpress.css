@@ -404,7 +404,7 @@ ul.tabs li.active a {
 	margin-top: 20px;
 }
 
-.registerClientForm input, .registerDriverForm input, .maintenance input{
+.registerClientForm input, .registerDriverForm input, .maintenance input:not([type="radio"]){
 -webkit-transition: all 0.3s ease-in-out;
 -moz-transition: all 0.3s ease-in-out;
 -o-transition: all 0.3s ease-in-out;
@@ -561,4 +561,38 @@ border-radius: 4px;
 .right25{
   width: 44%;
   float:right;
+}
+
+/*Para la pantalla de Recuperar contraseña*/
+.recover{
+	min-height: 400px;
+	margin-left: 200px;
+}
+
+.passwordcontent{
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	width: 555px;
+	margin-top: 20px;
+}
+.passwordHeader{
+	border-bottom: 1px solid #ccc;
+    margin-left: 20px;
+	margin-right: 20px;
+	margin-top: 5px;
+	padding: 6px 0 16px;
+	padding-bottom: .5em;
+}
+
+.passwordBody{
+	margin: 20px 20px 20px 75px;
+}
+
+.passwordButtom{
+	border-top: 1px solid #ccc;
+	margin-top: 20px;
+}
+
+.passwordButtom .btn{
+	margin:10px 30px 10px 75px;
 }

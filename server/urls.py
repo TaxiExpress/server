@@ -70,4 +70,5 @@ urlpatterns = patterns('',
     url(r'^getcountries', 'web.views.getCountries', name='getCountries'),
     url(r'^getstates', 'web.views.getStates', name='getStates'),
     url(r'^getcities', 'web.views.getCities', name='getCities'),
+    url(r'^rememberpassword', 'web.views.rememberPassword', name='rememberPassword'),
 )
