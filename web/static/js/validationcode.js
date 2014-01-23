@@ -4,7 +4,7 @@ $(document).ready(function() {
     	$(location).attr('href','/')
     });
 
-    $('.acept').click(function() {
+    $('.aceptIndex').click(function() {
     	if($("#tipo").is(':checked')) {  
             tipo='C' 
         } else {  
@@ -28,6 +28,43 @@ $(document).ready(function() {
 		        success: function(content) {
 		        	if (content == '201'){
 		        		if (tipo == 'C'){
+		        			$(location).attr('href','mantclient_data.html')
+		        		}
+		        		else{
+		        			$(location).attr('href','mantdriver_data.html')
+		        		}	
+		    		}
+		        	else{
+		        		$('#validation-form .error').html(content);
+		        	}
+		            
+		        },
+		        error: function(xhr, textStatus, errorThrown) {
+		            alert("Please report this error: "+errorThrown+xhr.status+xhr.responseText);
+		        }
+	    	});	
+        }      
+    });
+
+    $('.aceptRegister').click(function() {
+
+    	if ($('#phone').val() == "" || $('#validationCode').val() == ""){
+        	$('#validation-form .error').html('Debe ingresar un numero de teléfono y código de validación'); 
+        }
+        else{
+			tmpPhone = '+34' + $('#phone').val()
+		    $.ajax({
+		        type: "POST",
+		        url: "/validatecode/",
+		        data: {
+		            csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+		            tipo: $('.tipo').val(),
+		            phone: tmpPhone,
+		            validationCode: $('#validationCode').val() ,
+		        },
+		        success: function(content) {
+		        	if (content == '201'){
+		        		if ($('.tipo').val() == 'C'){
 		        			$(location).attr('href','mantclient_data.html')
 		        		}
 		        		else{
