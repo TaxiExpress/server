@@ -110,9 +110,9 @@ def registerDriver(request):
         passtemp = request.POST['password'];
         tmpPhone = '+34' + request.POST['phone']
         if (Driver.objects.filter(email=request.POST['email']).count() > 0):
-            return HttpResponse(status=HTTP_401_UNAUTHORIZED, content="El email que ha indicado ya está en uso")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email que ha indicado ya está en uso")
         if (Driver.objects.filter(phone=tmpPhone).count() > 0):
-            return HttpResponse(status=HTTP_401_UNAUTHORIZED, content="El teléfono que ha indicado ya está en uso")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El teléfono que ha indicado ya está en uso")
         else:
             try:
                 #Car data
