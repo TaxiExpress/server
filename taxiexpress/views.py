@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseBadRequest
 from taxiexpress.models import Customer, Country, State, City, Driver, Travel, Car
-from taxiexpress.serializers import CarSerializer, DriverSerializer, CustomerCompleteSerializer, CustomerTaxiesTravelsSerializer, CustomerTravelsSerializer, CustomerProfileSerializer, CustomerProfileTaxiesSerializer, CustomerProfileTravelsSerializer, CustomerTaxiesSerializer, DriverDataSerializer, TravelSerializer
+from taxiexpress.serializers import CarSerializer, DriverSerializer, CustomerCompleteSerializer, CustomerTaxiesTravelsSerializer, CustomerTravelsSerializer, CustomerProfileSerializer, CustomerProfileTaxiesSerializer, CustomerProfileTravelsSerializer, CustomerTaxiesSerializer, DriverDataSerializer, LastTravelSerializer
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import Distance, D
@@ -273,6 +273,7 @@ def travelCompleted(request):
             resp = requests.post('http://localhost:8080/send', params=post_data)
         else:
             travel.isPaid = True
+            travel.customer.lastUpdateTravels = datetime.now()
             travel.save()
             try:
                 post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "false","device": "android"} 
@@ -296,6 +297,7 @@ def travelPaid(request):
         if request.POST['sessionID'] != travel.customer.sessionID:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
         travel.isPaid = True
+        travel.customer.lastUpdateTravels = datetime.now()
         travel.save()
         post_data = {"travelID": travel.id, "pushId": travel.driver.pushID, "paid": "true", "device": "android"}
         resp = requests.post('http://localhost:8080/send', params=post_data)
@@ -332,7 +334,7 @@ def getLastTravel(request):
         if request.GET['sessionID'] != customer.sessionID:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
         travel = customer.travel_set.order_by('-starttime')[0]
-        serialTravel = TravelSerializer(travel)
+        serialTravel = LastTravelSerializer(travel)
         return Response(serialTravel.data, status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Email no válido")

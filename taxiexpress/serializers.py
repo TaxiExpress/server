@@ -45,6 +45,15 @@ class TravelSerializer(serializers.ModelSerializer):
         model = Travel
         fields = ('id', 'driver', 'starttime', 'endtime', 'cost', 'startpoint', 'origin', 'endpoint', 'destination')
 
+class LastTravelSerializer(serializers.ModelSerializer):
+    driver= DriverSerializer()
+    lastUpdateTravels = serializers.SerializerMethodField('get_lastUpdateTravels')
+    def get_lastUpdateTravels(self, obj):
+        return obj.customer.lastUpdateTravels
+    class Meta:
+        model = Travel
+        fields = ('id', 'driver', 'starttime', 'endtime', 'cost', 'startpoint', 'origin', 'endpoint', 'destination', 'lastUpdateTravels')
+
 
 #Este serializer devuelve el perfil del Customer + taxistas favoritos + lista de viajes
 class CustomerCompleteSerializer(serializers.ModelSerializer):
