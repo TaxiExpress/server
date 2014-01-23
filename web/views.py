@@ -74,9 +74,9 @@ def registerUser(request):
         passtemp = request.POST['password']
         tmpPhone = '+34' + request.POST['phone']
         if (Customer.objects.filter(email=request.POST['email']).count() > 0):
-            return HttpResponse(status=HTTP_401_UNAUTHORIZED, content="El email que ha indicado ya está en uso")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email que ha indicado ya está en uso")
         if (Customer.objects.filter(phone=tmpPhone).count() > 0):
-            return HttpResponse(status=HTTP_401_UNAUTHORIZED, content="El teléfono que ha indicado ya está en uso")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El teléfono que ha indicado ya está en uso")
         #elif (passtemp.length() < 4)
         #   return HttpResponse("shortpassword", content_type="text/plain")
         else:
