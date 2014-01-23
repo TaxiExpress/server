@@ -330,7 +330,7 @@ def getLastTravel(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
         travel = customer.travel_set.order_by('starttime')[0]
-        return Response(TravelSerializer(travel), status=status.HTTP_200_OK)
+        return Response(TravelSerializer(travel).data, status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Email no válido")
 
