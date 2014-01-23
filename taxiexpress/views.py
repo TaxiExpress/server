@@ -328,7 +328,9 @@ def getLastTravel(request):
         try:
             customer = Customer.objects.get(email=request.GET['email'])
         except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
+            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El usuario no existe")
+        if request.POST['sessionID'] != customer.sessionID:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
         travel = customer.travel_set.order_by('starttime')[0]
         serialTravel = TravelSerializer(travel)
         return Response(serialTravel.data, status=status.HTTP_200_OK)
