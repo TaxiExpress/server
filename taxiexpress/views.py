@@ -204,6 +204,35 @@ def getClosestTaxiBeta(request):
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Error al obtener la posicion")
 
+@csrf_exempt
+@api_view(['POST'])
+def getSelectedTaxi(request):
+    if 'sessionID' in request.POST:
+        pointclient = Point(float(request.POST['latitude']), float(request.POST['longitude']))
+        origin = request.POST['origin']
+        try:
+            customer = Customer.objects.get(email=request.POST['email'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
+        if customer.sessionID != request.POST['sessionID']:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
+        driver = Driver.objects.get(email=request.POST['driverEmail'])
+        travel = Travel(customer=customer, startpoint=pointclient, origin=request.GET['origin'])
+        valuation = 0
+        if (customer.positiveVotes+customer.negativeVotes) > 0:
+            valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
+        post_data = {"pushId": driver.pushID ,"origin": origin, "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": "android"} 
+        try:
+            resp = requests.post('http://localhost:8080/sendClosestTaxi', params=post_data)
+        except requests.ConnectionError:
+            return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
+        travel.save()
+        response_data = {}
+        response_data['travelID'] = travel.id
+        return HttpResponse(json.dumps(response_data), content_type="application/json")
+    else:
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Error al obtener la posicion")
+
 
 @csrf_exempt
 @api_view(['POST'])
