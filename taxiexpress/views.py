@@ -331,7 +331,7 @@ def getLastTravel(request):
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El usuario no existe")
         if request.GET['sessionID'] != customer.sessionID:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
-        travel = customer.travel_set.order_by('starttime')[0]
+        travel = customer.travel_set.order_by('-starttime')[0]
         serialTravel = TravelSerializer(travel)
         return Response(serialTravel.data, status=status.HTTP_200_OK)
     else:

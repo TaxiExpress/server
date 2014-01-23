@@ -67,4 +67,6 @@ urlpatterns = patterns('',
     url(r'^contact', 'web.views.contact', name='contact'),
     url(r'^statistics/gettravelsbymonth', 'web.views.getTravelsByMonth', name='getTravelsByMonth'),
     url(r'^getcountries', 'web.views.getCountries', name='getCountries'),
+    url(r'^getstates', 'web.views.getStates', name='getStates'),
+    url(r'^getcities', 'web.views.getCities', name='getCities'),
 )
