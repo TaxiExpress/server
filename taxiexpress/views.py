@@ -167,19 +167,23 @@ def getClosestTaxi(request):
         elif closestDrivers.count() > 5:
             closestDrivers = closestDrivers[:5]
         travel = Travel(customer=customer, startpoint=pointclient, origin=request.POST['origin'])
+        travel.save()
         valuation = 0
         if (customer.positiveVotes+customer.negativeVotes) > 0:
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
         post_data = {"origin": origin, "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": "android"} 
         for i in range(closestDrivers.count()):
             post_data["pushId"+str(i)] = closestDrivers[i].pushID
+        if closestDrivers.count() < 5:
+            for i in range(closestDrivers.count(), 4):
+                post_data["pushId"+str(i)] = ""
         try:
             resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendClosestTaxi', params=post_data)
             print resp
             print post_data
         except requests.ConnectionError:
+            travel.delete()
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
-        travel.save()
         response_data = {}
         response_data['travelID'] = travel.id
         return HttpResponse(json.dumps(response_data), content_type="application/json")
