@@ -1,5 +1,6 @@
 $(document).ready(function() {
     //Llamada al servidor para recuperar los paises
+    options = "";
     $.ajax({
         type: "GET",
         url: "/getcountries/",
