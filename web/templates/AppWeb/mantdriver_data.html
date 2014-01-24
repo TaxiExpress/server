@@ -51,24 +51,13 @@
                         <div class="col2 maintenance">
                             
                             <div class="lblcountry"><label>País</label></div>
-                            <div class="cbocountry"><select id = "country" name="country" class="selcity">
-                                <option value = "108">España</option>
-                                <option value = "109">Francia</option>
-                            </select></div>
+                            <div class="cbocountry"><select id = "country" name="country" class="selcity"></select></div>
                        
                             <div class="lblstate"><label>Provincia</label></div>
-                            <div class="cbostate"><select id = "state" name="state" class="selcity">
-                                <option value = "48">Bizkaia</option>
-                                <option value = "49">Zamora</option>
-                            </select></div>
+                            <div class="cbostate"><select id = "state" name="state" class="selcity"></select></div>
                         
                             <div class="lblcity"><label>Municipio</label></div>
-                            <div class="cbocity"><select id = "city" name="city" class="selcity">
-                                <option value = "013">Barakaldo</option>
-                                <option value = "016">Berango</option>
-                                <option value = "020">Bilbao</option>
-                                <option value = "089">Urduliz</option>                            
-                            </select></div>
+                            <div class="cbocity"><select id = "city" name="city" class="selcity"></select></div>
                             
                             <input type="text" name="address" maxlength="80" placeholder="Dirección" value="{{driver.address}}">
 
@@ -86,6 +75,7 @@
 {% block scripts %}
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script defer type="text/javascript" src="{{STATIC_URL}}js/loadpotho.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/combos.js"></script>
 
 <!--[if lt IE 9]>
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
