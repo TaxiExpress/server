@@ -354,7 +354,7 @@ def getLastTravel(request):
 def testPush(request):
     try:
         userdata = {"pushId": "APA91bHJRkpSjXvlFA7L94ybyalAeW0BxE0Z1K4g99onHvXLIFgptSJDhBIMXckY9HBzaBpEWo4Se9zUCd2KjzWUHCJ5TLac-qF-Hu8ozi7Uoe14ZFRg2_c82xmL4ZXgMfuhec4UUd-eu_SkYsMPRt2bqNZ0K5Uzgpwd2en9454w8-f3c7pyEK0", "title": "Pues que bien", "device": "android", "reqMessage": "world"}
-        resp = requests.post('http://localhost:8080/send', params=userdata)
+        resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/send', params=userdata)
     except requests.ConnectionError:
         return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
     print resp.status_code
