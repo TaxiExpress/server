@@ -193,6 +193,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 ugettext = lambda s: s
 LANGUAGES = (
-    ('en', ugettext('English')),
     ('es', ugettext('Spanish')),
+    ('en', ugettext('English')),
 )
