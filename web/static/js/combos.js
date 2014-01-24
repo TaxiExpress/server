@@ -16,7 +16,8 @@ $(document).ready(function() {
             	alert(pais.code);
                 options += "<option value='" + pais.code + "'>" + pais.name + "</option>";
                 alert(pais.name);
-            }        
+            } 
+            $('#country').html(options);
         },
         error: function(xhr, textStatus, errorThrown) {
             alert("Please report this error: " + errorThrown + xhr.status + xhr.responseText);
@@ -27,7 +28,7 @@ $(document).ready(function() {
     // options = "<option value='" + "0" + "'>" + "Seleccione país..." + "</option>";
     // options += "<option value='" + "108" + "'>" + "España" + "</option>";
     // options += "<option value='" + "109" + "'>" + "Francia" + "</option>";
-    $('#country').html(options);
+    
 
 	$('.cbocountry').change(function() {
 		posicion=document.getElementById('country').options.selectedIndex; 
