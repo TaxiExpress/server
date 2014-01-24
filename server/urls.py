@@ -72,4 +72,5 @@ urlpatterns = patterns('',
     url(r'^getstates', 'web.views.getStates', name='getStates'),
     url(r'^getcities', 'web.views.getCities', name='getCities'),
     url(r'^rememberpassword', 'web.views.rememberPassword', name='rememberPassword'),
+	url(r'^i18n/', include('django.conf.urls.i18n')),
 )
