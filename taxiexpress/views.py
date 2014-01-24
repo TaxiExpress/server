@@ -46,6 +46,7 @@ def loginUser(request):
         request.session['user_id'] = customer.id
         request.session['Customer'] = True
         customer.sessionID = sessionID_generator()
+        customer.pushID = request.POST['pushID']
         customer.save()
         datetime_profile = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
         datetime_taxies = datetime.strptime(request.POST['lastUpdateFavorites'], '%Y-%m-%d %H:%M:%S')
