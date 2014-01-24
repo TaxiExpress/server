@@ -204,6 +204,7 @@ def getSelectedTaxi(request):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
         driver = Driver.objects.get(email=request.POST['driverEmail'])
         travel = Travel(customer=customer, startpoint=pointclient, origin=request.GET['origin'])
+        travel.save()
         valuation = 0
         if (customer.positiveVotes+customer.negativeVotes) > 0:
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
@@ -211,6 +212,7 @@ def getSelectedTaxi(request):
         try:
             resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendSelectedTaxi', params=post_data)
         except requests.ConnectionError:
+            travel.delete()
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
         travel.save()
         response_data = {}
