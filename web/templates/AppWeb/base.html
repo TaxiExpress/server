@@ -27,7 +27,20 @@
                         <li class="laster"><a href="legalnotice.html">Aviso Legal</a></li>
                     </ul>
                 </div>
-                <div class="author">Copyright © 2014 TaxiExpress</div>
+                <div class="author">
+                    <form action="/i18n/setlang/" method="post">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ redirect_to }}" />
+                        <select name="language" onchange="this.form.submit()">
+                            {% get_language_info_list for LANGUAGES as languages %}
+                            {% for language in languages %}
+                            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                            {{ language.name_local }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </div>
             </div>
         </div>  
     </body>
