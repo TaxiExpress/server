@@ -146,47 +146,26 @@ def registerUser(request):
     else:
         HttpResponse(status=status.HTTP_400_BAD_REQUEST)
         
-        
-        
-        
+
+
 @csrf_exempt
-@api_view(['GET'])
+@api_view(['POST'])
 def getClosestTaxi(request):
-    if request.GET.get('latitud', "false") != "false":
-        pointclient = Point(float(request.GET['latitud']), float(request.GET['longitud']))
+    if 'latitude' in request.POST:
+        pointclient = Point(float(request.POST['latitude']), float(request.POST['longitude']))
+        origin = request.POST['origin']
         try:
-            customer = Customer.objects.get(email=request.GET['email'])
-            if customer.sessionID != request.GET['sessionID']:
-                return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
-            closestDriver = Driver.objects.distance(pointclient).filter(car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity).order_by('distance')[0]
-            serialDriver = DriverSerializer(closestDriver)
-            return Response(serialDriver.data, status=status.HTTP_200_OK)
+            customer = Customer.objects.get(email=request.POST['email'])
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
-        except IndexError:
-            return HttpResponse(status=status.HTTP_204_NO_CONTENT, content="No se han encontrado taxis")
-    else:
-        return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Error al obtener la posicion")
-
-
-@csrf_exempt
-@api_view(['GET'])
-def getClosestTaxiBeta(request):
-    if 'latitude' in request.GET:
-        pointclient = Point(float(request.GET['latitude']), float(request.GET['longitude']))
-        origin = request.GET['origin']
-        try:
-            customer = Customer.objects.get(email=request.GET['email'])
-        except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
-        if customer.sessionID != request.GET['sessionID']:
+        if customer.sessionID != request.POST['sessionID']:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
         closestDrivers = Driver.objects.distance(pointclient).filter(car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity).order_by('distance')[:5]
         if closestDrivers.count() == 0:
             return HttpResponse(status=status.HTTP_204_NO_CONTENT, content="No se han encontrado taxis")
         elif closestDrivers.count() > 5:
             closestDrivers = closestDrivers[:5]
-        travel = Travel(customer=customer, startpoint=pointclient, origin=request.GET['origin'])
+        travel = Travel(customer=customer, startpoint=pointclient, origin=request.POST['origin'])
         valuation = 0
         if (customer.positiveVotes+customer.negativeVotes) > 0:
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
@@ -194,7 +173,7 @@ def getClosestTaxiBeta(request):
         for i in range(closestDrivers.count()):
             post_data["pushId"+str(i)] = closestDrivers[i].pushID
         try:
-            resp = requests.post('http://localhost:8080/sendClosestTaxi', params=post_data)
+            resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendClosestTaxi', params=post_data)
         except requests.ConnectionError:
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
         travel.save()
@@ -223,7 +202,7 @@ def getSelectedTaxi(request):
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
         post_data = {"pushId": driver.pushID ,"origin": origin, "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": "android"} 
         try:
-            resp = requests.post('http://localhost:8080/sendClosestTaxi', params=post_data)
+            resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendClosestTaxi', params=post_data)
         except requests.ConnectionError:
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
         travel.save()
@@ -256,7 +235,7 @@ def acceptTravel(request):
         driver.geom = driverpos
         driver.save()
         post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "latitude": str(driverpos.x), "longitude": str(driverpos.y), "device": "android"} 
-        resp = requests.post('http://localhost:8080/send', params=post_data)
+        resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/send', params=post_data)
         return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
@@ -299,14 +278,14 @@ def travelCompleted(request):
         travel.save()
         if travel.appPayment:
             post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "true","device": "android"} 
-            resp = requests.post('http://localhost:8080/send', params=post_data)
+            resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/send', params=post_data)
         else:
             travel.isPaid = True
             travel.customer.lastUpdateTravels = datetime.now()
             travel.save()
             try:
                 post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "false","device": "android"} 
-                resp = requests.post('http://localhost:8080/send', params=post_data)
+                resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/send', params=post_data)
             except requests.ConnectionError:
                 return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
         return HttpResponse(status=status.HTTP_200_OK)
@@ -329,7 +308,7 @@ def travelPaid(request):
         travel.customer.lastUpdateTravels = datetime.now()
         travel.save()
         post_data = {"travelID": travel.id, "pushId": travel.driver.pushID, "paid": "true", "device": "android"}
-        resp = requests.post('http://localhost:8080/send', params=post_data)
+        resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/send', params=post_data)
         return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
