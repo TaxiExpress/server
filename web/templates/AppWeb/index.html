@@ -24,10 +24,10 @@
 					<form action="/i18n/setlang/" method="post">
 							{% csrf_token %}
 							<input name="next" type="hidden" value="{{ redirect_to }}" />
-							<select name="language">
+							<select name="language" onchange="this.form.submit()">
 								{% get_language_info_list for LANGUAGES as languages %}
 								{% for language in languages %}
-								<option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}onchange="this.form.submit()">
+								<option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
 								{{ language.name_local }} ({{ language.code }})
 								</option>
 								{% endfor %}
