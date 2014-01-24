@@ -58,13 +58,13 @@ $(document).ready(function() {
 		        url: "/validatecode/",
 		        data: {
 		            csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
-		            tipo: $('.tipo').val(),
+		            tipo: $('#tabTipo').val(),
 		            phone: tmpPhone,
 		            validationCode: $('#validationCode').val() ,
 		        },
 		        success: function(content) {
 		        	if (content == '201'){
-		        		if ($('.tipo').val() == 'C'){
+		        		if ($('#tabTipo').val() == 'C'){
 		        			$(location).attr('href','mantclient_data.html')
 		        		}
 		        		else{
@@ -83,7 +83,7 @@ $(document).ready(function() {
         }      
     });
 
-    $('.validationRef').click(function(){
+    $('.validationRefIndex').click(function(){
         if ($('#phone').val() == ""){
         	$('#validation-form .error').html('Debe ingresar un numero de teléfono'); 
         }
@@ -105,6 +105,30 @@ $(document).ready(function() {
 		        }
 	    	});	
     	}	
-     });
+    });
+
+    $('.validationRefRegister').click(function(){
+        if ($('#phone').val() == ""){
+        	$('#validation-form .error').html('Debe ingresar un numero de teléfono'); 
+        }
+        else{
+        	tmpPhone = '+34' + $('#phone').val()
+	        $.ajax({
+		        type: "POST",
+		        url: "/recovervalidationcode/",
+		        data: {
+		            csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+		            tipo: $('#tabTipo').val(),
+		            phone: tmpPhone,
+		        },
+		        success: function(content) {
+		            $('#validation-form .error').html(content);
+		        },
+		        error: function(xhr, textStatus, errorThrown) {
+		            alert("Please report this error: "+errorThrown+xhr.status+xhr.responseText);
+		        }
+	    	});	
+    	}	
+    });
 });
 

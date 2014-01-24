@@ -12,10 +12,15 @@
     <div class="bg">        
       <div class="contenido">
         <section class="wrapper">
-          {{codigo}}
+            {% if request.POST.tipo != "D" %}
+              <input type="hidden" id="tabTipo" value="C">
+            {% else %}
+              <input type="hidden" id="tabTipo" value="D">
+            {% endif %}    
+            {{codigo}}
             <ul class="tabs">
-              <li><a href="#client">Cliente</a></li>
-              <li><a href="#driver">Taxista</a></li>
+              <li id="liClient"><a href="#client">Cliente</a></li>
+              <li id="liDriver"><a href="#driver">Taxista</a></li>
             </ul>
             <div class="clr"></div>
             <section class="block">
@@ -88,7 +93,7 @@
                     <input type="tel" id="phone" name="phone" maxlength="12" required  placeholder="Teléfono" tabindex="1">
                     <input type="text" id="validationCode" name="validationCode" maxlength="4" required value placeholder="Codigo" tabindex="2">
                     <p class="h-left error ff-txt-error"></p><br/>                        
-                    <input type="button" value="Volver a solicitar código de validación >>" class="validationRef validation"/>   
+                    <input type="button" value="Volver a solicitar código de validación >>" class="validationRefRegister validation"/>   
                 </span>
                 <input type="button" value= "Aceptar" class="aceptRegister"/>  
                 <input type="button" value= "Cancelar" class="close"/>   

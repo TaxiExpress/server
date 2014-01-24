@@ -116,52 +116,55 @@ def registerDriver(request):
         else:
             try:
                 #Car data
-                if 'accessible' in request.POST:
-                    accessible = True
+                if (Car.objects.filter(plate=request.POST['plate']).count() > 0):
+                    return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="La matrícula que ha indicado ya está en uso")
                 else:
-                    accessible = False
-                if 'animals' in request.POST:
-                    animals = True
-                else:
-                    animals = False
-                if 'appPayment' in request.POST:
-                    appPayment = True
-                else:
-                    appPayment = False
-                car = Car(plate=request.POST['plate'], model=request.POST['model'],capacity=request.POST['capacity'],
-                    accessible=accessible, animals=animals,appPayment=appPayment)
-                car.save()
+                    if 'accessible' in request.POST:
+                        accessible = True
+                    else:
+                        accessible = False
+                    if 'animals' in request.POST:
+                        animals = True
+                    else:
+                        animals = False
+                    if 'appPayment' in request.POST:
+                        appPayment = True
+                    else:
+                        appPayment = False
+                    car = Car(plate=request.POST['plate'], model=request.POST['model'],capacity=request.POST['capacity'],
+                        accessible=accessible, animals=animals,appPayment=appPayment)
+                    car.save()
 
-                #Driver data
+                    #Driver data
+                    
+                    d = Driver(email=request.POST['email'], password=request.POST['password'], phone=tmpPhone,
+                        first_name=request.POST['first_name'], last_name=request.POST['last_name'], license =request.POST['license'],
+                        car = car)
 
-                d = Driver(email=request.POST['email'], password=request.POST['password'], phone=tmpPhone,
-                    first_name=request.POST['first_name'], last_name=request.POST['last_name'], license =request.POST['license'],
-                    car = car)
+                    if 'appPayment' in request.POST:
+                        d.bankAccount = request.POST['bankAccount']
+                        d.recipientName = request.POST['recipientName']
 
-                if 'appPayment' in request.POST:
-                    d.bankAccount = request.POST['bankAccount']
-                    d.recipientName = request.POST['recipientName']
-
-                code = random.randint(1, 9999)
-                d.validationCode = code
-                d.save()
-                
-                msg = {
-                        'reqtype': 'json',
-                        'api_key': '8a352457',
-                        'api_secret': '460e58ff',
-                        'from': 'Taxi Express',
-                        'to': d.phone,
-                        'text': 'Su código de validación de Taxi Express es: ' + str(code)
-                    }                
-                sms = NexmoMessage(msg)
-                sms.set_text_info(msg['text'])
-                #response = sms.send_request()                
-                return HttpResponse(status=status.HTTP_201_CREATED)
+                    code = random.randint(1, 9999)
+                    d.validationCode = code
+                    d.save()
+                    
+                    msg = {
+                            'reqtype': 'json',
+                            'api_key': '8a352457',
+                            'api_secret': '460e58ff',
+                            'from': 'Taxi Express',
+                            'to': d.phone,
+                            'text': 'Su código de validación de Taxi Express es: ' + str(code)
+                        }                
+                    sms = NexmoMessage(msg)
+                    sms.set_text_info(msg['text'])
+                    #response = sms.send_request()                
+                    return HttpResponse(status=201)
             except ValidationError:
                 HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email no válido")
     else:
-        HttpResponse(status=status.HTTP_400_BAD_REQUEST)
+        HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
 
 
 @csrf_exempt
