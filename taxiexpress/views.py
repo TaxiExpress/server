@@ -202,7 +202,7 @@ def getSelectedTaxi(request):
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
         post_data = {"pushId": driver.pushID ,"origin": origin, "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": "android"} 
         try:
-            resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendClosestTaxi', params=post_data)
+            resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendSelectedTaxi', params=post_data)
         except requests.ConnectionError:
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
         travel.save()
@@ -235,7 +235,7 @@ def acceptTravel(request):
         driver.geom = driverpos
         driver.save()
         post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "latitude": str(driverpos.x), "longitude": str(driverpos.y), "device": "android"} 
-        resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/send', params=post_data)
+        resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendAcceptTravel', params=post_data)
         return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
@@ -278,14 +278,14 @@ def travelCompleted(request):
         travel.save()
         if travel.appPayment:
             post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "true","device": "android"} 
-            resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/send', params=post_data)
+            resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendTravelCompleted', params=post_data)
         else:
             travel.isPaid = True
             travel.customer.lastUpdateTravels = datetime.now()
             travel.save()
             try:
                 post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "false","device": "android"} 
-                resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/send', params=post_data)
+                resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendTravelCompleted', params=post_data)
             except requests.ConnectionError:
                 return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
         return HttpResponse(status=status.HTTP_200_OK)
@@ -308,7 +308,7 @@ def travelPaid(request):
         travel.customer.lastUpdateTravels = datetime.now()
         travel.save()
         post_data = {"travelID": travel.id, "pushId": travel.driver.pushID, "paid": "true", "device": "android"}
-        resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/send', params=post_data)
+        resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendTravelPaid', params=post_data)
         return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
