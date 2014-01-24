@@ -1,3 +1,4 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="es">
     <head> 
@@ -19,6 +20,21 @@
                     <a href="/"><img src="{{STATIC_URL}}img/logo.png" alt="Logo" /></a>
                 </div>
                 <div class="login h-right">
+				
+					<form action="/i18n/setlang/" method="post">
+							{% csrf_token %}
+							<input name="next" type="hidden" value="{{ redirect_to }}" />
+							<select name="language">
+								{% get_language_info_list for LANGUAGES as languages %}
+								{% for language in languages %}
+								<option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+								{{ language.name_local }} ({{ language.code }})
+								</option>
+								{% endfor %}
+							</select>
+							<input type="submit" value="{% trans 'idioma' %}" />
+						</form>
+				
                     <form id="login-form" action="" method="POST">
                         {% csrf_token %}
                         <fieldset class="fms-block">
@@ -32,13 +48,13 @@
                                         checked = "checked"
                                     {% endif %}
                                     >
-                                    <span class="typeLabel">Cliente</span>
+                                    <span class="typeLabel">{% trans 'Cliente' %}</span>
                                     <input class="tipo" type="radio" name="tipo" length=2 value="D"
                                     {% if tipo == "D" %}
                                         checked = "checked"
                                     {% endif %}
                                     >
-                                    <span class="typeLabel">Taxista</span>
+                                    <span class="typeLabel">{% trans 'Taxista' %}</span>
                                 </li>
                                 <li class="placeholder">
                                     <span class="textfield">

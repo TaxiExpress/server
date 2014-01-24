@@ -1,0 +1,359 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-01-14 23:04+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\webApp\index.html
+msgid "Cliente"
+msgstr "Customer"
+
+msgid "Taxista"
+msgstr "Driver"
+
+msgid "Contraseña"
+msgstr "Password"
+
+msgid "idioma"
+msgstr "Switch languaje"
+
+msgid "CerrarSesion"
+msgstr "Log out"
+
+
+# Estos textos aparecen en man_client.html
+
+msgid "PerfilUsuario"
+msgstr "User Profile"
+
+msgid "ModificarContraseña"
+msgstr "Change Password"
+
+msgid "PrefBusqueda"
+msgstr "Search preferences"
+
+msgid "Pais"
+msgstr "Country"
+
+msgid "Provincia"
+msgstr "State"
+
+msgid "Municipio"
+msgstr "City"
+
+msgid "Actualizar"
+msgstr "Update"
+
+
+# Estos textos aparecen en manclient_preferences.html
+
+msgid "TaxisMinusvalidos"
+msgstr "Taxies for handicapped people"
+
+msgid "TaxisAnimales"
+msgstr "Taxis that allow animals"
+
+msgid "TaxisPagoApp"
+msgstr "Taxies that allow payment through the application"
+
+
+# Estos textos aparecen en manclient_bankAccount.html
+
+msgid "DatosVehiculo"
+msgstr "Car data"
+
+msgid "DatosBancarios"
+msgstr "Bank account data"
+
+msgid "SeAdmitePago"
+msgstr "Payment through the application is allowed"
+
+msgid "InsPago"
+msgstr "If payment through application is allowed you must specify bank account and name of the owner"
+
+
+# Estos textos aparecen en driver.html
+
+msgid "ModificaPerfil"
+msgstr "Update your profile data easily"
+
+msgid "aceptaOrechaza"
+msgstr "Accept or deny a service with a simple click"
+
+msgid "ConfiguraMovil"
+msgstr "Setup your mobile"
+
+
+# Estos textos aparecen en faq.html 
+
+msgid "PregFrecuentes"
+msgstr "Frequent questions"
+
+msgid "ComoRegistrarme"
+msgstr "How can i sign up?"
+
+msgid "SoloUsuYPass"
+msgstr "You must only enter username and password"
+
+msgid "PregElegirTaxi"
+msgstr "Can i choose my taxi?"
+
+msgid "CondicionesTaxi"
+msgstr "Of course, you can choose the conditions the taxi service must perform"
+
+
+# Estos textos aparecen en client.html
+
+msgid "RegistrateSencillo"
+msgstr "Sign up easily"
+
+msgid "ConfirmaPosicion"
+msgstr "Confirm your position and the closest driver will pick you up in few minutes"
+
+msgid "SeleccionaTaxi"
+msgstr "Or if you want choose the driver that best fits your needs"
+
+msgid "ModificaSencillo"
+msgstr "Update your profile data easily, see your travels, choose your favourite driver and more..."
+
+msgid "ConsultaInfo"
+msgstr "See the driver info"
+
+
+# Estos textos son comunes en varias Webs
+
+msgid "Registro"
+msgstr "Sign up"
+
+msgid "MapaWeb"
+msgstr "Web Map"
+
+msgid "TerminosUso"
+msgstr "Terms of use"
+
+msgid "AvisoLegal"
+msgstr "Legal Notice"
+
+
+#Estos textos aparecen en register.html
+
+msgid "Registrar"
+msgstr "Sign up"
+
+msgid "Pago1"
+msgstr "If payment through application is allowed you must specify"
+
+msgid "Pago2"
+msgstr "bank account and name of the owner"
+
+msgid "Click1"
+msgstr "By signing up, you accept the"
+
+msgid "Click2"
+msgstr "terms of use"
+
+msgid "DatosCoche"
+msgstr "Car Data"
+
+msgid "Aceptar"
+msgstr "Accept"
+
+msgid "ValidacionCuenta"
+msgstr "Account validation"
+
+msgid "TfnoYCodigo"
+msgstr "Enter phone number and the code received in your mobile"
+
+
+# Estos textos aparecen en index.html
+
+msgid "ContraseñaOlvidada"
+msgstr "Forgot your password?"
+
+msgid "PideTaxi1"
+msgstr "Ask for your nearest taxi"
+
+msgid "PideTaxi2"
+msgstr "efficiently and quickly"
+
+msgid "TfnoYCodigoSMS"
+msgstr "Enter phone number and the code received by SMS"
+
+msgid "NoCuenta"
+msgstr "If you still don´t have an account,"
+
+msgid "NoCuenta2"
+msgstr "sign up"
+
+msgid "Version"
+msgstr "Versión 1.0, February 2014"
+
+msgid "Opciones"
+msgstr "TaxiExpress allows us to ..."
+
+msgid "Opcion1"
+msgstr "Ask for the nearest taxi"
+
+msgid "Opcion2"
+msgstr "Look for a particular taxi"
+
+msgid "Opcion3"
+msgstr "Store and find your favourite taxies"
+
+msgid "Opcion4"
+msgstr "Look detailed information of your travels"
+
+msgid "Opcion5"
+msgstr "Pay through the application"
+
+msgid "Opcion6"
+msgstr "Evaluate the taxi driver service"
+
+msgid "MasCaracteristicas"
+msgstr "Show more properties >>"
+
+msgid "SiEresTaxista"
+msgstr "If you are a driver >>"
+
+msgid "DescApp"
+msgstr "This is not a single application"
+
+msgid "DescApp2"
+msgstr "Atractive, sophisticated and full of features"
+
+msgid "DiseñoInt"
+msgstr "Intuitive design"
+
+msgid "DiseñoInt2"
+msgstr "It´s simple intuitive and attractive interface, helps you find the taxi that best suits your needs."
+
+msgid "Geolocalizacion"
+msgstr "Geolocation"
+
+msgid "Geolocalizacion2"
+msgstr "You can filter searches according to your taxi drivers preferences, getting your best results."
+
+msgid "PagosViaApp"
+msgstr "Payment through App"
+
+msgid "PagosViaApp2"
+msgstr "If the driver permits, customers that hire their services can make the payment through the app itself."
+
+msgid "GestionWeb"
+msgstr "Web Management"
+
+msgid "GestionWeb2"
+msgstr "You can view and modify your account information in the website itself, being these data shared with the mobile app."
+
+msgid "Estadisticas"
+msgstr "statistics"
+
+msgid "Estadisticas2"
+msgstr "The driver will have at his disposal a series of graphs and statistics to improve their performance."
+
+
+#estos textos aparecen en contact.html
+
+msgid "Contactanos"
+msgstr "Contact us !!"
+
+msgid "Sugerencia"
+msgstr "Suggestion"
+
+msgid "Incidencia"
+msgstr "Incidence"
+
+msgid "Otra"
+msgstr "Another"
+
+msgid "Enviar"
+msgstr "Send"
+
+
+#estos textos aparecen en termsofuse.html
+
+msgid "TerminosObligatorios"
+msgstr "The terms of use that are exposed below are mandatory."
+
+msgid "AceptacionTerminos"
+msgstr "Agreement to the Terms of use"
+
+msgid "AceptacionTerminosDesc"
+msgstr "El acceso o uso de cualquier web o servicio significa que usted ha leído , entendido y acepta los términos de uso. Al acceder o utilizar cualquier sitio web o servicio, usted también declara que tiene la autoridad legal para aceptar los términos en su nombre y en cualquiera de las partes que lo represente en relación con su uso de cualquier sitio web o servicio."
+
+msgid "CambiosCondiciones"
+msgstr "Cambios en las condiciones"
+
+msgid "CambiosCondicionesDesc"
+msgstr "De vez en cuando, <b>TaxiExpress</b> puede cambiar, suprimir, añadir o modificar los términos, y se reserva el derecho de hacerlo cuando lo considere oportuno. En tal caso, publicaremos las nuevas Condiciones de Uso. Le recomendamos que revise periódicamente los Términos. Todos los términos nuevos o modificados entran en vigor inmediatamente, sin embargo, si <b>TaxiExpress</b> así lo considera, entrará en vigor 30 días después de que se publiquen en la web. Si no está de acuerdo con cualquier modificación de los términos, podrá rescindir el presente acuerdo mediante el cese de uso de los sitios web y servicios. Su uso continuo de cualquier sitio web o servicio después de nuevos y / o términos revisados ​​son eficaces indicar que ha leído, entendido y aceptado los Términos y Condiciones."
+
+msgid "DisposicionWeb"
+msgstr "Disposición de los sitios web y servicios en general"
+
+msgid "DisposicionWebDesc"
+msgstr "Sólo se pueden utilizar los sitios web y servicios de acuerdo con estos Términos y las Condiciones adicionales aplicables. Usted no podrá utilizar los sitios web y servicios para ningún propósito que sea ilegal o esté prohibido por estos términos, las Condiciones adicionales aplicables, o cualquier otra condición o avisos que están disponibles en cualquier sitio web o servicio."
+
+msgid "UbicacionSitiosWeb"
+msgstr "Ubicación de los sitios web y servicios"
+
+msgid "UbicacionSitiosWebDesc"
+msgstr "Los sitios web y los servicios son controlados y ofrecidos por <b>TaxiExpress</b> desde sus instalaciones en España. <b>TaxiExpress</b> no garantiza que los sitios web o servicios son apropiados o disponibles para su uso en otros lugares. Si va a utilizar o acceder desde otras jurisdicciones, lo hace bajo su propio riesgo y usted es responsable de cumplir con las leyes locales. No obstante, las páginas web pueden contener o proporcionar enlaces a contenido alojados en los sitios web ubicados fuera de España."
+
+msgid "ConductaUsuario"
+msgstr "Conducta del usuario"
+
+msgid "ConductaUsuario2"
+msgstr "El usuario se compromete a no utilizar los sitios web o servicios a:"
+
+msgid "Conducta1"
+msgstr "Publicar, transmitir o usar el Contenido que usted no tiene el derecho de publicar o utilizar, por ejemplo, en virtud de la propiedad intelectual, las leyes de confidencialidad, de privacidad o de otro tipo aplicables."
+
+msgid "Conducta2"
+msgstr "Publicar, transmitir o usar contenido no solicitado o no autorizado, incluyendo la publicidad o materiales promocionales, 'correo basura', 'spam', 'cartas en cadena', 'esquemas piramidales', o cualquier otra forma de solicitación no solicitado o indeseable y publicitarios."
+
+msgid "Conducta3"
+msgstr "Publicar o transmitir Contenido que sea perjudicial, ofensivo, obsceno, abusivo, invasivo de la privacidad, difamatorio, de odio o discriminatorias de otro modo, falsa y engañosa, incita a un acto ilegal, o es de otra manera en violación de sus obligaciones para con cualquier persona o contrario a cualquier ley leyes y reglamentos."
+
+msgid "Conducta4"
+msgstr "Intimidar o acosar a otro."
+
+msgid "Conducta5"
+msgstr "Usar o intentar usar la cuenta, servicio o información personal."
+
+msgid "Conducta6"
+msgstr "Suprimir, eludir, desactivar, dañar o interferir con cualquier característica relacionados con la seguridad que imponen limitaciones en el uso de los Sitios Web o los Servicios."
+
+msgid "Conducta7"
+msgstr "Intentar obtener acceso no autorizado a los Sitios o Servicios, a otras cuentas, sistemas informáticos o redes conectadas a los sitios web o servicios, mediante el recordatorio de contraseña hacking o cualquier otro medio o interferir o intentar interferir con el correcto funcionamiento de los sitios web o servicios o cualquier otra actividades llevadas a cabo a través de las páginas web o los Servicios."
+
+msgid "Conducta8"
+msgstr "El uso de cualquier medio para eludir o ignorar robot.txt, u otras medidas que utilizamos para restringir el acceso o uso de los Sitios Web o los Servicios."
+
+msgid "Conducta9"
+msgstr "Hacerse pasar por otra persona o entidad, o declarar falsamente o tergiversar su afiliación con una persona o entidad."
+
+msgid "Conducta10"
+msgstr "Publicar o transmitir cualquier información personalmente identificable sobre personas menores de 13 años de edad, incluyendo, sin limitación en relación con los Servicios ofrecidos en ella."
+
+msgid "CondicionesServicios"
+msgstr "Condiciones relativas al contenido de los sitios web y servicios"
+
+msgid "UsuariosRegistrados"
+msgstr "Usuarios Registrados"
+
+msgid "UsuariosMayores"
+msgstr "Sólo las personas que tienen más de la mayoría de edad en su jurisdicción (que normalmente es de 18, pero pueden ser diferentes en su jurisdicción) y plenamente competente para entrar en los términos, condiciones, obligaciones, afirmaciones, declaraciones y garantías establecidas en los Términos y acatar y cumplir con los términos pueden registrarse para una cuenta y utilizar sus servicios relacionados, a condición, sin embargo, que si usted es menor de edad en su jurisdicción, pero más de 13 años de edad, puede inscribirse con la autorización expresa de su padre, madre o tutor legal. Cualquier registro, uso o acceso a los servicios prestados a los usuarios registrados (se define a continuación) por cualquier persona (1) bajo la edad de 13 años o (2) en la mayoría de edad en su jurisdicción, pero sin permiso de los padres o tutor, no está autorizado , sin licencia y una violación de estos Términos. Al registrarse en una cuenta en cualquiera de las páginas web o el uso de los servicios relacionados, usted representa y garantiza que (1) son la mayoría de edad en su jurisdicción o, (2) son mayores de 13 años y tener el permiso expreso de un tutor legal para convertirse en un usuario registrado y Servicios de uso que se hace disponible para usuarios registrados, y además se compromete a cumplir con todos los términos y condiciones de estos Términos y las Condiciones adicionales aplicables."
