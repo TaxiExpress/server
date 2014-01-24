@@ -1,8 +1,26 @@
 $(document).ready(function() {
     //Llamada al servidor para recuperar los paises
-    options = "<option value='" + "0" + "'>" + "Seleccione país..." + "</option>";
-    options += "<option value='" + "108" + "'>" + "España" + "</option>";
-    options += "<option value='" + "109" + "'>" + "Francia" + "</option>";
+    $.ajax({
+        type: "GET",
+        url: "/getcountries/",
+        success: function(result) {
+            if (result.length != 0){
+                options = "<option value='" + "0" + "'>" + "Seleccione país..." + "</option>";
+            }
+            for (i = 0, len = result.length; i < len; i++) {
+                pais = result[i];
+                options += "<option value='" + pais.code + "'>" + pais.name + "</option>";
+            }        
+        },
+        error: function(xhr, textStatus, errorThrown) {
+            alert("Please report this error: " + errorThrown + xhr.status + xhr.responseText);
+        }
+    });   
+
+
+    // options = "<option value='" + "0" + "'>" + "Seleccione país..." + "</option>";
+    // options += "<option value='" + "108" + "'>" + "España" + "</option>";
+    // options += "<option value='" + "109" + "'>" + "Francia" + "</option>";
     $('#country').html(options);
 
 	$('.cbocountry').change(function() {
