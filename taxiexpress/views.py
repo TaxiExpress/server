@@ -353,8 +353,8 @@ def getLastTravel(request):
 @api_view(['GET'])
 def testPush(request):
     try:
-        userdata = {"pushId": "APA91bHJRkpSjXvlFA7L94ybyalAeW0BxE0Z1K4g99onHvXLIFgptSJDhBIMXckY9HBzaBpEWo4Se9zUCd2KjzWUHCJ5TLac-qF-Hu8ozi7Uoe14ZFRg2_c82xmL4ZXgMfuhec4UUd-eu_SkYsMPRt2bqNZ0K5Uzgpwd2en9454w8-f3c7pyEK0", "title": "Pues que bien", "device": "android", "reqMessage": "world"}
-        resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/send', params=userdata)
+        userdata = {"pushId": "APA91bHTypZCKvUdXYd-lhimPaLbolkEvZU8o9o5FWhRW0tIx5JpcIS3mdNYza0o5F0d-lBzn3xYw2RBZWfJEy_wdOLIZVwefcUsRtG_PpGXyauJ0EnnOND-zS0dOOAcb_xG2QhqodKQchzJgV6-z41y8zsPwMzJrNY2Bj-kCeUsm-Ca3kKH0j4", "title": "Pues que bien", "device": "android", "reqMessage": "world"}
+        resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendSelectedTaxi', params=userdata)
     except requests.ConnectionError:
         return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
     print resp.status_code
