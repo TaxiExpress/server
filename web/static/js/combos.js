@@ -1,23 +1,28 @@
 $(document).ready(function() {
     //Llamada al servidor para recuperar los paises
     options = "";
+    alert('pasa1');
     $.ajax({
         type: "GET",
         url: "/getcountries/",
         success: function(result) {
+            alert('existen paises');
+            alert(result.length);
             if (result.length != 0){
                 options = "<option value='" + "0" + "'>" + "Seleccione país..." + "</option>";
             }
             for (i = 0, len = result.length; i < len; i++) {
-                pais = result[i];
+            	pais = result[i];
+            	alert(pais.code);
                 options += "<option value='" + pais.code + "'>" + pais.name + "</option>";
+                alert(pais.name);
             }        
         },
         error: function(xhr, textStatus, errorThrown) {
             alert("Please report this error: " + errorThrown + xhr.status + xhr.responseText);
         }
     });   
-
+    alert('pasa2');
 
     // options = "<option value='" + "0" + "'>" + "Seleccione país..." + "</option>";
     // options += "<option value='" + "108" + "'>" + "España" + "</option>";
