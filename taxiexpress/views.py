@@ -315,16 +315,16 @@ def travelPaid(request):
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
 
 @csrf_exempt
-@api_view(['GET'])
+@api_view(['POST'])
 def cancelTravel(request):
-    if 'travelID' in request.GET:
+    if 'travelID' in request.POST:
         try:
-            travel = Travel.objects.get(id=request.GET['travelID'])
+            travel = Travel.objects.get(id=request.POST['travelID'])
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
-        if request.GET['email'] != travel.customer.email:
+        if request.POST['email'] != travel.customer.email:
             return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
-        if request.GET['sessionID'] != travel.customer.sessionID:
+        if request.POST['sessionID'] != travel.customer.sessionID:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
         travel.delete()
         return HttpResponse(status=status.HTTP_200_OK)
