@@ -310,6 +310,7 @@ def travelPaid(request):
         travel.save()
         post_data = {"travelID": travel.id, "pushId": travel.driver.pushID, "paid": "true", "device": "android"}
         resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendTravelPaid', params=post_data)
+        print resp
         return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
