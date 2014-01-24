@@ -175,6 +175,7 @@ def getClosestTaxi(request):
             post_data["pushId"+str(i)] = closestDrivers[i].pushID
         try:
             resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendClosestTaxi', params=post_data)
+            print resp
         except requests.ConnectionError:
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
         travel.save()
