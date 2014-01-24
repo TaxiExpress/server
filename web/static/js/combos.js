@@ -26,6 +26,7 @@ $(document).ready(function() {
     	$.ajax({
             type: "GET",
             url: "/getstates/",
+            data:{country: codCountry},
             success: function(result) {
                 if (result.length != 0){
                     options = "<option value='" + "0" + "'>" + "Seleccione provincia..." + "</option>";
@@ -53,6 +54,7 @@ $(document).ready(function() {
         $.ajax({
             type: "GET",
             url: "/getcities/",
+            data:{state: CodState},
             success: function(result) {
                 if (result.length != 0){
                     options = "<option value='" + "0" + "'>" + "Seleccione municipio..." + "</option>";
