@@ -16,7 +16,7 @@ class Country(models.Model):
         return self.name
 
 class State(models.Model):
-    code = models.IntegerField(primary_key=True)
+    code = models.IntegerField()
     name = models.CharField(max_length=80)
     country = models.ForeignKey(Country)
     def __unicode__(self):
@@ -25,7 +25,7 @@ class State(models.Model):
 class City(models.Model):
     class Meta:
         verbose_name_plural = "Cities"
-    code = models.IntegerField(primary_key=True)
+    code = models.IntegerField()
     name = models.CharField(max_length=80)
     state = models.ForeignKey(State)
     def __unicode__(self):
