@@ -179,8 +179,13 @@ def updateProfileUserWeb(request):
         customer.last_name = request.POST['last_name']
         customer.image = request.POST['image']
         customer.postcode = request.POST['postcode']
-        #Comentado hasta saber como actualizar
-        #customer.city = int(request.POST['city'])
+        if 'country' in request.POST and 'state' in request.POST and 'city' in request.POST: 
+            state = State.objects.filter(country_id=request.POST['country'], code=request.POST['state'])
+            city = City.objects.filter(state_id=state, code=request.POST['city'])
+            tmpCity = City.objects.get(id=city)
+        else:
+            tmpCity= None
+        customer.city=tmpCity
         customer.lastUpdate = datetime.now()
         customer.save()
         return HttpResponse(status=status.HTTP_200_OK,content="Perfil del cliente modificado correctamente")
@@ -225,8 +230,13 @@ def updateProfileDriverWeb(request):
         driver.image = request.POST['image']
         driver.address = request.POST['address']
         driver.postcode = request.POST['postcode']
-        #Comentado hasta saber como actualizar
-        #driver.city = int(request.POST['city'])
+        if 'country' in request.POST and 'state' in request.POST and 'city' in request.POST: 
+            state = State.objects.filter(country_id=request.POST['country'], code=request.POST['state'])
+            city = City.objects.filter(state_id=state, code=request.POST['city'])
+            tmpCity = City.objects.get(id=city)
+        else:
+            tmpCity= None
+        driver.city=tmpCity
         driver.license = request.POST['license']
         driver.lastUpdate = datetime.now()
         driver.save()
