@@ -71,7 +71,7 @@
                         <span class="italic">{% trans 'Pago1' %}<br>{% trans 'Pago2' %}</span>
                         <input type="text" name="bankAccount" maxlength="20" placeholder="Número de cuenta" disabled value="{{request.POST.bancAccount}}"><span class="accountError hidefieldError">*</span>
                         <input type="text" name="recipientName" maxlength="80" placeholder="Titular" disabled value="{{request.POST.recipientName}}"><span class="accountError hidefieldError">*</span>
-                        <br><span>{% trans 'Click1 '%} <a href="termsofuse">{% trans 'Click2' %}</a>.</span> 
+                        <br><span>{% trans 'Click1' %} <a href="termsofuse">{% trans 'Click2' %}</a>.</span> 
                         <p class="registerError">{{error}}</p>      
                         <button class="btn" type="submit">{% trans 'Registrar' %}</button>
                     </form>
