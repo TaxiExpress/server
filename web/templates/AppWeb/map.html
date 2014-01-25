@@ -1,20 +1,21 @@
 {% extends "AppWeb/base.html" %}
+{% load i18n %}
 
 {% block head %}
 <link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
 {% endblock %}
 {% block content %}
 		<div class="bg titulo">
-			<h1>Mapa Web</h1>
+			<h1>{% trans 'MapaWeb' %}</h1>
 		</div>			
 		<div class="bg">				
 			<div class="contenido Webmap">				
 				<ul>
-            <li><a href="register.html">Registro</a></li>
-            <li><a href="client.html">Cliente</a></li>
-            <li><a href="driver.html">Taxista</a></li>
-            <li><a href="faq.html">FAQ</a></li>
-            <li><a href="legalnotice.html">Aviso Legal</a></li>
+            <li><a href="register.html">{% trans 'Registro' %}</a></li>
+            <li><a href="client.html">{% trans 'Cliente' %}</a></li>
+            <li><a href="driver.html">{% trans 'Taxista' %}</a></li>
+            <li><a href="faq.html">F.A.Q</a></li>
+            <li><a href="legalnotice.html">{% trans 'AvisoLegal' %}</a></li>
         </ul>
 			</div>
 		</div>

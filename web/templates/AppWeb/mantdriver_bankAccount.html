@@ -1,4 +1,5 @@
 {% extends "AppWeb/base2.html" %}
+{% load i18n %}
 
 {% block head %}
 <link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
@@ -14,11 +15,11 @@
                 <aside id="sidebar" class="span2">
                     <div class="tabs">
                         <ul class="menu nav">
-                            <li class="first" ><a href="mantdriver_data.html">Perfil de usuario</a></li>
-                            <li><a href="mantdriver_changepassword.html">Modificar Contraseña</a></li>
-                            <li><a href="mantdriver_car.html">Datos del vehículo</a></li>
-                            <li><a href="mantdriver_bankaccount.html" class="active">Datos bancarios</a></li>
-                            <li><a href="mantdriver_travelgraphic.html">Trayectos realizados</a></li>
+                            <li class="first" ><a href="mantdriver_data.html">{% trans 'PerfilUsuario' %}</a></li>
+                            <li><a href="mantdriver_changepassword.html">{% trans 'ModificarContraseña' %}</a></li>
+                            <li><a href="mantdriver_car.html">{% trans 'DatosVehiculo' %}</a></li>
+                            <li><a href="mantdriver_bankaccount.html" class="active">{% trans 'DatosBancarios' %}</a></li>
+                            <li><a href="mantdriver_travelgraphic.html">{% trans 'TrayectosRealizados' %}</a></li>
                         </ul>
                     </div>
                 </aside>
@@ -28,12 +29,12 @@
                         <div class="col1 maintenance">
                             <p>
                                 {% if car.appPayment %}
-                                    <input type="checkbox" name="appPayment" checked>Se admite pago a través de la aplicación
+                                    <input type="checkbox" name="appPayment" checked>{% trans 'SeAdmitePago' %}
                                 {% else %}
-                                    <input type="checkbox" name="appPayment">Se admite pago a través de la aplicación
+                                    <input type="checkbox" name="appPayment">{% trans 'SeAdmitePago' %}
                                 {% endif %}
                             </p>
-                            <span class="italic">Si admite pago a través de la aplicación deberá especificar Cuenta Bancaria y Nombre del Titular</span>
+                            <span class="italic">{% trans 'InsPago' %}</span>
                             {% if car.appPayment %}
                                 <input type="text" name="bankAccount" maxlength="20" placeholder="Número de cuenta" value="{{driver.bankAccount}}">
                                 <input type="text" name="recipientName" maxlength="80" placeholder="Titular" value="{{driver.recipientName}}">
@@ -43,7 +44,7 @@
                             {% endif %}
                         </div>
                         <p class="registerError">{{error}}</p>
-                        <div class="clr"><button class="btn" type="submit">Actualizar</button></div>
+                        <div class="clr"><button class="btn" type="submit">{% trans 'Actualizar' %}</button></div>
                     </form> 
                 </div>
             </div>

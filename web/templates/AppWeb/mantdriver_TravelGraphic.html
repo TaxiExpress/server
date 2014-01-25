@@ -1,4 +1,5 @@
 {% extends "AppWeb/base2.html" %}
+{% load i18n %}
 
 {% block head %}
 <link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
@@ -14,11 +15,11 @@
                 <aside id="sidebar" class="span2">
                     <div class="tabs">
                         <ul class="menu nav">
-                            <li class="first" ><a href="mantdriver_data.html">Perfil de usuario</a></li>
-                            <li><a href="mantdriver_changepassword.html">Modificar Contraseña</a></li>
-                            <li><a href="mantdriver_car.html">Datos del vehículo</a></li>
-                            <li><a href="mantdriver_bankaccount.html">Datos bancarios</a></li>
-                            <li><a href="mantdriver_travelgraphic.html" class="active">Trayectos realizados</a></li>
+                            <li class="first" ><a href="mantdriver_data.html">{% trans 'PerfilUsuario' %}</a></li>
+                            <li><a href="mantdriver_changepassword.html">{% trans 'ModificarContraseña' %}</a></li>
+                            <li><a href="mantdriver_car.html">{% trans 'DatosVehiculo' %}</a></li>
+                            <li><a href="mantdriver_bankaccount.html">{% trans 'DatosBancarios' %}</a></li>
+                            <li><a href="mantdriver_travelgraphic.html">{% trans 'TrayectosRealizados' %}</a></li>
                         </ul>
                     </div>
                 </aside>

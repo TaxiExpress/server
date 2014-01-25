@@ -1,4 +1,5 @@
 {% extends "AppWeb/base2.html" %}
+{% load i18n %}
 
 {% block head %}
 <link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
@@ -14,9 +15,9 @@
                 <aside id="sidebar" class="span2">
                     <div class="tabs">
                         <ul class="menu nav">
-                            <li class="first" ><a href="mantclient_data.html" class="active">Perfil de usuario</a></li>
-                            <li><a href="mantclient_changepassword.html">Modificar Contraseña</a></li>
-                            <li><a href="mantclient_preferences.html">Preferencias de búsqueda</a></li>
+                            <li class="first" ><a href="mantclient_data.html" class="active">{% trans 'PerfilUsuario' %}</a></li>
+                            <li><a href="mantclient_changepassword.html">{% trans 'ModificarContraseña' %}</a></li>
+                            <li><a href="mantclient_preferences.html">{% trans 'PrefBusqueda' %}</a></li>
                         </ul>
                     </div>
                 </aside>
@@ -46,17 +47,17 @@
                         </div>
                         <div class="col2 maintenance">
                             
-                            <div class="lblcountry"><label>País</label></div>
+                            <div class="lblcountry"><label>{% trans 'Pais' %}</label></div>
                             <div class="cbocountry">
                                 <select id = "country" name="country" class="selcity"></select> 
                             </div>
                         
-                            <div class="lblstate"><label>Provincia</label></div>
+                            <div class="lblstate"><label>{% trans 'Provincia' %}</label></div>
                             <div class="cbostate">
                                 <select id = "state" name="state" class="selcity"></select>
                             </div>
                         
-                            <div class="lblcity"><label>Municipio</label></div>
+                            <div class="lblcity"><label>{% trans 'Municipio' %}</label></div>
                             <div class="cbocity">
                                 <select id = "city" name="city" class="selcity"></select> 
                             </div>
@@ -65,7 +66,7 @@
 
                         </div>
                         <p class="registerError">{{error}}</p>
-                        <div class="clr"><button class="btn" type="submit">Actualizar</button></div>
+                        <div class="clr"><button class="btn" type="submit">{% trans 'Actualizar' %}</button></div>
                     </form> 
                 </div>
             </div>

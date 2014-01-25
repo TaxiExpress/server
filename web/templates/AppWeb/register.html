@@ -1,4 +1,5 @@
 {% extends "AppWeb/base.html" %}
+{% load i18n %}
 
 {% block head %}
 <link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
@@ -19,8 +20,8 @@
             {% endif %}    
             {{codigo}}
             <ul class="tabs">
-              <li id="liClient"><a href="#client">Cliente</a></li>
-              <li id="liDriver"><a href="#driver">Taxista</a></li>
+              <li id="liClient"><a href="#client">{% trans 'Cliente' %}</a></li>
+              <li id="liDriver"><a href="#driver">{% trans 'Taxista' %}</a></li>
             </ul>
             <div class="clr"></div>
             <section class="block">
@@ -32,9 +33,9 @@
                       <input type="tel" name="phone" maxlength="80" placeholder="Teléfono" required value="{{request.POST.phone}}">
                       <input type="password" name="password" maxlength="80" placeholder="Contraseña" required value="{{request.POST.password}}"><span class="passwordError hidefieldError">*</span>
                       <input type="password" name="passwordCon" maxlength="80" placeholder="Confirmar contraseña" required value="{{request.POST.passwordCon}}"><span class="passwordError hidefieldError">*</span>
-                      <br><span>Al hacer clic en registrar, aceptas los <a href="termsofuse">términos del uso</a>.</span> 
+                      <br><span>{% trans 'Click1 '%} <a href="termsofuse">{% trans 'Click2' %}</a>.</span> 
                       <p class="registerError">{{error}}</p>    
-                      <button class="btn" type="submit">Registrar</button>
+                      <button class="btn" type="submit">{% trans 'Registrar' %}</button>
                   </form>
                 </div>
 <!--                <div class="imagenD2">
@@ -52,27 +53,27 @@
                         <input type="text" name="last_name" maxlength="80" placeholder="Apellido" required value="{{request.POST.last_name}}">
                         <input type="password" name="password" maxlength="80" placeholder="Contraseña" required value="{{request.POST.password}}"><span class="passwordError hidefieldError">*</span>
                         <input type="password" name="passwordCon" maxlength="80" placeholder="Confirmar contraseña" required value="{{request.POST.passwordCon}}"><span class="passwordError hidefieldError">*</span>
-                        <br><span>Datos del coche</span><br>
+                        <br><span>{% trans 'DatosCoche' %}</span><br>
                         <input type="number" name="license" placeholder="Número de licencia" required value="{{request.POST.license}}">
                         <input type="text" name="plate" maxlength="7" placeholder="Matrícula" required value="{{request.POST.plate}}">
                         <input type="text" name="model" maxlength="80" placeholder="Modelo" required value="{{request.POST.model}}">
                         <input type="number" name="capacity" placeholder="Capacidad" required value="{{request.POST.capacity}}">
                         <br>
                         <p>
-                            <input type="checkbox" name="accessible">Taxi habilitado para minusválidos
+                            <input type="checkbox" name="accessible">{% trans 'TaxisMinusvalidos' %}
                         </p>
                         <p>
-                            <input type="checkbox" name="animals">Se admiten animales
+                            <input type="checkbox" name="animals">{% trans 'TaxisAnimales' %}
                         </p>
                         <p>
-                            <input type="checkbox" name="appPayment">Se admite pago a través de la aplicación
+                            <input type="checkbox" name="appPayment">{% trans 'TaxisPagoApp' %}
                         </p>
-                        <span class="italic">Si admite pago a través de la aplicación deberá especificar <br>Cuenta Bancaria y Nombre del Titular</span>
+                        <span class="italic">{% trans 'Pago1' %}<br>{% trans 'Pago2' %}</span>
                         <input type="text" name="bankAccount" maxlength="20" placeholder="Número de cuenta" disabled value="{{request.POST.bancAccount}}"><span class="accountError hidefieldError">*</span>
                         <input type="text" name="recipientName" maxlength="80" placeholder="Titular" disabled value="{{request.POST.recipientName}}"><span class="accountError hidefieldError">*</span>
-                        <br><span>Al hacer clic en registrar, aceptas los <a href="termsofuse">términos del uso</a>.</span> 
+                        <br><span>{% trans 'Click1 '%} <a href="termsofuse">{% trans 'Click2' %}</a>.</span> 
                         <p class="registerError">{{error}}</p>      
-                        <button class="btn" type="submit">Registrar</button>
+                        <button class="btn" type="submit">{% trans 'Registrar' %}</button>
                     </form>
                   </div>
 <!--                <div class="imagenD2">
@@ -88,8 +89,8 @@
         <div class="window-container zoomin">
             <form id="validation-form"> 
                 {% csrf_token %}
-                <h3>Validación de la cuenta</h3>
-                <span class="popupText">Introduce el teléfono y el código recibido por SMS<br/>
+                <h3>{% trans 'ValidacionCuenta' %}</h3>
+                <span class="popupText">{% trans 'TfnoYCodigoSMS' %}<br/>
                     <input type="tel" id="phone" name="phone" maxlength="12" required  placeholder="Teléfono" tabindex="1">
                     <input type="text" id="validationCode" name="validationCode" maxlength="4" required value placeholder="Codigo" tabindex="2">
                     <p class="h-left error ff-txt-error"></p><br/>                        

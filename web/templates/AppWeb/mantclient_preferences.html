@@ -1,4 +1,5 @@
 {% extends "AppWeb/base2.html" %}
+{% load i18n %}
 
 {% block head %}
 <link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
@@ -14,9 +15,9 @@
                 <aside id="sidebar" class="span2">
                     <div class="tabs">
                         <ul class="menu nav">
-                            <li class="first" ><a href="mantclient_data.html">Perfil de usuario</a></li>
-                            <li><a href="mantclient_changepassword.html">Modificar Contraseña</a></li>
-                            <li><a href="mantclient_preferences.html" class="active">Preferencias de búsqueda</a></li>
+                            <li class="first" ><a href="mantclient_data.html">{% trans 'PerfilUsuario' %}</a></li>
+                            <li><a href="mantclient_changepassword.html">{% trans 'ModificarContraseña' %}</a></li>
+                            <li><a href="mantclient_preferences.html" class="active">{% trans 'PrefBusqueda' %}</a></li>
                         </ul>
                     </div>
                 </aside>
@@ -27,29 +28,29 @@
                             <input type="hidden" name="email" value="{{client.email}}">
                             <p>
                                 {% if client.fAccessible %}
-                                    <input type="checkbox" id="accessible" name="accessible" checked/>Taxis habilitados para minusválidos
+                                    <input type="checkbox" id="accessible" name="accessible" checked/>{% trans 'TaxisMinusvalidos' %}
                                 {% else %}
-                                    <input type="checkbox" id="accessible" name="accessible">Taxis habilitados para minusválidos
+                                    <input type="checkbox" id="accessible" name="accessible">{% trans 'TaxisMinusvalidos' %}
                                 {% endif %}
                             </p>
                             <p>
                                 {% if client.fAnimals %}
-                                    <input type="checkbox" id="animals" name="animals" checked>Taxis que admitan animales
+                                    <input type="checkbox" id="animals" name="animals" checked>{% trans 'TaxisAnimales' %}
                                 {% else %}
-                                    <input type="checkbox" id="animals" name="animals">Taxis que admitan animales
+                                    <input type="checkbox" id="animals" name="animals">{% trans 'TaxisAnimales' %}
                                 {% endif %}
                             </p> 
                             <p>
                                 {% if client.fAppPayment %}
-                                    <input type="checkbox" id="appPayment" name="appPayment" checked>Taxis que permitan el pago a través de la aplicación
+                                    <input type="checkbox" id="appPayment" name="appPayment" checked>{% trans 'TaxisPagoApp' %}
                                 {% else %}
-                                    <input type="checkbox" id="appPayment" name="appPayment">Taxis que permitan el pago a través de la aplicación
+                                    <input type="checkbox" id="appPayment" name="appPayment">{% trans 'TaxisPagoApp' %}
                                 {% endif %}
                             </p>
                             <input type="number" id="capacity" name="capacity" placeholder="Capacidad" value="{{client.fCapacity}}"> 
                         </div>
                         <p class="registerError">{{error}}</p>
-                        <div class="clr"><button class="btn" type="submit">Actualizar</button></div>
+                        <div class="clr"><button class="btn" type="submit">{% trans 'Actualizar' %}</button></div>
                     </form> 
                 </div>
             </div>

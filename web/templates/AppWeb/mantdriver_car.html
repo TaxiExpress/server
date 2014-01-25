@@ -1,4 +1,5 @@
 {% extends "AppWeb/base2.html" %}
+{% load i18n %}
 
 {% block head %}
 <link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
@@ -14,11 +15,11 @@
                 <aside id="sidebar" class="span2">
                     <div class="tabs">
                         <ul class="menu nav">
-                            <li class="first" ><a href="mantdriver_data.html">Perfil de usuario</a></li>
-                            <li><a href="mantdriver_changepassword.html">Modificar Contraseña</a></li>
-                            <li><a href="mantdriver_car.html" class="active">Datos del vehículo</a></li>
-                            <li><a href="mantdriver_bankaccount.html">Datos bancarios</a></li>
-                            <li><a href="mantdriver_travelgraphic.html">Trayectos realizados</a></li>
+                            <li class="first" ><a href="mantdriver_data.html">{% trans 'PerfilUsuario' %}</a></li>
+                            <li><a href="mantdriver_changepassword.html">{% trans 'ModificarContraseña' %}</a></li>
+                            <li><a href="mantdriver_car.html" class="active">{% trans 'DatosVehiculo' %}</a></li>
+                            <li><a href="mantdriver_bankaccount.html">{% trans 'DatosBancarios' %}</a></li>
+                            <li><a href="mantdriver_travelgraphic.html">{% trans 'TrayectosRealizados' %}</a></li>
                         </ul>
                     </div>
                 </aside>
@@ -40,21 +41,21 @@
                             <br>
                             <p>
                                 {% if car.accessible %}
-                                    <input type="checkbox" name="accessible" checked>Taxi habilitado para minusválidos
+                                    <input type="checkbox" name="accessible" checked>{% trans 'TaxisMinusvalidos' %}
                                 {% else %}
-                                    <input type="checkbox" name="accessible">Taxi habilitado para minusválidos
+                                    <input type="checkbox" name="accessible">{% trans 'TaxisMinusvalidos' %}
                                 {% endif %}
 
                                 </br>
                                 {% if car.animals %}
-                                    <input type="checkbox" name="animals" checked>Se admiten animales
+                                    <input type="checkbox" name="animals" checked>{% trans 'TaxisAnimales'%}
                                 {% else %}
-                                    <input type="checkbox" name="animals">Se admiten animales
+                                    <input type="checkbox" name="animals">{% trans 'TaxisAnimales'%}
                                 {% endif %}
                             </p>
                         </div>
                         <p class="registerError">{{error}}</p>
-                        <div class="clr"><button class="btn" type="submit">Actualizar</button></div>
+                        <div class="clr"><button class="btn" type="submit">{% trans 'Actualizar' %}</button></div>
                     </form> 
                 </div>
             </div>

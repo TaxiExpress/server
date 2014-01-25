@@ -71,7 +71,19 @@ msgid "TaxisPagoApp"
 msgstr "Taxies that allow payment through the application"
 
 
+# Estos textos aparecen en rememberPassword.html
+
+msgid "RecuperarCuenta"
+msgstr "Recover your account"
+
+msgid "Recuperar"
+msgstr "Recover"
+
+
 # Estos textos aparecen en manclient_bankAccount.html
+
+msgid "TrayectosRealizados"
+msgstr "Travels made"
 
 msgid "DatosVehiculo"
 msgstr "Car data"
