@@ -33,7 +33,7 @@
                       <input type="tel" name="phone" maxlength="80" placeholder="Teléfono" required value="{{request.POST.phone}}">
                       <input type="password" name="password" maxlength="80" placeholder="Contraseña" required value="{{request.POST.password}}"><span class="passwordError hidefieldError">*</span>
                       <input type="password" name="passwordCon" maxlength="80" placeholder="Confirmar contraseña" required value="{{request.POST.passwordCon}}"><span class="passwordError hidefieldError">*</span>
-                      <br><span>{% trans 'Click1 '%} <a href="termsofuse">{% trans 'Click2' %}</a>.</span> 
+                      <br><span>{% trans 'Click1' %} <a href="termsofuse">{% trans 'Click2' %}</a>.</span> 
                       <p class="registerError">{{error}}</p>    
                       <button class="btn" type="submit">{% trans 'Registrar' %}</button>
                   </form>
