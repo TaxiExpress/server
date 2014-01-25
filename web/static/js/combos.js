@@ -61,7 +61,7 @@ $(document).ready(function() {
             $.ajax({
                 type: "GET",
                 url: "/getcities/",
-                data:{state: CodState},
+                data:{state: codState},
                 success: function(result) {
                     if (result.length != 0){
                        options = "<option value='" + "0" + "'>" + "Seleccione municipio..." + "</option>";

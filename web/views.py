@@ -323,7 +323,7 @@ def getCities(request):
         try:
             state = State.objects.get(code=request.GET['state'])
             serialCities = CitySerializer(state.city_set, many=True)
-            return Response(serialStates.data, status=status.HTTP_200_OK)
+            return Response(serialCities.data, status=status.HTTP_200_OK)
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado esta ciudad")
     else:
