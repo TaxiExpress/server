@@ -213,6 +213,8 @@ def getSelectedTaxi(request):
             travel.delete()
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
         travel.save()
+        print resp
+        print post_data
         response_data = {}
         response_data['travelID'] = travel.id
         return HttpResponse(json.dumps(response_data), content_type="application/json")
