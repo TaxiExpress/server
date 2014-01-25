@@ -1,4 +1,5 @@
 {% extends "AppWeb/base.html" %}
+{% load i18n %}
 
 {% block head %}
  <link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
@@ -7,16 +8,16 @@
 
 {% block content %}    
 		<div class="bg titulo">
-			<h1>Taxista</h1>
+			<h1>{% trans 'Taxista' %}</h1>
 		</div>			
 		<div class="bg">				
             <div class="contenido driver">
                 <div class="container">
                 <div id="slider">
-                    <div><img src="{{STATIC_URL}}img/RegistroT.png" /></a><p>Registrate de una forma sencilla</p></div>
-                    <div><img src="{{STATIC_URL}}img/PerfilT.png" /></a><p>Modifica tus datos de perfil fácilmente</p></div>
-                    <div><img src="{{STATIC_URL}}img/AceptarRechazar.png" /></a><p>Acepta o rechaza un servicio con un solo click</p></div>
-                    <div><img src="{{STATIC_URL}}img/Configuracion.png" /></a><p>Configura tu movil</p></div>
+                    <div><img src="{{STATIC_URL}}img/RegistroT.png" /></a><p>{% trans 'RegistrateSencillo' %}</p></div>
+                    <div><img src="{{STATIC_URL}}img/PerfilT.png" /></a><p>{% trans 'ModificaPerfil' %}</p></div>
+                    <div><img src="{{STATIC_URL}}img/AceptarRechazar.png" /></a><p>{% trans 'aceptaOrechaza' %}</p></div>
+                    <div><img src="{{STATIC_URL}}img/Configuracion.png" /></a><p>{% trans 'ConfiguraMovil' %}</p></div>
                 </div>
             </div>
 		</div>

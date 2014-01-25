@@ -1,4 +1,5 @@
 ﻿{% extends "AppWeb/base.html" %}
+{% load i18n %}
 
 {% block head %}
 <link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
@@ -7,7 +8,7 @@
 
 {% block content %}
         <div class="bg titulo">
-            <h1>Ponte en contacto con nosotros!!!</h1>
+            <h1>{% trans 'Contactanos' %}</h1>
         </div>			
         <div class="bg">				
             <div class="contenido contact">
@@ -23,15 +24,15 @@
 
                         <p>
                             <select id = "tipo" name="tipo" class="seltipo">
-                                <option value = "1">Sugerencia</option>
-                                <option value = "2">Incidencia</option>
-                                <option value = "3">Otra</option>
+                                <option value = "1">{% trans 'Sugerencia' %}</option>
+                                <option value = "2">{% trans 'Incidencia' %}</option>
+                                <option value = "3">{% trans 'Otra' %}</option>
                             </select>
                         </p>
                         <textarea rows="10" cols="100" wrap="soft" name="observations" class="observation" maxlength="200" placeholder="Observaciones" required></textarea>                      
                     </div>
                     <p class="registerError">{{error}}</p>
-                    <div class="clr"><button class="btn" type="submit">Enviar</button></div>
+                    <div class="clr"><button class="btn" type="submit">{% trans 'Enviar' %}</button></div>
                 </form> 
             </div>
         </div>        

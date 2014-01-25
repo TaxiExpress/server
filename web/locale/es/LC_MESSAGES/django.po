@@ -267,6 +267,9 @@ msgstr "El taxista tendrá a su alcance una serie de gráficos y estadísticas q
 
 #estos textos aparecen en contact.html
 
+msgid "Contacto"
+msgstr "Contáctanos"
+
 msgid "Contactanos"
 msgstr "Ponte en contacto con nosotros!!!"
 

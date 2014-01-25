@@ -1,4 +1,5 @@
 {% extends "AppWeb/base.html" %}
+{% load i18n %}
 
 {% block head %}
 <link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
@@ -7,17 +8,17 @@
 
 {% block content %}
         <div class="bg titulo">
-            <h1>Cliente</h1>
+            <h1>{% trans 'Cliente' %}</h1>
         </div>  
         <div class="bg">                
             <div class="contenido client">
                 <div class="container">
                     <div id="slider">
-                        <div><img src="{{STATIC_URL}}img/Registro.png" /></a><p>Regístrate de una forma sencilla</p></div>
-                        <div><img src="{{STATIC_URL}}img/Mapa.png" /></a><p>Confirma tu posición y el taxi más cercano te recogerá en breves minutos</p></div>
-                        <div><img src="{{STATIC_URL}}img/Seleccion.png" /></a><p>O si lo deseas, selecciona el taxista que más se adecue a tus necesidades</p></div>
-                        <div><img src="{{STATIC_URL}}img/Perfil.png" /></a><p>Modifica tus datos de perfil fácilmente, Consulta los trayectos realizados, elige tu taxista favorito y mucho mas...</p></div>
-                        <div><img src="{{STATIC_URL}}img/InformacionTaxista.png" /></a><p>Consulta la información del taxista</p></div>
+                        <div><img src="{{STATIC_URL}}img/Registro.png" /></a><p>{% trans 'RegistrateSencillo' %}</p></div>
+                        <div><img src="{{STATIC_URL}}img/Mapa.png" /></a><p>{% trans 'ConfirmaPosicion' %}</p></div>
+                        <div><img src="{{STATIC_URL}}img/Seleccion.png" /></a><p>{% trans 'SeleccionaTaxi' %}</p></div>
+                        <div><img src="{{STATIC_URL}}img/Perfil.png" /></a><p>{% trans 'ModificaSencillo' %}</p></div>
+                        <div><img src="{{STATIC_URL}}img/InformacionTaxista.png" /></a><p>{% trans 'ConsultaInfo' %}</p></div>
                     </div>
                 </div>   
 		    </div>
