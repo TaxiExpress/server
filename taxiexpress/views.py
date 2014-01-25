@@ -178,8 +178,6 @@ def getClosestTaxi(request):
                 post_data["pushId"+str(i)] = ""
         try:
             resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendClosestTaxi', params=post_data)
-            print resp
-            print post_data
         except requests.ConnectionError:
             travel.delete()
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
@@ -333,6 +331,8 @@ def cancelTravel(request):
             return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
         if request.POST['sessionID'] != travel.customer.sessionID:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
+        if travel.accepted:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El viaje ha sido aceptado")
         travel.delete()
         return HttpResponse(status=status.HTTP_200_OK)
     else:
@@ -669,26 +669,6 @@ def removeFavoriteDriver(request):
     customer.lastUpdateFavorites = datetime.strptime(request.POST['lastUpdateFavorites'], '%Y-%m-%d %H:%M:%S')
     customer.save()
     return HttpResponse(status=status.HTTP_200_OK,content="Taxista eliminado de la lista de favoritos")
-
-
-@csrf_exempt
-@api_view(['POST'])
-def removeTravel(request):
-    try:
-        customer = Customer.objects.get(email=request.POST['email'])
-    except ObjectDoesNotExist:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
-    if customer.sessionID != request.POST['sessionID']:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
-    try:
-        travel = customer.travel_set.get(id=request.POST['travel_id'])
-    except ObjectDoesNotExist:
-        return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El trayecto no se encuentra en su lista de trayectos realizados")
-    customer.lastUpdateTravels = datetime.strptime(request.POST['lastUpdateTravels'], '%Y-%m-%d %H:%M:%S')
-    customer.save()
-    travel.delete()
-    return HttpResponse(status=status.HTTP_200_OK ,content="Trayecto eliminado de la lista")
-
 
 
 
