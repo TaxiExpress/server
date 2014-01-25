@@ -493,10 +493,7 @@ def mantclient_preferences(request):
                 customer = get_object_or_404(Customer, id=request.session['user_id'])
                 return render(request, 'AppWeb/mantclient_preferences.html', {'client':customer})
             else:
-                request.session['email'] = ''
-                request.session['user_id'] = ''
-                request.session['Customer'] = ''
-                return redirect('/')               
+                logout(request)               
         else:
             return redirect('/')
 
