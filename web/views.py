@@ -309,7 +309,7 @@ def getStates(request):
     if 'country' in request.GET:  
         try:
             country = Country.objects.get(code=request.GET['country'])
-            serialStates = StateSerializer(country.state_set, many=True)
+            serialStates = StateSerializer(country.state_set.all(), many=True)
             return Response(serialStates.data, status=status.HTTP_200_OK)
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado esta provincia")
@@ -322,7 +322,7 @@ def getCities(request):
     if 'state' in request.GET:
         try:
             state = State.objects.get(code=request.GET['state'])
-            serialCities = CitySerializer(state.city_set, many=True)
+            serialCities = CitySerializer(state.city_set.all(), many=True)
             return Response(serialCities.data, status=status.HTTP_200_OK)
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado esta ciudad")

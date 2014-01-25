@@ -154,7 +154,6 @@ def registerUser(request):
 def getClosestTaxi(request):
     if 'latitude' in request.POST:
         pointclient = Point(float(request.POST['latitude']), float(request.POST['longitude']))
-        origin = request.POST['origin']
         try:
             customer = Customer.objects.get(email=request.POST['email'])
         except ObjectDoesNotExist:
@@ -171,7 +170,7 @@ def getClosestTaxi(request):
         valuation = 0
         if (customer.positiveVotes+customer.negativeVotes) > 0:
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
-        post_data = {"origin": origin, "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": "android"} 
+        post_data = {"origin": request.POST['origin'], "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": "android"} 
         for i in range(closestDrivers.count()):
             post_data["pushId"+str(i)] = closestDrivers[i].pushID
         if closestDrivers.count() < 5:
