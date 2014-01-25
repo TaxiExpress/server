@@ -456,12 +456,28 @@ def mantclient_data(request):
     if request.method == "POST":
         response = updateProfileUserWeb(request)
         customer = get_object_or_404(Customer, id=request.session['user_id'])
-        return render(request, 'AppWeb/mantclient_data.html', {'client':customer, 'error':response.content})
+        if customer.city is not None:
+            city = customer.city.code
+            state = customer.city.state.code
+            country = customer.city.state.country.code
+        else:
+            city = 0
+            state = 0
+            country = 0
+        return render(request, 'AppWeb/mantclient_data.html', {'client':customer, 'error':response.content, 'country': country, 'state': state, 'city': city})
     else:
         if 'user_id' in request.session:
             if request.session['Customer'] == True:
                 customer = get_object_or_404(Customer, id=request.session['user_id'])
-                return render(request, 'AppWeb/mantclient_data.html', {'client':customer}) 
+                if customer.city is not None:
+                    city = customer.city.code
+                    state = customer.city.state.code
+                    country = customer.city.state.country.code
+                else:
+                    city = 0
+                    state = 0
+                    country = 0
+                return render(request, 'AppWeb/mantclient_data.html', {'client':customer, 'country': country, 'state': state, 'city': city}) 
             else:
                 logout(request)    
         else:
@@ -501,12 +517,28 @@ def mantdriver_data(request):
     if request.method == "POST":
         response = updateProfileDriverWeb(request)
         driver = get_object_or_404(Driver, id=request.session['user_id'])
-        return render(request, 'AppWeb/mantdriver_data.html', {'driver':driver, 'error':response.content})
+        if driver.city is not None:
+            city = driver.city.code
+            state = driver.city.state.code
+            country = driver.city.state.country.code
+        else:
+            city = 0
+            state = 0
+            country = 0
+        return render(request, 'AppWeb/mantdriver_data.html', {'driver':driver, 'error':response.content, 'country': country, 'state': state, 'city': city})
     else:
         if 'user_id' in request.session:
             if request.session['Customer'] == False:
                 driver = get_object_or_404(Driver, id=request.session['user_id'])
-                return render(request, 'AppWeb/mantdriver_data.html', {'driver':driver}) 
+                if driver.city is not None:
+                    city = driver.city.code
+                    state = driver.city.state.code
+                    country = driver.city.state.country.code
+                else:
+                    city = 0
+                    state = 0
+                    country = 0
+                return render(request, 'AppWeb/mantdriver_data.html', {'driver':driver, 'country': country, 'state': state, 'city': city}) 
             else:
                 logout(request)            
         else:
