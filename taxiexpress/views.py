@@ -194,7 +194,6 @@ def getClosestTaxi(request):
 def getSelectedTaxi(request):
     if 'sessionID' in request.POST:
         pointclient = Point(float(request.POST['latitude']), float(request.POST['longitude']))
-        origin = request.POST['origin']
         try:
             customer = Customer.objects.get(email=request.POST['email'])
         except ObjectDoesNotExist:
@@ -202,12 +201,12 @@ def getSelectedTaxi(request):
         if customer.sessionID != request.POST['sessionID']:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
         driver = Driver.objects.get(email=request.POST['driverEmail'])
-        travel = Travel(customer=customer, startpoint=pointclient, origin=request.GET['origin'])
+        travel = Travel(customer=customer, startpoint=pointclient, origin=request.POST['origin'])
         travel.save()
         valuation = 0
         if (customer.positiveVotes+customer.negativeVotes) > 0:
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
-        post_data = {"pushId": driver.pushID ,"origin": origin, "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": "android"} 
+        post_data = {"pushId": driver.pushID ,"origin": request.POST['origin'], "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": "android"} 
         try:
             resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendSelectedTaxi', params=post_data)
         except requests.ConnectionError:
