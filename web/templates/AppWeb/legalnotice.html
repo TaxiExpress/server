@@ -1,4 +1,5 @@
 ﻿{% extends "AppWeb/base.html" %}
+{% load i18n %}
 
 {% block head %}
 <link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
@@ -6,24 +7,24 @@
 
 {% block content %}
 		<div class="bg titulo">
-			<h1>Aviso Legal</h1>
+			<h1>{% trans 'AvisoLegal'%}</h1>
 		</div>			
 		<div class="bg">				
 			<div class="contenido">				
 				<p>
-                TAXIEXPRESS, como responsable de ficheros de los que es propietaria, se compromete a respetar la confidencialidad de la información de carácter personal de sus clientes guardando en todo momento el deber de secreto profesional.
+                {% trans 'LegalNotice1' %}
                 </p>
                 <p>
-                TAXIEXPRESS le informa que se encuentra adaptada a la Ley Orgánica 15/1.999, de Protección de Datos de Carácter Personal, y el Real Decreto 1720/2007 por el que se aprueba el Reglamento de desarrollo de la L.O.P.D., que sus ficheros con datos personales han sido debidamente inscritos en la Agencia Española de Protección de Datos y que cumple con el resto de las obligaciones establecidas en la normativa sobre protección de datos para garantizar la confidencialidad y seguridad de la información de que dispone.
+                {% trans 'LegalNotice2' %}
                 </p>
                 <p>
-                Los datos personales proporcionados en ningún caso serán cedidos a terceros salvo previo consentimiento de los interesados.
+                {% trans 'LegalNotice3' %}
                 </p>
                 <p>
-                Por todo ello, TAXIEXPRESS, ha adoptado los niveles de seguridad de protección de datos personales legalmente requeridos, y ha instalado todos los medios y medidas técnicas a su alcance para evitar la pérdida, mal uso, alteración, acceso no autorizado y robo de los datos que le han sido confiados.
+                {% trans 'LegalNotice4' %}
                 </p>
                 <p>
-                Los titulares de los datos tienen reconocidos y podrán ejercitar los derechos de acceso, cancelación rectificación y oposición, contactando con:
+                {% trans 'LegalNotice5' %}
                 </p>
                 <p>
                 TAXIEXPRESS S.L.
@@ -40,7 +41,7 @@
                 <br>
                 </p>
                 <p>
-                Para la utilización de nuestro sitio web es necesaria la utilización de cookies. Las cookies se utilizan con las finalidades descritas en el tercer párrafo de este documento. Si usted lo desea puede configurar su navegador para ser avisado en pantalla de la recepción de cookies y para impedir la instalación de cookies en su disco duro. Por favor, consulte las instrucciones y manuales de su navegador para ampliar esta información.
+				{% trans 'LegalNotice6' %}
                 </p>
 			</div>
 		</div>        

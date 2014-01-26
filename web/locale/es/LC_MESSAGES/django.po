@@ -373,6 +373,29 @@ msgid "UsuariosMayores"
 msgstr "Sólo las personas que tienen más de la mayoría de edad en su jurisdicción (que normalmente es de 18, pero pueden ser diferentes en su jurisdicción) y plenamente competente para entrar en los términos, condiciones, obligaciones, afirmaciones, declaraciones y garantías establecidas en los Términos y acatar y cumplir con los términos pueden registrarse para una cuenta y utilizar sus servicios relacionados, a condición, sin embargo, que si usted es menor de edad en su jurisdicción, pero más de 13 años de edad, puede inscribirse con la autorización expresa de su padre, madre o tutor legal. Cualquier registro, uso o acceso a los servicios prestados a los usuarios registrados (se define a continuación) por cualquier persona (1) bajo la edad de 13 años o (2) en la mayoría de edad en su jurisdicción, pero sin permiso de los padres o tutor, no está autorizado , sin licencia y una violación de estos Términos. Al registrarse en una cuenta en cualquiera de las páginas web o el uso de los servicios relacionados, usted representa y garantiza que (1) son la mayoría de edad en su jurisdicción o, (2) son mayores de 13 años y tener el permiso expreso de un tutor legal para convertirse en un usuario registrado y Servicios de uso que se hace disponible para usuarios registrados, y además se compromete a cumplir con todos los términos y condiciones de estos Términos y las Condiciones adicionales aplicables."
 
 
+#estos textos aparecen en legalnotice.html
+
+msgid "LegalNotice1"
+msgstr "TAXIEXPRESS, como responsable de ficheros de los que es propietaria, se compromete a respetar la confidencialidad de la información de carácter personal de sus clientes guardando en todo momento el deber de secreto profesional."
+
+msgid "LegalNotice2"
+msgstr "TAXIEXPRESS le informa que se encuentra adaptada a la Ley Orgánica 15/1.999, de Protección de Datos de Carácter Personal, y el Real Decreto 1720/2007 por el que se aprueba el Reglamento de desarrollo de la L.O.P.D., que sus ficheros con datos personales han sido debidamente inscritos en la Agencia Española de Protección de Datos y que cumple con el resto de las obligaciones establecidas en la normativa sobre protección de datos para garantizar la confidencialidad y seguridad de la información de que dispone."
+
+msgid "LegalNotice3"
+msgstr "Los datos personales proporcionados en ningún caso serán cedidos a terceros salvo previo consentimiento de los interesados."
+
+msgid "LegalNotice4"
+msgstr "Por todo ello, TAXIEXPRESS, ha adoptado los niveles de seguridad de protección de datos personales legalmente requeridos, y ha instalado todos los medios y medidas técnicas a su alcance para evitar la pérdida, mal uso, alteración, acceso no autorizado y robo de los datos que le han sido confiados."
+
+msgid "LegalNotice5"
+msgstr "Los titulares de los datos tienen reconocidos y podrán ejercitar los derechos de acceso, cancelación rectificación y oposición, contactando con:"
+
+msgid "LegalNotice6"
+msgstr "Para la utilización de nuestro sitio web es necesaria la utilización de cookies. Las cookies se utilizan con las finalidades descritas en el tercer párrafo de este documento. Si usted lo desea puede configurar su navegador para ser avisado en pantalla de la recepción de cookies y para impedir la instalación de cookies en su disco duro. Por favor, consulte las instrucciones y manuales de su navegador para ampliar esta información."
+
+
+
+
 
 
 

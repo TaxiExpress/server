@@ -308,67 +308,88 @@ msgid "AceptacionTerminos"
 msgstr "Agreement to the Terms of use"
 
 msgid "AceptacionTerminosDesc"
-msgstr "El acceso o uso de cualquier web o servicio significa que usted ha leído , entendido y acepta los términos de uso. Al acceder o utilizar cualquier sitio web o servicio, usted también declara que tiene la autoridad legal para aceptar los términos en su nombre y en cualquiera de las partes que lo represente en relación con su uso de cualquier sitio web o servicio."
+msgstr "Access or use of any web or service means that you have read, understood and agree to the terms of use. By accessing or using any website or service, you also represent that you have the legal authority to accept the terms on your behalf and any par to represent you in connection with your use of any website or service."
 
 msgid "CambiosCondiciones"
-msgstr "Cambios en las condiciones"
+msgstr "Changes in conditions"
 
 msgid "CambiosCondicionesDesc"
-msgstr "De vez en cuando, <b>TaxiExpress</b> puede cambiar, suprimir, añadir o modificar los términos, y se reserva el derecho de hacerlo cuando lo considere oportuno. En tal caso, publicaremos las nuevas Condiciones de Uso. Le recomendamos que revise periódicamente los Términos. Todos los términos nuevos o modificados entran en vigor inmediatamente, sin embargo, si <b>TaxiExpress</b> así lo considera, entrará en vigor 30 días después de que se publiquen en la web. Si no está de acuerdo con cualquier modificación de los términos, podrá rescindir el presente acuerdo mediante el cese de uso de los sitios web y servicios. Su uso continuo de cualquier sitio web o servicio después de nuevos y / o términos revisados ​​son eficaces indicar que ha leído, entendido y aceptado los Términos y Condiciones."
+msgstr "Occasionally, <b>TaxiExpress</b> can change, delete, add or change the terms, and reserves the right to do in when required. In that case, we will post the new Terms of Use. You should periodically review the terms. All new or amended terms take effect immediately, however, if it considers <b>TaxiExpress</b> so, shall take effect 30 days after they are posted on the web. If you do not agree with any modification of the terms, you may terminate this agreement by finishing the use of the websites and services. Your continued use of any website or service after new and/ or revised terms are effective indicate that you have read, understood and accepted the Terms and Conditions."
 
 msgid "DisposicionWeb"
-msgstr "Disposición de los sitios web y servicios en general"
+msgstr "Disposition of the website and services in general"
 
 msgid "DisposicionWebDesc"
-msgstr "Sólo se pueden utilizar los sitios web y servicios de acuerdo con estos Términos y las Condiciones adicionales aplicables. Usted no podrá utilizar los sitios web y servicios para ningún propósito que sea ilegal o esté prohibido por estos términos, las Condiciones adicionales aplicables, o cualquier otra condición o avisos que están disponibles en cualquier sitio web o servicio."
+msgstr "You can only use the web sites and services in accordance with these Terms and the additional applicable conditions. You may not use the web sites and services for any purpose that is unlawful or prohibited by these terms, the additional terms applicable, or any other condition or warnings that are available at any web site or service."
 
 msgid "UbicacionSitiosWeb"
-msgstr "Ubicación de los sitios web y servicios"
+msgstr "Location of web sites or services"
 
 msgid "UbicacionSitiosWebDesc"
-msgstr "Los sitios web y los servicios son controlados y ofrecidos por <b>TaxiExpress</b> desde sus instalaciones en España. <b>TaxiExpress</b> no garantiza que los sitios web o servicios son apropiados o disponibles para su uso en otros lugares. Si va a utilizar o acceder desde otras jurisdicciones, lo hace bajo su propio riesgo y usted es responsable de cumplir con las leyes locales. No obstante, las páginas web pueden contener o proporcionar enlaces a contenido alojados en los sitios web ubicados fuera de España."
+msgstr "Web sites and the services are controlled and offered by <b>TaxiExpress</b> from his facilities in Spain. <b>TaxiExpress</b> do not guarantee that the web sites or services are appropriate available for use elsewhere. If you are going to use or access from other jurisdictions do so at your own risk and you are responsible for compliance with local laws. However, the web pages can contain or provide links to content hosted on web sites located outside Spain."
 
 msgid "ConductaUsuario"
-msgstr "Conducta del usuario"
+msgstr "User conduct"
 
 msgid "ConductaUsuario2"
-msgstr "El usuario se compromete a no utilizar los sitios web o servicios a:"
+msgstr "The user undertakes to not use the web sites or services to:"
 
 msgid "Conducta1"
-msgstr "Publicar, transmitir o usar el Contenido que usted no tiene el derecho de publicar o utilizar, por ejemplo, en virtud de la propiedad intelectual, las leyes de confidencialidad, de privacidad o de otro tipo aplicables."
+msgstr "Post, transmit or use the content that you have no right to publish or use, for example under intellectual property, confidentiality laws, privacy or other applicable."
 
 msgid "Conducta2"
-msgstr "Publicar, transmitir o usar contenido no solicitado o no autorizado, incluyendo la publicidad o materiales promocionales, 'correo basura', 'spam', 'cartas en cadena', 'esquemas piramidales', o cualquier otra forma de solicitación no solicitado o indeseable y publicitarios."
+msgstr "Post, transmit or use content unsolicited or unauthorized, including advertising or promotional materials ‘junk mail’, ‘spam’, ‘chain letters’, ‘pyramid schemes’ or any other form of unsolicited or unwelcome and advertising."
 
 msgid "Conducta3"
-msgstr "Publicar o transmitir Contenido que sea perjudicial, ofensivo, obsceno, abusivo, invasivo de la privacidad, difamatorio, de odio o discriminatorias de otro modo, falsa y engañosa, incita a un acto ilegal, o es de otra manera en violación de sus obligaciones para con cualquier persona o contrario a cualquier ley leyes y reglamentos."
+msgstr "Post or transmit content that is harmful, offensive, obscene, abusive, invasive of privacy, defamatory, hateful or otherwise discriminatory, false and misleading, incites an illegal act, or is otherwise in violation of its obligations to any person or contrary to any law laws and regulations."
 
 msgid "Conducta4"
-msgstr "Intimidar o acosar a otro."
+msgstr "Intimidate or harass another user."
 
 msgid "Conducta5"
-msgstr "Usar o intentar usar la cuenta, servicio o información personal."
+msgstr "Use or attempt to use another’s account, service or personal information."
 
 msgid "Conducta6"
-msgstr "Suprimir, eludir, desactivar, dañar o interferir con cualquier característica relacionados con la seguridad que imponen limitaciones en el uso de los Sitios Web o los Servicios."
+msgstr "Remove, evade, disable, damage or interfere with any property related security restrictions imposed on the use of the web sites or services."
 
 msgid "Conducta7"
-msgstr "Intentar obtener acceso no autorizado a los Sitios o Servicios, a otras cuentas, sistemas informáticos o redes conectadas a los sitios web o servicios, mediante el recordatorio de contraseña hacking o cualquier otro medio o interferir o intentar interferir con el correcto funcionamiento de los sitios web o servicios o cualquier otra actividades llevadas a cabo a través de las páginas web o los Servicios."
+msgstr "Attempt to gain unauthorized access to the Sites or Services, other accounts, computer systems or networks connected to the websites or services, through password mining access hacking or any other means or interfere or attempt to interfere with the proper working of the website or services or any other activities conducted through the websites or services sites."
 
 msgid "Conducta8"
-msgstr "El uso de cualquier medio para eludir o ignorar robot.txt, u otras medidas que utilizamos para restringir el acceso o uso de los Sitios Web o los Servicios."
+msgstr "Use of any means to avoid or ignore robot.txt, or other measures we use to restrict access or use to the services or web sites."
 
 msgid "Conducta9"
-msgstr "Hacerse pasar por otra persona o entidad, o declarar falsamente o tergiversar su afiliación con una persona o entidad."
+msgstr "Impersonate any person or entity, or falsely state or otherwise misrepresent your affiliation with a person or entity."
 
 msgid "Conducta10"
-msgstr "Publicar o transmitir cualquier información personalmente identificable sobre personas menores de 13 años de edad, incluyendo, sin limitación en relación con los Servicios ofrecidos en ella."
+msgstr "Publish or transmit any personally identifiable information of persons under 13 years of age, including without limitation in respect of the services offered on it."
 
 msgid "CondicionesServicios"
-msgstr "Condiciones relativas al contenido de los sitios web y servicios"
+msgstr "Conditions relating to content on web sites and services"
 
 msgid "UsuariosRegistrados"
-msgstr "Usuarios Registrados"
+msgstr "Registered Users"
 
 msgid "UsuariosMayores"
-msgstr "Sólo las personas que tienen más de la mayoría de edad en su jurisdicción (que normalmente es de 18, pero pueden ser diferentes en su jurisdicción) y plenamente competente para entrar en los términos, condiciones, obligaciones, afirmaciones, declaraciones y garantías establecidas en los Términos y acatar y cumplir con los términos pueden registrarse para una cuenta y utilizar sus servicios relacionados, a condición, sin embargo, que si usted es menor de edad en su jurisdicción, pero más de 13 años de edad, puede inscribirse con la autorización expresa de su padre, madre o tutor legal. Cualquier registro, uso o acceso a los servicios prestados a los usuarios registrados (se define a continuación) por cualquier persona (1) bajo la edad de 13 años o (2) en la mayoría de edad en su jurisdicción, pero sin permiso de los padres o tutor, no está autorizado , sin licencia y una violación de estos Términos. Al registrarse en una cuenta en cualquiera de las páginas web o el uso de los servicios relacionados, usted representa y garantiza que (1) son la mayoría de edad en su jurisdicción o, (2) son mayores de 13 años y tener el permiso expreso de un tutor legal para convertirse en un usuario registrado y Servicios de uso que se hace disponible para usuarios registrados, y además se compromete a cumplir con todos los términos y condiciones de estos Términos y las Condiciones adicionales aplicables."
+msgstr "Only persons who are over the age of majority in their jurisdiction (which is normally 18 but may be different in your jurisdiction) and fully competent to enter into terms, conditions obligations, affirmations, representations and warranties set in the Terms and to abide by and comply with the terms can register for an account and use its related, provided services, however, if you are under the age in your jurisdiction but over 13 years of age, you can enroll with the express permission of a parent or legal guardian. Any registration, use or access to the services provided  to registered users (defined below) for any person (1) under the age of 13 or (2) the age of majority in their jurisdiction, without permission parent or guardian, is unauthorized, unlicensed and in violation of these Terms. By registering for an account on any related services, your represent and warrant that (1) are the age of majority in their jurisdiction, or (2) are over 13 and have the express permission legal guardian to become a Registered user and Services made available to registered, and further agrees to comply with all terms and conditions of these Terms and conditions for additional users."
+
+
+#estos textos aparecen en legalnotice.html
+
+msgid "LegalNotice1"
+msgstr "TAXIEXPRESS, responsible for files it owns, agrees to respect the confidentiality of personal information of its customers at all times keeping the duty of professional secrecy."
+
+msgid "LegalNotice2"
+msgstr "TAXIEXPRESS informs you that is adapted to the Organic Law 15/1.999, Protection of Personal Data and Royal Decree 1720/2007 approving the Regulation implementing the Data Protection Act, your personal data files have been properly registered with the Spanish data Protection Agency and fulfills all other obligations under the data protection legislation to ensure confidentiality and security of the information available."
+
+msgid "LegalNotice3"
+msgstr "Personal data provided will never be transferred to third persons without the prior consent of those concerned"
+
+msgid "LegalNotice4"
+msgstr "For all these, TAXIEXPRESS, has adopted the security levels of protection of personal data legally required, and has installed all the technical means and measures at its disposal to prevent the loss, misuse, alteration, unauthorized access and theft of data that have been committed."
+
+msgid "LegalNotice5"
+msgstr "Data owners are registered and may exercise the rights of access, cancellation, rectification and opposition by contacting:"
+
+msgid "LegalNotice6"
+msgstr "For using our website, cookies are required. Cookies are used for the purposes described in the third paragraph of this document. If you wish, you can set your browser to be warned when receiving cookies and prevent the installation of cookies on your hard drive. Please read the instructions and manuals on your browser for more information."
