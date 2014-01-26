@@ -44,11 +44,6 @@ $(document).ready(function() {
                     options += "<option value='" + state.code + "'>" + state.name + "</option>";
                 } 
                 $('#state').html(options);
-
-                if ($('.idCountry').val() != "0"){
-                    $("#country option[value="+ $('.idCountry').val() +"]").attr("selected",true);
-                    $("#state option[value="+ $('.idState').val() +"]").attr("selected",true);
-                }
             },
             error: function(xhr, textStatus, errorThrown) {
                 alert("Please report this error: " + errorThrown + xhr.status + xhr.responseText);
@@ -75,6 +70,8 @@ $(document).ready(function() {
                 } 
                 $('#city').html(options);
                 if ($('.idCity').val() != "0"){
+                    $("#country option[value="+ $('.idCountry').val() +"]").attr("selected",true);
+                    $("#state option[value="+ $('.idState').val() +"]").attr("selected",true);
                     $("#city option[value="+ $('.idCity').val() +"]").attr("selected",true);
                 }
             },
@@ -82,12 +79,6 @@ $(document).ready(function() {
                 alert("Please report this error: " + errorThrown + xhr.status + xhr.responseText);
             }
         }); 
-    }
-
-    function loadData(){
-        $("#country option[value="+ $('.idCountry').val() +"]").attr("selected",true);
-        $("#state option[value="+ $('.idState').val() +"]").attr("selected",true);
-        $("#city option[value="+ $('.idCity').val() +"]").attr("selected",true);
     }
 
     $('.cbocountry').change(function() {
