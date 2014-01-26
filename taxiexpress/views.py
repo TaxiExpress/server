@@ -240,8 +240,10 @@ def acceptTravel(request):
         driver.geom = driverpos
         driver.save()
         post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "latitude": str(driverpos.x), "longitude": str(driverpos.y), "device": "android"} 
+        print post_data
         try:
             resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendAcceptTravel', params=post_data)
+            print resp
         except requests.ConnectionError:
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
         return HttpResponse(status=status.HTTP_200_OK)
