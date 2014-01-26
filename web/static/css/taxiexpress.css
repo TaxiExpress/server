@@ -596,3 +596,7 @@ border-radius: 4px;
 .passwordButtom .btn{
 	margin:10px 30px 10px 75px;
 }
+
+*:focus{ 
+	outline:0px; 
+}
