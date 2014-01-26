@@ -227,7 +227,7 @@ def acceptTravel(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
         try:
-            travel = Travel.objects.get(travel=request.POST['travelID'])
+            travel = Travel.objects.get(id=request.POST['travelID'])
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no está disponible")
         if travel.accepted:
@@ -240,7 +240,10 @@ def acceptTravel(request):
         driver.geom = driverpos
         driver.save()
         post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "latitude": str(driverpos.x), "longitude": str(driverpos.y), "device": "android"} 
-        resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendAcceptTravel', params=post_data)
+        try:
+            resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendAcceptTravel', params=post_data)
+        except requests.ConnectionError:
+            return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
         return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
@@ -283,7 +286,10 @@ def travelCompleted(request):
         travel.save()
         if travel.appPayment:
             post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "true","device": "android"} 
-            resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendTravelCompleted', params=post_data)
+            try:
+                resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendTravelCompleted', params=post_data)
+            except requests.ConnectionError:
+                return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
         else:
             travel.isPaid = True
             travel.customer.lastUpdateTravels = datetime.now()
@@ -313,7 +319,10 @@ def travelPaid(request):
         travel.customer.lastUpdateTravels = datetime.now()
         travel.save()
         post_data = {"travelID": travel.id, "pushId": travel.driver.pushID, "paid": "true", "device": "android"}
-        resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendTravelPaid', params=post_data)
+        try:
+            resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendTravelPaid', params=post_data)
+        except requests.ConnectionError:
+            return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
         print resp
         return HttpResponse(status=status.HTTP_200_OK)
     else:
