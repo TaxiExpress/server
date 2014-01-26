@@ -179,7 +179,7 @@ def updateProfileUserWeb(request):
         customer.last_name = request.POST['last_name']
         customer.image = request.POST['image']
         customer.postcode = request.POST['postcode']
-        if 'country' in request.POST and 'state' in request.POST and 'city' in request.POST: 
+        if request.POST['country'] != '0' and request.POST['state'] != '0' and request.POST['city'] != '0' : 
             state = State.objects.filter(country_id=request.POST['country'], code=request.POST['state'])
             city = City.objects.filter(state_id=state, code=request.POST['city'])
             tmpCity = City.objects.get(id=city)
@@ -230,7 +230,7 @@ def updateProfileDriverWeb(request):
         driver.image = request.POST['image']
         driver.address = request.POST['address']
         driver.postcode = request.POST['postcode']
-        if 'country' in request.POST and 'state' in request.POST and 'city' in request.POST: 
+        if request.POST['country'] != '0' and request.POST['state'] != '0' and request.POST['city'] != '0' :  
             state = State.objects.filter(country_id=request.POST['country'], code=request.POST['state'])
             city = City.objects.filter(state_id=state, code=request.POST['city'])
             tmpCity = City.objects.get(id=city)
