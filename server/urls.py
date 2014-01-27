@@ -76,5 +76,4 @@ urlpatterns = patterns('',
     url(r'^statistics/gettravelsbyyear', 'web.views.getTravelsByYear', name='getTravelsByYear'),
     url(r'^statistics/gettravelsbyhour', 'web.views.getTravelsByHour', name='getTravelsByHour'),
     url(r'^statistics/gettravelsbyday', 'web.views.getTravelsByDay', name='getTravelsByDay'),
-    url(r'^loadcombo', 'web.LoadComboInf.loadCombo', name='loadCombo'),
-)
+   )
