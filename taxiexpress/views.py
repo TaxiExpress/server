@@ -29,7 +29,7 @@ from rest_framework.renderers import JSONRenderer
 def sessionID_generator(size=10, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for x in range(size))
 
-# Create your views here.
+
 @csrf_exempt
 @api_view(['POST'])
 def loginUser(request):
@@ -42,26 +42,33 @@ def loginUser(request):
     if customer.password == request.POST['password']:
         if customer.isValidated == False:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe validar la cuenta antes de conectarse")
-        request.session['email'] = customer.email
-        request.session['user_id'] = customer.id
-        request.session['Customer'] = True
         customer.sessionID = sessionID_generator()
         customer.pushID = request.POST['pushID']
         customer.save()
+        #Check if there are unpaid travels
+        unpaidTravels = customer.travel_set.filter(isPaid=False, appPayment=True)
+        if unpaidTravels.count() > 0:
+            #If there are unpaid travels sends pay notification
+            travel = unpaidTravels[0]
+            post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "true","device": "android"} 
+            try:
+                resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendTravelCompleted', params=post_data)
+            except requests.ConnectionError:
+                return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
         datetime_profile = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
         datetime_taxies = datetime.strptime(request.POST['lastUpdateFavorites'], '%Y-%m-%d %H:%M:%S')
         datetime_travels = datetime.strptime(request.POST['lastUpdateTravels'], '%Y-%m-%d %H:%M:%S')
         upProfile = False
         upTaxies = False
         upTravels = False
-        #primero comprobamos si necesitamos actualizar
+        #check if customer needs to update
         if customer.lastUpdate != datetime_profile:
             upProfile = True
         if customer.lastUpdateFavorites !=  datetime_taxies:
             upTaxies = True
         if customer.lastUpdateTravels !=  datetime_travels:
             upTravels = True
-        #ahora comprobamos todos los casos posibles
+        #check every possible case
         if upProfile:
             if upTaxies and upTravels:
                 serialCustomer = CustomerCompleteSerializer(customer)
@@ -72,10 +79,10 @@ def loginUser(request):
             elif not upTaxies and upTravels:
                 serialCustomer = CustomerProfileTravelsSerializer(customer)
                 return Response(serialCustomer.data, status=status.HTTP_200_OK)
-            else: # upTaxies y upTravels son False
+            else: # upTaxies & upTravels are False
                 serialCustomer = CustomerProfileSerializer(customer)
                 return Response(serialCustomer.data, status=status.HTTP_200_OK)
-        else: #upProfile es False
+        else: #upProfile is False
             if upTaxies and upTravels:
                 serialCustomer = CustomerTaxiesTravelsSerializer(customer)
                 return Response(serialCustomer.data, status=status.HTTP_200_OK)
@@ -85,7 +92,7 @@ def loginUser(request):
             elif not upTaxies and upTravels:
                 serialCustomer = CustomerTravelsSerializer(customer)
                 return Response(serialCustomer.data, status=status.HTTP_200_OK)
-            else: # upTaxies y upTravels son False
+            else: # upTaxies & upTravels are False
                 response_data = {}
                 response_data['sessionID'] = customer.sessionID
                 return HttpResponse(json.dumps(response_data), content_type="application/json")
@@ -105,9 +112,6 @@ def loginDriver(request):
     if driver.password == request.POST['password']:
         if driver.isValidated == False:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe validar la cuenta antes de conectarse")
-        request.session['email'] = driver.email
-        request.session['user_id'] = driver.id
-        request.session['Customer'] = False
         driver.pushID = request.POST['pushID']
         driver.available = True
         driver.save()
@@ -125,8 +129,6 @@ def registerUser(request):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email que ha indicado ya está en uso")
         if (Customer.objects.filter(phone=request.POST['phone']).count() > 0):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El teléfono que ha indicado ya está en uso")
-        #elif (passtemp.length() < 4)
-        #   return HttpResponse("shortpassword", content_type="text/plain")
         else:
             try:
                 c = Customer(email=request.POST['email'], password=passtemp, phone=request.POST['phone'], lastUpdate=datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S'),lastUpdateFavorites=datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S'),lastUpdateTravels=datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S'), image="")
