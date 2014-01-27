@@ -165,16 +165,13 @@ msgstr "Aviso Legal"
 msgid "Registrar"
 msgstr "Registrar"
 
-msgid "Pago1"
-msgstr "Si admite pago a través de la aplicación deberá especificar"
+msgid "Pago"
+msgstr "Si admite pago a través de la aplicación deberá especificar<br>cuenta bancaria y nombre del titular"
 
-msgid "Pago2"
-msgstr "Cuenta Bancaria y Nombre del Titular"
-
-msgid "Click1"
+msgid "SigningUp1"
 msgstr "Al hacer clic en registrar, aceptas los"
 
-msgid "Click2"
+msgid "SigningUp2"
 msgstr "términos del uso"
 
 msgid "DatosCoche"
@@ -195,11 +192,8 @@ msgstr "Introduce teléfono y código recibido en el móvil"
 msgid "ContraseñaOlvidada"
 msgstr "¿Has olvidado tu contraseña?"
 
-msgid "PideTaxi1"
-msgstr "Pide tu taxi más cercano"
-
-msgid "PideTaxi2"
-msgstr "de forma eficiente y rápida"
+msgid "PideTaxi"
+msgstr "Pide tu taxi más cercano<br>de forma eficiente y rápida"
 
 msgid "TfnoYCodigoSMS"
 msgstr "Introduce el teléfono y el código recibido por SMS"

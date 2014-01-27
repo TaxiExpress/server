@@ -152,7 +152,7 @@ msgid "Registro"
 msgstr "Sign up"
 
 msgid "MapaWeb"
-msgstr "Web Map"
+msgstr "Sitemap"
 
 msgid "TerminosUso"
 msgstr "Terms of use"
@@ -166,16 +166,13 @@ msgstr "Legal Notice"
 msgid "Registrar"
 msgstr "Sign up"
 
-msgid "Pago1"
-msgstr "If payment through application is allowed you must specify"
+msgid "Pago"
+msgstr "If payment through application is allowed you must specify<br>bank account and name of the owner"
 
-msgid "Pago2"
-msgstr "bank account and name of the owner"
-
-msgid "Click1"
+msgid "SigningUp1"
 msgstr "By signing up, you accept the"
 
-msgid "Click2"
+msgid "SigningUp2"
 msgstr "terms of use"
 
 msgid "DatosCoche"
@@ -196,11 +193,8 @@ msgstr "Enter phone number and the code received in your mobile"
 msgid "ContraseñaOlvidada"
 msgstr "Forgot your password?"
 
-msgid "PideTaxi1"
-msgstr "Ask for your nearest taxi"
-
-msgid "PideTaxi2"
-msgstr "efficiently and quickly"
+msgid "PideTaxi"
+msgstr "Ask for your nearest taxi<br>efficiently and quickly"
 
 msgid "TfnoYCodigoSMS"
 msgstr "Enter phone number and the code received by SMS"
@@ -212,7 +206,7 @@ msgid "NoCuenta2"
 msgstr "sign up"
 
 msgid "Version"
-msgstr "Versión 1.0, February 2014"
+msgstr "Version 1.0, February 2014"
 
 msgid "Opciones"
 msgstr "TaxiExpress allows us to ..."
@@ -260,7 +254,7 @@ msgid "Geolocalizacion2"
 msgstr "You can filter searches according to your taxi drivers preferences, getting your best results."
 
 msgid "PagosViaApp"
-msgstr "Payment through App"
+msgstr "App payment"
 
 msgid "PagosViaApp2"
 msgstr "If the driver permits, customers that hire their services can make the payment through the app itself."
@@ -281,7 +275,7 @@ msgstr "The driver will have at his disposal a series of graphs and statistics t
 #estos textos aparecen en contact.html
 
 msgid "Contacto"
-msgstr "Contáctanos"
+msgstr "Contact us"
 
 msgid "Contactanos"
 msgstr "Contact us !!"
