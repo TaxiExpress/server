@@ -631,7 +631,7 @@ def getTravelsByHour(request):
         travels = driver.travel_set
         response_data = {}
         for i in range(1,24):
-            response_data[i] = travels.filter(starttime__hour=i).count()
+            response_data[i] = travels.filter(accepted=True, starttime__hour=i).count()
         return HttpResponse(json.dumps(response_data), content_type="application/json")
     else:
         return redirect('/')
