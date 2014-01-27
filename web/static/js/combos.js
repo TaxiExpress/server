@@ -36,6 +36,7 @@ $(document).ready(function() {
                     options = "<option value='" + "0" + "'>" + "Seleccione provincia..." + "</option>";
                 }
                 else{
+                    options = "";
                     $('#state').html("");
                     $('#city').html("")
                 }
@@ -62,6 +63,7 @@ $(document).ready(function() {
                    options = "<option value='" + "0" + "'>" + "Seleccione municipio..." + "</option>";
                 }
                 else{
+                    options = "";
                     $('#city').html("")
                 }
                 for (i = 0, len = result.length; i < len; i++) {
