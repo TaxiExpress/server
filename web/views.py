@@ -628,10 +628,10 @@ def getTravelsByYear(request):
 def getTravelsByHour(request):
     if 'user_id' in request.session:
         driver = get_object_or_404(Driver, id=request.session['user_id'])
-        travels = driver.travel_set
+        travels = driver.travel_set.filter(accepted=True)
         response_data = {}
         for i in range(1,24):
-            response_data[i] = travels.filter(accepted=True, starttime__hour=i).count()
+            response_data[i] = travels.filter(starttime__hour=i).count()
         return HttpResponse(json.dumps(response_data), content_type="application/json")
     else:
         return redirect('/')
