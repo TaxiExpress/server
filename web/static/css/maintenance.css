@@ -4,7 +4,7 @@
 }
 
 .span10{
-	width: 730px;
+	width: 755px;
 	margin-left: 30px;
 }
 
@@ -12,6 +12,7 @@
 	float: left;
 	min-height: 430px;
 	margin-bottom: 50px;
+	overflow: hidden;
 }
 
 .tabs ul{
@@ -87,7 +88,7 @@
 .maintenance select{
 	margin-left: 0px;
 	color:#666;
-	width: 330px;
+	width: 248px;
 	height: 34px;
 	padding: 0px 0px 0px 10px;
 	border: 1px solid #DDDDDD;
