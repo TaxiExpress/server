@@ -109,6 +109,7 @@ def loginDriver(request):
         request.session['user_id'] = driver.id
         request.session['Customer'] = False
         driver.pushID = request.POST['pushID']
+        driver.available = True
         driver.save()
         driverNameSurname = DriverDataSerializer(driver)
         return Response(driverNameSurname.data, status=status.HTTP_200_OK)
