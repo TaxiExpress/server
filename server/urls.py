@@ -72,4 +72,8 @@ urlpatterns = patterns('',
     url(r'^getcities', 'web.views.getCities', name='getCities'),
     url(r'^rememberpassword', 'web.views.rememberPassword', name='rememberPassword'),
 	url(r'^i18n/', include('django.conf.urls.i18n')),
+    url(r'^statistics/gettravelsbymonth', 'web.views.getTravelsByMonth', name='getTravelsByMonth'),
+    url(r'^statistics/gettravelsbyyear', 'web.views.getTravelsByYear', name='getTravelsByYear'),
+    url(r'^statistics/gettravelsbyhour', 'web.views.getTravelsByHour', name='getTravelsByHour'),
+    url(r'^statistics/gettravelsbyday', 'web.views.getTravelsByDay', name='getTravelsByDay'),
 )

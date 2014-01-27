@@ -23,12 +23,43 @@
                         </ul>
                     </div>
                 </aside>
+				<input type="button" class="pruebaJson" onclick="pruebaJson" value="pruebaJson" />
                  <div class="span10">
                     <h3 class="MaintenanceHeader">{% trans 'TitGraficos' %}</h3>
                     <form name="mantdriver" id="mantdriver" action="" method="POST" onsubmit="return validateDriverPassword();">                      
                         {% csrf_token %}
                         <div class="col1 maintenance">
-                           
+								<style>
+                            canvas{float: left;}
+                            </style>
+                            
+                                <div style="width:800px;height:300px;" display:block>
+                                    <div id="uno">
+                                        <header>
+                                            <h2>Viajes por año</h2>
+                                        </header>
+                                        <article>
+                                            <canvas id="bar" height="300" width="300"  ></canvas>
+                                        </article>
+                                    </div>
+                                    <div id="dos">
+                                        <header>
+                                            <h2>Viajes por mes</h2>
+                                        </header>
+                                        <article>
+                                            <canvas id="line" height="300" width="500"  ></canvas>
+                                        </article>
+                                    </div>
+                                    <div id="tres">
+                                        <h2>Viajes por horas</h2>
+                                        <canvas id="line2" height="300" width="400"  ></canvas>
+                                    </div>
+                                    <div id="cuatro">
+                                        <h2>Viajes por dias</h2>
+										<canvas id="line3" height="300" width="400"  ></canvas>
+                                        <!-- <canvas id="doughnut" height="300" width="400"></canvas> -->
+                                    </div>
+                                </div>
                         </div>
                     </form> 
                 </div>
@@ -37,7 +68,11 @@
 {% endblock %}
 
 {% block scripts %}
+	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script defer type="text/javascript" src="{{STATIC_URL}}js/validationChangePassword.js"></script>
+	<script defer type="text/javascript" src="{{STATIC_URL}}js/Chart.js"></script>
+    <script defer type="text/javascript" src="{{STATIC_URL}}js/Graphic.js"></script>
+	
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
