@@ -38,7 +38,7 @@ msgstr "Cerrar sesión"
 # Estos textos aparecen en man_client.html
 
 msgid "PerfilUsuario"
-msgstr "Perfil de usuario"
+msgstr "Perfil de usuarios"
 
 msgid "ModificarContraseña"
 msgstr "Modificar contraseña"
@@ -393,8 +393,28 @@ msgstr "Los titulares de los datos tienen reconocidos y podrán ejercitar los de
 msgid "LegalNotice6"
 msgstr "Para la utilización de nuestro sitio web es necesaria la utilización de cookies. Las cookies se utilizan con las finalidades descritas en el tercer párrafo de este documento. Si usted lo desea puede configurar su navegador para ser avisado en pantalla de la recepción de cookies y para impedir la instalación de cookies en su disco duro. Por favor, consulte las instrucciones y manuales de su navegador para ampliar esta información."
 
+#Titulos de los mantenimientos
 
+msgid "TitDatosPersonales"
+msgstr "Datos Personales"
 
+msgid "TitDatosBancarios"
+msgstr "Datos Bancarios"
+
+msgid "TitPreferencias"
+msgstr "Preferencias de Búsqueda"
+
+msgid "TitCambiarContraseña"
+msgstr "Modificar Contraseña"
+
+msgid "TitViajesrealizados"
+msgstr "Viajes Realizados"
+
+msgid "TitDatosCoche"
+msgstr "Datos del Vehiculo"
+
+msgid "TitGraficos"
+msgstr "Gráficos de los Trayectos Realizados"
 
 
 

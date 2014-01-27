@@ -393,3 +393,27 @@ msgstr "Data owners are registered and may exercise the rights of access, cancel
 
 msgid "LegalNotice6"
 msgstr "For using our website, cookies are required. Cookies are used for the purposes described in the third paragraph of this document. If you wish, you can set your browser to be warned when receiving cookies and prevent the installation of cookies on your hard drive. Please read the instructions and manuals on your browser for more information."
+
+#Titulos de los mantenimientos
+
+msgid "TitDatosPersonales"
+msgstr "Personal Data"
+
+msgid "TitDatosBancarios"
+msgstr "Banck account data"
+
+msgid "TitPreferencias"
+msgstr "Search Preferences"
+
+msgid "TitCambiarContraseña"
+msgstr "Change Password"
+
+msgid "TitViajesrealizados"
+msgstr "Travels Made"
+
+msgid "TitDatosCoche"
+msgstr "Car Data"
+
+msgid "TitGraficos"
+msgstr "Graphics of taken travels"
+
