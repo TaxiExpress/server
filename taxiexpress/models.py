@@ -67,6 +67,7 @@ class Driver(models.Model):
     bankAccount = models.CharField(max_length=20, default="", blank=True)
     recipientName = models.CharField(max_length=80, default="", blank=True)
     pushID = models.TextField(blank=True, null=True)
+    device = models.CharField(max_length=7, default='ANDROID', blank=True)
     sessionID = models.CharField(max_length=10, blank=True, null=True)
     #Posicion
     geom = models.PointField(srid=4326, null=True)
@@ -99,6 +100,7 @@ class Customer(models.Model):
     fAppPayment = models.BooleanField(default=False)
     fCapacity = models.IntegerField(default=1)
     pushID = models.TextField(blank=True, null=True)
+    device = models.CharField(max_length=7, default='ANDROID', blank=True)
     sessionID = models.CharField(max_length=10, blank=True, null=True)
     def __unicode__(self):
         return self.email

@@ -45,13 +45,14 @@ def loginUser(request):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe validar la cuenta antes de conectarse")
         customer.sessionID = sessionID_generator()
         customer.pushID = request.POST['pushID']
+        customer.device = request.POST['pushDevice']
         customer.save()
         #Check if there are unpaid travels
         unpaidTravels = customer.travel_set.filter(isPaid=False, appPayment=True)
         if unpaidTravels.count() > 0:
             #If there are unpaid travels sends pay notification
             travel = unpaidTravels[0]
-            post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "true","device": "android"} 
+            post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "true","device": customer.device} 
             try:
                 resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendTravelCompleted', params=post_data)
             except requests.ConnectionError:
@@ -114,6 +115,7 @@ def loginDriver(request):
         if driver.isValidated == False:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe validar la cuenta antes de conectarse")
         driver.pushID = request.POST['pushID']
+        driver.device = request.POST['pushDevice']
         driver.available = True
         driver.save()
         driverNameSurname = DriverDataSerializer(driver)
@@ -176,12 +178,14 @@ def getClosestTaxi(request):
         valuation = 0
         if (customer.positiveVotes+customer.negativeVotes) > 0:
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
-        post_data = {"origin": request.POST['origin'], "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": "android"} 
+        post_data = {"origin": request.POST['origin'], "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone} 
         for i in range(closestDrivers.count()):
             post_data["pushId"+str(i)] = closestDrivers[i].pushID
+            post_data["device"+str(i)] = closestDrivers[i].device
         if closestDrivers.count() < 5:
             for i in range(closestDrivers.count(), 4):
                 post_data["pushId"+str(i)] = ""
+                post_data["device"+str(i)] = ""
         try:
             resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendClosestTaxi', params=post_data)
         except requests.ConnectionError:
@@ -210,7 +214,7 @@ def getSelectedTaxi(request):
         valuation = 0
         if (customer.positiveVotes+customer.negativeVotes) > 0:
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
-        post_data = {"pushId": driver.pushID ,"origin": request.POST['origin'], "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": "android"} 
+        post_data = {"pushId": driver.pushID ,"origin": request.POST['origin'], "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": driver.device} 
         try:
             resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendSelectedTaxi', params=post_data)
         except requests.ConnectionError:
@@ -245,7 +249,7 @@ def acceptTravel(request):
         driver.car.isfree = False
         driver.geom = driverpos
         driver.save()
-        post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "latitude": str(driverpos.x), "longitude": str(driverpos.y), "device": "android"} 
+        post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "latitude": str(driverpos.x), "longitude": str(driverpos.y), "device": travel.customer.device} 
         print post_data
         try:
             resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendAcceptTravel', params=post_data)
@@ -293,7 +297,7 @@ def travelCompleted(request):
             travel.isPaid = True
         travel.save()
         if travel.appPayment:
-            post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "true","device": "android"} 
+            post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "true","device": travel.customer.device} 
             try:
                 resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendTravelCompleted', params=post_data)
             except requests.ConnectionError:
@@ -303,7 +307,7 @@ def travelCompleted(request):
             travel.customer.lastUpdateTravels = datetime.now()
             travel.save()
             try:
-                post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "false","device": "android"} 
+                post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "false","device": travel.customer.device} 
                 resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendTravelCompleted', params=post_data)
             except requests.ConnectionError:
                 return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
@@ -326,7 +330,7 @@ def travelPaid(request):
         travel.isPaid = True
         travel.customer.lastUpdateTravels = datetime.now()
         travel.save()
-        post_data = {"travelID": travel.id, "pushId": travel.driver.pushID, "paid": "true", "device": "android"}
+        post_data = {"travelID": travel.id, "pushId": travel.driver.pushID, "paid": "true", "device": travel.driver.device}
         try:
             resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendTravelPaid', params=post_data)
         except requests.ConnectionError:
