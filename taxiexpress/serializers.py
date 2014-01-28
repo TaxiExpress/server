@@ -15,12 +15,12 @@ class CountrySerializer(serializers.ModelSerializer):
 class StateSerializer(serializers.ModelSerializer):
     class Meta:
         model = State
-        fields = ('code', 'name')
+        fields = ('id', 'name')
 
 class CitySerializer(serializers.ModelSerializer):
     class Meta:
         model = City
-        fields = ('code', 'name')
+        fields = ('id', 'name')
 
 class DriverDataSerializer(serializers.ModelSerializer):
     class Meta:

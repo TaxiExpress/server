@@ -331,7 +331,7 @@ def getStates(request):
 def getCities(request):
     if 'state' in request.GET:
         try:
-            state = State.objects.get(code=request.GET['state'])
+            state = State.objects.get(id=request.GET['state'])
             serialCities = CitySerializer(state.city_set.all(), many=True)
             return Response(serialCities.data, status=status.HTTP_200_OK)
         except ObjectDoesNotExist:
