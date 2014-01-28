@@ -58,6 +58,8 @@ msgstr "Municipio"
 msgid "Actualizar"
 msgstr "Actualizar"
 
+msgid "GrabPerfil"
+msgstr "Modificar perfil"
 
 # Estos textos aparecen en manclient_preferences.html
 
@@ -70,6 +72,8 @@ msgstr "Taxis que admitan animales"
 msgid "TaxisPagoApp"
 msgstr "Taxis que permitan el pago a través de la aplicación"
 
+msgid "GrabPreferencias"
+msgstr "Modificar preferencias"
 
 # Estos textos aparecen en rememberPassword.html
 
@@ -78,6 +82,9 @@ msgstr "Recupera tu cuenta"
 
 msgid "Recuperar"
 msgstr "Recuperar"
+
+msgid "GrabPassword"
+msgstr "Modificar contraseña"
 
 
 # Estos textos aparecen en manclient_bankAccount.html
@@ -97,6 +104,13 @@ msgstr "Se admite pago a través de la aplicación"
 msgid "InsPago"
 msgstr "Si admite pago a través de la aplicación deberá especificar Cuenta Bancaria y Nombre del Titular"
 
+msgid "GrabDatosBanc"
+msgstr "Modificar datos bancarios"
+
+# Textos del mantenimiento de Taxistas
+
+msgid "GrabVehiculo"
+msgstr "Modificar datos vehículo"
 
 # Estos textos aparecen en driver.html
 

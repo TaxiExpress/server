@@ -58,6 +58,8 @@ msgstr "City"
 msgid "Actualizar"
 msgstr "Update"
 
+msgid "GrabPerfil"
+msgstr "Update profile"
 
 # Estos textos aparecen en manclient_preferences.html
 
@@ -70,6 +72,8 @@ msgstr "Taxis that allow animals"
 msgid "TaxisPagoApp"
 msgstr "Taxies that allow payment through the application"
 
+msgid "GrabPreferencias"
+msgstr "Update preferences"
 
 # Estos textos aparecen en rememberPassword.html
 
@@ -79,6 +83,8 @@ msgstr "Recover your account"
 msgid "Recuperar"
 msgstr "Recover"
 
+msgid "ModPassword"
+msgstr "Update password"
 
 # Estos textos aparecen en manclient_bankAccount.html
 
@@ -97,6 +103,13 @@ msgstr "App payment is allowed"
 msgid "InsPago"
 msgstr "If App payment is allowed you must specify bank account and name of the owner"
 
+msgid "GrabDatosBanc"
+msgstr "Update bank account"
+
+# Textos del mantenimiento de Taxistas
+
+msgid "GrabVehiculo"
+msgstr "Update car data"
 
 # Estos textos aparecen en driver.html
 
