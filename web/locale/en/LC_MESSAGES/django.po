@@ -83,7 +83,7 @@ msgstr "Recover"
 # Estos textos aparecen en manclient_bankAccount.html
 
 msgid "TrayectosRealizados"
-msgstr "Travels made"
+msgstr "Travel record"
 
 msgid "DatosVehiculo"
 msgstr "Car data"
@@ -92,10 +92,10 @@ msgid "DatosBancarios"
 msgstr "Bank account data"
 
 msgid "SeAdmitePago"
-msgstr "Payment through the application is allowed"
+msgstr "App payment is allowed"
 
 msgid "InsPago"
-msgstr "If payment through application is allowed you must specify bank account and name of the owner"
+msgstr "If App payment is allowed you must specify bank account and name of the owner"
 
 
 # Estos textos aparecen en driver.html
@@ -104,7 +104,7 @@ msgid "ModificaPerfil"
 msgstr "Update your profile data easily"
 
 msgid "aceptaOrechaza"
-msgstr "Accept or deny a service with a simple click"
+msgstr "Accept or reject a service with a simple click"
 
 msgid "ConfiguraMovil"
 msgstr "Setup your mobile"
@@ -116,16 +116,16 @@ msgid "PregFrecuentes"
 msgstr "Frequent questions"
 
 msgid "ComoRegistrarme"
-msgstr "How can i sign up?"
+msgstr "How can I sign up?"
 
 msgid "SoloUsuYPass"
 msgstr "You must only enter username and password"
 
 msgid "PregElegirTaxi"
-msgstr "Can i choose my taxi?"
+msgstr "Can I choose a taxi?"
 
 msgid "CondicionesTaxi"
-msgstr "Of course, you can choose the conditions the taxi service must perform"
+msgstr "Of course, you can choose the conditions the taxi service must meet"
 
 
 # Estos textos aparecen en client.html
@@ -134,10 +134,10 @@ msgid "RegistrateSencillo"
 msgstr "Sign up easily"
 
 msgid "ConfirmaPosicion"
-msgstr "Confirm your position and the closest driver will pick you up in few minutes"
+msgstr "Confirm your position and the closest taxi will pick you up in a few minutes"
 
 msgid "SeleccionaTaxi"
-msgstr "Or if you want choose the driver that best fits your needs"
+msgstr "Or you can choose the taxi that best fits your needs"
 
 msgid "ModificaSencillo"
 msgstr "Update your profile data easily, see your travels, choose your favourite driver and more..."
@@ -170,7 +170,7 @@ msgid "Pago"
 msgstr "If payment through application is allowed you must specify<br>bank account and name of the owner"
 
 msgid "SigningUp1"
-msgstr "By signing up, you accept the"
+msgstr "By signing up, you accept our"
 
 msgid "SigningUp2"
 msgstr "terms of use"
@@ -185,7 +185,7 @@ msgid "ValidacionCuenta"
 msgstr "Account validation"
 
 msgid "TfnoYCodigo"
-msgstr "Enter phone number and the code received in your mobile"
+msgstr "Enter phone number and the code received in your phone"
 
 
 # Estos textos aparecen en index.html
@@ -194,7 +194,7 @@ msgid "ContraseñaOlvidada"
 msgstr "Forgot your password?"
 
 msgid "PideTaxi"
-msgstr "Ask for your nearest taxi<br>efficiently and quickly"
+msgstr "Ask for the closest taxi<br>efficiently and quickly"
 
 msgid "TfnoYCodigoSMS"
 msgstr "Enter phone number and the code received by SMS"
@@ -212,7 +212,7 @@ msgid "Opciones"
 msgstr "TaxiExpress allows us to ..."
 
 msgid "Opcion1"
-msgstr "Ask for the nearest taxi"
+msgstr "Ask for the closest taxi"
 
 msgid "Opcion2"
 msgstr "Look for a particular taxi"
@@ -224,10 +224,10 @@ msgid "Opcion4"
 msgstr "Look detailed information of your travels"
 
 msgid "Opcion5"
-msgstr "Pay through the application"
+msgstr "Pay through the App"
 
 msgid "Opcion6"
-msgstr "Evaluate the taxi driver service"
+msgstr "Evaluate the drive"
 
 msgid "MasCaracteristicas"
 msgstr "Show more properties >>"
@@ -236,28 +236,28 @@ msgid "SiEresTaxista"
 msgstr "If you are a driver >>"
 
 msgid "DescApp"
-msgstr "This is not a single application"
+msgstr "This is not a simple application"
 
 msgid "DescApp2"
-msgstr "Atractive, sophisticated and full of features"
+msgstr "Attractive, sophisticated and full of features"
 
 msgid "DiseñoInt"
 msgstr "Intuitive design"
 
 msgid "DiseñoInt2"
-msgstr "It´s simple intuitive and attractive interface, helps you find the taxi that best suits your needs."
+msgstr "Its simple, intuitive and attractive interface, helps you find the taxi that best meets your needs."
 
 msgid "Geolocalizacion"
 msgstr "Geolocation"
 
 msgid "Geolocalizacion2"
-msgstr "You can filter searches according to your taxi drivers preferences, getting your best results."
+msgstr "You can filter taxies according to your preferences, getting best results."
 
 msgid "PagosViaApp"
 msgstr "App payment"
 
 msgid "PagosViaApp2"
-msgstr "If the driver permits, customers that hire their services can make the payment through the app itself."
+msgstr "If the driver allows so, customers can pay through the app itself."
 
 msgid "GestionWeb"
 msgstr "Web Management"
@@ -266,10 +266,10 @@ msgid "GestionWeb2"
 msgstr "You can view and modify your account information in the website itself, being these data shared with the mobile app."
 
 msgid "Estadisticas"
-msgstr "statistics"
+msgstr "Statistics"
 
 msgid "Estadisticas2"
-msgstr "The driver will have at his disposal a series of graphs and statistics to improve their performance."
+msgstr "The driver will have at his disposal a series of graphs and statistics to improve their feedback."
 
 
 #estos textos aparecen en contact.html
@@ -296,7 +296,7 @@ msgstr "Send"
 #estos textos aparecen en termsofuse.html
 
 msgid "TerminosObligatorios"
-msgstr "The terms of use that are exposed below are mandatory."
+msgstr "The terms of use exposed below are mandatory."
 
 msgid "AceptacionTerminos"
 msgstr "Agreement to the Terms of use"
@@ -403,11 +403,11 @@ msgid "TitCambiarContraseña"
 msgstr "Change Password"
 
 msgid "TitViajesrealizados"
-msgstr "Travels Made"
+msgstr "Travel record"
 
 msgid "TitDatosCoche"
 msgstr "Car Data"
 
 msgid "TitGraficos"
-msgstr "Graphics of taken travels"
+msgstr "Travel graphics"
 
