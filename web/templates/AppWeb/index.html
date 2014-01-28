@@ -29,13 +29,13 @@
                                     <span class="textfield">
                                         <input type="email" id="email" name="email" required value="{{request.POST.email}}" placeholder="Email" tabindex="1">
                                     </span>                                    
-                                    <input class="tipo" id="tipo" type="radio" name="tipo" length=2 value="C" 
+                                    <input class="tipo" id="tipo" type="radio" name="tipo" length=2 value="C" tabindex="3"
                                     {% if tipo != "D" %}
                                         checked = "checked"
                                     {% endif %}
                                     >
                                     <span class="typeLabel">{% trans 'Cliente' %}</span>
-                                    <input class="tipo" type="radio" name="tipo" length=2 value="D"
+                                    <input class="tipo" type="radio" name="tipo" length=2 value="D" tabindex="4"
                                     {% if tipo == "D" %}
                                         checked = "checked"
                                     {% endif %}
@@ -47,11 +47,11 @@
                                         <input type="password" id="password" name="password" required placeholder ="Contraseña" value = "{{request.POST.password}}" tabindex="2">
                                     </span>
                                     <p class="forgotpass h-stext h-center">
-                                        <a class="forgotpassword" tabindex="4" href="rememberpassword.html" title="¿Has olvidado tu contraseña?">{% trans 'ContraseñaOlvidada' %}</a>
+                                        <a class="forgotpassword" tabindex="5" href="rememberpassword.html" title="¿Has olvidado tu contraseña?">{% trans 'ContraseñaOlvidada' %}</a>
                                     </p>
                                 </li>
                                 <li class="cf">
-                                    <button id="submit_button" tabindex=5 type="submit" class="btn">»</button>
+                                    <button id="submit_button" tabindex="6" type="submit" class="btn">»</button>
                                 </li>
                             </ul>
                             <p class="h-left error ff-txt-error">{{error}}</p>                       
@@ -171,13 +171,13 @@
                     {% csrf_token %}
                     <h3>{% trans 'ValidacionCuenta' %}</h3>
                     <span class="popupText">{% trans 'TfnoYCodigoSMS' %}<br/>
-                        <input type="tel" id="phone" name="phone" maxlength="12" required  placeholder="Teléfono" tabindex="1">
-                        <input type="text" id="validationCode" name="validationCode" maxlength="4" required value placeholder="Codigo" tabindex="2">
+                        <input type="tel" id="phone" name="phone" maxlength="12" required  placeholder="Teléfono" tabindex="7">
+                        <input type="text" id="validationCode" name="validationCode" maxlength="4" required value placeholder="Codigo" tabindex="8">
                         <p class="h-left error ff-txt-error"></p><br/>                        
                         <input type="button" value="Volver a solicitar código de validación >>" class="validationRefIndex validation"/>   
                     </span>
-                    <input type="button" value= "Aceptar" class="aceptIndex"/>  
-                    <input type="button" value= "Cancelar" class="close"/>   
+                    <input type="button" value= "Aceptar" class="aceptIndex" tabindex="9"/>  
+                    <input type="button" value= "Cancelar" class="close" tabindex="10"/>   
                 </form>
             </div>
         </div> 
