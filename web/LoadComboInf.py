@@ -507,8 +507,6 @@ def loadCombo(request):
 	s51.save()
 	s52 = State(code = 52, name= 'Melilla', country = co108)  
 	s52.save()
-	s99 = State(code = 99, name= 'PRUEBA', country = co108)  
-	s99.save()
 
 	ci166 = City(code = 166, name= 'Puebla De Sanabria', state = s49)  
 	ci166.save()
