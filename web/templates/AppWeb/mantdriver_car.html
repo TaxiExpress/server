@@ -36,8 +36,8 @@
                             <input type="text" name="plate" maxlength="7" placeholder="Matrícula" required value="{{car.plate}}">
 
                             <input type="text" name="color" maxlength="80" placeholder="Color" value="{{car.color}}">
-
-                            <input type="number" name="capacity" placeholder="Capacidad" required value="{{car.capacity}}">
+                            {% trans 'Capacidad' %}
+                            <input type="number" name="capacity" id = "capacity" placeholder="Capacidad" required value="{{car.capacity}}">
 
                             <br>
                             <p>

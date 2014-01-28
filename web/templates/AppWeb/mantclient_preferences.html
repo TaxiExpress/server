@@ -48,6 +48,7 @@
                                     <input type="checkbox" id="appPayment" name="appPayment">{% trans 'TaxisPagoApp' %}
                                 {% endif %}
                             </p>
+                            {% trans 'Capacidad' %}
                             <input type="number" id="capacity" name="capacity" placeholder="Capacidad" value="{{client.fCapacity}}"> 
                         </div>
                         <p class="registerError">{{error}}</p>

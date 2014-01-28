@@ -141,6 +141,11 @@
 	width:100%;
 }
 
+#capacity{
+	width: 228px;
+	margin-left: 30px;
+}
+
 /*Cabecera de las pestañas*/
 .MaintenanceHeader{
 	color: #01669a;

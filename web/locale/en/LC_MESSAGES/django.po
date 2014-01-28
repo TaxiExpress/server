@@ -72,6 +72,9 @@ msgstr "Taxis that allow animals"
 msgid "TaxisPagoApp"
 msgstr "Taxies that allow payment through the application"
 
+msgid "Capacidad"
+msgstr "Capacity"
+
 msgid "GrabPreferencias"
 msgstr "Update preferences"
 
