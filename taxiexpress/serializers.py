@@ -76,13 +76,13 @@ class CustomerTravelsSerializer(serializers.ModelSerializer):
     travel_set = TravelSerializer(many=True)
     class Meta:
         model = Customer
-        fields = ('sessionID', 'travel_set','lastUpdateTravels')
+        fields = ('travel_set','lastUpdateTravels')
 
 #Este serializer devuelve solo el perfil del Customer
 class CustomerProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
-        fields = ('sessionID', 'email', 'phone', 'first_name', 'last_name', 'image', 'lastUpdate', 'fAccessible', 'fAnimals', 'fAppPayment', 'fCapacity')
+        fields = ('email', 'phone', 'first_name', 'last_name', 'image', 'lastUpdate', 'fAccessible', 'fAnimals', 'fAppPayment', 'fCapacity')
 
 #Este serializer devuelve el perfil del Customer + lista de taxistas
 class CustomerProfileTaxiesSerializer(serializers.ModelSerializer):
@@ -103,4 +103,4 @@ class CustomerTaxiesSerializer(serializers.ModelSerializer):
     favlist = DriverSerializer(many=True)
     class Meta:
         model = Customer
-        fields = ('sessionID', 'favlist','lastUpdateFavorites')
+        fields = ('favlist','lastUpdateFavorites')
