@@ -27,6 +27,9 @@ from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from web.LoadComboInf import loadCombo
 
+
+PUSH_URL = 'http://ec2-54-208-174-101.compute-1.amazonaws.com:8080'
+
 def sessionID_generator(size=10, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for x in range(size))
 
@@ -178,16 +181,27 @@ def getClosestTaxi(request):
         valuation = 0
         if (customer.positiveVotes+customer.negativeVotes) > 0:
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
-        post_data = {"origin": request.POST['origin'], "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone} 
-        for i in range(closestDrivers.count()):
-            post_data["pushId"+str(i)] = closestDrivers[i].pushID
-            post_data["device"+str(i)] = closestDrivers[i].device
-        if closestDrivers.count() < 5:
-            for i in range(closestDrivers.count(), 4):
+        post_data_ios = {"origin": request.POST['origin'], "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": 'IOS'} 
+        post_data_android = {"origin": request.POST['origin'], "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": 'ANDROID'} 
+        closestDriversIos = closestDrivers.filter(device='IOS')
+        closestDriversAndroid = closestDrivers.filter(device='ANDROID')
+        for i in range(closestDriversIos.count()):
+            post_data["pushId"+str(i)] = closestDriversIos[i].pushID
+        if closestDriversIos.count() < 5:
+            for i in range(closestDriversIos.count(), 4):
                 post_data["pushId"+str(i)] = ""
-                post_data["device"+str(i)] = ""
         try:
-            resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendClosestTaxi', params=post_data)
+            resp = requests.post(PUSH_URL+'/sendClosestTaxi', params=post_data_ios)
+        except requests.ConnectionError:
+            travel.delete()
+            return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
+        for i in range(closestDriversAndroid.count()):
+            post_data["pushId"+str(i)] = closestDriversAndroid[i].pushID
+        if closestDriversAndroid.count() < 5:
+            for i in range(closestDriversAndroid.count(), 4):
+                post_data["pushId"+str(i)] = ""
+        try:
+            resp = requests.post(PUSH_URL+'/sendClosestTaxi', params=post_data_android)
         except requests.ConnectionError:
             travel.delete()
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
@@ -448,9 +462,25 @@ def updateDriverPosition(request):
             driver.save()
             return HttpResponse(status=status.HTTP_200_OK)
         else:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="punto inexistente")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Punto inexistente")
     else:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="email inexistente")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email inexistente")
+
+
+@csrf_exempt
+@api_view(['POST'])
+def updateDriverAvailable(request):
+    if 'email' in request.POST:
+        try:
+            driver = Driver.objects.get(email=request.POST['email'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
+        driver.available = (request.POST['available'] == 'true')
+        driver.save()
+        return HttpResponse(status=status.HTTP_200_OK)
+    else:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email inexistente")
+
 
 
 @csrf_exempt
