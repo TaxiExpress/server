@@ -225,7 +225,7 @@ a:focus {
 }
 
 .navigation{
-	padding-top:15px;
+	padding-top:0px;
 	float:left;
 	text-align:left;
 	display:block;
@@ -235,6 +235,12 @@ a:focus {
 	display:inline;	
 	background: url(../img/separator.gif) center right no-repeat;
 	margin-right:10px;
+	margin-left: 10px;
+}
+
+
+.navigation  li.first{
+	margin-left:-10px;	
 }
 
 .navigation  li a{
@@ -268,7 +274,14 @@ a:focus {
 	line-height:18px;
 	text-align:right;
 	float:right;
-	margin-top:28px;
+	margin-top:15px;
+}
+.author select{
+	border:0px;
+	color: #999;	
+	appearance:none;
+	-moz-appearance:none; /* Firefox */
+	-webkit-appearance:none; /* Safari and Chrome */
 }
 
 /*  REGISTRO  */
