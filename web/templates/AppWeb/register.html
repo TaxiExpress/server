@@ -12,7 +12,7 @@
     </div> -->      
     <div class="bg">        
       <div class="contenido">
-        <section class="wrapper">
+        <section class="imagenI">
             {% if request.POST.tipo != "D" %}
               <input type="hidden" id="tabTipo" value="C">
             {% else %}
@@ -38,9 +38,10 @@
                       <button class="btn" type="submit">{% trans 'Registrar' %}</button>
                   </form>
                 </div>
-<!--                <div class="imagenD2">
-                <img src="images/registro.png" alt="" />
-              </div>   -->
+                <div class="bg titulo tituloTermsofuse">
+                  <h1>Registro</h1>
+                  <h3>Date de alta en TaxiExpress y gestiona de forma eficaz tus taxis</h3>
+                </div>
                 </article>
                 <article id="driver">
                   <div class="registerDriverForm">
@@ -76,12 +77,12 @@
                         <button class="btn" type="submit">{% trans 'Registrar' %}</button>
                     </form>
                   </div>
-<!--                <div class="imagenD2">
-                <img src="images/registro.png" alt="" />
-              </div>   -->
                 </article>
             </section>
         </section>
+        <div class="textoD">
+          <br/><img src="{{STATIC_URL}}img/image_registro.png" alt="">
+        </div>
       </div>
     </div>
 
