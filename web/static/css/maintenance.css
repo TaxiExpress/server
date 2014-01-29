@@ -11,7 +11,7 @@
 
 [class*="span"]{
 	float: left;
-	min-height: 430px;
+	min-height: 570px;
 	margin-bottom: 50px;
 	overflow: hidden;
 }
@@ -44,7 +44,7 @@
 }
 
 .tabs .nav > li > a.active,.tabs .nav > li > a.active:hover{
-	background:#f0f0f0;
+	background:#f6f6f6;
 }
 
 .tabs > ul > li{

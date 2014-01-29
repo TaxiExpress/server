@@ -47,6 +47,7 @@ a:focus {
     float: left;
     clear: both;
     margin-bottom: 50px;
+    margin-top: -25px;
     padding: 0;
     position: relative;
     /*z-index: 1;*/
@@ -114,7 +115,7 @@ a:focus {
 
 .logo {
 	position: relative;  
-	padding-top: 8px;
+	padding-top: 6px;
 }
 
 .logo img {
@@ -218,7 +219,7 @@ a:focus {
 	font-family: Open Sans; 
 	position: relative;
 	margin-top: 70px;
-	height:70px;
+	height:60px;
 	clear:both;
 	width:100%;
 	border-top: 1px solid #ccc;
