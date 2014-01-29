@@ -9,7 +9,7 @@
 }
 
 .fms-block {
-    margin-top: 18px;
+    margin-top: 25px;
     border: 0;
     position:relative;
     display: block;
@@ -21,7 +21,7 @@
     display:block;
     float:left;
     padding-top:1px;
-    padding-right:10px;
+    padding-right:13px;
 }
 
 .fms-block .avatar img {
@@ -36,7 +36,8 @@
     padding-top: 4px;
 }
 
-.fms-block .info span, .fms-block .info a{
+.fms-block .info span{
     line-height: 18px;
     display:block;
+    color: #fff;
 }
