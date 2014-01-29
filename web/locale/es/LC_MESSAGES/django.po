@@ -115,6 +115,12 @@ msgstr "Modificar datos bancarios"
 msgid "GrabVehiculo"
 msgstr "Modificar datos vehículo"
 
+msgid "HabilitadoMinusvalidos"
+msgstr "El taxi está habilitado para minusválidos"
+
+msgid "AnimalesPermitidos"
+msgstr "Permitido el viaje con animales"
+
 # Estos textos aparecen en driver.html
 
 msgid "ModificaPerfil"

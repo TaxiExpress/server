@@ -64,13 +64,13 @@ msgstr "Update profile"
 # Estos textos aparecen en manclient_preferences.html
 
 msgid "TaxisMinusvalidos"
-msgstr "Enabled for handicapped people"
+msgstr "Taxies for handicapped people"
 
 msgid "TaxisAnimales"
-msgstr "Animals allowed"
+msgstr "Taxies that allow animals"
 
 msgid "TaxisPagoApp"
-msgstr "App payment allowed"
+msgstr "Taxies that allow payment through the application"
 
 msgid "Capacidad"
 msgstr "Capacity"
@@ -101,7 +101,7 @@ msgid "DatosBancarios"
 msgstr "Bank account data"
 
 msgid "SeAdmitePago"
-msgstr "App payment is allowed"
+msgstr "App payment allowed"
 
 msgid "InsPago"
 msgstr "If App payment is allowed you must specify bank account and name of the owner"
@@ -113,6 +113,12 @@ msgstr "Update bank account"
 
 msgid "GrabVehiculo"
 msgstr "Update car data"
+
+msgid "HabilitadoMinusvalidos"
+msgstr "Enabled for handicapped people"
+
+msgid "AnimalesPermitidos"
+msgstr "Animals allowed"
 
 # Estos textos aparecen en driver.html
 
