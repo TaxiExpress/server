@@ -51,7 +51,7 @@
                         <input type="text" name="last_name" maxlength="80" placeholder="Apellido" required value="{{request.POST.last_name}}">
                         <input type="password" name="password" maxlength="80" placeholder="Contraseña" required value="{{request.POST.password}}"><span class="passwordError hidefieldError">*</span>
                         <input type="password" name="passwordCon" maxlength="80" placeholder="Confirmar contraseña" required value="{{request.POST.passwordCon}}"><span class="passwordError hidefieldError">*</span>
-                        <br><span>{% trans 'DatosCoche' %}</span><br>
+                        <br><br><span>{% trans 'DatosCoche' %}</span><br>
                         <input type="number" name="license" placeholder="Número de licencia" required value="{{request.POST.license}}">
                         <input type="text" name="plate" maxlength="7" placeholder="Matrícula" required value="{{request.POST.plate}}">
                         <input type="text" name="model" maxlength="80" placeholder="Modelo" required value="{{request.POST.model}}">
@@ -66,10 +66,10 @@
                         <p>
                             <input type="checkbox" name="appPayment">{% trans 'TaxisPagoApp' %}
                         </p>
-                        <span class="italic">{% trans 'Pago' %}</span>
+                        <br><span class="italic">{% trans 'Pago' %}</span>
                         <input type="text" name="bankAccount" maxlength="20" placeholder="Número de cuenta" disabled value="{{request.POST.bancAccount}}"><span class="accountError hidefieldError">*</span>
                         <input type="text" name="recipientName" maxlength="80" placeholder="Titular" disabled value="{{request.POST.recipientName}}"><span class="accountError hidefieldError">*</span>
-                        <br><span>{% trans 'SigningUp1' %}<a href="termsofuse">{% trans 'SigningUp2' %}</a>.</span> 
+                        <br><span>{% trans 'SigningUp1' %} <a href="termsofuse">{% trans 'SigningUp2' %}</a>.</span> 
                         <p class="registerError">{{error}}</p>      
                         <button class="btn" type="submit">{% trans 'Registrar' %}</button>
                     </form>
