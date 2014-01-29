@@ -495,21 +495,6 @@ def updateDriverAvailable(request):
 
 @csrf_exempt
 @api_view(['POST'])
-def updateDriverAvailable(request):
-    if 'email' in request.POST:
-        try:
-            driver = Driver.objects.get(email=request.POST['email'])
-        except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
-        driver.available = (request.POST['available'] == 'true')
-        driver.save()
-        return HttpResponse(status=status.HTTP_200_OK)
-    else:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email inexistente")
-
-
-@csrf_exempt
-@api_view(['POST'])
 def updateFilters(request):
     try:
         customer = Customer.objects.get(email=request.POST['email'])
