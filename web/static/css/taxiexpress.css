@@ -39,7 +39,7 @@ a:focus {
 }*/
 
 .phone {height:460px; float:right; bottom:0px; position:relative; display:block;}
-.icon {height:100px; width:100; float:left; position:relative; display:block;border-radius: 10px; margin-left:60px;margin-top: 20px}
+.icon {height:100px; width:100; float:left; position:relative; display:block;border-radius: 15px; margin-left:60px;margin-top: 20px}
 
 .slogan-header {
     width: 100%;
