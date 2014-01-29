@@ -16,19 +16,17 @@
                     {% csrf_token %}
                     <div class="pic">
                     <div class="col1 maintenance">                        
+                        <select id = "tipo" name="tipo" class="seltipo">
+                            <option value = "1">{% trans 'Sugerencia' %}</option>
+                            <option value = "2">{% trans 'Incidencia' %}</option>
+                            <option value = "3">{% trans 'Otra' %}</option>
+                        </select> 
                         <input type="text" name="name" maxlength="80" placeholder="Nombre" required>
 
                         <input type="tel" name="phone" maxlength="12" placeholder="Teléfono">
 
                         <input type="email" name="email" maxlength="80" placeholder="Email" required>
 
-                        <p>
-                            <select id = "tipo" name="tipo" class="seltipo">
-                                <option value = "1">{% trans 'Sugerencia' %}</option>
-                                <option value = "2">{% trans 'Incidencia' %}</option>
-                                <option value = "3">{% trans 'Otra' %}</option>
-                            </select>
-                        </p>
                         <textarea rows="10" cols="100" wrap="soft" name="observations" class="observation" maxlength="200" placeholder="Observaciones" required></textarea>                      
                     </div>
                     <p class="registerError">{{error}}</p>
