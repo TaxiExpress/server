@@ -67,7 +67,7 @@ def loginUser(request):
         serialTravels = CustomerTravelsSerializer(customer)
         serialTaxies= CustomerTaxiesSerializer(customer)
         serialCustomer = CustomerProfileSerializer(customer)
-        result = {'sessionID': customer.sessionID}
+        response_data = {'sessionID': customer.sessionID}
 
         # upProfile = False
         # upTaxies = False
@@ -75,14 +75,14 @@ def loginUser(request):
         #check if customer needs to update
         if customer.lastUpdate != datetime_profile:
             # upProfile = True
-            result.update(serialCustomer.data)
+            response_data.update(serialCustomer.data)
         if customer.lastUpdateFavorites !=  datetime_taxies:
             # upTaxies = True
-            result.update(serialTaxies.data)
+            response_data.update(serialTaxies.data)
         if customer.lastUpdateTravels !=  datetime_travels:
             # upTravels = True
-            result.update(serialTravels.data)
-        return Response(result, status=status.HTTP_200_OK)
+            response_data.update(serialTravels.data)
+        return Response(response_data, status=status.HTTP_200_OK)
 
 
         #check every possible case
