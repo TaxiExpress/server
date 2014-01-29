@@ -64,13 +64,13 @@ msgstr "Update profile"
 # Estos textos aparecen en manclient_preferences.html
 
 msgid "TaxisMinusvalidos"
-msgstr "Taxies for handicapped people"
+msgstr "Enabled for handicapped people"
 
 msgid "TaxisAnimales"
-msgstr "Taxis that allow animals"
+msgstr "Animals allowed"
 
 msgid "TaxisPagoApp"
-msgstr "Taxies that allow payment through the application"
+msgstr "App payment allowed"
 
 msgid "Capacidad"
 msgstr "Capacity"
