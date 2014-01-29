@@ -99,10 +99,10 @@
 .observation{
 	margin-left: 0px;
 	color:#666;
-	padding: 0px 0px 0px 10px;
+	padding: 10px 0px 0px 10px;
 	border: 1px solid #DDDDDD;
-	font-size: 13px;
 	border-radius: 4px;
+	font:normal 13px Open Sans,Arial;
 }
 
 .lblcountry, .lblstate, .lblcity{
