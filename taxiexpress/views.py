@@ -60,6 +60,7 @@ def loginUser(request):
                 resp = requests.post('http://ec2-54-208-174-101.compute-1.amazonaws.com:8080/sendTravelCompleted', params=post_data)
             except requests.ConnectionError:
                 return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
+                
         datetime_profile = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
         datetime_taxies = datetime.strptime(request.POST['lastUpdateFavorites'], '%Y-%m-%d %H:%M:%S')
         datetime_travels = datetime.strptime(request.POST['lastUpdateTravels'], '%Y-%m-%d %H:%M:%S')
@@ -69,50 +70,13 @@ def loginUser(request):
         serialCustomer = CustomerProfileSerializer(customer)
         response_data = {'sessionID': customer.sessionID}
 
-        # upProfile = False
-        # upTaxies = False
-        # upTravels = False
-        #check if customer needs to update
         if customer.lastUpdate != datetime_profile:
-            # upProfile = True
             response_data.update(serialCustomer.data)
         if customer.lastUpdateFavorites !=  datetime_taxies:
-            # upTaxies = True
             response_data.update(serialTaxies.data)
         if customer.lastUpdateTravels !=  datetime_travels:
-            # upTravels = True
             response_data.update(serialTravels.data)
         return Response(response_data, status=status.HTTP_200_OK)
-
-
-        #check every possible case
-        # if upProfile:
-        #     if upTaxies and upTravels:
-        #         serialCustomer = CustomerCompleteSerializer(customer)
-        #         return Response(serialCustomer.data, status=status.HTTP_200_OK)
-        #     elif upTaxies and not upTravels:
-        #         serialCustomer = CustomerProfileTaxiesSerializer(customer)
-        #         return Response(serialCustomer.data, status=status.HTTP_200_OK)
-        #     elif not upTaxies and upTravels:
-        #         serialCustomer = CustomerProfileTravelsSerializer(customer)
-        #         return Response(serialCustomer.data, status=status.HTTP_200_OK)
-        #     else: # upTaxies & upTravels are False
-        #         serialCustomer = CustomerProfileSerializer(customer)
-        #         return Response(serialCustomer.data, status=status.HTTP_200_OK)
-        # else: #upProfile is False
-        #     if upTaxies and upTravels:
-        #         serialCustomer = CustomerTaxiesTravelsSerializer(customer)
-        #         return Response(serialCustomer.data, status=status.HTTP_200_OK)
-        #     elif upTaxies and not upTravels:
-        #         serialCustomer = CustomerTaxiesSerializer(customer)
-        #         return Response(serialCustomer.data, status=status.HTTP_200_OK)
-        #     elif not upTaxies and upTravels:
-        #         serialCustomer = CustomerTravelsSerializer(customer)
-        #         return Response(serialCustomer.data, status=status.HTTP_200_OK)
-        #     else: # upTaxies & upTravels are False
-        #         response_data = {}
-        #         response_data['sessionID'] = customer.sessionID
-        #         return HttpResponse(json.dumps(response_data), content_type="application/json")
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 
