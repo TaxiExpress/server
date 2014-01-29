@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseBadRequest
 from taxiexpress.models import Customer, Country, State, City, Driver, Travel, Car, Observation
-from taxiexpress.serializers import CarSerializer, DriverSerializer, CustomerCompleteSerializer, CustomerTaxiesTravelsSerializer, CustomerTravelsSerializer, CustomerProfileSerializer, CustomerProfileTaxiesSerializer, CustomerProfileTravelsSerializer, CustomerTaxiesSerializer, CountrySerializer, StateSerializer, CitySerializer
+from taxiexpress.serializers import CarSerializer, DriverSerializer, CustomerTravelsSerializer, CustomerProfileSerializer, CustomerTaxiesSerializer, CountrySerializer, StateSerializer, CitySerializer
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import Distance, D
