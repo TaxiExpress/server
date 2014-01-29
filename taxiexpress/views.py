@@ -63,44 +63,56 @@ def loginUser(request):
         datetime_profile = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
         datetime_taxies = datetime.strptime(request.POST['lastUpdateFavorites'], '%Y-%m-%d %H:%M:%S')
         datetime_travels = datetime.strptime(request.POST['lastUpdateTravels'], '%Y-%m-%d %H:%M:%S')
-        upProfile = False
-        upTaxies = False
-        upTravels = False
+        
+        serialTravels = CustomerTravelsSerializer(customer)
+        serialTaxies= CustomerTaxiesSerializer(customer)
+        serialCustomer = CustomerProfileSerializer(customer)
+        result = {'sessionID': customer.sessionID}
+
+        # upProfile = False
+        # upTaxies = False
+        # upTravels = False
         #check if customer needs to update
         if customer.lastUpdate != datetime_profile:
-            upProfile = True
+            # upProfile = True
+            result.update(serialCustomer.data)
         if customer.lastUpdateFavorites !=  datetime_taxies:
-            upTaxies = True
+            # upTaxies = True
+            result.update(serialTaxies.data)
         if customer.lastUpdateTravels !=  datetime_travels:
-            upTravels = True
+            # upTravels = True
+            result.update(serialTravels.data)
+        return Response(result, status=status.HTTP_200_OK)
+
+
         #check every possible case
-        if upProfile:
-            if upTaxies and upTravels:
-                serialCustomer = CustomerCompleteSerializer(customer)
-                return Response(serialCustomer.data, status=status.HTTP_200_OK)
-            elif upTaxies and not upTravels:
-                serialCustomer = CustomerProfileTaxiesSerializer(customer)
-                return Response(serialCustomer.data, status=status.HTTP_200_OK)
-            elif not upTaxies and upTravels:
-                serialCustomer = CustomerProfileTravelsSerializer(customer)
-                return Response(serialCustomer.data, status=status.HTTP_200_OK)
-            else: # upTaxies & upTravels are False
-                serialCustomer = CustomerProfileSerializer(customer)
-                return Response(serialCustomer.data, status=status.HTTP_200_OK)
-        else: #upProfile is False
-            if upTaxies and upTravels:
-                serialCustomer = CustomerTaxiesTravelsSerializer(customer)
-                return Response(serialCustomer.data, status=status.HTTP_200_OK)
-            elif upTaxies and not upTravels:
-                serialCustomer = CustomerTaxiesSerializer(customer)
-                return Response(serialCustomer.data, status=status.HTTP_200_OK)
-            elif not upTaxies and upTravels:
-                serialCustomer = CustomerTravelsSerializer(customer)
-                return Response(serialCustomer.data, status=status.HTTP_200_OK)
-            else: # upTaxies & upTravels are False
-                response_data = {}
-                response_data['sessionID'] = customer.sessionID
-                return HttpResponse(json.dumps(response_data), content_type="application/json")
+        # if upProfile:
+        #     if upTaxies and upTravels:
+        #         serialCustomer = CustomerCompleteSerializer(customer)
+        #         return Response(serialCustomer.data, status=status.HTTP_200_OK)
+        #     elif upTaxies and not upTravels:
+        #         serialCustomer = CustomerProfileTaxiesSerializer(customer)
+        #         return Response(serialCustomer.data, status=status.HTTP_200_OK)
+        #     elif not upTaxies and upTravels:
+        #         serialCustomer = CustomerProfileTravelsSerializer(customer)
+        #         return Response(serialCustomer.data, status=status.HTTP_200_OK)
+        #     else: # upTaxies & upTravels are False
+        #         serialCustomer = CustomerProfileSerializer(customer)
+        #         return Response(serialCustomer.data, status=status.HTTP_200_OK)
+        # else: #upProfile is False
+        #     if upTaxies and upTravels:
+        #         serialCustomer = CustomerTaxiesTravelsSerializer(customer)
+        #         return Response(serialCustomer.data, status=status.HTTP_200_OK)
+        #     elif upTaxies and not upTravels:
+        #         serialCustomer = CustomerTaxiesSerializer(customer)
+        #         return Response(serialCustomer.data, status=status.HTTP_200_OK)
+        #     elif not upTaxies and upTravels:
+        #         serialCustomer = CustomerTravelsSerializer(customer)
+        #         return Response(serialCustomer.data, status=status.HTTP_200_OK)
+        #     else: # upTaxies & upTravels are False
+        #         response_data = {}
+        #         response_data['sessionID'] = customer.sessionID
+        #         return HttpResponse(json.dumps(response_data), content_type="application/json")
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 
@@ -181,8 +193,11 @@ def getClosestTaxi(request):
         valuation = 0
         if (customer.positiveVotes+customer.negativeVotes) > 0:
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
-        post_data_ios = {"origin": request.POST['origin'], "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": 'IOS'} 
-        post_data_android = {"origin": request.POST['origin'], "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": 'ANDROID'} 
+        post_data = {"origin": request.POST['origin'], "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone}
+        post_data_ios = {"device": 'IOS'}
+        post_data_ios.update(post_data)
+        post_data_android = {"device": 'ANDROID'}
+        post_data_android.update(post_data)
         for i in range(closestDrivers.count()):
             if closestDrivers[i].device == 'IOS':
                 post_data_ios["pushId"+str(i)] = closestDrivers[i].pushID
