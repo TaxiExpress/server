@@ -86,7 +86,7 @@ msgstr "Recover your account"
 msgid "Recuperar"
 msgstr "Recover"
 
-msgid "ModPassword"
+msgid "GrabPassword"
 msgstr "Update password"
 
 # Estos textos aparecen en manclient_bankAccount.html
