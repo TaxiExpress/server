@@ -185,23 +185,20 @@ def getClosestTaxi(request):
         post_data_android = {"origin": request.POST['origin'], "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": 'ANDROID'} 
         closestDriversIos = closestDrivers.filter(device='IOS')
         closestDriversAndroid = closestDrivers.filter(device='ANDROID')
-        for i in range(closestDriversIos.count()):
-            post_data["pushId"+str(i)] = closestDriversIos[i].pushID
+        for i in range(closestDrivers.count()):
+            if closestDrivers[i].device == 'IOS':
+                post_data_ios["pushId"+str(i)] = closestDrivers[i].pushID
+            else if closestDrivers[i].device == 'ANDROID':
+                post_data_android["pushId"+str(i)] = closestDrivers[i].pushID
         if closestDriversIos.count() < 5:
             for i in range(closestDriversIos.count(), 4):
-                post_data["pushId"+str(i)] = ""
-        try:
-            resp = requests.post(PUSH_URL+'/sendClosestTaxi', params=post_data_ios)
-        except requests.ConnectionError:
-            travel.delete()
-            return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
-        for i in range(closestDriversAndroid.count()):
-            post_data["pushId"+str(i)] = closestDriversAndroid[i].pushID
+                post_data_ios["pushId"+str(i)] = ""
         if closestDriversAndroid.count() < 5:
             for i in range(closestDriversAndroid.count(), 4):
-                post_data["pushId"+str(i)] = ""
+                post_data_android["pushId"+str(i)] = ""
         try:
-            resp = requests.post(PUSH_URL+'/sendClosestTaxi', params=post_data_android)
+            resp_ios = requests.post(PUSH_URL+'/sendClosestTaxi', params=post_data_ios)
+            resp_android = requests.post(PUSH_URL+'/sendClosestTaxi', params=post_data_android)
         except requests.ConnectionError:
             travel.delete()
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
