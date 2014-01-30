@@ -42,12 +42,12 @@
                             <input type="text" name="first_name" maxlength="80" placeholder="Nombre" required value="{{driver.first_name}}">
 
                             <input type="text" name="last_name" maxlength="80" placeholder="Apellido" required value="{{driver.last_name}}">
+                            
+                            <input type="number" name="license" placeholder="Número de licencia" required value="{{driver.license}}">
 
                             <input type="email" name="email" maxlength="80" placeholder="Email" required disabled value="{{driver.email}}">
 
                             <input type="tel" name="phone" maxlength="80" placeholder="Teléfono" required disabled value="{{driver.phone|cut:"+34"}}">
-
-                            <input type="number" name="license" placeholder="Número de licencia" required value="{{driver.license}}">
                                                
                         </div>
                         <div class="col2 maintenance">
