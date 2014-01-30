@@ -200,7 +200,7 @@ def getSelectedTaxi(request):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
         driver = Driver.objects.get(email=request.POST['driverEmail'])
         if (driver.available == False) or (driver.car.isfree == False):
-            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El taxista no esta disponible actualmente")
+            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El taxista no está disponible actualmente")
         travel = Travel(customer=customer, startpoint=pointclient, origin=request.POST['origin'])
         travel.save()
         valuation = 0
