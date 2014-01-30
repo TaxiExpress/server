@@ -38,13 +38,13 @@ msgstr "Log out"
 # Estos textos aparecen en man_client.html
 
 msgid "PerfilUsuario"
-msgstr "User Profile"
+msgstr "Personal data"
 
 msgid "ModificarContraseña"
-msgstr "Change Password"
+msgstr "Change password"
 
 msgid "PrefBusqueda"
-msgstr "Search preferences"
+msgstr "Taxi preferences"
 
 msgid "Pais"
 msgstr "Country"
@@ -198,7 +198,7 @@ msgid "SigningUp2"
 msgstr "terms of use"
 
 msgid "DatosCoche"
-msgstr "Car Data"
+msgstr "Car data"
 
 msgid "Aceptar"
 msgstr "Accept"
@@ -297,10 +297,10 @@ msgstr "The driver will have at his disposal a series of graphs and statistics t
 #estos textos aparecen en contact.html
 
 msgid "Contacto"
-msgstr "Contact us"
+msgstr "Contact"
 
 msgid "Contactanos"
-msgstr "Contact us !!"
+msgstr "Contact"
 
 msgid "Sugerencia"
 msgstr "Suggestion"
@@ -309,7 +309,7 @@ msgid "Incidencia"
 msgstr "Incidence"
 
 msgid "Otra"
-msgstr "Another"
+msgstr "Other"
 
 msgid "Enviar"
 msgstr "Send"
@@ -413,22 +413,22 @@ msgstr "For using our website, cookies are required. Cookies are used for the pu
 #Titulos de los mantenimientos
 
 msgid "TitDatosPersonales"
-msgstr "Personal Data"
+msgstr "Personal data"
 
 msgid "TitDatosBancarios"
 msgstr "Banck account data"
 
 msgid "TitPreferencias"
-msgstr "Search Preferences"
+msgstr "Taxi preferences"
 
 msgid "TitCambiarContraseña"
-msgstr "Change Password"
+msgstr "Change password"
 
 msgid "TitViajesrealizados"
 msgstr "Travel record"
 
 msgid "TitDatosCoche"
-msgstr "Car Data"
+msgstr "Car data"
 
 msgid "TitGraficos"
 msgstr "Travel graphics"
