@@ -195,4 +195,5 @@ ugettext = lambda s: s
 LANGUAGES = (
     ('es', ugettext('Spanish')),
     ('en', ugettext('English')),
+    ('eu', ugettext('Basque')),
 )
