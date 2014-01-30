@@ -58,7 +58,7 @@ def loginUser(request):
             travel = unpaidTravels[0]
             post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "true","device": customer.device} 
             try:
-                resp = requests.post('http://ec2-54-84-17-105.compute-1.amazonaws.com:8080/sendTravelCompleted', params=post_data)
+                resp = requests.post(PUSH_URL+'/sendTravelCompleted', params=post_data)
             except requests.ConnectionError:
                 return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
                 
@@ -202,7 +202,7 @@ def getSelectedTaxi(request):
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
         post_data = {"pushId": driver.pushID ,"origin": request.POST['origin'], "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": driver.device} 
         try:
-            resp = requests.post('http://ec2-54-84-17-105.compute-1.amazonaws.com:8080/sendSelectedTaxi', params=post_data)
+            resp = requests.post(PUSH_URL+'/sendSelectedTaxi', params=post_data)
         except requests.ConnectionError:
             travel.delete()
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
@@ -238,7 +238,7 @@ def acceptTravel(request):
         post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "latitude": str(driverpos.x), "longitude": str(driverpos.y), "device": travel.customer.device} 
         print post_data
         try:
-            resp = requests.post('http://ec2-54-84-17-105.compute-1.amazonaws.com:8080/sendAcceptTravel', params=post_data)
+            resp = requests.post(PUSH_URL+'/sendAcceptTravel', params=post_data)
             print resp
         except requests.ConnectionError:
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
@@ -285,7 +285,7 @@ def travelCompleted(request):
         if travel.appPayment:
             post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "true","device": travel.customer.device} 
             try:
-                resp = requests.post('http://ec2-54-84-17-105.compute-1.amazonaws.com:8080/sendTravelCompleted', params=post_data)
+                resp = requests.post(PUSH_URL+'/sendTravelCompleted', params=post_data)
             except requests.ConnectionError:
                 return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
         else:
@@ -294,7 +294,7 @@ def travelCompleted(request):
             travel.save()
             try:
                 post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "false","device": travel.customer.device} 
-                resp = requests.post('http://ec2-54-84-17-105.compute-1.amazonaws.com:8080/sendTravelCompleted', params=post_data)
+                resp = requests.post(PUSH_URL+'/sendTravelCompleted', params=post_data)
             except requests.ConnectionError:
                 return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
         return HttpResponse(status=status.HTTP_200_OK)
@@ -318,7 +318,7 @@ def travelPaid(request):
         travel.save()
         post_data = {"travelID": travel.id, "pushId": travel.driver.pushID, "paid": "true", "device": travel.driver.device}
         try:
-            resp = requests.post('http://ec2-54-84-17-105.compute-1.amazonaws.com:8080/sendTravelPaid', params=post_data)
+            resp = requests.post(PUSH_URL+'/sendTravelPaid', params=post_data)
         except requests.ConnectionError:
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
         print resp
@@ -390,7 +390,7 @@ def voteDriver(request):
 def testPush(request):
     try:
         userdata = {"pushId": "APA91bHTypZCKvUdXYd-lhimPaLbolkEvZU8o9o5FWhRW0tIx5JpcIS3mdNYza0o5F0d-lBzn3xYw2RBZWfJEy_wdOLIZVwefcUsRtG_PpGXyauJ0EnnOND-zS0dOOAcb_xG2QhqodKQchzJgV6-z41y8zsPwMzJrNY2Bj-kCeUsm-Ca3kKH0j4", "title": "Pues que bien", "device": "android", "reqMessage": "world"}
-        resp = requests.post('http://ec2-54-84-17-105.compute-1.amazonaws.com:8080/sendSelectedTaxi', params=userdata)
+        resp = requests.post(PUSH_URL+'/sendSelectedTaxi', params=userdata)
     except requests.ConnectionError:
         return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
     print resp.status_code
