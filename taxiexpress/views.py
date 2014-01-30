@@ -161,16 +161,20 @@ def getClosestTaxi(request):
         post_data_ios.update(post_data)
         post_data_android = {"device": 'ANDROID'}
         post_data_android.update(post_data)
+        ioscount = 0
+        androidcount = 0
         for i in range(closestDrivers.count()):
             if closestDrivers[i].device == 'IOS':
                 post_data_ios["pushId"+str(i)] = closestDrivers[i].pushID
+                ioscount += 1
             elif closestDrivers[i].device == 'ANDROID':
                 post_data_android["pushId"+str(i)] = closestDrivers[i].pushID
-        if closestDrivers.filter(device='IOS').count() < 5:
-            for i in range(closestDrivers.filter(device='IOS').count(), 4):
+                androidcount += 1
+        if ioscount < 5:
+            for i in range(ioscount, 4):
                 post_data_ios["pushId"+str(i)] = ""
-        if closestDrivers.filter(device='ANDROID').count() < 5:
-            for i in range(closestDrivers.filter(device='ANDROID').count(), 4):
+        if androidcount < 5:
+            for i in range(androidcount, 4):
                 post_data_android["pushId"+str(i)] = ""
         try:
             resp_ios = requests.post(PUSH_URL+'/sendClosestTaxi', params=post_data_ios)
