@@ -61,6 +61,15 @@ msgstr "Eguneratu"
 msgid "GrabPerfil"
 msgstr "Profila aldatu"
 
+msgid "SelPais"
+msgstr "Herrialdea aukeratu..."
+
+msgid "SelProv"
+msgstr "Probintzia aukeratu..."
+
+msgid "SelMun"
+msgstr "Udalerria aukeratu..."
+
 # Estos textos aparecen en manclient_preferences.html
 
 msgid "TaxisMinusvalidos"
