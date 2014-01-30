@@ -32,7 +32,7 @@
                                 <img id="foto" name="foto" src="{{STATIC_URL}}img/user.png" alt="no hay foto" onclick="file_input.click();"/>
                                 <input type="hidden" name="image" id="URLdelafoto" value="">
                             {% else %}
-                                <img id="foto" src="{{driver.image}}" alt="no hay foto"/>
+                                <img id="foto" name="foto" src="{{driver.image}}" alt="no hay foto" onclick="file_input.click();"/>
                                 <input type="hidden" name="image" id="URLdelafoto" value="{{driver.image}}">
                             {% endif %}
                             <input name="file_input" onchange="javascript:drawImageOnCanvas();" type="file" accept="image/gif, image/jpeg, image/png" id="archivo" class="photo" style="display:none;" />
