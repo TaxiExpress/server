@@ -906,7 +906,7 @@ def loadCombo(request):
 	ci083.save()
 	ci084 = City(code = '084', name= 'Sestao', state = s48)  
 	ci084.save()
-	ci085 = City(code = '085', name= 'SopelanaSA', state = s48)  
+	ci085 = City(code = '085', name= 'Sopelana', state = s48)  
 	ci085.save()
 	ci086 = City(code = '086', name= 'Sopuerta', state = s48)  
 	ci086.save()

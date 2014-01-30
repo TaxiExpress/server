@@ -179,12 +179,15 @@ def updateProfileUserWeb(request):
         customer.last_name = request.POST['last_name']
         customer.image = request.POST['image']
         customer.postcode = request.POST['postcode']
-        if request.POST['country'] != '0' and request.POST['state'] != '0' and request.POST['city'] != '0' : 
-            state = State.objects.filter(country_id=request.POST['country'], code=request.POST['state'])
-            city = City.objects.filter(state_id=state, code=request.POST['city'])
-            tmpCity = City.objects.get(id=city)
+        if 'country' in request.POST and 'state' in request.POST and 'city' in request.POST:
+            if request.POST['country'] != '0' and request.POST['state'] != '0' and request.POST['city'] != '0' : 
+                state = State.objects.filter(country_id=request.POST['country'], id=request.POST['state'])
+                city = City.objects.filter(state_id=state, id=request.POST['city'])
+                tmpCity = City.objects.get(id=city)
+            else:
+                tmpCity= None
         else:
-            tmpCity= None
+                tmpCity= None
         customer.city=tmpCity
         customer.lastUpdate = datetime.now()
         customer.save()
@@ -230,12 +233,15 @@ def updateProfileDriverWeb(request):
         driver.image = request.POST['image']
         driver.address = request.POST['address']
         driver.postcode = request.POST['postcode']
-        if request.POST['country'] != '0' and request.POST['state'] != '0' and request.POST['city'] != '0' :  
-            state = State.objects.filter(country_id=request.POST['country'], code=request.POST['state'])
-            city = City.objects.filter(state_id=state, code=request.POST['city'])
-            tmpCity = City.objects.get(id=city)
+        if 'country' in request.POST and 'state' in request.POST and 'city' in request.POST:
+            if request.POST['country'] != '0' and request.POST['state'] != '0' and request.POST['city'] != '0' : 
+                state = State.objects.filter(country_id=request.POST['country'], id=request.POST['state'])
+                city = City.objects.filter(state_id=state, id=request.POST['city'])
+                tmpCity = City.objects.get(id=city)
+            else:
+                tmpCity= None
         else:
-            tmpCity= None
+                tmpCity= None   
         driver.city=tmpCity
         driver.license = request.POST['license']
         driver.lastUpdate = datetime.now()
@@ -309,7 +315,7 @@ def updateCarWeb(request):
 @csrf_exempt
 @api_view(['GET'])
 def getCountries(request):
-    countries = Country.objects.all()
+    countries = Country.objects.all().order_by('name')
     serialCountries = CountrySerializer(countries, many=True)
     return Response(serialCountries.data, status=status.HTTP_200_OK)
 
@@ -319,7 +325,7 @@ def getStates(request):
     if 'country' in request.GET:  
         try:
             country = Country.objects.get(code=request.GET['country'])
-            serialStates = StateSerializer(country.state_set.all(), many=True)
+            serialStates = StateSerializer(country.state_set.all().order_by('name'), many=True)
             return Response(serialStates.data, status=status.HTTP_200_OK)
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado esta provincia")
@@ -332,7 +338,7 @@ def getCities(request):
     if 'state' in request.GET:
         try:
             state = State.objects.get(id=request.GET['state'])
-            serialCities = CitySerializer(state.city_set.all(), many=True)
+            serialCities = CitySerializer(state.city_set.all().order_by('name'), many=True)
             return Response(serialCities.data, status=status.HTTP_200_OK)
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado esta ciudad")
@@ -457,8 +463,8 @@ def mantclient_data(request):
         response = updateProfileUserWeb(request)
         customer = get_object_or_404(Customer, id=request.session['user_id'])
         if customer.city is not None:
-            city = customer.city.code
-            state = customer.city.state.code
+            city = customer.city.id
+            state = customer.city.state.id
             country = customer.city.state.country.code
         else:
             city = 0
@@ -470,8 +476,8 @@ def mantclient_data(request):
             if request.session['Customer'] == True:
                 customer = get_object_or_404(Customer, id=request.session['user_id'])
                 if customer.city is not None:
-                    city = customer.city.code
-                    state = customer.city.state.code
+                    city = customer.city.id
+                    state = customer.city.state.id
                     country = customer.city.state.country.code
                 else:
                     city = 0
@@ -518,8 +524,8 @@ def mantdriver_data(request):
         response = updateProfileDriverWeb(request)
         driver = get_object_or_404(Driver, id=request.session['user_id'])
         if driver.city is not None:
-            city = driver.city.code
-            state = driver.city.state.code
+            city = driver.city.id
+            state = driver.city.state.id
             country = driver.city.state.country.code
         else:
             city = 0
@@ -531,8 +537,8 @@ def mantdriver_data(request):
             if request.session['Customer'] == False:
                 driver = get_object_or_404(Driver, id=request.session['user_id'])
                 if driver.city is not None:
-                    city = driver.city.code
-                    state = driver.city.state.code
+                    city = driver.city.id
+                    state = driver.city.state.id
                     country = driver.city.state.country.code
                 else:
                     city = 0

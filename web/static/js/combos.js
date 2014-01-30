@@ -42,7 +42,7 @@ $(document).ready(function() {
                 }
                 for (i = 0, len = result.length; i < len; i++) {
                     state = result[i];
-                    options += "<option value='" + state.code + "'>" + state.name + "</option>";
+                    options += "<option value='" + state.id + "'>" + state.name + "</option>";
                 } 
                 $('#state').html(options);
             },
@@ -68,7 +68,7 @@ $(document).ready(function() {
                 }
                 for (i = 0, len = result.length; i < len; i++) {
                     city = result[i];
-                    options += "<option value='" + city.code + "'>" + city.name + "</option>";
+                    options += "<option value='" + city.id + "'>" + city.name + "</option>";
                 } 
                 $('#city').html(options);
                 if ($('.idCity').val() != "0"){
