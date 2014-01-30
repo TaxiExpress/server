@@ -38,7 +38,7 @@ msgstr "Irten"
 # Estos textos aparecen en man_client.html
 
 msgid "PerfilUsuario"
-msgstr "Erabiltzailearen profila"
+msgstr "Datu pertsonalak"
 
 msgid "ModificarContraseña"
 msgstr "pasahitza aldatu"
@@ -123,6 +123,12 @@ msgstr "Banketxeko datuak aldatu"
 
 msgid "GrabVehiculo"
 msgstr "Autoaren datuak aldatu"
+
+msgid "HabilitadoMinusvalidos"
+msgstr "Taxia minusbaliatuentzat prestatuta dago"
+
+msgid "AnimalesPermitidos"
+msgstr "Animaliak onartzen dira"
 
 # Estos textos aparecen en driver.html
 
@@ -230,7 +236,7 @@ msgid "ContraseñaOlvidada"
 msgstr "¿Pasahitza ahaztu ahal duzu?"
 
 msgid "PideTaxi"
-msgstr "Aukeratu hobekien datorkizun taxia <br>era azkar eta  “eficiente”"
+msgstr "Aukeratu hobekien datorkizun taxia era azkar eta eraginkorrean"
 
 msgid "TfnoYCodigoSMS"
 msgstr "Introduce el teléfono y el código recibido por SMS"
@@ -248,7 +254,7 @@ msgid "Opciones"
 msgstr "TaxiExpress-ek baimentzen gaitu ..."
 
 msgid "Opcion1"
-msgstr "Taxisirik urbilena eskatu"
+msgstr "Taxirik urbilena eskatu"
 
 msgid "Opcion2"
 msgstr "Taxi jakin bat aurkitu"
@@ -311,10 +317,13 @@ msgstr "Taxistak hainbat grafika eta estatistika izango ditu eskuragarri bere er
 #estos textos aparecen en contact.html
 
 msgid "Contacto"
-msgstr "Kontaktatu"
+msgstr "Kontaktu"
 
 msgid "Contactanos"
-msgstr "Gurekin harremanetan jar zaitez!!!"
+msgstr "Kontaktu"
+
+msgid "Contactanos2"
+msgstr "Gurekin harremanetan jar zaitez eta bidali zure iruzkinak"
 
 msgid "Sugerencia"
 msgstr "Iradokizuna"
@@ -427,7 +436,7 @@ msgstr "Para la utilización de nuestro sitio web es necesaria la utilización d
 #Titulos de los mantenimientos
 
 msgid "TitDatosPersonales"
-msgstr "Datu pentsonalak"
+msgstr "Datu pertsonalak"
 
 msgid "TitDatosBancarios"
 msgstr "Banketxeko datuak"
