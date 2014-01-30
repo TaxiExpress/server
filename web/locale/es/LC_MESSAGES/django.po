@@ -38,7 +38,7 @@ msgstr "Cerrar sesión"
 # Estos textos aparecen en man_client.html
 
 msgid "PerfilUsuario"
-msgstr "Perfil de usuarios"
+msgstr "Información personal"
 
 msgid "ModificarContraseña"
 msgstr "Modificar contraseña"
@@ -297,10 +297,10 @@ msgstr "El taxista tendrá a su alcance una serie de gráficos y estadísticas q
 #estos textos aparecen en contact.html
 
 msgid "Contacto"
-msgstr "Contáctanos"
+msgstr "Contacto"
 
 msgid "Contactanos"
-msgstr "Ponte en contacto con nosotros!!!"
+msgstr "Contacto"
 
 msgid "Sugerencia"
 msgstr "Sugerencia"
@@ -318,7 +318,7 @@ msgstr "Enviar"
 #estos textos aparecen en termsofuse.html
 
 msgid "TerminosObligatorios"
-msgstr "Los términos de uso que se exponen a continuación son de obligado cumplimiento."
+msgstr "Los términos aquí expuestos son de obligado cumplimiento"
 
 msgid "AceptacionTerminos"
 msgstr "Aceptación de los Términos de Uso"
@@ -413,25 +413,25 @@ msgstr "Para la utilización de nuestro sitio web es necesaria la utilización d
 #Titulos de los mantenimientos
 
 msgid "TitDatosPersonales"
-msgstr "Datos Personales"
+msgstr "Información personal"
 
 msgid "TitDatosBancarios"
-msgstr "Datos Bancarios"
+msgstr "Datos bancarios"
 
 msgid "TitPreferencias"
 msgstr "Preferencias de Búsqueda"
 
 msgid "TitCambiarContraseña"
-msgstr "Modificar Contraseña"
+msgstr "Modificar contraseña"
 
 msgid "TitViajesrealizados"
-msgstr "Viajes Realizados"
+msgstr "Viajes realizados"
 
 msgid "TitDatosCoche"
-msgstr "Datos del Vehiculo"
+msgstr "Datos del vehículo"
 
 msgid "TitGraficos"
-msgstr "Gráficos de los Trayectos Realizados"
+msgstr "Gráficos estadísticos"
 
 
 
