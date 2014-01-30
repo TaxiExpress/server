@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseBadRequest
 from taxiexpress.models import Customer, Country, State, City, Driver, Travel, Car
-from taxiexpress.serializers import CarSerializer, DriverSerializer, CustomerTravelsSerializer, CustomerProfileSerializer, CustomerTaxiesSerializer, DriverDataSerializer, LastTravelSerializer
+from taxiexpress.serializers import CarSerializer, DriverSerializer, CustomerTravelsSerializer, CustomerProfileSerializer, CustomerTaxiesSerializer, DriverDataSerializer, LastTravelSerializer, CustomerCountryStateCitySerializer
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import Distance, D
@@ -364,12 +364,12 @@ def getLastTravel(request):
 @csrf_exempt
 @api_view(['POST'])
 def voteDriver(request):
-    if 'email' in request.GET:
+    if 'email' in request.POST:
         try:
-            customer = Customer.objects.get(email=request.GET['email'])
+            customer = Customer.objects.get(email=request.POST['email'])
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El usuario no existe")
-        if request.GET['sessionID'] != customer.sessionID:
+        if request.POST['sessionID'] != customer.sessionID:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
         try:
             driver = Travel.objects.get(id=request.POST['travelID']).driver
@@ -418,8 +418,8 @@ def getNearestTaxies(request):
 @api_view(['GET'])
 def test(request):
     cu = Customer.objects.get(email='gorka_12@hotmail.com')
-    lista = cu.favlist.all()
-    return HttpResponse(status=status.HTTP_200_OK,content=lista)
+    lista = CustomerCountryStateCitySerializer(cu)
+    return Response(lista.data, status=status.HTTP_200_OK)
 
 
 

@@ -22,17 +22,6 @@ class CitySerializer(serializers.ModelSerializer):
         model = City
         fields = ('id', 'name')
 
-class StateCitiesSerializer(serializers.ModelSerializer):
-    city_set = CitySerializer(many=True)
-    class Meta:
-        model = State
-        fields = ('id', 'name', 'city_set')
-
-class CountryStatesSerializer(serializers.ModelSerializer):
-    state_set = StateCitiesSerializer(many=True)
-    class Meta:
-        model = Country
-        fields = ('code', 'name', 'state_set')
 
 class DriverDataSerializer(serializers.ModelSerializer):
     class Meta:
@@ -89,7 +78,15 @@ class CustomerTaxiesSerializer(serializers.ModelSerializer):
 
 #Este serializer devuelve solo la lista de taxistas favoritos
 class CustomerCountryStateCitySerializer(serializers.ModelSerializer):
-    country = CountryStatesSerializer()
+    countries = serializers.SerializerMethodField('get_countries')
+    states = serializers.SerializerMethodField('get_states')
+    cities = serializers.SerializerMethodField('get_cities')
+    def get_countries(self, obj):
+        return CountrySerializer(Country.objects.all(), many=True).data
+    def get_states(self, obj):
+        return StateSerializer(obj.city.state.country.state_set.all(), many=True).data
+    def get_cities(self, obj):
+        return CitySerializer(obj.city.state.city_set.all(), many=True).data
     class Meta:
         model = Customer
-        fields = ('country')
+        fields = ('countries', 'states', 'cities')
