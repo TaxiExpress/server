@@ -165,10 +165,10 @@ def getClosestTaxi(request):
                 post_data_ios["pushId"+str(i)] = closestDrivers[i].pushID
             elif closestDrivers[i].device == 'ANDROID':
                 post_data_android["pushId"+str(i)] = closestDrivers[i].pushID
-        if closestDriversIos.count() < 5:
+        if closestDrivers.filter(device='IOS').count() < 5:
             for i in range(closestDrivers.filter(device='IOS').count(), 4):
                 post_data_ios["pushId"+str(i)] = ""
-        if closestDriversAndroid.count() < 5:
+        if closestDrivers.filter(device='ANDROID').count() < 5:
             for i in range(closestDrivers.filter(device='ANDROID').count(), 4):
                 post_data_android["pushId"+str(i)] = ""
         try:
@@ -389,7 +389,7 @@ def voteDriver(request):
 @api_view(['GET'])
 def testPush(request):
     try:
-        userdata = {"pushId": "APA91bHTypZCKvUdXYd-lhimPaLbolkEvZU8o9o5FWhRW0tIx5JpcIS3mdNYza0o5F0d-lBzn3xYw2RBZWfJEy_wdOLIZVwefcUsRtG_PpGXyauJ0EnnOND-zS0dOOAcb_xG2QhqodKQchzJgV6-z41y8zsPwMzJrNY2Bj-kCeUsm-Ca3kKH0j4", "title": "Pues que bien", "device": "android", "reqMessage": "world"}
+        userdata = {"pushId": "APA91bHTypZCKvUdXYd-lhimPaLbolkEvZU8o9o5FWhRW0tIx5JpcIS3mdNYza0o5F0d-lBzn3xYw2RBZWfJEy_wdOLIZVwefcUsRtG_PpGXyauJ0EnnOND-zS0dOOAcb_xG2QhqodKQchzJgV6-z41y8zsPwMzJrNY2Bj-kCeUsm-Ca3kKH0j4", "travelID": "1", "device": "ANDROID", "origin": "Calle Autonomía 35", "startpoint": "POINT (43.1545699999999997 -2.5648800000000000)", "valuation": "2", "phone": "656112233"}
         resp = requests.post(PUSH_URL+'/sendSelectedTaxi', params=userdata)
     except requests.ConnectionError:
         return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
