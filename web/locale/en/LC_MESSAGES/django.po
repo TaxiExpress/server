@@ -61,6 +61,15 @@ msgstr "Update"
 msgid "GrabPerfil"
 msgstr "Update profile"
 
+msgid "SelPais"
+msgstr "Select country..."
+
+msgid "SelProv"
+msgstr "Select state..."
+
+msgid "SelMun"
+msgstr "Select city"
+
 # Estos textos aparecen en manclient_preferences.html
 
 msgid "TaxisMinusvalidos"
@@ -209,6 +218,17 @@ msgstr "Account validation"
 msgid "TfnoYCodigo"
 msgstr "Enter phone number and the code received in your phone"
 
+msgid "TitRegistro"
+msgstr "Sign up"
+
+msgid "TitRegistro2"
+msgstr "Sign up for TaxiExpress and efficiently manages your taxis"
+
+msgid "TabCliente"
+msgstr "Sign up customer"
+
+msgid "TabTaxista"
+msgstr "Sign up driver"
 
 # Estos textos aparecen en index.html
 

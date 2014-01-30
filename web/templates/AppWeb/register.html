@@ -8,8 +8,8 @@
 
 {% block content %}
     <div class="bg titulo tituloTermsofuse">
-      <h1>Registro</h1>
-      <h3>Date de alta en TaxiExpress y gestiona de forma eficaz tus taxis</h3>
+      <h1>{% trans 'TitRegistro' %}</h1>
+      <h3>{% trans 'TitRegistro2' %}</h3>
     </div> 
     <div class="bg">        
       <div class="contenido">
@@ -21,8 +21,8 @@
             {% endif %}    
             {{codigo}}
             <ul class="tabs">
-              <li id="liClient"><a href="#client">{% trans 'Cliente' %}</a></li>
-              <li id="liDriver"><a href="#driver">{% trans 'Taxista' %}</a></li>
+              <li id="liClient"><a href="#client">{% trans 'TabCliente' %}</a></li>
+              <li id="liDriver"><a href="#driver">{% trans 'TabTaxista' %}</a></li>
             </ul>
             <div class="clr"></div>
             <section class="block">
