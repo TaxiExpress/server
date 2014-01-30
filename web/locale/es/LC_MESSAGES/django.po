@@ -302,6 +302,9 @@ msgstr "Contacto"
 msgid "Contactanos"
 msgstr "Contacto"
 
+msgid "Contactanos2"
+msgstr "Póngase en contacto con nosotros y envíenos su comentario"
+
 msgid "Sugerencia"
 msgstr "Sugerencia"
 
