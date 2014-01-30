@@ -201,10 +201,10 @@ msgid "Pago"
 msgstr "Aplikazio bitartez ordainketa balioztatu ezkero <br> Bankuko Kontua eta Titularraren Izena zehaztu beharko dira"
 
 msgid "SigningUp1"
-msgstr "Al hacer clic en registrar, aceptas los"
+msgstr "Erregistratu botoia sakatzean, onartzen dituzu"
 
 msgid "SigningUp2"
-msgstr "términos del uso"
+msgstr "erabiltzeko baldintzak"
 
 msgid "DatosCoche"
 msgstr "Kotxearen datuak"
