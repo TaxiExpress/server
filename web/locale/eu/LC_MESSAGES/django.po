@@ -212,6 +212,17 @@ msgstr "Kontuare balioztapena"
 msgid "TfnoYCodigo"
 msgstr "Mugikorraren zenbakia eta jasotako kodea sartu"
 
+msgid "TitRegistro"
+msgstr "Erregistroa"
+
+msgid "TitRegistro2"
+msgstr "TaxiExpress-en alta hartu eta era eraginkorrean kudeatu zure taxiak"
+
+msgid "TabCliente"
+msgstr "Bezeroa erregistratu"
+
+msgid "TabTaxista"
+msgstr "Taxista erregistratu"
 
 # Estos textos aparecen en index.html
 
