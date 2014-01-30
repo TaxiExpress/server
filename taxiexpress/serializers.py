@@ -23,13 +23,13 @@ class CitySerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 class StateCitiesSerializer(serializers.ModelSerializer):
-    city_set = CitySerializer(many=true)
+    city_set = CitySerializer(many=True)
     class Meta:
         model = State
         fields = ('id', 'name', 'city_set')
 
 class CountryStatesSerializer(serializers.ModelSerializer):
-    state_set = StateCitiesSerializer(many=true)
+    state_set = StateCitiesSerializer(many=True)
     class Meta:
         model = Country
         fields = ('code', 'name', 'state_set')
