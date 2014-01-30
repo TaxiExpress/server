@@ -22,6 +22,18 @@ class CitySerializer(serializers.ModelSerializer):
         model = City
         fields = ('id', 'name')
 
+class StateCitiesSerializer(serializers.ModelSerializer):
+    city_set = CitySerializer(many=true)
+    class Meta:
+        model = State
+        fields = ('id', 'name', 'city_set')
+
+class CountryStatesSerializer(serializers.ModelSerializer):
+    state_set = StateCitiesSerializer(many=true)
+    class Meta:
+        model = Country
+        fields = ('code', 'name', 'state_set')
+
 class DriverDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = Driver
@@ -73,3 +85,11 @@ class CustomerTaxiesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = ('favlist','lastUpdateFavorites')
+
+
+#Este serializer devuelve solo la lista de taxistas favoritos
+class CustomerCountryStateCitySerializer(serializers.ModelSerializer):
+    country = CountryStatesSerializer()
+    class Meta:
+        model = Customer
+        fields = ('country')
