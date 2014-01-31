@@ -179,7 +179,7 @@ def getClosestTaxi(request):
             resp_android = requests.post(PUSH_URL+'/sendClosestTaxi', params=post_data_android)
         except requests.ConnectionError:
             travel.delete()
-            return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
+            return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
         response_data = {}
         response_data['travelID'] = travel.id
         return HttpResponse(json.dumps(response_data), content_type="application/json")
@@ -210,7 +210,7 @@ def getSelectedTaxi(request):
             resp = requests.post(PUSH_URL+'/sendSelectedTaxi', params=post_data)
         except requests.ConnectionError:
             travel.delete()
-            return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
+            return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
         travel.save()
         response_data = {}
         response_data['travelID'] = travel.id
@@ -246,7 +246,7 @@ def acceptTravel(request):
             resp = requests.post(PUSH_URL+'/sendAcceptTravel', params=post_data)
             print resp
         except requests.ConnectionError:
-            return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
+            return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
         return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
@@ -293,7 +293,7 @@ def travelCompleted(request):
             try:
                 resp = requests.post(PUSH_URL+'/sendTravelCompleted', params=post_data)
             except requests.ConnectionError:
-                return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
+                return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
         else:
             travel.isPaid = True
             travel.customer.lastUpdateTravels = datetime.now()
@@ -302,7 +302,7 @@ def travelCompleted(request):
                 post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "false","device": travel.customer.device} 
                 resp = requests.post(PUSH_URL+'/sendTravelCompleted', params=post_data)
             except requests.ConnectionError:
-                return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
+                return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
         return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
@@ -326,7 +326,7 @@ def travelPaid(request):
         try:
             resp = requests.post(PUSH_URL+'/sendTravelPaid', params=post_data)
         except requests.ConnectionError:
-            return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
+            return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
         print resp
         return HttpResponse(status=status.HTTP_200_OK)
     else:
@@ -379,9 +379,13 @@ def voteDriver(request):
         if request.POST['sessionID'] != customer.sessionID:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
         try:
-            driver = Travel.objects.get(id=request.POST['travelID']).driver
+            travel = Travel.objects.get(id=request.POST['travelID'])
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
+        if travel.customervoted == True:
+            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Ya has votado")
+        travel.customervoted = True
+        driver = travel.driver
         if request.POST['vote'] == 'positive':
             driver.positiveVotes += 1
         else:

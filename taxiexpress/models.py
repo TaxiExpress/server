@@ -118,8 +118,9 @@ class Travel(models.Model):
     destination = models.CharField(max_length=80, blank=True, null=True)
     appPayment = models.BooleanField(default=False)
     isPaid = models.BooleanField(default=False)
-    visible = models.BooleanField(default=True)
     accepted = models.BooleanField(default=False)
+    customervoted = models.BooleanField(default=False)
+    drivervoted = models.BooleanField(default=False)
     objects = models.GeoManager()
 
 class Observation(models.Model):
