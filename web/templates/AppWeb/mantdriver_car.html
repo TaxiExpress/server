@@ -6,10 +6,7 @@
 <link href="{{STATIC_URL}}css/maintenance.css" rel="stylesheet" type="text/css">
 <link href="{{STATIC_URL}}css/closesession.css" rel="stylesheet" type="text/css">
 {% endblock %}
-{% block content %}
-<!--        <div class="bg titulo">
-            <h1>Registrate y empieza a viajar!</h1>
-        </div> -->          
+{% block content %}       
         <div class="bg">                
             <div class="contenido">
                 <aside id="sidebar" class="span2">
@@ -19,12 +16,13 @@
                             <li><a href="mantdriver_changepassword.html">{% trans 'ModificarContraseña' %}</a></li>
                             <li><a href="mantdriver_car.html" class="active">{% trans 'DatosVehiculo' %}</a></li>
                             <li><a href="mantdriver_bankaccount.html">{% trans 'DatosBancarios' %}</a></li>
-                            <li><a href="mantdriver_travelgraphic.html">{% trans 'TrayectosRealizados' %}</a></li>
+                            <li><a href="mantdriver_travelgraphic.html">{% trans 'TitGraficos' %}</a></li>
                         </ul>
                     </div>
                 </aside>
                  <div class="span10">
                     <h3 class="MaintenanceHeader">{% trans 'TitDatosCoche' %}</h3>
+                    <span>{% trans 'intro_mant_car' %}</span>
                     <form name="mantdriver" id="mantdriver" action="" method="POST">                      
                         {% csrf_token %}
                         <div class="col1 maintenance">

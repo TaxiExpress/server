@@ -454,8 +454,20 @@ msgid "TitDatosCoche"
 msgstr "Datos del vehículo"
 
 msgid "TitGraficos"
-msgstr "Gráficos estadísticos"
+msgstr "Estadísticas de viajes"
 
+#Spans de los mantenimientos
+
+msgid "intro_mant_pass"
+msgstr "Si deseas cambiar la contraseña, rellena el formulario que aparece a continuación:"
+
+
+msgid "intro_mant_car"
+msgstr "Es realmente importante mantener actualizados los datos del vehículo. Estos datos son necesarios para que el cliente identifique perfectamente el taxista que ha solicitado."
+
+
+msgid "intro_mant_bank"
+msgstr "Taxi Express ofrece a los clientes registrados la posibilidad de pagar a través de la propia aplicación. Si permitir que le pagen de este modo, habilita el formulario y completa el titular y número de cuenta donde quiere cobrar los viajes."
 
 
 

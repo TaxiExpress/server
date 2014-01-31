@@ -13,7 +13,7 @@
     border: 0;
     position:relative;
     display: block;
-    font-size: 12px;
+    font-size: 13px;
     text-align: left;
 }
 
@@ -33,7 +33,7 @@
 .fms-block .info {
     display:block;
     float:right;
-    padding-top: 4px;
+    padding-top: 3px;
 }
 
 .fms-block .info span{

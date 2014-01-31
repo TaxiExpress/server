@@ -454,5 +454,18 @@ msgid "TitDatosCoche"
 msgstr "Car data"
 
 msgid "TitGraficos"
-msgstr "Travel graphics"
+msgstr "Travel statistics"
 
+
+# Estos textos aparecen en las paginas de mantenimiento
+
+msgid "intro_mant_pass"
+msgstr "If you want to modify your password, please, fill in the form below:"
+
+
+msgid "intro_mant_car"
+msgstr "It's really important to keep up to date vehicle data. This information is necessary for the customer to perfectly identify the driver who has requested."
+
+
+msgid "intro_mant_bank"
+msgstr "Taxi Express offers his customers the option of paying through the application itself. If you wish able this feature, enable the form and complete the holder and account number where you want to charge travels payments."
