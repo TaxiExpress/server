@@ -68,7 +68,7 @@ msgid "SelProv"
 msgstr "Select state..."
 
 msgid "SelMun"
-msgstr "Select city"
+msgstr "Select city..."
 
 # Estos textos aparecen en manclient_preferences.html
 

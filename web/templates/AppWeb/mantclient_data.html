@@ -52,17 +52,50 @@
                             <input type="hidden" value="{{city}}" class="idCity">
                             <div class="lblcountry"><label>{% trans 'Pais' %}</label></div>
                             <div class="cbocountry">
-                                <select id = "country" name="country" class="selcity"></select> 
+                                <select id = "country" name="country" class="selcity">
+                                    {% if client.countries|length > 0 %}
+                                        <option value= "0">{% trans 'SelPais' %}</option>
+                                        {% for icountry in client.countries %}
+                                            <option value= "{{icountry.code}}"
+                                            {% if icountry.code == country %}
+                                                selected
+                                            {% endif %}
+                                            >{{icountry.name}}</option>
+                                        {% endfor %}  
+                                    {% endif %}  
+                                </select> 
                             </div>
                         
                             <div class="lblstate"><label>{% trans 'Provincia' %}</label></div>
                             <div class="cbostate">
-                                <select id = "state" name="state" class="selcity"></select>
+                                <select id = "state" name="state" class="selcity">
+                                    {% if client.states|length > 0 %}
+                                        <option value= "0">{% trans 'SelProv' %}</option>
+                                        {% for istate in client.states %}
+                                            <option value= "{{istate.id}}"
+                                            {% if istate.id == state %}
+                                                selected
+                                            {% endif %}
+                                            >{{istate.name}}</option>
+                                        {% endfor %}  
+                                    {% endif %}  
+                                </select>
                             </div>
-                        
+                            
                             <div class="lblcity"><label>{% trans 'Municipio' %}</label></div>
                             <div class="cbocity">
-                                <select id = "city" name="city" class="selcity"></select> 
+                                <select id = "city" name="city" class="selcity">
+                                    {% if client.cities|length > 0 %}
+                                        <option value= "0">{% trans 'SelMun' %}</option>
+                                        {% for icity in client.cities %}
+                                            <option value= "{{icity.id}}"
+                                            {% if icity.id == city %}
+                                                selected
+                                            {% endif %}
+                                            >{{icity.name}}</option>
+                                        {% endfor %}  
+                                    {% endif %}  
+                                </select> 
                             </div>
                             
                             <input type="text" name="postcode" maxlength="5" placeholder="Código Postal" value="{{client.postcode}}">
@@ -79,7 +112,75 @@
 {% block scripts %}
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}js/loadpotho.js"></script>
-<script type="text/javascript" src="{{STATIC_URL}}js/combos.js"></script>
+<script type="text/javascript">
+    $('.cbocountry').change(function() {
+        posicion=document.getElementById('country').options.selectedIndex; 
+        codCountry=document.getElementById('country').options[posicion].value;
+        if (codCountry != "0"){
+            //Llamada al servidor para recuperar las provincias del pais seleccionado
+            $.ajax({
+            type: "GET",
+            url: "/getstates/",
+            data:{country: codCountry},
+            success: function(result) {
+                if (result.length != 0){
+                    options = "<option value='" + "0" + "'>" + "{% trans 'SelProv' %}" + "</option>";
+                }
+                else{
+                    options = "";
+                    $('#state').html("");
+                    $('#city').html("")
+                }
+                for (i = 0, len = result.length; i < len; i++) {
+                    state = result[i];
+                    options += "<option value='" + state.id + "'>" + state.name + "</option>";
+                } 
+                $('#state').html(options);
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                alert("Please report this error: " + errorThrown + xhr.status + xhr.responseText);
+            }
+        });
+        }
+        else{
+            $('#state').html("");
+            $('#city').html("")
+        }
+    });
+
+    $('.cbostate').change(function() {
+        posicion=document.getElementById('state').options.selectedIndex; 
+        codState=document.getElementById('state').options[posicion].value;
+        if (codState != "0"){
+            //Llamada al servidor para recuperar los municipio de la provincia seleccionada
+            $.ajax({
+                type: "GET",
+                url: "/getcities/",
+                data:{state: codState},
+                success: function(result) {
+                    if (result.length != 0){
+                       options = "<option value='" + "0" + "'>" + "{% trans 'SelMun' %}" + "</option>";
+                    }
+                    else{
+                        options = "";
+                        $('#city').html("")
+                    }
+                    for (i = 0, len = result.length; i < len; i++) {
+                        city = result[i];
+                        options += "<option value='" + city.id + "'>" + city.name + "</option>";
+                    } 
+                    $('#city').html(options);
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    alert("Please report this error: " + errorThrown + xhr.status + xhr.responseText);
+                }
+            });
+        }
+        else{
+            $('#city').html("")
+        }
+    });
+</script>
 
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

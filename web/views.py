@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseBadRequest
 from taxiexpress.models import Customer, Country, State, City, Driver, Travel, Car, Observation
-from taxiexpress.serializers import CarSerializer, DriverSerializer, CustomerTravelsSerializer, CustomerProfileSerializer, CustomerTaxiesSerializer, CountrySerializer, StateSerializer, CitySerializer
+from taxiexpress.serializers import CarSerializer, DriverSerializer, CustomerTravelsSerializer, CustomerProfileSerializer, CustomerTaxiesSerializer, CountrySerializer, StateSerializer, CitySerializer,CustomerCountryStateCitySerializer,DriverCountryStateCitySerializer
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import Distance, D
@@ -461,7 +461,10 @@ def legalnotice(request):
 def mantclient_data(request):   
     if request.method == "POST":
         response = updateProfileUserWeb(request)
-        customer = get_object_or_404(Customer, id=request.session['user_id'])
+       
+        customer = Customer.objects.get(id=request.session['user_id'])
+        serialCustomer=CustomerCountryStateCitySerializer(customer)
+
         if customer.city is not None:
             city = customer.city.id
             state = customer.city.state.id
@@ -470,11 +473,12 @@ def mantclient_data(request):
             city = 0
             state = 0
             country = 0
-        return render(request, 'AppWeb/mantclient_data.html', {'client':customer, 'error':response.content, 'country': country, 'state': state, 'city': city})
+        return render(request, 'AppWeb/mantclient_data.html', {'client':serialCustomer.data, 'error':response.content, 'country': country, 'state': state, 'city': city})
     else:
         if 'user_id' in request.session:
             if request.session['Customer'] == True:
-                customer = get_object_or_404(Customer, id=request.session['user_id'])
+                customer = Customer.objects.get(id=request.session['user_id'])
+                serialCustomer=CustomerCountryStateCitySerializer(customer)
                 if customer.city is not None:
                     city = customer.city.id
                     state = customer.city.state.id
@@ -483,7 +487,7 @@ def mantclient_data(request):
                     city = 0
                     state = 0
                     country = 0
-                return render(request, 'AppWeb/mantclient_data.html', {'client':customer, 'country': country, 'state': state, 'city': city}) 
+                return render(request, 'AppWeb/mantclient_data.html', {'client':serialCustomer.data, 'country': country, 'state': state, 'city': city}) 
             else:
                 logout(request)    
         else:
@@ -522,7 +526,10 @@ def mantclient_preferences(request):
 def mantdriver_data(request):
     if request.method == "POST":
         response = updateProfileDriverWeb(request)
-        driver = get_object_or_404(Driver, id=request.session['user_id'])
+       
+        driver = Driver.objects.get(id=request.session['user_id'])
+        serialDriver=DriverCountryStateCitySerializer(driver)
+
         if driver.city is not None:
             city = driver.city.id
             state = driver.city.state.id
@@ -531,11 +538,12 @@ def mantdriver_data(request):
             city = 0
             state = 0
             country = 0
-        return render(request, 'AppWeb/mantdriver_data.html', {'driver':driver, 'error':response.content, 'country': country, 'state': state, 'city': city})
+        return render(request, 'AppWeb/mantdriver_data.html', {'driver':serialDriver.data, 'error':response.content, 'country': country, 'state': state, 'city': city})
     else:
         if 'user_id' in request.session:
             if request.session['Customer'] == False:
-                driver = get_object_or_404(Driver, id=request.session['user_id'])
+                driver = Driver.objects.get(id=request.session['user_id'])
+                serialDriver=DriverCountryStateCitySerializer(driver)
                 if driver.city is not None:
                     city = driver.city.id
                     state = driver.city.state.id
@@ -544,7 +552,7 @@ def mantdriver_data(request):
                     city = 0
                     state = 0
                     country = 0
-                return render(request, 'AppWeb/mantdriver_data.html', {'driver':driver, 'country': country, 'state': state, 'city': city}) 
+                return render(request, 'AppWeb/mantdriver_data.html', {'driver':serialDriver.data, 'country': country, 'state': state, 'city': city}) 
             else:
                 logout(request)            
         else:
