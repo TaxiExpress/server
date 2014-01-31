@@ -33,7 +33,6 @@
                                     <input type="checkbox" name="appPayment">{% trans 'SeAdmitePago' %}
                                 {% endif %}
                             </p>
-                            <span class="italic">{% trans 'InsPago' %}</span>
                             {% if car.appPayment %}
                                 <input type="text" name="bankAccount" maxlength="20" placeholder="Número de cuenta" value="{{driver.bankAccount}}">
                                 <input type="text" name="recipientName" maxlength="80" placeholder="Titular" value="{{driver.recipientName}}">
