@@ -254,6 +254,7 @@ def acceptTravel(request):
 @csrf_exempt
 @api_view(['POST'])
 def travelStarted(request):
+    print request.POST
     if 'travelID' in request.POST: 
         try:
             travel = Travel.objects.get(id=request.POST['travelID'])
