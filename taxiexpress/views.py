@@ -65,13 +65,12 @@ def loginUser(request):
 
         response_data = {'sessionID': customer.sessionID}
         datetime_profile = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
-        datetime_taxies = datetime.strptime(request.POST['lastUpdateFavorites'], '%Y-%m-%d %H:%M:%S')
         datetime_travels = datetime.strptime(request.POST['lastUpdateTravels'], '%Y-%m-%d %H:%M:%S')
+
+        response_data.update(CustomerTaxiesSerializer(customer).data)
         
         if customer.lastUpdate != datetime_profile:
             response_data.update(CustomerProfileSerializer(customer).data)
-        if customer.lastUpdateFavorites !=  datetime_taxies:
-            response_data.update(CustomerTaxiesSerializer(customer).data)
         if customer.lastUpdateTravels !=  datetime_travels:
             response_data.update(CustomerTravelsSerializer(customer).data)
         return Response(response_data, status=status.HTTP_200_OK)
@@ -414,7 +413,7 @@ def getNearestTaxies(request):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
         if customer.sessionID != request.GET['sessionID']:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
-        closestDrivers = Driver.objects.distance(pointclient).filter(car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity).order_by('distance')[:10]
+        closestDrivers = Driver.objects.distance(pointclient).filter(car__isfree=True, available=True, car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity).order_by('distance')[:10]
         serialDriver = DriverSerializer(closestDrivers, many=True)
         return Response(serialDriver.data, status=status.HTTP_200_OK)
     else:
