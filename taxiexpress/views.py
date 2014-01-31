@@ -230,9 +230,9 @@ def acceptTravel(request):
         try:
             travel = Travel.objects.get(id=request.POST['travelID'])
         except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no está disponible")
+            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje ya no está disponible")
         if travel.accepted:
-            return HttpResponse(status=status.HTTP_409_CONFLICT, content="El viaje no está disponible")
+            return HttpResponse(status=status.HTTP_409_CONFLICT, content="El viaje ya no está disponible")
         travel.driver = driver
         travel.accepted = True
         travel.save()
