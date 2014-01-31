@@ -687,7 +687,6 @@ def addFavoriteDriver(request):
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El taxista introducido no es válido")
     
-    customer.lastUpdateFavorites = datetime.strptime(request.POST['lastUpdateFavorites'], '%Y-%m-%d %H:%M:%S')
     customer.favlist.add(driver)
     customer.save()
     return HttpResponse(status=status.HTTP_201_CREATED,content="Taxista añadido a la lista de favoritos")
@@ -707,7 +706,6 @@ def removeFavoriteDriver(request):
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El taxista no se encuentra en su lista de favoritos")
     customer.favlist.remove(driver)
-    customer.lastUpdateFavorites = datetime.strptime(request.POST['lastUpdateFavorites'], '%Y-%m-%d %H:%M:%S')
     customer.save()
     return HttpResponse(status=status.HTTP_200_OK,content="Taxista eliminado de la lista de favoritos")
 
