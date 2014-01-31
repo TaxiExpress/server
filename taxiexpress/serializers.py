@@ -84,9 +84,15 @@ class CustomerCountryStateCitySerializer(serializers.ModelSerializer):
     def get_countries(self, obj):
         return CountrySerializer(Country.objects.all(), many=True).data
     def get_states(self, obj):
-        return StateSerializer(obj.city.state.country.state_set.all(), many=True).data
+        if obj.city == None:
+            return ""
+        else:
+            return StateSerializer(obj.city.state.country.state_set.all(), many=True).data
     def get_cities(self, obj):
-        return CitySerializer(obj.city.state.city_set.all(), many=True).data
+        if obj.city == None:
+            return ""
+        else:
+            return CitySerializer(obj.city.state.city_set.all(), many=True).data
     class Meta:
         model = Customer
         fields = ('countries', 'states', 'cities')
