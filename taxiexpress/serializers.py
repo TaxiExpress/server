@@ -82,17 +82,17 @@ class CustomerCountryStateCitySerializer(serializers.ModelSerializer):
     states = serializers.SerializerMethodField('get_states')
     cities = serializers.SerializerMethodField('get_cities')
     def get_countries(self, obj):
-        return CountrySerializer(Country.objects.all(), many=True).data
+        return CountrySerializer(Country.objects.all().order_by('name'), many=True).data
     def get_states(self, obj):
         if obj.city == None:
             return ""
         else:
-            return StateSerializer(obj.city.state.country.state_set.all(), many=True).data
+            return StateSerializer(obj.city.state.country.state_set.all().order_by('name'), many=True).data
     def get_cities(self, obj):
         if obj.city == None:
             return ""
         else:
-            return CitySerializer(obj.city.state.city_set.all(), many=True).data
+            return CitySerializer(obj.city.state.city_set.all().order_by('name'), many=True).data
     class Meta:
         model = Customer
         fields = ('countries', 'states', 'cities', 'id', 'email', 'phone', 'first_name', 'last_name', 'postcode', 'image')
@@ -102,17 +102,17 @@ class DriverCountryStateCitySerializer(serializers.ModelSerializer):
     states = serializers.SerializerMethodField('get_states')
     cities = serializers.SerializerMethodField('get_cities')
     def get_countries(self, obj):
-        return CountrySerializer(Country.objects.all(), many=True).data
+        return CountrySerializer(Country.objects.all().order_by('name'), many=True).data
     def get_states(self, obj):
         if obj.city == None:
             return ""
         else:
-            return StateSerializer(obj.city.state.country.state_set.all(), many=True).data
+            return StateSerializer(obj.city.state.country.state_set.all().order_by('name'), many=True).data
     def get_cities(self, obj):
         if obj.city == None:
             return ""
         else:
-            return CitySerializer(obj.city.state.city_set.all(), many=True).data
+            return CitySerializer(obj.city.state.city_set.all().order_by('name'), many=True).data
     class Meta:
         model = Driver
         fields = ('countries', 'states', 'cities', 'id', 'email', 'phone', 'first_name', 'last_name', 'postcode', 'image', 'license', 'address')
