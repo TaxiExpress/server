@@ -386,7 +386,7 @@ def voteDriver(request):
         else:
             driver.negativeVotes += 1
         driver.save()
-        return Response(serialTravel.data, status=status.HTTP_200_OK)
+        return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Email no válido")
 
