@@ -164,10 +164,10 @@ def getClosestTaxi(request):
         androidcount = 0
         for i in range(closestDrivers.count()):
             if closestDrivers[i].device == 'IOS':
-                post_data_ios["pushId"+str(i)] = closestDrivers[i].pushID
+                post_data_ios["pushId"+str(ioscount)] = closestDrivers[i].pushID
                 ioscount += 1
             elif closestDrivers[i].device == 'ANDROID':
-                post_data_android["pushId"+str(i)] = closestDrivers[i].pushID
+                post_data_android["pushId"+str(androidcount)] = closestDrivers[i].pushID
                 androidcount += 1
         if ioscount < 5:
             for i in range(ioscount, 4):
