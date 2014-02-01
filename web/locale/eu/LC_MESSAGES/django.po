@@ -239,7 +239,7 @@ msgid "PideTaxi"
 msgstr "Aukeratu hobekien datorkizun taxia era azkar eta eraginkorrean"
 
 msgid "TfnoYCodigoSMS"
-msgstr "Introduce el teléfono y el código recibido por SMS"
+msgstr "Telefono zenbakia eta jasotako SMS-a sartu"
 
 msgid "NoCuenta"
 msgstr "Oraindik konturik ez baldin baduzu,"
