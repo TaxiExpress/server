@@ -22,7 +22,6 @@ class CitySerializer(serializers.ModelSerializer):
         model = City
         fields = ('id', 'name')
 
-
 class DriverDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = Driver
@@ -73,7 +72,7 @@ class CustomerTaxiesSerializer(serializers.ModelSerializer):
     favlist = DriverSerializer(many=True)
     class Meta:
         model = Customer
-        fields = ('favlist','email')
+        fields = ('favlist','lastUpdate')
 
 
 #Este serializer devuelve solo la lista de taxistas favoritos
