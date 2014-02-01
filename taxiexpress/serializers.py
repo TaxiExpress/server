@@ -73,7 +73,7 @@ class CustomerTaxiesSerializer(serializers.ModelSerializer):
     favlist = DriverSerializer(many=True)
     class Meta:
         model = Customer
-        fields = ('favlist')
+        fields = ('favlist','email')
 
 
 #Este serializer devuelve solo la lista de taxistas favoritos
