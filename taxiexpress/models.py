@@ -98,6 +98,7 @@ class Customer(models.Model):
     fAnimals = models.BooleanField(default=False)
     fAppPayment = models.BooleanField(default=False)
     fCapacity = models.IntegerField(default=1)
+    fDistance = models.IntegerField(default=1)
     pushID = models.TextField(blank=True, null=True)
     device = models.CharField(max_length=7, default='ANDROID', blank=True)
     sessionID = models.CharField(max_length=10, blank=True, null=True)
