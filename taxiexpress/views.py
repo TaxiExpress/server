@@ -501,6 +501,7 @@ def updateFilters(request):
     customer.fAnimals = (request.POST['animals'] == 'true')
     customer.fAppPayment = (request.POST['appPayment'] == 'true')
     customer.fCapacity = request.POST['capacity']
+    customer.fDistance = request.POST['distance']
     customer.lastUpdate = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
     customer.save()
     return HttpResponse(status=status.HTTP_200_OK,content="Filtros actualizados")
