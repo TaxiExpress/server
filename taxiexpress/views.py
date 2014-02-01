@@ -81,6 +81,7 @@ def loginUser(request):
 @csrf_exempt
 @api_view(['POST'])
 def loginDriver(request):
+    print request.POST
     if request.POST['email'] is None:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
     try:
