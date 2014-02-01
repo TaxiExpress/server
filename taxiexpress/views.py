@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseBadRequest
 from taxiexpress.models import Customer, Country, State, City, Driver, Travel, Car
-from taxiexpress.serializers import CarSerializer, DriverSerializer, CustomerTravelsSerializer, CustomerProfileSerializer, CustomerTaxiesSerializer, DriverDataSerializer, LastTravelSerializer, CustomerCountryStateCitySerializer
+from taxiexpress.serializers import CarSerializer, DriverSerializer, CustomerTravelsSerializer, CustomerProfileSerializer, DriverDataSerializer, LastTravelSerializer, CustomerCountryStateCitySerializer
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import Distance, D
@@ -67,8 +67,8 @@ def loginUser(request):
         datetime_profile = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
         datetime_travels = datetime.strptime(request.POST['lastUpdateTravels'], '%Y-%m-%d %H:%M:%S')
 
-        response_data.update(CustomerTaxiesSerializer(customer).data)
-        
+        response_data['favlist'] = DriverSerializer(customer.favlist.all(), many=True).data
+
         if customer.lastUpdate != datetime_profile:
             response_data.update(CustomerProfileSerializer(customer).data)
         if customer.lastUpdateTravels !=  datetime_travels:

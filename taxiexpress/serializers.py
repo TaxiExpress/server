@@ -67,15 +67,7 @@ class CustomerProfileSerializer(serializers.ModelSerializer):
         model = Customer
         fields = ('email', 'phone', 'first_name', 'last_name', 'image', 'lastUpdate', 'fAccessible', 'fAnimals', 'fAppPayment', 'fCapacity')
 
-#Este serializer devuelve solo la lista de taxistas favoritos
-class CustomerTaxiesSerializer(serializers.ModelSerializer):
-    favlist = DriverSerializer(many=True)
-    class Meta:
-        model = Customer
-        fields = ('favlist','lastUpdate')
 
-
-#Este serializer devuelve solo la lista de taxistas favoritos
 class CustomerCountryStateCitySerializer(serializers.ModelSerializer):
     countries = serializers.SerializerMethodField('get_countries')
     states = serializers.SerializerMethodField('get_states')

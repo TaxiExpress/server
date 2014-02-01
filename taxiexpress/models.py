@@ -86,7 +86,6 @@ class Customer(models.Model):
     image = models.TextField(blank=True, null=True)
     city = models.ForeignKey(City, null=True)
     lastUpdate = models.DateTimeField(default=datetime.now, blank=True)
-    lastUpdateFavorites = models.DateTimeField(default=datetime.now, blank=True)
     lastUpdateTravels = models.DateTimeField(default=datetime.now, blank=True)
     isValidated = models.BooleanField(default=False)
     validationCode = models.IntegerField(max_length=4, blank=True, null=True)
