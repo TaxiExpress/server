@@ -433,6 +433,12 @@ msgstr "Los titulares de los datos tienen reconocidos y podrán ejercitar los de
 msgid "LegalNotice6"
 msgstr "Para la utilización de nuestro sitio web es necesaria la utilización de cookies. Las cookies se utilizan con las finalidades descritas en el tercer párrafo de este documento. Si usted lo desea puede configurar su navegador para ser avisado en pantalla de la recepción de cookies y para impedir la instalación de cookies en su disco duro. Por favor, consulte las instrucciones y manuales de su navegador para ampliar esta información."
 
+msgid "LegalNotice7"
+msgstr "Domicilio social:"
+
+msgid "LegalNotice8"
+msgstr "Teléfono:"
+
 #Titulos de los mantenimientos
 
 msgid "TitDatosPersonales"
