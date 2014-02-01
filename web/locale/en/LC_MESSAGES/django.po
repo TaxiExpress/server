@@ -84,6 +84,9 @@ msgstr "Taxies that allow payment through the application"
 msgid "Capacidad"
 msgstr "Capacity"
 
+msgid "Distancia"
+msgstr "Taxis within"
+
 msgid "GrabPreferencias"
 msgstr "Update preferences"
 

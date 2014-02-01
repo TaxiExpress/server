@@ -106,24 +106,24 @@
 	font:normal 13px Open Sans,Arial;
 }
 
-.lblcountry, .lblstate, .lblcity{
-	width: 25%;
-	float: left;
-	margin-bottom: 10px;
-	margin-top: 12px;
-}
-
 .cbocountry, .cbostate, .cbocity{
 	width: 75%;
 	float: right;
-	margin-bottom: 5px;
+	margin-bottom: 7px;
 	margin-top: 5px;
+}
+
+.lblcountry, .lblstate{
+	width: 25%;
+	float: left;
+	margin-bottom: 15px;
+	margin-top: 12px;
 }
 
  .lblcity{
 	width: 25%;
 	float: left;
-	margin-bottom: 12px;
+	margin-top: 20px;
 }
 
 .cbocity{
@@ -143,8 +143,13 @@
 }
 
 #capacity{
-	width: 228px;
-	margin-left: 30px;
+	width: 130px;
+	margin-top: 10px;
+}
+
+#filters_distance{
+	width: 140px;
+	margin-top: 10px;
 }
 
 /*Cabecera de las pestañas*/

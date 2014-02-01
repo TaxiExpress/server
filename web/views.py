@@ -216,6 +216,7 @@ def updateFiltersWeb(request):
         customer.fAppPayment = False
 
     customer.fCapacity = request.POST['capacity']
+    customer.fDistance = request.POST['filters_distance']
     customer.lastUpdate = datetime.now()
     customer.save()
     return HttpResponse(status=status.HTTP_200_OK,content="Filtros actualizados")

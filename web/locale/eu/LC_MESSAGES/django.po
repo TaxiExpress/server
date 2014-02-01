@@ -84,6 +84,9 @@ msgstr "Aplikazio bitartez ordainketa onartzen duten taxiak"
 msgid "Capacidad"
 msgstr "Kapazitatea"
 
+msgid "Distancia"
+msgstr "Inguru dauden taxiak"
+
 msgid "GrabPreferencias"
 msgstr "Lehentasunak aldatu"
 
