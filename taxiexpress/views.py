@@ -386,12 +386,39 @@ def voteDriver(request):
         if travel.customervoted == True:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Ya has votado")
         travel.customervoted = True
+        travel.save()
         driver = travel.driver
         if request.POST['vote'] == 'positive':
             driver.positiveVotes += 1
         else:
             driver.negativeVotes += 1
         driver.save()
+        return HttpResponse(status=status.HTTP_200_OK)
+    else:
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Email no válido")
+
+@csrf_exempt
+@api_view(['POST'])
+def voteCustomer(request):
+    if 'email' in request.POST:
+        try:
+            driver = Driver.objects.get(email=request.POST['email'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El usuario no existe")
+        try:
+            travel = Travel.objects.get(id=request.POST['travelID'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
+        if travel.drivervoted == True:
+            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Ya has votado")
+        travel.drivervoted = True
+        travel.save()
+        customer = travel.customer
+        if request.POST['vote'] == 'positive':
+            customer.positiveVotes += 1
+        else:
+            customer.negativeVotes += 1
+        customer.save()
         return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Email no válido")
