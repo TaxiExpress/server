@@ -107,3 +107,9 @@ class DriverCountryStateCitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Driver
         fields = ('countries', 'states', 'cities', 'id', 'email', 'phone', 'first_name', 'last_name', 'postcode', 'image', 'license', 'address')
+
+class TravelSerializerDriver(serializers.ModelSerializer):
+    customer= CustomerProfileSerializer()
+    class Meta:
+        model = Travel
+        fields = ('id', 'customer', 'starttime', 'endtime', 'cost',  'origin',  'destination')

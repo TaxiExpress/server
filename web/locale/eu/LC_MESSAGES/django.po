@@ -543,3 +543,36 @@ msgstr "erregistroa"
 
 msgid "Color"
 msgstr "Kolorea"
+
+msgid "Viajes"
+msgstr "Bidaiak"
+
+msgid "cNombre"
+msgstr "Izena"
+
+msgid "cOrigen"
+msgstr "Jatorria"
+
+msgid "cDestino"
+msgstr "Helbidea"
+
+msgid "cCoste"
+msgstr "Zenbatekoa"
+
+msgid "cFechaIni"
+msgstr "D. asiera"
+
+msgid "cFechaFin"
+msgstr "D. amaiera"
+
+msgid "cHoraIni"
+msgstr "O. asiera"
+
+msgid "cHoraFin"
+msgstr "O. amaiera"
+
+msgid "Primera"
+msgstr "Lehena"
+
+msgid "Ultima"
+msgstr "Azkena"

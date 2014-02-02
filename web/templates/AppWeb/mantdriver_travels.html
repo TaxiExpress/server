@@ -1,0 +1,139 @@
+{% extends "AppWeb/base2.html" %}
+{% load i18n %}
+
+{% block head %}
+<link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
+<link href="{{STATIC_URL}}css/maintenance.css" rel="stylesheet" type="text/css">
+<link href="{{STATIC_URL}}css/closesession.css" rel="stylesheet" type="text/css">
+<link href="{{STATIC_URL}}css/paginacion.css" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block content %} 
+<!--        <div class="bg titulo">
+            <h1>Registrate y empieza a viajar!</h1>
+        </div> -->          
+        <div class="bg">                
+            <div class="contenido">
+                <aside id="sidebar" class="span2">
+                    <div class="tabs">
+                        <ul class="menu nav">
+                            <li class="first" ><a href="mantdriver_data.html">{% trans 'PerfilUsuario' %}</a></li>
+                            <li><a href="mantdriver_changepassword.html">{% trans 'ModificarContraseña' %}</a></li>
+                            <li><a href="mantdriver_car.html">{% trans 'DatosVehiculo' %}</a></li>
+                            <li><a href="mantdriver_bankaccount.html">{% trans 'DatosBancarios' %}</a></li>
+                            <li><a href="mantdriver_travelgraphic.html">{% trans 'TitGraficos' %}</a></li>
+                            <li><a href="mantdriver_travels.html" class="active">{% trans 'Viajes' %}</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <div class="span10">
+                    <h3 class="MaintenanceHeader">{% trans 'TitViajesrealizados' %}</h3>
+                    <div id="mantdriver">                      
+                        {% csrf_token %}
+                        <div class="col maintenance travels">
+                            <div id="pagination" class="clsPagination">
+
+                            </div>                 
+                        </div>
+                        
+                    </div>  
+                </div>
+            </div>
+        </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="{{STATIC_URL}}js/jquery.paginate.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function Busqueda() {
+        $.ajax({
+            type: "GET",
+            url: "/gettravelsdriver/",
+            data:{},
+            success: function(result) {
+                if (result.length != 0){
+                    j = 1;
+                    HTMLText = "<div id=\"page\"></div>";
+                    HTMLText += "<div id=\"p" + j + "\" class=\"pageFilter _current\" style=\"\">";
+                    HTMLText += "<table class=\"travelDetail\"> <th> <tr class=\"rowC\"> <td>";
+                    HTMLText += "{% trans 'cNombre' %} </td> ";
+                    HTMLText += "<td> {% trans 'cOrigen' %} </td>";
+                    HTMLText += "<td> {% trans 'cDestino' %} </td>";
+                    HTMLText += "<td> {% trans 'cCoste' %} </td>";
+                    HTMLText += "<td> {% trans 'cFechaIni' %} </td>";
+                    HTMLText += "<td> {% trans 'cHoraIni' %} </td>";
+                    HTMLText += "<td> {% trans 'cFechaFin' %} </td>";
+                    HTMLText += "<td> {% trans 'cHoraFin' %} </td></tr></th>";
+                    for (i = 0, len = result.length; i < len; i++) {
+                        travel = result[i];
+                        if (((i+1) % 10 == 0) && ((i+1) != result.length)){
+                            j +=1;
+                            HTMLText += "</table>";
+                            HTMLText += "</div>"
+                            HTMLText += "<div id=\"p" + j + "\" class=\"pageFilter\" style=\"display:none;\">";
+                            HTMLText += "<table class=\"travelDetail\"> <th> <tr class=\"rowC\"> <td>";
+                            HTMLText += "{% trans 'cNombre' %} </td> ";
+                            HTMLText += "<td> {% trans 'cOrigen' %} </td>";
+                            HTMLText += "<td> {% trans 'cDestino' %} </td>";
+                            HTMLText += "<td> {% trans 'cCoste' %} </td>";
+                            HTMLText += "<td> {% trans 'cFechaIni' %} </td>";
+                            HTMLText += "<td> {% trans 'cHoraIni' %} </td>";
+                            HTMLText += "<td> {% trans 'cFechaFin' %} </td>";
+                            HTMLText += "<td> {% trans 'cHoraFin' %} </td></tr></th>";
+                        }
+                        if ((i+1) % 2 == 0){
+                            HTMLText += "<tr class=\"rowP\">";
+                        }
+                        else{
+                            HTMLText += "<tr class=\"rowI\">";
+                        }
+                        HTMLText += "<td>" + travel.customer.first_name + " " + travel.customer.last_name + "</td>";
+                        HTMLText += "<td>" + travel.origin + "</td>";
+                        HTMLText += "<td>" + travel.destination + "</td>";
+                        HTMLText += "<td>" + travel.cost + "</td>";
+                        fechaI = new Date(travel.starttime);
+                        HTMLText += "<td>" + fechaI.getDate() + "/" + (fechaI.getMonth()  + 1) + "/" + fechaI.getFullYear() + "</td>"; 
+                        HTMLText += "<td>" + fechaI.getHours() + ":" + ("0" + fechaI.getMinutes()).slice (-2) + ":" + ("0" + fechaI.getSeconds()).slice (-2) + "</td>"; 
+                        fechaF = new Date(travel.endtime); 
+                        HTMLText += "<td>" + fechaF.getDate() + "/" + (fechaF.getMonth()  + 1) + "/" + fechaF.getFullYear() + "</td>"; 
+                        HTMLText += "<td>" + fechaF.getHours() + ":" + ("0" + fechaF.getMinutes()).slice (-2) + ":" + ("0" + fechaF.getSeconds()).slice (-2) + "</td>";            
+                    }
+                    HTMLText += "</table></div>";
+                    $('#pagination').html(HTMLText);   
+                    if (j > 1){
+                        $("#page").paginate({
+                            count       : j,
+                            start       : 1,
+                            display     : 3,
+                            border                  : false,
+                            text_color              : '#79B5E3',
+                            background_color        : 'none',   
+                            text_hover_color        : '#2573AF',
+                            background_hover_color  : 'none', 
+                            images                  : false,
+                            mouse                   : 'press',
+                            firstWord               : "{% trans 'Primera' %}",
+                            lastWord                : "{% trans 'Ultima' %}",
+                            onChange                : function(page){
+                                                      $('._current','#pagination').removeClass('_current').hide();
+                                                      $('#p'+page).addClass('_current').show();
+                                                    }
+                        });
+                    }               
+                }
+                else{
+                    $('#pagination').html("");
+                }
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                alert("Please report this error: " + errorThrown + xhr.status + xhr.responseText);
+            }
+        });
+    };
+    window.onload=Busqueda;
+</script>
+<!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+{% endblock %}

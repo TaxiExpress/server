@@ -543,3 +543,36 @@ msgstr "Matricula"
 
 msgid "Color"
 msgstr "Color"
+
+msgid "Viajes"
+msgstr "Viajes"
+
+msgid "cNombre"
+msgstr "Nombre"
+
+msgid "cOrigen"
+msgstr "Origen"
+
+msgid "cDestino"
+msgstr "Destino"
+
+msgid "cCoste"
+msgstr "Coste"
+
+msgid "cFechaIni"
+msgstr "Fecha Ini."
+
+msgid "cFechaFin"
+msgstr "Fecha Fin"
+
+msgid "cHoraIni"
+msgstr "Hora Ini."
+
+msgid "cHoraFin"
+msgstr "Hora Fin."
+
+msgid "Primera"
+msgstr "Primera"
+
+msgid "Ultima"
+msgstr "Última"

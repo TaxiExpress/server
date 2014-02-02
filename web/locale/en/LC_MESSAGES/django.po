@@ -544,3 +544,36 @@ msgstr "Registration number"
 
 msgid "Color"
 msgstr "Colour"
+
+msgid "Viajes"
+msgstr "Travels"
+
+msgid "cNombre"
+msgstr "Name"
+
+msgid "cOrigen"
+msgstr "Origin"
+
+msgid "cDestino"
+msgstr "destination"
+
+msgid "cCoste"
+msgstr "Cost"
+
+msgid "cFechaIni"
+msgstr "Start D."
+
+msgid "cFechaFin"
+msgstr "End D."
+
+msgid "cHoraIni"
+msgstr "Start T."
+
+msgid "cHoraFin"
+msgstr "End T."
+
+msgid "Primera"
+msgstr "First"
+
+msgid "Ultima"
+msgstr "Last"

@@ -156,3 +156,25 @@
 	margin-bottom: 5px;
 	margin-bottom: 5px;
 }
+
+/*Pantalla de viajes del Cliente*/
+.rowC td{
+	background-color: #01669a;
+	color: white;
+}
+.rowI td{
+	background-color: #f0f0f0;
+}
+
+.rowP td{
+
+}
+
+.travels{
+	width: 100%;
+}
+
+.travelDetail td{
+	font: normal 12px Open Sans,Arial;
+	padding:3px 5px;
+}

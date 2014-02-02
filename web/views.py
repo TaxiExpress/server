@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseBadRequest
 from taxiexpress.models import Customer, Country, State, City, Driver, Travel, Car, Observation
-from taxiexpress.serializers import CarSerializer, DriverSerializer, CustomerTravelsSerializer, CustomerProfileSerializer, CountrySerializer, StateSerializer, CitySerializer,CustomerCountryStateCitySerializer,DriverCountryStateCitySerializer
+from taxiexpress.serializers import TravelSerializer, TravelSerializerDriver, CarSerializer, DriverSerializer, CustomerTravelsSerializer, CustomerProfileSerializer, CountrySerializer, StateSerializer, CitySerializer,CustomerCountryStateCitySerializer,DriverCountryStateCitySerializer
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import Distance, D
@@ -524,6 +524,16 @@ def mantclient_preferences(request):
         else:
             return redirect('/')
 
+def mantclient_travels(request):   
+    if 'user_id' in request.session:
+        if request.session['Customer'] == True:
+            customer = get_object_or_404(Customer, id=request.session['user_id'])
+            return render(request, 'AppWeb/mantclient_travels.html', {'client':customer}) 
+        else:
+            logout(request)    
+    else:
+        return redirect('/')
+
 def mantdriver_data(request):
     if request.method == "POST":
         response = updateProfileDriverWeb(request)
@@ -617,6 +627,16 @@ def mantdriver_TravelGraphic(request):
             logout(request)    
     else:
         return redirect('/')  
+
+def mantdriver_travels(request):   
+    if 'user_id' in request.session:
+        if request.session['Customer'] == False:
+            driver = get_object_or_404(Driver, id=request.session['user_id'])
+            return render(request, 'AppWeb/mantdriver_travels.html', {'driver':driver}) 
+        else:
+            logout(request)    
+    else:
+        return redirect('/') 
 
 def getTravelsByMonth(request):
     if 'user_id' in request.session:
@@ -741,3 +761,23 @@ def recoverPasswordDriver(request):
     msg.content_subtype = "html"  # Main content is now text/html
     msg.send()
     return HttpResponse(status=201,content="Se ha enviado la contraseña a su cuenta de email.")
+
+@csrf_exempt
+@api_view(['GET'])
+def getTravelsCustomer(request):
+    if 'user_id' in request.session:
+        customer = get_object_or_404(Customer, id=request.session['user_id'])
+        SerialTravel = TravelSerializer(customer.travel_set.all(), many=True)
+        return Response(SerialTravel.data, status=status.HTTP_200_OK)
+    else:
+        return redirect('/')
+
+@csrf_exempt
+@api_view(['GET'])
+def getTravelsDriver(request):
+    if 'user_id' in request.session:
+        driver = get_object_or_404(Driver, id=request.session['user_id'])
+        SerialTravel = TravelSerializerDriver(driver.travel_set.all(), many=True)
+        return Response(SerialTravel.data, status=status.HTTP_200_OK)
+    else:
+        return redirect('/')
