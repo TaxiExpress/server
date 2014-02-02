@@ -142,12 +142,7 @@
 	width:100%;
 }
 
-#capacity{
-	width: 130px;
-	margin-top: 10px;
-}
-
-#filters_distance{
+#capacity, #filters_distance{
 	width: 140px;
 	margin-top: 10px;
 }
