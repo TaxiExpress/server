@@ -485,9 +485,61 @@ msgid "plazas"
 msgstr "Plazas"
 
 
+#placeholders de la Web
 
+msgid "Nombre"
+msgstr "Nombre"
 
+msgid "Apellido"
+msgstr "Apellido"
 
+msgid "Teléfono"
+msgstr "Teléfono"
 
+msgid "Email"
+msgstr "Email"
 
+msgid "NúmeroLicencia"
+msgstr "Número de licencia"
 
+msgid "Observaciones"
+msgstr "Observaciones"
+
+msgid "Codigo"
+msgstr "Codigo"
+
+msgid "ContraseñaActual"
+msgstr "Contraseña actual"
+
+msgid "ContraseñaNueva"
+msgstr "Nueva contraseña"
+
+msgid "ConfirmeContraseña"
+msgstr "Confirme contraseña"
+
+msgid "ConfirmarContraseña"
+msgstr "Confirmar contraseña"
+
+msgid "Dirección"
+msgstr "Dirección"
+
+msgid "CódigoPostal"
+msgstr "Código Postal"
+
+msgid "NúmeroCuenta"
+msgstr "Número de cuenta"
+
+msgid "Titular"
+msgstr "Titular"
+
+msgid "Marca"
+msgstr "Marca"
+
+msgid "Modelo"
+msgstr "Modelo"
+
+msgid "Matrícula"
+msgstr "Matricula"
+
+msgid "Color"
+msgstr "Color"

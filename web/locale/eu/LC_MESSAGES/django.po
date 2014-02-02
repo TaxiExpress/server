@@ -484,3 +484,62 @@ msgstr "Toki"
 
 msgid "plazas"
 msgstr "Toki"
+
+#placeholders de la Web
+
+msgid "Nombre"
+msgstr "Izena"
+
+msgid "Apellido"
+msgstr "Abizena"
+
+msgid "Teléfono"
+msgstr "Telefonoa"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "NúmeroLicencia"
+msgstr "Lizentziaren zenbakia"
+
+msgid "Observaciones"
+msgstr "Behaketak"
+
+msgid "Codigo"
+msgstr "Kode"
+
+msgid "ContraseñaActual"
+msgstr "Oraingo pasahitza"
+
+msgid "ContraseñaNueva"
+msgstr "Pasahitza berria"
+
+msgid "ConfirmeContraseña"
+msgstr "Berretsi pasahitza"
+
+msgid "ConfirmarContraseña"
+msgstr "Berretsi pasahitza"
+
+msgid "Dirección"
+msgstr "Helbidea"
+
+msgid "CódigoPostal"
+msgstr "Postal Kodea"
+
+msgid "NúmeroCuenta"
+msgstr "Kontu Zenbakia"
+
+msgid "Titular"
+msgstr "Egileak"
+
+msgid "Marca"
+msgstr "marka"
+
+msgid "Modelo"
+msgstr "eredua"
+
+msgid "Matrícula"
+msgstr "erregistroa"
+
+msgid "Color"
+msgstr "Kolorea"

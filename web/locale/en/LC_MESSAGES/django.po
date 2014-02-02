@@ -484,3 +484,63 @@ msgstr "Seat"
 
 msgid "plazas"
 msgstr "Seats"
+
+
+#placeholders de la Web
+
+msgid "Nombre"
+msgstr "Name"
+
+msgid "Apellido"
+msgstr "Surname"
+
+msgid "Teléfono"
+msgstr "Telephone"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "NúmeroLicencia"
+msgstr "License number"
+
+msgid "Observaciones"
+msgstr "Observations"
+
+msgid "Codigo"
+msgstr "Code"
+
+msgid "ContraseñaActual"
+msgstr "Current Password"
+
+msgid "ContraseñaNueva"
+msgstr "New Password"
+
+msgid "ConfirmeContraseña"
+msgstr "Confirm Password"
+
+msgid "ConfirmarContraseña"
+msgstr "Confirm Password"
+
+msgid "Dirección"
+msgstr "Address"
+
+msgid "CódigoPostal"
+msgstr "Postal Code"
+
+msgid "NúmeroCuenta"
+msgstr "Account number"
+
+msgid "Titular"
+msgstr "Holder"
+
+msgid "Marca"
+msgstr "Mark"
+
+msgid "Modelo"
+msgstr "Model"
+
+msgid "Matrícula"
+msgstr "Registration number"
+
+msgid "Color"
+msgstr "Colour"

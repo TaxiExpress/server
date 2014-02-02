@@ -30,10 +30,10 @@
                 <div class="registerClientForm">
                   <form name="createaccountClient" id="createaccountClient" action="" method="POST" onsubmit="return validateClient();" autocomplete="off">    
                       <input type="hidden" class="tipo" name="tipo" value="C">   
-                      <input type="email" name="email" maxlength="80" placeholder="Email" required value="{{request.POST.email}}">
-                      <input type="tel" name="phone" maxlength="80" placeholder="Teléfono" required value="{{request.POST.phone}}">
-                      <input type="password" name="password" maxlength="80" placeholder="Contraseña" required value="{{request.POST.password}}"><span class="passwordError hidefieldError">*</span>
-                      <input type="password" name="passwordCon" maxlength="80" placeholder="Confirmar contraseña" required value="{{request.POST.passwordCon}}"><span class="passwordError hidefieldError">*</span>
+                      <input type="email" name="email" maxlength="80" placeholder={% trans 'Email' %} required value="{{request.POST.email}}">
+                      <input type="tel" name="phone" maxlength="80" placeholder={% trans 'Teléfono' %} required value="{{request.POST.phone}}">
+                      <input type="password" name="password" maxlength="80" placeholder={% trans 'Contraseña' %} required value="{{request.POST.password}}"><span class="passwordError hidefieldError">*</span>
+                      <input type="password" name="passwordCon" maxlength="80" placeholder={% trans 'ConfirmarContraseña' %} required value="{{request.POST.passwordCon}}"><span class="passwordError hidefieldError">*</span>
                       <br><span>{% trans 'SigningUp1' %} <a href="termsofuse">{% trans 'SigningUp2' %}</a>.</span> 
                       <p class="registerError">{{error}}</p>    
                       <button class="btn" type="submit">{% trans 'Registrar' %}</button>
@@ -45,16 +45,16 @@
                     <form name="createaccountDriver" id="createaccountDriver" action="" method="POST" onsubmit="return validateDriver();" autocomplete="off">            
                         {% csrf_token %}
                         <input type="hidden" class="tipo" name="tipo" value="D">
-                        <input type="email" name="email" maxlength="80" placeholder="Email" required value="{{request.POST.email}}">
-                        <input type="tel" name="phone" maxlength="80" placeholder="Teléfono" required value="{{request.POST.phone}}">
-                        <input type="text" name="first_name" maxlength="80" placeholder="Nombre" required value="{{request.POST.first_name}}">
-                        <input type="text" name="last_name" maxlength="80" placeholder="Apellido" required value="{{request.POST.last_name}}">
-                        <input type="password" name="password" maxlength="80" placeholder="Contraseña" required value="{{request.POST.password}}"><span class="passwordError hidefieldError">*</span>
-                        <input type="password" name="passwordCon" maxlength="80" placeholder="Confirmar contraseña" required value="{{request.POST.passwordCon}}"><span class="passwordError hidefieldError">*</span>
+                        <input type="email" name="email" maxlength="80" placeholder={% trans 'Email' %} required value="{{request.POST.email}}">
+                        <input type="tel" name="phone" maxlength="80" placeholder={% trans 'Teléfono' %} required value="{{request.POST.phone}}">
+                        <input type="text" name="first_name" maxlength="80" placeholder={% trans 'Nombre' %} required value="{{request.POST.first_name}}">
+                        <input type="text" name="last_name" maxlength="80" placeholder={% trans 'Apellido' %} required value="{{request.POST.last_name}}">
+                        <input type="password" name="password" maxlength="80" placeholder={% trans 'Contraseña' %} required value="{{request.POST.password}}"><span class="passwordError hidefieldError">*</span>
+                        <input type="password" name="passwordCon" maxlength="80" placeholder={% trans 'ConfirmarContraseña' %} required value="{{request.POST.passwordCon}}"><span class="passwordError hidefieldError">*</span>
                         <br><br><span>{% trans 'DatosCoche' %}</span><br>
-                        <input type="number" name="license" placeholder="Número de licencia" required value="{{request.POST.license}}">
-                        <input type="text" name="plate" maxlength="7" placeholder="Matrícula" required value="{{request.POST.plate}}">
-                        <input type="text" name="model" maxlength="80" placeholder="Modelo" required value="{{request.POST.model}}">
+                        <input type="number" name="license" placeholder={% trans 'NúmeroLicencia' %} required value="{{request.POST.license}}">
+                        <input type="text" name="plate" maxlength="7" placeholder={% trans 'Matrícula' %} required value="{{request.POST.plate}}">
+                        <input type="text" name="model" maxlength="80" placeholder={% trans 'Modelo' %} required value="{{request.POST.model}}">
                         <select id="capacity" name="capacity">
                            <option value="1"
                            {% if request.POST.capacity == 1 %}
@@ -117,8 +117,8 @@
                 {% csrf_token %}
                 <h3>{% trans 'ValidacionCuenta' %}</h3>
                 <span class="popupText">{% trans 'TfnoYCodigoSMS' %}<br/>
-                    <input type="tel" id="phone" name="phone" maxlength="12" required  placeholder="Teléfono" tabindex="1">
-                    <input type="text" id="validationCode" name="validationCode" maxlength="4" required value placeholder="Codigo" tabindex="2">
+                    <input type="tel" id="phone" name="phone" maxlength="12" required  placeholder={% trans 'Teléfono' %} tabindex="1">
+                    <input type="text" id="validationCode" name="validationCode" maxlength="4" required value placeholder={% trans 'Codigo' %} tabindex="2">
                     <p class="h-left error ff-txt-error"></p><br/>                        
                     <input type="button" value="Volver a solicitar código de validación >>" class="validationRefRegister validation"/>   
                 </span>
