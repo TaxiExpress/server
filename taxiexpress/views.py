@@ -34,7 +34,7 @@ PUSH_URL = 'http://ec2-54-84-17-105.compute-1.amazonaws.com:8080'
 def sessionID_generator(size=10, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for x in range(size))
 
-
+#Method to login a customer and retrieve profile data
 @csrf_exempt
 @api_view(['POST'])
 def loginUser(request):
@@ -48,6 +48,8 @@ def loginUser(request):
     if customer.password == request.POST['password']:
         if customer.isValidated == False:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe validar la cuenta antes de conectarse")
+
+        #Update customer data in database
         customer.sessionID = sessionID_generator()
         customer.pushID = request.POST['pushID']
         customer.device = request.POST['pushDevice']
@@ -63,15 +65,17 @@ def loginUser(request):
             except requests.ConnectionError:
                 return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
                 
-
+        #Send user info according to last update time
         response_data = {'sessionID': customer.sessionID}
         datetime_profile = datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S')
         datetime_travels = datetime.strptime(request.POST['lastUpdateTravels'], '%Y-%m-%d %H:%M:%S')
 
         response_data['favlist'] = DriverSerializer(customer.favlist.all(), many=True).data
 
+        #If user profile has changed since last login
         if customer.lastUpdate != datetime_profile:
             response_data.update(CustomerProfileSerializer(customer).data)
+        #If travel history has changed since last login
         if customer.lastUpdateTravels !=  datetime_travels:
             response_data.update(CustomerTravelsSerializer(customer).data)
         return Response(response_data, status=status.HTTP_200_OK)
@@ -79,6 +83,7 @@ def loginUser(request):
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 
 
+#Method to login a driver and retrieve profile data
 @csrf_exempt
 @api_view(['POST'])
 def loginDriver(request):
@@ -91,6 +96,7 @@ def loginDriver(request):
     if driver.password == request.POST['password']:
         if driver.isValidated == False:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe validar la cuenta antes de conectarse")
+        #Update driver data in database
         driver.pushID = request.POST['pushID']
         driver.device = request.POST['pushDevice']
         driver.available = True
@@ -101,6 +107,7 @@ def loginDriver(request):
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 
 
+#Method to register a customer
 @csrf_exempt
 def registerUser(request):
     if request.method == "POST":
@@ -111,10 +118,12 @@ def registerUser(request):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El teléfono que ha indicado ya está en uso")
         else:
             try:
+                #Create new customer with received data
                 c = Customer(email=request.POST['email'], password=passtemp, phone=request.POST['phone'], lastUpdate=datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S'),lastUpdateTravels=datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S'), image="")
-                code = random.randint(1000, 9999)
+                code = random.randint(1000, 9999) #Generate validation code
                 c.validationCode = code
                 c.save()
+                #Create account confirmation sms
                 msg = {
                         'reqtype': 'json',
                         'api_key': '8a352457',
@@ -133,54 +142,57 @@ def registerUser(request):
         HttpResponse(status=status.HTTP_400_BAD_REQUEST)
         
 
-
+#Method called by customer app to get a random taxi that meets his preferences and is nearby
 @csrf_exempt
 @api_view(['POST'])
 def getClosestTaxi(request):
     if 'latitude' in request.POST:
-        pointclient = Point(float(request.POST['latitude']), float(request.POST['longitude']))
+        pointclient = Point(float(request.POST['latitude']), float(request.POST['longitude'])) #Create a point item from received coordinates
         try:
-            customer = Customer.objects.get(email=request.POST['email'])
+            customer = Customer.objects.get(email=request.POST['email']) #Retrieve the user asking for a travel
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
-        if customer.sessionID != request.POST['sessionID']:
+        if customer.sessionID != request.POST['sessionID']: #Check if user is logged in
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
+        #Get a list with closest drivers meeting user filters
         closestDrivers = Driver.objects.distance(pointclient).filter(car__isfree=True, available=True, car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity).order_by('distance')[:5]
         if closestDrivers.count() == 0:
             return HttpResponse(status=status.HTTP_204_NO_CONTENT, content="No se han encontrado taxis")
         elif closestDrivers.count() > 5:
-            closestDrivers = closestDrivers[:5]
+            closestDrivers = closestDrivers[:5] #If mone than 5 drivers are found, reduce the list to 5 items
         travel = Travel(customer=customer, startpoint=pointclient, origin=request.POST['origin'])
         travel.save()
         valuation = 0
         if (customer.positiveVotes+customer.negativeVotes) > 0:
-            valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
-        post_data = {"origin": request.POST['origin'], "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone}
-        post_data_ios = {"device": 'IOS'}
-        post_data_ios.update(post_data)
-        post_data_android = {"device": 'ANDROID'}
+            valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes)) #Calculate customer valuation (1..5) to send it to close drivers
+        post_data = {"origin": request.POST['origin'], "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone} #Base dictionary to be sent to PUSH server
+        post_data_ios = {"device": 'IOS'} #Dictionary to notify IOS users
+        post_data_ios.update(post_data) #Add base dictionary data
+        post_data_android = {"device": 'ANDROID'} #Dictionary to notify ANDROID users
         post_data_android.update(post_data)
-        ioscount = 0
-        androidcount = 0
+        ioscount = 0 #Ios device counter
+        androidcount = 0 #Android device counter
         for i in range(closestDrivers.count()):
-            if closestDrivers[i].device == 'IOS':
+            if closestDrivers[i].device == 'IOS': #If device is IOS, add driver to IOS notify dictionary
                 post_data_ios["pushId"+str(ioscount)] = closestDrivers[i].pushID
                 ioscount += 1
-            elif closestDrivers[i].device == 'ANDROID':
+            elif closestDrivers[i].device == 'ANDROID': #If device is ANDROID, add driver to ANDROID notify dictionary
                 post_data_android["pushId"+str(androidcount)] = closestDrivers[i].pushID
                 androidcount += 1
-        if ioscount < 5:
+        if ioscount < 5: #If IOS notify dictionary has less than 5 elements, fill with empty elements
             for i in range(ioscount, 4):
                 post_data_ios["pushId"+str(i)] = ""
-        if androidcount < 5:
+        if androidcount < 5: #If ANDROID notify dictionary has less than 5 elements, fill with empty elements
             for i in range(androidcount, 4):
                 post_data_android["pushId"+str(i)] = ""
         try:
+            #Send notify dictionaries to PUSH server
             resp_ios = requests.post(PUSH_URL+'/sendClosestTaxi', params=post_data_ios)
             resp_android = requests.post(PUSH_URL+'/sendClosestTaxi', params=post_data_android)
-        except requests.ConnectionError:
+        except requests.ConnectionError: #If push server is offline, delete travel and return 503
             travel.delete()
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
+        #Return travelID to customer app
         response_data = {}
         response_data['travelID'] = travel.id
         return HttpResponse(json.dumps(response_data), content_type="application/json")
