@@ -335,7 +335,7 @@ def travelPaid(request):
 
 @csrf_exempt
 @api_view(['POST'])
-def cancelTravel(request):
+def cancelTravelCustomer(request):
     if 'travelID' in request.POST:
         try:
             travel = Travel.objects.get(id=request.POST['travelID'])
@@ -347,6 +347,27 @@ def cancelTravel(request):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
         if travel.accepted:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El viaje ha sido aceptado")
+        travel.delete()
+        return HttpResponse(status=status.HTTP_200_OK)
+    else:
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
+
+
+@csrf_exempt
+@api_view(['POST'])
+def cancelTravelDriver(request):
+    if 'travelID' in request.POST:
+        try:
+            travel = Travel.objects.get(id=request.POST['travelID'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
+        if request.POST['email'] != travel.driver.email:
+            return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
+        post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cancelled": "true", "device": travel.driver.device}
+        try:
+            resp = requests.post(PUSH_URL+'/sendTravelCanceled', params=post_data)
+        except requests.ConnectionError:
+            return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
         travel.delete()
         return HttpResponse(status=status.HTTP_200_OK)
     else:
