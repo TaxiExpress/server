@@ -649,23 +649,42 @@ def getTravelsByMonth(request):
     else:
         return redirect('/')
 
-def getTravelsByYear(request):
+def getTravelsByLastYear(request):
     if 'user_id' in request.session:
         driver = get_object_or_404(Driver, id=request.session['user_id'])
-        travels = driver.travel_set
+        #travels = driver.travel_set.filter(starttime=datetime.now()-timedelta(days=365))
+        today = datetime.now()
+        lastYear = datetime.now()-timedelta(days=365)
+        travels = driver.travel_set.filter(starttime__range=[lastYear, today])
+        #travels = driver.travel_set.filter(starttime__year__gte=datetime.now().year,starttime__year__lte=datetime.now().year-1)
         response_data = {}
-        for i in range(2013,2016):
-            response_data[i] = travels.filter(starttime__year=i).count()
+        for i in range(1,13):
+            response_data[i] = travels.filter(starttime__month=i).count()
         return HttpResponse(json.dumps(response_data), content_type="application/json")
     else:
-        return redirect('/')  
+        return redirect('/')
+
+def getTravelsByLastMonth(request):
+    if 'user_id' in request.session:
+        driver = get_object_or_404(Driver, id=request.session['user_id'])
+        #travels = driver.travel_set.filter(starttime=datetime.now()-timedelta(days=365))
+        today = datetime.now()
+        lastYear = datetime.now()-timedelta(days=30)
+        travels = driver.travel_set.filter(starttime__range=[lastYear, today])
+        #travels = driver.travel_set.filter(starttime__year__gte=datetime.now().year,starttime__year__lte=datetime.now().year-1)
+        response_data = {}
+        for i in range(1,32):
+            response_data[i] = travels.filter(starttime__day=i).count()
+        return HttpResponse(json.dumps(response_data), content_type="application/json")
+    else:
+        return redirect('/')
 
 def getTravelsByHour(request):
     if 'user_id' in request.session:
         driver = get_object_or_404(Driver, id=request.session['user_id'])
-        travels = driver.travel_set.filter(isPaid=True)
+        travels = driver.travel_set
         response_data = {}
-        for i in range(1,24):
+        for i in range(0,24):
             response_data[i] = travels.filter(starttime__hour=i).count()
         return HttpResponse(json.dumps(response_data), content_type="application/json")
     else:
