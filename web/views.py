@@ -767,7 +767,7 @@ def recoverPasswordDriver(request):
 def getTravelsCustomer(request):
     if 'user_id' in request.session:
         customer = get_object_or_404(Customer, id=request.session['user_id'])
-        SerialTravel = TravelSerializer(customer.travel_set.all(), many=True)
+        SerialTravel = TravelSerializer(customer.travel_set.filter(isPaid=True), many=True)
         return Response(SerialTravel.data, status=status.HTTP_200_OK)
     else:
         return redirect('/')
@@ -777,7 +777,7 @@ def getTravelsCustomer(request):
 def getTravelsDriver(request):
     if 'user_id' in request.session:
         driver = get_object_or_404(Driver, id=request.session['user_id'])
-        SerialTravel = TravelSerializerDriver(driver.travel_set.all(), many=True)
+        SerialTravel = TravelSerializerDriver(driver.travel_set.filter(isPaid=True), many=True)
         return Response(SerialTravel.data, status=status.HTTP_200_OK)
     else:
         return redirect('/')
