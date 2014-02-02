@@ -27,7 +27,7 @@
                             <ul>
                                 <li class="placeholder">
                                     <span class="textfield">
-                                        <input type="email" id="email" name="email" required value="{{request.POST.email}}" placeholder="Email" tabindex="1">
+                                        <input type="email" id="email" name="email" required value="{{request.POST.email}}" placeholder={% trans 'Email' %} tabindex="1">
                                     </span>                                    
                                     <input class="tipo" id="tipo" type="radio" name="tipo" length=2 value="C" tabindex="3"
                                     {% if tipo != "D" %}
@@ -44,7 +44,7 @@
                                 </li>
                                 <li class="placeholder">
                                     <span class="textfield">
-                                        <input type="password" id="password" name="password" required placeholder ="Contraseña" value = "{{request.POST.password}}" tabindex="2">
+                                        <input type="password" id="password" name="password" required placeholder ={% trans 'Contraseña' %} value = "{{request.POST.password}}" tabindex="2">
                                     </span>
                                     <p class="forgotpass h-stext h-center">
                                         <a class="forgotpassword" tabindex="5" href="rememberpassword.html" title="¿Has olvidado tu contraseña?">{% trans 'ContraseñaOlvidada' %}</a>
@@ -171,8 +171,8 @@
                     {% csrf_token %}
                     <h3>{% trans 'ValidacionCuenta' %}</h3>
                     <span class="popupText">{% trans 'TfnoYCodigoSMS' %}<br/>
-                        <input type="tel" id="phone" name="phone" maxlength="12" required  placeholder="Teléfono" tabindex="7">
-                        <input type="text" id="validationCode" name="validationCode" maxlength="4" required value placeholder="Codigo" tabindex="8">
+                        <input type="tel" id="phone" name="phone" maxlength="12" required  placeholder={% trans 'Teléfono' %} tabindex="7">
+                        <input type="text" id="validationCode" name="validationCode" maxlength="4" required value placeholder={% trans 'Codigo' %} tabindex="8">
                         <p class="h-left error ff-txt-error"></p><br/>                        
                         <input type="button" value="Volver a solicitar código de validación >>" class="validationRefIndex validation"/>   
                     </span>
