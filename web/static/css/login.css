@@ -121,7 +121,7 @@ border: 0;
 }
 
 input[type="text"], textarea, select {
-    font: 13px/16px Sans-serif,Helvetica,Arial;
+    font: 12px/16px "Open Sans",Sans-serif,Helvetica,Arial;
 }
 
 /*.bg .remember, .bg .forgotpass {
