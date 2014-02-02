@@ -284,6 +284,7 @@ def travelCompleted(request):
         travel.destination = request.POST['destination']
         travel.endpoint = Point(float(request.POST['latitude']), float(request.POST['longitude']))
         travel.endtime = datetime.now()
+        travel.cost = request.POST['cost']
         travel.appPayment = (request.POST['appPayment'] == "true")
         travel.driver.car.isfree = True
         if not travel.appPayment:
