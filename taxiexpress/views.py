@@ -363,7 +363,7 @@ def cancelTravelDriver(request):
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
         if request.POST['email'] != travel.driver.email:
             return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
-        post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cancelled": "true", "device": travel.customer.device}
+        post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "device": travel.customer.device}
         try:
             resp = requests.post(PUSH_URL+'/sendTravelCanceled', params=post_data)
             if resp.status_code == 404:
