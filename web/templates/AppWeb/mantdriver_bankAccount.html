@@ -23,7 +23,7 @@
                 <div class="span10">
                     <h3 class="MaintenanceHeader">{% trans 'TitDatosBancarios' %}</h3>
                     <span>{% trans 'intro_mant_bank' %}</span>
-                    <form name="mantdriver" id="mantdriver" action="" method="POST">                      
+                    <form name="mantdriver" id="mantdriver" action="" method="POST" onsubmit="return validateAccount();">                      
                         {% csrf_token %}
                         <div class="col1 maintenance">
                             <p>
@@ -34,11 +34,11 @@
                                 {% endif %}
                             </p>
                             {% if car.appPayment %}
-                                <input type="text" name="bankAccount" maxlength="20" placeholder="Número de cuenta" value="{{driver.bankAccount}}">
-                                <input type="text" name="recipientName" maxlength="80" placeholder="Titular" value="{{driver.recipientName}}">
+                                <input type="text" name="bankAccount" maxlength="20" placeholder="Número de cuenta" value="{{driver.bankAccount}}"><span class="accountError hidefieldError">*</span>
+                                <input type="text" name="recipientName" maxlength="80" placeholder="Titular" value="{{driver.recipientName}}"><span class="accountError hidefieldError">*</span>
                             {% else %}
-                                <input type="text" name="bankAccount" maxlength="20" placeholder="Número de cuenta" value="{{driver.bankAccount}}" disabled>
-                                <input type="text" name="recipientName" maxlength="80" placeholder="Titular" value="{{driver.recipientName}}" disabled>
+                                <input type="text" name="bankAccount" maxlength="20" placeholder="Número de cuenta" value="{{driver.bankAccount}}" disabled><span class="accountError hidefieldError">*</span>
+                                <input type="text" name="recipientName" maxlength="80" placeholder="Titular" value="{{driver.recipientName}}" disabled><span class="accountError hidefieldError">*</span>
                             {% endif %}
                         </div>
                         <p class="registerError">{{error}}</p>
@@ -51,6 +51,31 @@
 
 {% block scripts %}
     <script type="text/javascript" src="{{STATIC_URL}}js/appPaymentCheck.js"></script>
+    <script type="text/javascript">
+        function validateAccount(){
+            $('#mantdriver .accountError').removeClass('showfieldError');
+            $('#mantdriver .accountError').addClass('hidefieldError');   
+            var errorString = ''; 
+            var result = true ; 
+            //If the value of AppPayment is 'Si' the value of 'bankAccount' and 'recipientName'  must be set
+            if($("input[name=appPayment]").is(':checked')) { 
+                if ($('input[name=bankAccount]').val() == '' || $('input[name=recipientName]').val() == ''){
+                    errorString = 'Debe introducir Número de cuenta bancaria y Titular de la cuenta';
+                    
+                    $('#mantdriver .accountError').addClass('showfieldError');
+                    $('#mantdriver .accountError').removeClass('hidefieldError');    
+                    result = false;
+                }
+            } 
+            if (result == false) {
+                $('#mantdriver .registerError').html(errorString); 
+            }
+            else{
+                $('#mantdriver .registerError').html(''); 
+            }
+            return result;
+        };
+    </script>
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->

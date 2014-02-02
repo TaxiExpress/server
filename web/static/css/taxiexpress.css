@@ -448,6 +448,18 @@ ul.tabs li.active a {
   bottom: 2px;
 }
 
+.registerDriverForm #capacity{
+	width: 140px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	color: #666;
+	height: 40px;
+	padding: 0px 0px 0px 10px;
+	border: 1px solid #DDDDDD;
+	font-size: 13px;
+	border-radius: 4px;
+}
+
 .btn {
     font-family: "Open Sans", Arial, Helvetica, sans-serif;
     font-weight: 100;

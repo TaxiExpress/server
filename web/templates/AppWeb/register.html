@@ -55,20 +55,48 @@
                         <input type="number" name="license" placeholder="Número de licencia" required value="{{request.POST.license}}">
                         <input type="text" name="plate" maxlength="7" placeholder="Matrícula" required value="{{request.POST.plate}}">
                         <input type="text" name="model" maxlength="80" placeholder="Modelo" required value="{{request.POST.model}}">
-                        <input type="number" name="capacity" placeholder="Capacidad" required value="{{request.POST.capacity}}">
-                        <br>
-                        <p>
-                            <input type="checkbox" name="accessible">{% trans 'TaxisMinusvalidos' %}
-                        </p>
-                        <p>
-                            <input type="checkbox" name="animals">{% trans 'TaxisAnimales' %}
-                        </p>
-                        <p>
-                            <input type="checkbox" name="appPayment">{% trans 'TaxisPagoApp' %}
-                        </p>
-                        <br><span class="italic">{% trans 'Pago' %}</span>
-                        <input type="text" name="bankAccount" maxlength="20" placeholder="Número de cuenta" disabled value="{{request.POST.bancAccount}}"><span class="accountError hidefieldError">*</span>
-                        <input type="text" name="recipientName" maxlength="80" placeholder="Titular" disabled value="{{request.POST.recipientName}}"><span class="accountError hidefieldError">*</span>
+                        <select id="capacity" name="capacity">
+                           <option value="1"
+                           {% if request.POST.capacity == 1 %}
+                                selected
+                           {% endif %}
+                           >1 {% trans 'plaza' %}</option>
+                           <option value="2"
+                           {% if request.POST.capacity == 2 %}
+                                selected
+                           {% endif %}
+                           >2 {% trans 'plazas' %}</option>
+                           <option value="3"
+                           {% if request.POST.capacity == 3 %}
+                                selected
+                           {% endif %}
+                           >3 {% trans 'plazas' %}</option>
+                           <option value="4"
+                           {% if request.POST.capacity == 4 %}
+                                selected
+                           {% endif %}
+                           >4 {% trans 'plazas' %}</option>
+                           <option value="5"
+                           {% if request.POST.capacity == 5 %}
+                                selected
+                           {% endif %}
+                           >5 {% trans 'plazas' %}</option>
+                           <option value="6"
+                           {% if request.POST.capacity == 6 %}
+                                selected
+                           {% endif %}
+                           >6 {% trans 'plazas' %}</option>
+                           <option value="7"
+                           {% if request.POST.capacity == 7 %}
+                                selected
+                           {% endif %}
+                           >7 {% trans 'plazas' %}</option>
+                           <option value="8"
+                           {% if request.POST.capacity == 8 %}
+                                selected
+                           {% endif %}
+                           >8 {% trans 'plazas' %}</option>
+                        </select>
                         <br><span>{% trans 'SigningUp1' %} <a href="termsofuse">{% trans 'SigningUp2' %}</a>.</span> 
                         <p class="registerError">{{error}}</p>      
                         <button class="btn" type="submit">{% trans 'Registrar' %}</button>
@@ -108,7 +136,6 @@
 <script defer type="text/javascript" src="{{STATIC_URL}}js/validationFields.js"></script>
 <script defer type="text/javascript" src="{{STATIC_URL}}js/clearFields.js"></script>
 <script defer type="text/javascript" src="{{STATIC_URL}}js/validationcode.js"></script>
-<script type="text/javascript" src="{{STATIC_URL}}js/appPaymentCheck.js"></script>
 <script>
   function showValidationCodeWindow()
   {

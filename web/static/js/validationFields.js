@@ -68,21 +68,6 @@ function validateDriver() {
         }
     }
 
-    //If the value of AppPayment is 'Si' the value of 'bankAccount' and 'recipientName'  must be set
-    if($("input[name=appPayment]").is(':checked')) {  
-        if ($('input[name=bankAccount]').fieldValue() == '' || $('input[name=recipientName]').fieldValue() == ''){
-            if (errorString == ''){          
-                errorString = 'Debe introducir Número de cuenta bancaria y Titular de la cuenta';
-            }
-            else{
-                errorString = errorString + '<br />' + 'Debe introducir Número de cuenta bancaria y Titular de la cuenta';
-            }
-            $('#createaccountDriver .accountError').addClass('showfieldError');
-            $('#createaccountDriver .accountError').removeClass('hidefieldError');    
-            result = false;
-        }
-    } 
-
     if (result == false) {
         $('#createaccountDriver .registerError').html(errorString); 
     }

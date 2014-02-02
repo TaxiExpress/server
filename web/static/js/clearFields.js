@@ -13,12 +13,7 @@ $(document).ready(function() {
 	    	$('#createaccountDriver input[name=license]').val("");
 	    	$('#createaccountDriver input[name=plate]').val("");				    	
 	    	$('#createaccountDriver input[name=model]').val("");
-	    	$('#createaccountDriver input[name=capacity]').val("");
-	    	$('#createaccountDriver select[name=accessible]').val("1");
-	    	$('#createaccountDriver select[name=animals]').val("1");
-	    	$('#createaccountDriver select[name=appPayment]').val("1");
-	    	$('#createaccountDriver input[name=bankAccount]').val("");
-	    	$('#createaccountDriver input[name=recipientName]').val("");				          
+	    	$('#createaccountDriver input[name=capacity]').val("");			          
 	    }
 	    else{
 	    	//Clear Client fields and mark that it's a Driver
