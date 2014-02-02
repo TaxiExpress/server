@@ -35,8 +35,48 @@
 
                             <input type="text" name="color" maxlength="80" placeholder="Color" value="{{car.color}}">
                             {% trans 'Capacidad' %}
-                            <input type="number" name="capacity" id = "capacity" placeholder="Capacidad" required value="{{car.capacity}}">
-
+                            <select id="capacity" name="capacity">
+                               <option value="1"
+                               {% if car.capacity == 1 %}
+                                    selected
+                               {% endif %}
+                               >1 {% trans 'plaza' %}</option>
+                               <option value="2"
+                               {% if car.capacity == 2 %}
+                                    selected
+                               {% endif %}
+                               >2 {% trans 'plazas' %}</option>
+                               <option value="3"
+                               {% if car.capacity == 3 %}
+                                    selected
+                               {% endif %}
+                               >3 {% trans 'plazas' %}</option>
+                               <option value="4"
+                               {% if car.capacity == 4 %}
+                                    selected
+                               {% endif %}
+                               >4 {% trans 'plazas' %}</option>
+                               <option value="5"
+                               {% if car.capacity == 5 %}
+                                    selected
+                               {% endif %}
+                               >5 {% trans 'plazas' %}</option>
+                               <option value="6"
+                               {% if car.capacity == 6 %}
+                                    selected
+                               {% endif %}
+                               >6 {% trans 'plazas' %}</option>
+                               <option value="7"
+                               {% if car.capacity == 7 %}
+                                    selected
+                               {% endif %}
+                               >7 {% trans 'plazas' %}</option>
+                               <option value="8"
+                               {% if car.capacity == 8 %}
+                                    selected
+                               {% endif %}
+                               >8 {% trans 'plazas' %}</option>
+                            </select>
                             <br>
                             <p>
                                 {% if car.accessible %}
