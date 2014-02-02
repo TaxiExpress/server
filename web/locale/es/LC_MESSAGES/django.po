@@ -478,7 +478,11 @@ msgstr "Es realmente importante mantener actualizados los datos del vehículo. E
 msgid "intro_mant_bank"
 msgstr "Taxi Express ofrece a los clientes registrados la posibilidad de pagar a través de la propia aplicación. Si permite que le pagen de este modo, habilite el formulario y complete el titular y número de cuenta donde quiera cobrar los viajes."
 
+msgid "plaza"
+msgstr "Plaza"
 
+msgid "plazas"
+msgstr "Plazas"
 
 
 
