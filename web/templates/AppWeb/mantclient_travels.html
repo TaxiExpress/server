@@ -129,7 +129,8 @@
                     }               
                 }
                 else{
-                    $('#pagination').html("");
+                    HTMLText = "<span>{% trans 'intro_mant_Travel_SinDatosC' %}</span>"
+                    $('#pagination').html(HTMLText);
                 }
             },
             error: function(xhr, textStatus, errorThrown) {

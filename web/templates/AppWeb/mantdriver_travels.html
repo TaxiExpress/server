@@ -123,7 +123,8 @@
                     }               
                 }
                 else{
-                    $('#pagination').html("");
+                    HTMLText = "<span>{% trans 'intro_mant_Travel_SinDatosT' %}</span>"
+                    $('#pagination').html(HTMLText);
                 }
             },
             error: function(xhr, textStatus, errorThrown) {

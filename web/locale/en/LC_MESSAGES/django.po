@@ -479,6 +479,12 @@ msgstr "It's really important to keep up to date vehicle data. This information 
 msgid "intro_mant_bank"
 msgstr "Taxi Express offers his customers the option of paying through the application itself. If you wish able this feature, enable the form and complete the holder and account number where you want to charge travels payments."
 
+msgid "intro_mant_Travel_SinDatosC"
+msgstr "You haven't traveled yet so there aren't travels to request"
+
+msgid "intro_mant_Travel_SinDatosT"
+msgstr "You haven't provided any service yet so there aren't travels to request"
+
 msgid "plaza"
 msgstr "Seat"
 
