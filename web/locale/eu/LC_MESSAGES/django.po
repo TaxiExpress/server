@@ -26,7 +26,7 @@ msgid "Taxista"
 msgstr "Taxista"
 
 msgid "Contraseña"
-msgstr "pasahitza"
+msgstr "Pasahitza"
 
 msgid "idioma"
 msgstr "Aukeratu hizkuntza"
@@ -171,7 +171,7 @@ msgid "ConfirmaPosicion"
 msgstr "Zure posizioa konfirmatu eta minutu gutxitan zugandik gertuen dagoen taxiak batuko zaitu"
 
 msgid "SeleccionaTaxi"
-msgstr "Nahiago baldin baduzu, aukeratu hobekien datorkizun taxista"
+msgstr "Nahiago baldin baduzu, aukeratu ondoen datorkizun taxista"
 
 msgid "ModificaSencillo"
 msgstr "Zure profileko datuak errestazun osoz aldatu, Egindako ibilbideak kontsultatu, Gogokoen duzun taxista aukeratu eta askoz gehiago..."
@@ -239,7 +239,7 @@ msgid "ContraseñaOlvidada"
 msgstr "¿Pasahitza ahaztu ahal duzu?"
 
 msgid "PideTaxi"
-msgstr "Aukeratu hobekien datorkizun taxia era azkar eta eraginkorrean"
+msgstr "Aukeratu ondoen datorkizun taxia era azkar eta eraginkorrean"
 
 msgid "TfnoYCodigoSMS"
 msgstr "Telefono zenbakia eta jasotako SMS-a sartu"
@@ -257,7 +257,7 @@ msgid "Opciones"
 msgstr "TaxiExpress-ek baimentzen gaitu ..."
 
 msgid "Opcion1"
-msgstr "Taxirik urbilena eskatu"
+msgstr "Taxirik hurbilena eskatu"
 
 msgid "Opcion2"
 msgstr "Taxi jakin bat aurkitu"
@@ -272,7 +272,7 @@ msgid "Opcion5"
 msgstr "Aplikazioaren bitartez ordaindu"
 
 msgid "Opcion6"
-msgstr "Taxistaren zerbitsua puntuatu"
+msgstr "Taxistaren zerbitzua puntuatu"
 
 msgid "MasCaracteristicas"
 msgstr "Ezaugarri gehiago ikusi >>"
@@ -290,7 +290,7 @@ msgid "DiseñoInt"
 msgstr "Diseinu intuitiboa"
 
 msgid "DiseñoInt2"
-msgstr "Bere interfaz sinple, intuitibo eta erakargarriak zure beharretara hobekien moldatzen den taxia aurkitzen laguntzen dizu."
+msgstr "Bere interfaz sinple, intuitibo eta erakargarriak zure beharretara ondoen moldatzen den taxia aurkitzen laguntzen dizu."
 
 msgid "Geolocalizacion"
 msgstr "Geolokalizazioa"
