@@ -654,7 +654,7 @@ def getTravelsByLastYear(request):
         driver = get_object_or_404(Driver, id=request.session['user_id'])
         #travels = driver.travel_set.filter(starttime=datetime.now()-timedelta(days=365))
         today = datetime.now()
-        lastYear = datetime.now()-timedelta(days=365)
+        lastYear = datetime.now()-datetime.timedelta(days=365)
         travels = driver.travel_set.filter(starttime__range=[lastYear, today])
         #travels = driver.travel_set.filter(starttime__year__gte=datetime.now().year,starttime__year__lte=datetime.now().year-1)
         response_data = {}
@@ -669,7 +669,7 @@ def getTravelsByLastMonth(request):
         driver = get_object_or_404(Driver, id=request.session['user_id'])
         #travels = driver.travel_set.filter(starttime=datetime.now()-timedelta(days=365))
         today = datetime.now()
-        lastYear = datetime.now()-timedelta(days=30)
+        lastYear = datetime.now()-datetime.timedelta(days=30)
         travels = driver.travel_set.filter(starttime__range=[lastYear, today])
         #travels = driver.travel_set.filter(starttime__year__gte=datetime.now().year,starttime__year__lte=datetime.now().year-1)
         response_data = {}
