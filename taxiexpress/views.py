@@ -199,13 +199,15 @@ def getClosestTaxi(request):
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Error al obtener la posicion")
 
+
+#Method called by customer app to ask for a selected taxi
 @csrf_exempt
 @api_view(['POST'])
 def getSelectedTaxi(request):
     if 'sessionID' in request.POST:
-        pointclient = Point(float(request.POST['latitude']), float(request.POST['longitude']))
+        pointclient = Point(float(request.POST['latitude']), float(request.POST['longitude'])) #Create a point item from received coordinates
         try:
-            customer = Customer.objects.get(email=request.POST['email'])
+            customer = Customer.objects.get(email=request.POST['email']) #Retrieve the user asking for a travel
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
         if customer.sessionID != request.POST['sessionID']:
@@ -217,14 +219,16 @@ def getSelectedTaxi(request):
         travel.save()
         valuation = 0
         if (customer.positiveVotes+customer.negativeVotes) > 0:
-            valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes))
+            valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes)) #Calculate customer valuation (1..5) to send it to close drivers
+        #Dictionary to be sent to PUSH server
         post_data = {"pushId": driver.pushID ,"origin": request.POST['origin'], "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": driver.device} 
         try:
-            resp = requests.post(PUSH_URL+'/sendSelectedTaxi', params=post_data)
-        except requests.ConnectionError:
+            resp = requests.post(PUSH_URL+'/sendSelectedTaxi', params=post_data) #Send notify dictionary to PUSH server
+        except requests.ConnectionError: #If push server is offline, delete travel and return 503
             travel.delete()
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
         travel.save()
+        #Return travelID to customer app
         response_data = {}
         response_data['travelID'] = travel.id
         return HttpResponse(json.dumps(response_data), content_type="application/json")
@@ -232,49 +236,57 @@ def getSelectedTaxi(request):
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Error al obtener la posicion")
 
 
+
+#Method called by driver app to accept a travel
 @csrf_exempt
 @api_view(['POST'])
 def acceptTravel(request):
     if 'email' in request.POST:
         try:
-            driver = Driver.objects.get(email=request.POST['email'])
+            driver = Driver.objects.get(email=request.POST['email']) #Retrieve the driver accepting the travel
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
         try:
-            travel = Travel.objects.get(id=request.POST['travelID'])
+            travel = driver.travel_set.get(id=request.POST['travelID']) #Retrieve referenced travel
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje ya no está disponible")
         if travel.accepted:
             return HttpResponse(status=status.HTTP_409_CONFLICT, content="El viaje ya no está disponible")
+        #Update travel data
         travel.driver = driver
         travel.accepted = True
         travel.save()
+        #Update driver coordinates and set isfree property to false
         driverpos = Point(float(request.POST['latitude']), float(request.POST['longitude']))
         driver.car.isfree = False
         driver.geom = driverpos
         driver.save()
+        #Dictionary to be sent to PUSH server
         post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "latitude": str(driverpos.x), "longitude": str(driverpos.y), "device": travel.customer.device} 
         print post_data
         try:
-            resp = requests.post(PUSH_URL+'/sendAcceptTravel', params=post_data)
+            resp = requests.post(PUSH_URL+'/sendAcceptTravel', params=post_data) #Send notify dictionary to PUSH server
             print resp
-        except requests.ConnectionError:
+        except requests.ConnectionError: #If push server is offline, delete travel and return 503
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
         return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
 
+
+#Method called by driver app when he picks up the customer and the travel starts
 @csrf_exempt
 @api_view(['POST'])
 def travelStarted(request):
     print request.POST
     if 'travelID' in request.POST: 
         try:
-            travel = Travel.objects.get(id=request.POST['travelID'])
+            travel = Travel.objects.get(id=request.POST['travelID']) #Retrieve referenced travel
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
         if request.POST['email'] != travel.driver.email:
             return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
+        #Update travel data
         travel.origin = request.POST['origin']
         travel.startpoint = Point(float(request.POST['latitude']), float(request.POST['longitude']))
         travel.starttime = datetime.now()
@@ -283,105 +295,117 @@ def travelStarted(request):
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
 
+
+#Method called by driver app when he reaches destination point of the travel
+#A Push notification is sent to the customer with payment data
 @csrf_exempt
 @api_view(['POST'])
 def travelCompleted(request):
     if 'travelID' in request.POST: 
         try:
-            travel = Travel.objects.get(id=request.POST['travelID'])
+            travel = Travel.objects.get(id=request.POST['travelID']) #Retrieve referenced travel
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
         if request.POST['email'] != travel.driver.email:
             return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
+        #Update travel data
         travel.destination = request.POST['destination']
         travel.endpoint = Point(float(request.POST['latitude']), float(request.POST['longitude']))
         travel.endtime = datetime.now()
         travel.cost = request.POST['cost']
         travel.appPayment = (request.POST['appPayment'] == "true")
         travel.driver.car.isfree = True
-        if not travel.appPayment:
-            travel.isPaid = True
         travel.save()
         if travel.appPayment:
+            #Dictionary to be sent to PUSH server
             post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "true","device": travel.customer.device} 
             try:
-                resp = requests.post(PUSH_URL+'/sendTravelCompleted', params=post_data)
-            except requests.ConnectionError:
+                resp = requests.post(PUSH_URL+'/sendTravelCompleted', params=post_data) #Send notify dictionary to PUSH server
+            except requests.ConnectionError: #If push server is offline, delete travel and return 503
                 return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
         else:
-            travel.isPaid = True
+            travel.isPaid = True #If payment is done directly to the driver, we consider the travel paid
             travel.customer.lastUpdateTravels = datetime.now()
             travel.save()
             try:
+                #Dictionary to be sent to PUSH server
                 post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "false","device": travel.customer.device} 
-                resp = requests.post(PUSH_URL+'/sendTravelCompleted', params=post_data)
-            except requests.ConnectionError:
+                resp = requests.post(PUSH_URL+'/sendTravelCompleted', params=post_data) #Send notify dictionary to PUSH server
+            except requests.ConnectionError: #If push server is offline, delete travel and return 503
                 return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
         return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
 
+
+#Method called by customer app when he pays the travel with the app
 @csrf_exempt
 @api_view(['POST'])
 def travelPaid(request):
     if 'travelID' in request.POST:
         try:
-            travel = Travel.objects.get(id=request.POST['travelID'])
+            travel = Travel.objects.get(id=request.POST['travelID']) #Retrieve referenced travel
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
         if request.POST['email'] != travel.customer.email:
             return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
         if request.POST['sessionID'] != travel.customer.sessionID:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
+        #Update travel data
         travel.isPaid = True
         travel.customer.lastUpdateTravels = datetime.now()
         travel.save()
+        #Dictionary to be sent to PUSH server
         post_data = {"travelID": travel.id, "pushId": travel.driver.pushID, "paid": "true", "device": travel.driver.device}
         try:
-            resp = requests.post(PUSH_URL+'/sendTravelPaid', params=post_data)
-        except requests.ConnectionError:
+            resp = requests.post(PUSH_URL+'/sendTravelPaid', params=post_data) #Send notify dictionary to PUSH server
+        except requests.ConnectionError: #If push server is offline, delete travel and return 503
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
         print resp
         return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
 
+
+#Method called by customer app to cancel a travel before it has been accepted
 @csrf_exempt
 @api_view(['POST'])
 def cancelTravelCustomer(request):
     if 'travelID' in request.POST:
         try:
-            travel = Travel.objects.get(id=request.POST['travelID'])
+            travel = Travel.objects.get(id=request.POST['travelID']) #Retrieve referenced travel
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
         if request.POST['email'] != travel.customer.email:
             return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
         if request.POST['sessionID'] != travel.customer.sessionID:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
-        if travel.accepted:
+        if travel.accepted: #If travel has already been accepted, return 401
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El viaje ha sido aceptado")
-        travel.delete()
+        travel.delete() #If cancellation is possible, delete the travel
         return HttpResponse(status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
 
 
+#Method called by driver app to cancel a travel after he has accepted it
 @csrf_exempt
 @api_view(['POST'])
 def cancelTravelDriver(request):
     if 'travelID' in request.POST:
         try:
-            travel = Travel.objects.get(id=request.POST['travelID'])
+            travel = Travel.objects.get(id=request.POST['travelID']) #Retrieve referenced travel
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
         if request.POST['email'] != travel.driver.email:
             return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
+        #Dictionary to be sent to PUSH server
         post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "device": travel.customer.device}
         try:
-            resp = requests.post(PUSH_URL+'/sendTravelCanceled', params=post_data)
+            resp = requests.post(PUSH_URL+'/sendTravelCanceled', params=post_data) #Send notify dictionary to PUSH server
             if resp.status_code == 404:
                 return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
-        except requests.ConnectionError:
+        except requests.ConnectionError: #If push server is offline, delete travel and return 503
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
         travel.delete()
         return HttpResponse(status=status.HTTP_200_OK)
@@ -389,40 +413,44 @@ def cancelTravelDriver(request):
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
 
 
+#Method called by customer app to retrieve last travel data
 @csrf_exempt
 @api_view(['GET'])
 def getLastTravel(request):
     if 'email' in request.GET:
         try:
-            customer = Customer.objects.get(email=request.GET['email'])
+            customer = Customer.objects.get(email=request.GET['email']) #Retrieve the customer item
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El usuario no existe")
         if request.GET['sessionID'] != customer.sessionID:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
-        travel = customer.travel_set.order_by('-starttime')[0]
+        travel = customer.travel_set.order_by('-starttime')[0] #Get customer's last travel by start time
         serialTravel = LastTravelSerializer(travel)
         return Response(serialTravel.data, status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Email no válido")
 
+
+#Method called by customer app to vote a driver from one of his completed travels
 @csrf_exempt
 @api_view(['POST'])
 def voteDriver(request):
     if 'email' in request.POST:
         try:
-            customer = Customer.objects.get(email=request.POST['email'])
+            customer = Customer.objects.get(email=request.POST['email']) #Retrieve the customer item
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El usuario no existe")
         if request.POST['sessionID'] != customer.sessionID:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
         try:
-            travel = Travel.objects.get(id=request.POST['travelID'])
+            travel = Travel.objects.get(id=request.POST['travelID']) #Retrieve referenced travel
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
-        if travel.customervoted == True:
+        if travel.customervoted == True: #If driver has already been voted for that travel, return 400
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Ya has votado")
         travel.customervoted = True
         travel.save()
+        #Update driver votes
         driver = travel.driver
         if request.POST['vote'] == 'positive':
             driver.positiveVotes += 1
@@ -433,22 +461,25 @@ def voteDriver(request):
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Email no válido")
 
+
+#Method called by driver app to vote a customer from one of his completed travels
 @csrf_exempt
 @api_view(['POST'])
 def voteCustomer(request):
     if 'email' in request.POST:
         try:
-            driver = Driver.objects.get(email=request.POST['email'])
+            driver = Driver.objects.get(email=request.POST['email']) #Retrieve the driver item
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El usuario no existe")
         try:
-            travel = Travel.objects.get(id=request.POST['travelID'])
+            travel = Travel.objects.get(id=request.POST['travelID']) #Retrieve referenced travel
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
-        if travel.drivervoted == True:
+        if travel.drivervoted == True: #If customer has already been voted for that travel, return 400
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Ya has votado")
         travel.drivervoted = True
         travel.save()
+        #Update driver votes
         customer = travel.customer
         if request.POST['vote'] == 'positive':
             customer.positiveVotes += 1
@@ -470,21 +501,22 @@ def testPush(request):
     print resp.status_code
     return HttpResponse(status=status.HTTP_200_OK)
 
-
+#Method called by customer app to get a random taxi list meeting his preferences
 @csrf_exempt
 @api_view(['GET'])
 def getNearestTaxies(request):
     if 'latitud' in request.GET:
-        pointclient = Point(float(request.GET['latitud']), float(request.GET['longitud']))
+        pointclient = Point(float(request.GET['latitud']), float(request.GET['longitud'])) #Create a point item from received coordinates
         try:
-            customer = Customer.objects.get(email=request.GET['email'])
+            customer = Customer.objects.get(email=request.GET['email']) #Retrieve the customer item
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
         if customer.sessionID != request.GET['sessionID']:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
+        #Get a list with closest drivers meeting user filters
         closestDrivers = Driver.objects.distance(pointclient).filter(car__isfree=True, available=True, car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity).order_by('distance')[:10]
-        serialDriver = DriverSerializer(closestDrivers, many=True)
-        return Response(serialDriver.data, status=status.HTTP_200_OK)
+        serialDriver = DriverSerializer(closestDrivers, many=True) #Serialize driver list
+        return Response(serialDriver.data, status=status.HTTP_200_OK) #Send the serialized list to customer
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Error al obtener la posicion")
 
@@ -775,7 +807,7 @@ def removeFavoriteDriver(request):
     return HttpResponse(status=status.HTTP_200_OK,content="Taxista eliminado de la lista de favoritos")
 
 
-
+#Method called to load test data every time Database is reset
 @csrf_exempt
 @api_view(['GET'])
 def loadData(request):
