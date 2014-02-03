@@ -637,3 +637,6 @@ textarea:disabled, input:not([type]):disabled, input[type="color"]:disabled, inp
   background-color: #f6f6f6;
 }
 
+.lblCapacidad{
+	margin-right: 20px;
+}

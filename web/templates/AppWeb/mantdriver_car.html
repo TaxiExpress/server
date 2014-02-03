@@ -35,7 +35,7 @@
                             <input type="text" name="plate" maxlength="7" placeholder={% trans 'Matrícula' %} required value="{{car.plate}}">
 
                             <input type="text" name="color" maxlength="80" placeholder={% trans 'Color' %} value="{{car.color}}">
-                            {% trans 'Capacidad' %}
+                            <label class="lblCapacidad">{% trans 'Capacidad' %}</label>
                             <select id="capacity" name="capacity">
                                <option value="1"
                                {% if car.capacity == 1 %}
