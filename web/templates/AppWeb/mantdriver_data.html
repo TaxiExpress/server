@@ -41,7 +41,7 @@
 
                             <input type="text" name="last_name" maxlength="80" placeholder={% trans 'Apellido' %} required value="{{driver.last_name}}">
                             
-                            <input type="number" name="license" placeholder={% trans 'NúmeroLicencia' %} required value="{{driver.license}}">
+                            <input type="number" name="license" placeholder={% trans 'NúmeroLicencia' %} required value="{{driver.license}}" min="0">
 
                             <input type="email" name="email" maxlength="80" placeholder={% trans 'Email' %} required disabled value="{{driver.email}}">
 
