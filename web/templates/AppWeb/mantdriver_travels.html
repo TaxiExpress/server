@@ -56,14 +56,12 @@
                     j = 1;
                     HTMLText  = "<div id=\"p" + j + "\" class=\"pageFilter _current\" style=\"\">";
                     HTMLText += "<table class=\"travelDetail\"> <th> <tr class=\"rowC\"> <td>";
-                    HTMLText += "{% trans 'cNombre' %} </td> ";
+                    HTMLText += "{% trans 'cFecha' %} </td>";
+                    HTMLText += "<td> {% trans 'cNombre' %} </td> ";
                     HTMLText += "<td> {% trans 'cOrigen' %} </td>";
                     HTMLText += "<td> {% trans 'cDestino' %} </td>";
-                    HTMLText += "<td> {% trans 'cCoste' %} </td>";
-                    HTMLText += "<td> {% trans 'cFechaIni' %} </td>";
-                    HTMLText += "<td> {% trans 'cHoraIni' %} </td>";
-                    HTMLText += "<td> {% trans 'cFechaFin' %} </td>";
-                    HTMLText += "<td> {% trans 'cHoraFin' %} </td></tr></th>";
+                    HTMLText += "<td> {% trans 'cDuracion' %} </td>";
+                    HTMLText += "<td> {% trans 'cCoste' %} </td></tr></th>";
                     for (i = 0, len = result.length; i < len; i++) {
                         travel = result[i];
                         if (((i+1) % 10 == 0) && ((i+1) != result.length)){
@@ -72,14 +70,12 @@
                             HTMLText += "</div>"
                             HTMLText += "<div id=\"p" + j + "\" class=\"pageFilter\" style=\"display:none;\">";
                             HTMLText += "<table class=\"travelDetail\"> <th> <tr class=\"rowC\"> <td>";
-                            HTMLText += "{% trans 'cNombre' %} </td> ";
+                            HTMLText += "{% trans 'cFecha' %} </td>";
+                            HTMLText += "<td> {% trans 'cNombre' %} </td> ";
                             HTMLText += "<td> {% trans 'cOrigen' %} </td>";
                             HTMLText += "<td> {% trans 'cDestino' %} </td>";
-                            HTMLText += "<td> {% trans 'cCoste' %} </td>";
-                            HTMLText += "<td> {% trans 'cFechaIni' %} </td>";
-                            HTMLText += "<td> {% trans 'cHoraIni' %} </td>";
-                            HTMLText += "<td> {% trans 'cFechaFin' %} </td>";
-                            HTMLText += "<td> {% trans 'cHoraFin' %} </td></tr></th>";
+                            HTMLText += "<td> {% trans 'cDuracion' %} </td>";
+                            HTMLText += "<td> {% trans 'cCoste' %} </td></tr></th>";
                         }
                         if ((i+1) % 2 == 0){
                             HTMLText += "<tr class=\"rowP\">";
@@ -87,16 +83,23 @@
                         else{
                             HTMLText += "<tr class=\"rowI\">";
                         }
+                        fechaI = new Date(travel.starttime);
+                        HTMLText += "<td>" + ("0" + fechaI.getDate()).slice (-2) + "/" + ("0" + (fechaI.getMonth()  + 1)).slice (-2) + "/" + fechaI.getFullYear() + "  " + fechaI.getHours() + ":" + ("0" + fechaI.getMinutes()).slice (-2) + ":" + ("0" + fechaI.getSeconds()).slice (-2) + "</td>"; 
+                        
                         HTMLText += "<td>" + travel.customer.first_name + " " + travel.customer.last_name + "</td>";
                         HTMLText += "<td>" + travel.origin + "</td>";
                         HTMLText += "<td>" + travel.destination + "</td>";
-                        HTMLText += "<td>" + travel.cost + "</td>";
-                        fechaI = new Date(travel.starttime);
-                        HTMLText += "<td>" + fechaI.getDate() + "/" + (fechaI.getMonth()  + 1) + "/" + fechaI.getFullYear() + "</td>"; 
-                        HTMLText += "<td>" + fechaI.getHours() + ":" + ("0" + fechaI.getMinutes()).slice (-2) + ":" + ("0" + fechaI.getSeconds()).slice (-2) + "</td>"; 
                         fechaF = new Date(travel.endtime); 
-                        HTMLText += "<td>" + fechaF.getDate() + "/" + (fechaF.getMonth()  + 1) + "/" + fechaF.getFullYear() + "</td>"; 
-                        HTMLText += "<td>" + fechaF.getHours() + ":" + ("0" + fechaF.getMinutes()).slice (-2) + ":" + ("0" + fechaF.getSeconds()).slice (-2) + "</td>";            
+                        milisegundos = fechaF - fechaI;
+
+                        restohora=milisegundos%3600000;
+                        minuto = Math.floor(restohora/60000);
+                        restominuto = restohora%60000;
+                        segundo = Math.floor(restominuto/1000);
+                        duracion = minuto + "'" + segundo + "''";
+                        
+                        HTMLText += "<td>" + duracion + "</td>";
+                        HTMLText += "<td>" + travel.cost + "</td>";             
                     }
                     HTMLText += "</table></div>";
                     HTMLText += "<div id=\"page\"></div>";

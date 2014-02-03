@@ -565,17 +565,11 @@ msgstr "Destino"
 msgid "cCoste"
 msgstr "Coste"
 
-msgid "cFechaIni"
-msgstr "Fecha Ini."
+msgid "cFecha"
+msgstr "Fecha"
 
-msgid "cFechaFin"
-msgstr "Fecha Fin"
-
-msgid "cHoraIni"
-msgstr "Hora Ini."
-
-msgid "cHoraFin"
-msgstr "Hora Fin."
+msgid "cDuracion"
+msgstr "Duración"
 
 msgid "Primera"
 msgstr "Primera"
