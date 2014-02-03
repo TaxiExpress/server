@@ -469,15 +469,15 @@ msgstr "Egindako ibilbideen grafikoak"
 #Spans de los mantenimientos
 
 msgid "intro_mant_pass"
-msgstr "Si deseas cambiar la contraseña, rellena el formulario que aparece a continuación:"
+msgstr "Pasahitza aldatu nahi baduzu, ondorengo formularioa bete ezazu:"
 
 
 msgid "intro_mant_car"
-msgstr "Es realmente importante mantener actualizados los datos del vehículo. Estos datos son necesarios para que el cliente identifique perfectamente el taxista que ha solicitado."
+msgstr "Oso garrantzitsua da ibilgailuaren datuak eguneratuak egotea. Datu hauek beharrezkoak dira bezeroak eskatutako taxista ondo identifikatu ahal izateko."
 
 
 msgid "intro_mant_bank"
-msgstr "Taxi Express ofrece a los clientes registrados la posibilidad de pagar a través de la propia aplicación. Si permitir que le pagen de este modo, habilita el formulario y completa el titular y número de cuenta donde quiere cobrar los viajes."
+msgstr "Taxi Express-ek erregistratutako bezeroei aukera ematen die aplikazioaren bitartez ordaintzeari. Modu honetan ordaintzeari baimena ematen badiozu, formularioa gaitu eta titularra eta kontu zenbakia sartu."
 
 msgid "intro_mant_Travel_SinDatosC"
 msgstr "Oraindik ez dituzu bidairik egin beraz ez daude kontzultatzeko daturik"
