@@ -507,7 +507,7 @@ msgid "Email"
 msgstr "Email"
 
 msgid "NúmeroLicencia"
-msgstr "License number"
+msgstr "'License number'"
 
 msgid "Observaciones"
 msgstr "Observations"
@@ -516,25 +516,25 @@ msgid "Codigo"
 msgstr "Code"
 
 msgid "ContraseñaActual"
-msgstr "Current Password"
+msgstr "'Current password'"
 
 msgid "ContraseñaNueva"
-msgstr "New Password"
+msgstr "'New password'"
 
 msgid "ConfirmeContraseña"
-msgstr "Confirm Password"
+msgstr "'Confirm password'"
 
 msgid "ConfirmarContraseña"
-msgstr "Confirm Password"
+msgstr "'Confirm password'"
 
 msgid "Dirección"
 msgstr "Address"
 
 msgid "CódigoPostal"
-msgstr "Postal Code"
+msgstr "'Postal code'"
 
 msgid "NúmeroCuenta"
-msgstr "Account number"
+msgstr "'Account number'"
 
 msgid "Titular"
 msgstr "Holder"
@@ -546,7 +546,7 @@ msgid "Modelo"
 msgstr "Model"
 
 msgid "Matrícula"
-msgstr "Registration number"
+msgstr "'Registration number'"
 
 msgid "Color"
 msgstr "Colour"

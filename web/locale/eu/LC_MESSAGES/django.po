@@ -506,7 +506,7 @@ msgid "Email"
 msgstr "Email"
 
 msgid "NúmeroLicencia"
-msgstr "Lizentziaren zenbakia"
+msgstr "'Lizentziaren zenbakia'"
 
 msgid "Observaciones"
 msgstr "Behaketak"
@@ -515,25 +515,25 @@ msgid "Codigo"
 msgstr "Kode"
 
 msgid "ContraseñaActual"
-msgstr "Oraingo pasahitza"
+msgstr "'Oraingo pasahitza'"
 
 msgid "ContraseñaNueva"
-msgstr "Pasahitza berria"
+msgstr "'Pasahitza berria'"
 
 msgid "ConfirmeContraseña"
-msgstr "Berretsi pasahitza"
+msgstr "'Berretsi pasahitza'"
 
 msgid "ConfirmarContraseña"
-msgstr "Berretsi pasahitza"
+msgstr "'Berretsi pasahitza'"
 
 msgid "Dirección"
 msgstr "Helbidea"
 
 msgid "CódigoPostal"
-msgstr "Postal Kodea"
+msgstr "'Postal kodea'"
 
 msgid "NúmeroCuenta"
-msgstr "Kontu Zenbakia"
+msgstr "'Kontu zenbakia'"
 
 msgid "Titular"
 msgstr "Egileak"
