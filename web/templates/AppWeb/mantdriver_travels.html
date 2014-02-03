@@ -54,8 +54,7 @@
             success: function(result) {
                 if (result.length != 0){
                     j = 1;
-                    HTMLText = "<div id=\"page\"></div>";
-                    HTMLText += "<div id=\"p" + j + "\" class=\"pageFilter _current\" style=\"\">";
+                    HTMLText  = "<div id=\"p" + j + "\" class=\"pageFilter _current\" style=\"\">";
                     HTMLText += "<table class=\"travelDetail\"> <th> <tr class=\"rowC\"> <td>";
                     HTMLText += "{% trans 'cNombre' %} </td> ";
                     HTMLText += "<td> {% trans 'cOrigen' %} </td>";
@@ -100,6 +99,7 @@
                         HTMLText += "<td>" + fechaF.getHours() + ":" + ("0" + fechaF.getMinutes()).slice (-2) + ":" + ("0" + fechaF.getSeconds()).slice (-2) + "</td>";            
                     }
                     HTMLText += "</table></div>";
+                    HTMLText += "<div id=\"page\"></div>";
                     $('#pagination').html(HTMLText);   
                     if (j > 1){
                         $("#page").paginate({

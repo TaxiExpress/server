@@ -130,5 +130,6 @@ h1{
     padding:15px 0px;
     text-align:center;
 	/*background-color:white;	*/
+    min-height: 300px;
 }
 
