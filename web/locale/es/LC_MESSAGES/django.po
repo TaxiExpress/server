@@ -530,7 +530,7 @@ msgid "Dirección"
 msgstr "Dirección"
 
 msgid "CódigoPostal"
-msgstr "'Código Postal'"
+msgstr "'Código postal'"
 
 msgid "NúmeroCuenta"
 msgstr "'Número de cuenta'"
