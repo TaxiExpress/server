@@ -679,17 +679,6 @@ def getTravelsByLastMonth(request):
     else:
         return redirect('/')
 
-def getTravelsByHour(request):
-    if 'user_id' in request.session:
-        driver = get_object_or_404(Driver, id=request.session['user_id'])
-        travels = driver.travel_set.filter(isPaid=True)
-        response_data = {}
-        for i in range(0,24):
-            response_data[i] = travels.filter(starttime__hour=i).count()
-        return HttpResponse(json.dumps(response_data), content_type="application/json")
-    else:
-        return redirect('/')
-
 def getTravelsByDay(request):
     if 'user_id' in request.session:
         driver = get_object_or_404(Driver, id=request.session['user_id'])

@@ -15,7 +15,7 @@ $('window').ready(function(){
 		var lineChartData = 
 			{
             	
-            	labels : ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
+            	labels : ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"],
 				datasets : [
             	{
             			fillColor : "rgba(220,120,120,0.5)",
@@ -123,7 +123,7 @@ $('window').ready(function(){
 		var barChartData2 = 
 			{
             	
-            	labels : ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
+            	labels : ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"],
 				datasets : [
             	{
             			fillColor : "rgba(120,220,120,0.5)",
@@ -160,57 +160,7 @@ $('window').ready(function(){
 		});
 
 	  
-		var posHora = 0;
-		var viajesHoras = new Array();
-		var horas = new Array();
-			
-		$.getJSON('/statistics/gettravelsbyhour/', function(json) {
-            $.each( json, function( key, val ) {
-				
-				viajesHoras[posHora] = val;
-				horas[posHora] = key;
-				posHora = posHora + 1;
-
-		});
 		
-		var BarChartData2 = 
-			{
-            	labels : [horas[0],horas[1],horas[2],horas[3],horas[4],horas[5],horas[6],horas[7],horas[8],horas[9],horas[10],horas[11],horas[12],
-						 horas[13],horas[14],horas[15],horas[16],horas[17],horas[18],horas[19],horas[20],horas[21],horas[22],horas[23]],
-				datasets : [
-            	{
-            			fillColor : "rgba(120,120,220,0.5)",
-            			strokeColor : "rgba(120,120,220,1)",
-            			pointColor : "rgba(120,120,220,1)",
-            			pointStrokeColor : "#fff",
-
-				data : [viajesHoras[0],viajesHoras[1],viajesHoras[2],viajesHoras[3],viajesHoras[4],viajesHoras[5],viajesHoras[6],viajesHoras[7],
-				viajesHoras[8],viajesHoras[9],viajesHoras[10],viajesHoras[11],viajesHoras[12],viajesHoras[13],viajesHoras[14],viajesHoras[15],
-				viajesHoras[16],viajesHoras[17],viajesHoras[18],viajesHoras[19],viajesHoras[20],viajesHoras[21],viajesHoras[22],viajesHoras[23]]
-				
-				},  ]
-				
-			};
-			
-				var options4 = { 
-						
-						scaleShowGridLines: true,
-						scaleOverride: true,
-						scaleSteps: 2,
-						scaleStepWidth: 4,
-						scaleStartValue: 0,
-						scaleLineColor: "rgba(0.9,0.2,0,.1)",
-						scaleLineWidth: 0,
-						scaleShowLabels: true,
-						
-						scaleFontColor: "#000",
-						barDatasetSpacing: 2,
-						barStrokeWidth: 2
-					};
-
-			new Chart(document.getElementById("line2").getContext("2d")).Bar(BarChartData2,options4);
-	
-      });
 	  
 		var posi = 0;
 		var viajesDias = new Array();
@@ -226,7 +176,7 @@ $('window').ready(function(){
 			var BarChartData3 = 
 			{
             	
-            	labels : ["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado","Domingo"],
+            	labels : ["Lun","Mar","Mie","Jue","Vie","Sab","Dom"],
 				datasets : [
             	{
             			fillColor : "rgba(120,120,120,0.5)",
