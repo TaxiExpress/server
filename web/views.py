@@ -18,7 +18,7 @@ from django.core.exceptions import ValidationError
 import json
 import random
 import string
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.utils import timezone
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -654,7 +654,7 @@ def getTravelsByLastYear(request):
         driver = get_object_or_404(Driver, id=request.session['user_id'])
         #travels = driver.travel_set.filter(starttime=datetime.now()-timedelta(days=365))
         today = datetime.now()
-        lastYear = datetime.now()-datetime.timedelta(days=365)
+        lastYear = datetime.now()-timedelta(days=365)
         travels = driver.travel_set.filter(starttime__range=[lastYear, today])
         #travels = driver.travel_set.filter(starttime__year__gte=datetime.now().year,starttime__year__lte=datetime.now().year-1)
         response_data = {}
@@ -669,7 +669,7 @@ def getTravelsByLastMonth(request):
         driver = get_object_or_404(Driver, id=request.session['user_id'])
         #travels = driver.travel_set.filter(starttime=datetime.now()-timedelta(days=365))
         today = datetime.now()
-        lastYear = datetime.now()-datetime.timedelta(days=30)
+        lastYear = datetime.now()-timedelta(days=30)
         travels = driver.travel_set.filter(starttime__range=[lastYear, today])
         #travels = driver.travel_set.filter(starttime__year__gte=datetime.now().year,starttime__year__lte=datetime.now().year-1)
         response_data = {}
@@ -682,7 +682,7 @@ def getTravelsByLastMonth(request):
 def getTravelsByHour(request):
     if 'user_id' in request.session:
         driver = get_object_or_404(Driver, id=request.session['user_id'])
-        travels = driver.travel_set
+        travels = driver.travel_set.all()
         response_data = {}
         for i in range(0,24):
             response_data[i] = travels.filter(starttime__hour=i).count()
