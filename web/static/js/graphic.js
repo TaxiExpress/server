@@ -29,13 +29,13 @@ $('window').ready(function(){
       k = new Date(k.getTime()-(86400000))
     }
 
-    for (var i=0; i<(Math.floor(dias.length/2)-1); i++) { 
+    for (var i=0; i<Math.floor(dias.length/2); i++) { 
       aux = dias[i];
       aux2 = dataYear[i];
-      dias[i] = dias[dias.length-i]
-      dataYear[i] = dataYear[dias.length-i]
-      dias[dias.length-i] = aux
-      dataYear[dias.length-i] = aux2
+      dias[i] = dias[dias.length-(i+1)]
+      dataYear[i] = dataYear[dias.length-(i+1)]
+      dias[dias.length-(i+1)] = aux
+      dataYear[dias.length-(i+1)] = aux2
     }
 		
 		var lineChartData = {
