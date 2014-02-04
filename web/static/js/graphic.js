@@ -74,7 +74,8 @@ $('window').ready(function(){
     var labels = [];
     var data = [];
     var j = f.getMonth();
-    for (var i=0; i<13; i++) { 
+
+    for (var i=0; i<12; i++) { 
       labels[i] = MonthNames[j];
       data[i] = viajesUYear[j+1];
       j++;
