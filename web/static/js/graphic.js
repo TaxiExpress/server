@@ -73,10 +73,10 @@ $('window').ready(function(){
 		
     var labels = [];
     var data = [];
+    var j = f.getMonth();
     for (var i=0; i<13; i++) { 
-      var j = f.getMonth();
       labels[i] = MonthNames[j];
-      data[i] = viajesUYear[j];
+      data[i] = viajesUYear[j+1];
       j++;
       if j == 12 {
         j = 0;
