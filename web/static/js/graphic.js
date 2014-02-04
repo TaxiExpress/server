@@ -69,7 +69,7 @@ $('window').ready(function(){
       scaleLineColor: "rgba(0.9,0.2,0,.1)",
 			scaleLineWidth: 0,
 			scaleShowLabels: true,
-			scaleFontColor: "#000",
+			scaleFontColor: "#555",
 			barDatasetSpacing: 2,
 			barStrokeWidth: 2
 		};
@@ -133,7 +133,7 @@ $('window').ready(function(){
       scaleLineColor: "rgba(0.9,0.2,0,.1)",
   		scaleLineWidth: 0,
   		scaleShowLabels: true,		
-  		scaleFontColor: "#000",
+  		scaleFontColor: "#555",
   		barDatasetSpacing: 2,
   		barStrokeWidth: 2
   	};
@@ -177,7 +177,7 @@ $('window').ready(function(){
       scaleLineColor: "rgba(0.9,0.2,0,.1)",
       scaleLineWidth: 0,
       scaleShowLabels: true,
-      scaleFontColor: "#000",
+      scaleFontColor: "#555",
       scaleLabel : "<%= value%> %",
       barDatasetSpacing: 2,
       barStrokeWidth: 2
@@ -222,7 +222,7 @@ $('window').ready(function(){
   		scaleLineColor: "rgba(0.9,0.2,0,.1)",
   		scaleLineWidth: 0,
   		scaleShowLabels: true,
-  		scaleFontColor: "#000",
+  		scaleFontColor: "#555",
       scaleLabel : "<%= value%> %",
   		barDatasetSpacing: 2,
   		barStrokeWidth: 2
