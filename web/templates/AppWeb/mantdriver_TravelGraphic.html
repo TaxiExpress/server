@@ -24,49 +24,22 @@
 
                  <div class="span10">
                     <h3 class="MaintenanceHeader">{% trans 'TitGraficos' %}</h3>
-                    <form name="mantdriver" id="mantdriver" action="" method="POST" onsubmit="return validateDriverPassword();">                      
-                        {% csrf_token %}
-                        <div class="col1 maintenance">
-								<style>
-                            canvas{float: left;}
-                            </style>
-                            
-                                <div style="width:800px;height:300px;" display:block>
-                                    <div id="uno">
-                                        <header>
-                                            <h2>Viajes por mes</h2>
-                                        </header>
-                                        <article>
-                                            <canvas id="line" height="300" width="750"  ></canvas>
-                                        </article>
-                                    </div>
-                                    <br>
-                                    <div id="dos">
-                                        <header>
-                                            <h2>Viajes ultimo mes</h2>
-                                        </header>
-                                        <article>
-                                            <canvas id="bar" height="300" width="750"  ></canvas>
-                                        </article>
-                                    </div>
-                                    <div id="tres">
-                                        <header>
-                                            <h2>Viajes ultimo año</h2>
-                                        </header>
-                                        <article>
-                                            <canvas id="bar2" height="300" width="750"  ></canvas>
-                                        </article>
-                                    </div>
-                                    <br>
-                                    <div id="cuatro">
-                                        <h2>Viajes por dias</h2>
-										<canvas id="line3" height="300" width="750"  ></canvas>
-                                    </div>
-                                    <br>
-                                </div>
-								
-                        </div>
-                    </form> 
+                    <div class=" maintenance">                            
+                        <h4>Viajes por mes</h4>
+                        <canvas id="travelsByMonth"></canvas>
+                        <br>
+                        <br>
+                        <h4>Viajes ultimo mes</h4>
+                        <canvas id="travelsLastMonth"></canvas>
+                        <br>
+                        <br>
+                        <h4>Viajes ultimo año</h4>
+                        <canvas id="travelsLastYear"></canvas>
+                        <br>
+                        <br>
+                        <h4>Viajes por dias</h4>
+						<canvas id="travelsByDay"></canvas>
+                    </div>
                 </div>
             </div>
         </div>

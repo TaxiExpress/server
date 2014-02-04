@@ -640,3 +640,9 @@ textarea:disabled, input:not([type]):disabled, input[type="color"]:disabled, inp
 .lblCapacidad{
 	margin-right: 20px;
 }
+
+canvas{
+  float: left;
+  height:300px;
+  width:750px;
+}
