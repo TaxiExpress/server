@@ -74,12 +74,13 @@ $('window').ready(function(){
     var labels = [];
     var data = [];
     for (var i=0; i<13; i++) { 
-      var j = f.getMonth() +1;
+      var j = f.getMonth();
       labels[i] = MonthNames[j];
       data[i] = viajesUYear[j];
       j++;
-      if j == 12
+      if j == 12 {
         j = 0;
+      }
     }
 
 		var lineChartData = {
