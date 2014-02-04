@@ -77,6 +77,9 @@ $('window').ready(function(){
       var j = f.getMonth() +1;
       labels[i] = MonthNames[j];
       data[i] = viajesUYear[j];
+      j++;
+      if j == 12
+        j = 0;
     }
 
 		var lineChartData = {
