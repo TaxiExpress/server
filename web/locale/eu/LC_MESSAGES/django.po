@@ -307,8 +307,11 @@ msgstr "Kotxearen datuak"
 msgid "Aceptar"
 msgstr "Baieztatu"
 
+msgid "Cancelar"
+msgstr "Ezeztatu"
+
 msgid "ValidacionCuenta"
-msgstr "Kontuare balioztapena"
+msgstr "Kontuaren balioztapena"
 
 msgid "TfnoYCodigo"
 msgstr "Mugikorraren zenbakia eta jasotako kodea sartu"
@@ -324,6 +327,9 @@ msgstr "Bezeroa erregistratu"
 
 msgid "TabTaxista"
 msgstr "Taxista erregistratu"
+
+msgid "PedirCodigo"
+msgstr "Berriz eskatu balioztapen kodea "
 
 # Estos textos aparecen en index.html
 
@@ -598,7 +604,7 @@ msgid "Email"
 msgstr "Email"
 
 msgid "NúmeroLicencia"
-msgstr "'Lizentziaren zenbakia'"
+msgstr "Lizentziaren zenbakia"
 
 msgid "Observaciones"
 msgstr "Behaketak"
@@ -607,25 +613,25 @@ msgid "Codigo"
 msgstr "Kode"
 
 msgid "ContraseñaActual"
-msgstr "'Oraingo pasahitza'"
+msgstr "Oraingo pasahitza"
 
 msgid "ContraseñaNueva"
-msgstr "'Pasahitza berria'"
+msgstr "Pasahitza berria"
 
 msgid "ConfirmeContraseña"
-msgstr "'Berretsi pasahitza'"
+msgstr "Berretsi pasahitza"
 
 msgid "ConfirmarContraseña"
-msgstr "'Berretsi pasahitza'"
+msgstr "Berretsi pasahitza"
 
 msgid "Dirección"
 msgstr "Helbidea"
 
 msgid "CódigoPostal"
-msgstr "'Postal kodea'"
+msgstr "Postal kodea"
 
 msgid "NúmeroCuenta"
-msgstr "'Kontu zenbakia'"
+msgstr "Kontu zenbakia"
 
 msgid "Titular"
 msgstr "Egileak"

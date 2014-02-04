@@ -38,13 +38,13 @@
                         </div>
                         <input type="hidden" name="id" value="{{client.id}}">
                         <div class="col1 maintenance">                        
-                            <input type="text" name="first_name" maxlength="80" placeholder={% trans 'Nombre' %} required value="{{client.first_name}}">
+                            <input type="text" name="first_name" maxlength="80" placeholder="{% trans 'Nombre' %}" required value="{{client.first_name}}">
 
-                            <input type="text" name="last_name" maxlength="80" placeholder={% trans 'Apellido' %} required  value="{{client.last_name}}">
+                            <input type="text" name="last_name" maxlength="80" placeholder="{% trans 'Apellido' %}" required  value="{{client.last_name}}">
 
-                            <input type="email" name="email" maxlength="80" placeholder={% trans 'Email' %} required disabled value="{{client.email}}">
+                            <input type="email" name="email" maxlength="80" placeholder="{% trans 'Email' %}" required disabled value="{{client.email}}">
 
-                            <input type="tel" name="phone" maxlength="80" placeholder={% trans 'Teléfono' %} required disabled value="{{client.phone|cut:"+34"}}">
+                            <input type="tel" name="phone" maxlength="80" placeholder="{% trans 'Teléfono' %}" required disabled value="{{client.phone|cut:"+34"}}">
                            
                         </div>
                         <div class="col2 maintenance">
@@ -99,7 +99,7 @@
                                 </select> 
                             </div>
                             
-                            <input type="text" name="postcode" maxlength="5" placeholder={% trans 'CódigoPostal' %} value="{{client.postcode}}">
+                            <input type="text" name="postcode" maxlength="5" placeholder="{% trans 'CódigoPostal' %}" value="{{client.postcode}}">
 
                         </div>
                         <p class="registerError">{{error}}</p>

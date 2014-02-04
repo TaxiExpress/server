@@ -35,11 +35,11 @@
                                 {% endif %}
                             </p>
                             {% if car.appPayment %}
-                                <input type="text" name="bankAccount" maxlength="20" placeholder={% trans 'NúmeroCuenta' %} value="{{driver.bankAccount}}"><span class="accountError hidefieldError">*</span>
-                                <input type="text" name="recipientName" maxlength="80" placeholder={% trans 'Titular' %} value="{{driver.recipientName}}"><span class="accountError hidefieldError">*</span>
+                                <input type="text" name="bankAccount" maxlength="20" placeholder="{% trans 'NúmeroCuenta' %}" value="{{driver.bankAccount}}"><span class="accountError hidefieldError">*</span>
+                                <input type="text" name="recipientName" maxlength="80" placeholder="{% trans 'Titular' %}" value="{{driver.recipientName}}"><span class="accountError hidefieldError">*</span>
                             {% else %}
-                                <input type="text" name="bankAccount" maxlength="20" placeholder={% trans 'NúmeroCuenta' %} value="{{driver.bankAccount}}" disabled><span class="accountError hidefieldError">*</span>
-                                <input type="text" name="recipientName" maxlength="80" placeholder={% trans 'Titular' %} value="{{driver.recipientName}}" disabled><span class="accountError hidefieldError">*</span>
+                                <input type="text" name="bankAccount" maxlength="20" placeholder="{% trans 'NúmeroCuenta' %}" value="{{driver.bankAccount}}" disabled><span class="accountError hidefieldError">*</span>
+                                <input type="text" name="recipientName" maxlength="80" placeholder="{% trans 'Titular' %}" value="{{driver.recipientName}}" disabled><span class="accountError hidefieldError">*</span>
                             {% endif %}
                         </div>
                         <p class="registerError">{{error}}</p>

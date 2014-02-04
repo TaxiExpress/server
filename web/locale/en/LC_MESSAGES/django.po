@@ -306,6 +306,9 @@ msgstr "Car data"
 msgid "Aceptar"
 msgstr "Accept"
 
+msgid "Cancelar"
+msgstr "Cancel"
+
 msgid "ValidacionCuenta"
 msgstr "Account validation"
 
@@ -323,6 +326,9 @@ msgstr "Sign up customer"
 
 msgid "TabTaxista"
 msgstr "Sign up driver"
+
+msgid "PedirCodigo"
+msgstr "Reapply validation code "
 
 # Estos textos aparecen en index.html
 
@@ -598,7 +604,7 @@ msgid "Email"
 msgstr "Email"
 
 msgid "NúmeroLicencia"
-msgstr "'License number'"
+msgstr "License number"
 
 msgid "Observaciones"
 msgstr "Observations"
@@ -607,25 +613,25 @@ msgid "Codigo"
 msgstr "Code"
 
 msgid "ContraseñaActual"
-msgstr "'Current password'"
+msgstr "Current password"
 
 msgid "ContraseñaNueva"
-msgstr "'New password'"
+msgstr "New password"
 
 msgid "ConfirmeContraseña"
-msgstr "'Confirm password'"
+msgstr "Confirm password"
 
 msgid "ConfirmarContraseña"
-msgstr "'Confirm password'"
+msgstr "Confirm password"
 
 msgid "Dirección"
 msgstr "Address"
 
 msgid "CódigoPostal"
-msgstr "'Postal code'"
+msgstr "Postal code"
 
 msgid "NúmeroCuenta"
-msgstr "'Account number'"
+msgstr "Account number"
 
 msgid "Titular"
 msgstr "Holder"
@@ -637,7 +643,7 @@ msgid "Modelo"
 msgstr "Model"
 
 msgid "Matrícula"
-msgstr "'Registration number'"
+msgstr "Registration number"
 
 msgid "Color"
 msgstr "Colour"

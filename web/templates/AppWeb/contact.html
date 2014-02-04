@@ -22,13 +22,13 @@
                             <option value = "2">{% trans 'Incidencia' %}</option>
                             <option value = "3">{% trans 'Otra' %}</option>
                         </select> 
-                        <input type="text" name="name" maxlength="80" placeholder={% trans 'Nombre' %} required>
+                        <input type="text" name="name" maxlength="80" placeholder="{% trans 'Nombre' %}" required>
 
-                        <input type="tel" name="phone" maxlength="12" placeholder={% trans 'Teléfono' %}>
+                        <input type="tel" name="phone" maxlength="12" placeholder="{% trans 'Teléfono' %}">
 
-                        <input type="email" name="email" maxlength="80" placeholder={% trans 'Email' %} required>
+                        <input type="email" name="email" maxlength="80" placeholder="{% trans 'Email' %}" required>
 
-                        <textarea rows="10" cols="100" wrap="soft" name="observations" class="observation" maxlength="200" placeholder={% trans 'Observaciones' %} required></textarea>                      
+                        <textarea rows="10" cols="100" wrap="soft" name="observations" class="observation" maxlength="200" placeholder="{% trans 'Observaciones' %}" required></textarea>                      
                     </div>
                     <p class="registerError">{{error}}</p>
                     <div class="clr"><button class="btn" type="submit">{% trans 'Enviar' %}</button></div>

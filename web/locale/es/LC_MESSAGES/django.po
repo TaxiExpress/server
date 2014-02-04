@@ -307,6 +307,9 @@ msgstr "Datos del coche"
 msgid "Aceptar"
 msgstr "Aceptar"
 
+msgid "Cancelar"
+msgstr "Cancelar"
+
 msgid "ValidacionCuenta"
 msgstr "Validación de la cuenta"
 
@@ -324,6 +327,9 @@ msgstr "Registrar cliente"
 
 msgid "TabTaxista"
 msgstr "Registrar taxista"
+
+msgid "PedirCodigo"
+msgstr "Volver a solicitar código de validación "
 
 # Estos textos aparecen en index.html
 
@@ -598,7 +604,7 @@ msgid "Email"
 msgstr "Email"
 
 msgid "NúmeroLicencia"
-msgstr "'Número de licencia'"
+msgstr "Número de licencia"
 
 msgid "Observaciones"
 msgstr "Observaciones"
@@ -607,25 +613,25 @@ msgid "Codigo"
 msgstr "Codigo"
 
 msgid "ContraseñaActual"
-msgstr "'Contraseña actual'"
+msgstr "Contraseña actual"
 
 msgid "ContraseñaNueva"
-msgstr "'Nueva contraseña'"
+msgstr "Nueva contraseña"
 
 msgid "ConfirmeContraseña"
-msgstr "'Confirme contraseña'"
+msgstr "Confirme contraseña"
 
 msgid "ConfirmarContraseña"
-msgstr "'Confirmar contraseña'"
+msgstr "Confirmar contraseña"
 
 msgid "Dirección"
 msgstr "Dirección"
 
 msgid "CódigoPostal"
-msgstr "'Código postal'"
+msgstr "Código postal"
 
 msgid "NúmeroCuenta"
-msgstr "'Número de cuenta'"
+msgstr "Número de cuenta"
 
 msgid "Titular"
 msgstr "Titular"

@@ -35,17 +35,17 @@
                             {% endif %}
                             <input name="file_input" onchange="javascript:drawImageOnCanvas();" type="file" accept="image/gif, image/jpeg, image/png" id="archivo" class="photo" style="display:none;" />
                         </div>
-                        <input type="hidden" name="id" value={{driver.id}}>
+                        <input type="hidden" name="id" value="{{driver.id}}">
                         <div class="col1 maintenance">
-                            <input type="text" name="first_name" maxlength="80" placeholder={% trans 'Nombre' %} required value="{{driver.first_name}}">
+                            <input type="text" name="first_name" maxlength="80" placeholder="{% trans 'Nombre' %}" required value="{{driver.first_name}}">
 
-                            <input type="text" name="last_name" maxlength="80" placeholder={% trans 'Apellido' %} required value="{{driver.last_name}}">
+                            <input type="text" name="last_name" maxlength="80" placeholder="{% trans 'Apellido' %}" required value="{{driver.last_name}}">
                             
-                            <input type="number" name="license" placeholder={% trans 'NúmeroLicencia' %} required value="{{driver.license}}" min="0">
+                            <input type="number" name="license" placeholder="{% trans 'NúmeroLicencia' %}" required value="{{driver.license}}" min="0">
 
-                            <input type="email" name="email" maxlength="80" placeholder={% trans 'Email' %} required disabled value="{{driver.email}}">
+                            <input type="email" name="email" maxlength="80" placeholder="{% trans 'Email' %}" required disabled value="{{driver.email}}">
 
-                            <input type="tel" name="phone" maxlength="80" placeholder={% trans 'Teléfono' %} required disabled value="{{driver.phone|cut:"+34"}}">
+                            <input type="tel" name="phone" maxlength="80" placeholder="{% trans 'Teléfono' %}" required disabled value="{{driver.phone|cut:"+34"}}">
                                                
                         </div>
                         <div class="col2 maintenance">
@@ -100,9 +100,9 @@
                                 </select>
                             </div>
                             
-                            <input type="text" name="address" maxlength="80" placeholder={% trans 'Dirección' %} value="{{driver.address}}">
+                            <input type="text" name="address" maxlength="80" placeholder="{% trans 'Dirección' %}" value="{{driver.address}}">
 
-                            <input type="text" name="postcode" maxlength="5" placeholder={% trans 'CódigoPostal' %} value="{{driver.postcode}}">
+                            <input type="text" name="postcode" maxlength="5" placeholder="{% trans 'CódigoPostal' %}" value="{{driver.postcode}}">
 
                         </div>
                         <p class="registerError">{{error}}</p>
