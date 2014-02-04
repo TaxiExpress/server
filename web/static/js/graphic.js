@@ -21,12 +21,18 @@ $('window').ready(function(){
     var l = 0;
     var k = new Date();
     var today = f.getDate();
+    var max = 0;
 
     while (((k.getDate()) != today) || (l == 0)){
-      dias[l] = k.getDate();
+      if (k.getDate() == today || l % 3 == 0){
+        dias[l] = k.getDate() + " " + MonthNames[k.getMonth()];
+      }
       dataYear[l] = diasMes[k.getDate()];
       l++;      
       k = new Date(k.getTime()-(86400000))
+      if (diasMes[k.getDate()]>max){
+        max = diasMes[k.getDate()]
+      }
     }
 
     for (var i=0; i<Math.floor(dias.length/2); i++) { 
@@ -38,6 +44,10 @@ $('window').ready(function(){
       dataYear[dias.length-(i+1)] = aux2
     }
 		
+    var steps = (Math.floor(max/5))+1;
+    if (steps == 1)
+      steps = 2
+
 		var lineChartData = {
      	labels : dias,	
       datasets : [{
@@ -52,12 +62,12 @@ $('window').ready(function(){
 		var options = { 
 			scaleShowGridLines: true,
 			scaleOverride: true,
-			scaleSteps: 2,
+			scaleSteps: steps,
 			scaleStepWidth: 5,
 			scaleStartValue: 0,
       scaleLineColor: "rgba(0.9,0.2,0,.1)",
 			scaleLineWidth: 0,
-			scaleShowLabels: true,
+			scaleShowLabels: false,
 			scaleFontColor: "#000",
 			barDatasetSpacing: 2,
 			barStrokeWidth: 2
@@ -99,7 +109,9 @@ $('window').ready(function(){
     }
 
     var steps = (Math.floor(max/5))+1;
-
+    if (steps == 1)
+      steps = 2
+    
 		var lineChartData = {
      	labels : labels,
 			datasets : [ {
