@@ -11,13 +11,13 @@ $('window').ready(function(){
 			pos = pos + 1;				
 		});
 		
-		var lineChartData = {
+		var barChartData = {
       labels : ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"],
 			datasets : [{
-  			fillColor : "rgba(220,120,120,0.5)",
-  			strokeColor : "rgba(220,120,120,1)",
-  			pointColor : "rgba(220,120,120,1)",
-  			pointStrokeColor : "#fff",
+        fillColor : "rgba(120,120,120,0.5)",
+        strokeColor : "rgba(120,120,120,1)",
+        pointColor : "rgba(120,120,120,1)",
+        pointStrokeColor : "#fff",    
 				data : [viajesMes[1],viajesMes[2],viajesMes[3],viajesMes[4],viajesMes[5],viajesMes[6],viajesMes[7],viajesMes[8],viajesMes[9],viajesMes[10],viajesMes[11],viajesMes[12]]
 			},]
 		};
@@ -36,7 +36,7 @@ $('window').ready(function(){
 			barStrokeWidth: 2
 		};
 			
-    new Chart(document.getElementById("travelsByMonth").getContext("2d")).Line(lineChartData,options);
+    new Chart(document.getElementById("travelsByMonth").getContext("2d")).Line(lineChartData, options);
 
   });
 	  
@@ -52,7 +52,7 @@ $('window').ready(function(){
 			posDias = posDias + 1;			
 		});
 		
-		var barChartData = {
+		var lineChartData = {
      	labels : [dias[1],dias[2],dias[3],dias[4],dias[5],dias[6],
            			dias[7],dias[8],dias[9],dias[10],dias[11],dias[12],
           			dias[13],dias[14],dias[15],dias[16],dias[17],dias[18],
@@ -60,10 +60,10 @@ $('window').ready(function(){
           			dias[25],dias[26],dias[27],dias[28],dias[29],dias[30],dias[31]
                ],	
       datasets : [{
-  			fillColor : "rgba(120,220,120,0.5)",
-  			strokeColor : "rgba(120,220,120,1)",
-  			pointColor : "rgba(120,220,120,1)",
-  			pointStrokeColor : "#fff",           			
+        fillColor : "rgba(120,120,120,0.5)",
+        strokeColor : "rgba(120,120,120,1)",
+        pointColor : "rgba(120,120,120,1)",
+        pointStrokeColor : "#fff",        			
   			data : [diasMes[1],diasMes[2],diasMes[3],diasMes[4],diasMes[5],diasMes[6],
             		diasMes[7],diasMes[8],diasMes[9],diasMes[10],diasMes[11],diasMes[12],
             		diasMes[13],diasMes[14],diasMes[15],diasMes[16],diasMes[17],diasMes[18],
@@ -73,7 +73,7 @@ $('window').ready(function(){
 			},]
 	  };
 			
-		var options2 = { 
+		var options = { 
 			scaleShowGridLines: true,
 			scaleOverride: true,
 			scaleSteps: 2,
@@ -87,7 +87,7 @@ $('window').ready(function(){
 			barStrokeWidth: 2
 		};
 
-		new Chart(document.getElementById("travelsLastMonth").getContext("2d")).Bar(barChartData,options2);
+		new Chart(document.getElementById("travelsLastMonth").getContext("2d")).Bar(lineChartData,options);
 	
   });
 
@@ -104,18 +104,18 @@ $('window').ready(function(){
 			posMes = posMes + 1;
   	});
 		
-		var barChartData2 = {
+		var lineChartData = {
      	labels : ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"],
 			datasets : [ {
-  			fillColor : "rgba(120,220,120,0.5)",
-  			strokeColor : "rgba(120,220,120,1)",
-  			pointColor : "rgba(120,220,120,1)",
-  			pointStrokeColor : "#fff",
+        fillColor : "rgba(120,120,120,0.5)",
+        strokeColor : "rgba(120,120,120,1)",
+        pointColor : "rgba(120,120,120,1)",
+        pointStrokeColor : "#fff",    
 				data : [viajesUYear[1],viajesUYear[2],viajesUYear[3],viajesUYear[4],viajesUYear[5],viajesUYear[6],viajesUYear[7],viajesUYear[8],viajesUYear[9],viajesUYear[10],viajesUYear[11],viajesUYear[12]]
 			}, ]
     };
 			
-		var options2 = {
+		var options = {
   		scaleShowGridLines: true,
   		scaleOverride: true,
   		scaleSteps: 2,
@@ -129,7 +129,7 @@ $('window').ready(function(){
   		barStrokeWidth: 2
   	};
 
-		new Chart(document.getElementById("travelsLastYear").getContext("2d")).Bar(barChartData2,options2);
+		new Chart(document.getElementById("travelsLastYear").getContext("2d")).Bar(lineChartData, options);
 
 	});
 	
@@ -144,7 +144,7 @@ $('window').ready(function(){
 			posi = posi + 1;
 		});
 		
-  	var BarChartData3 = {
+  	var barChartData = {
      	labels : ["Lun","Mar","Mie","Jue","Vie","Sab","Dom"],
 			datasets : [{
   			fillColor : "rgba(120,120,120,0.5)",
@@ -155,7 +155,7 @@ $('window').ready(function(){
 			}, ]
   	};
 	
-  	var options3 = {					
+  	var options = {					
   		scaleShowGridLines: true,
   		scaleOverride: true,
   		scaleSteps: 2,
@@ -169,7 +169,7 @@ $('window').ready(function(){
   		barStrokeWidth: 2
   	};
 
-  	new Chart(document.getElementById("travelsByDay").getContext("2d")).Bar(BarChartData3,options3);
+  	new Chart(document.getElementById("travelsByDay").getContext("2d")).Bar(barChartData, options);
 	
   });
 	  
