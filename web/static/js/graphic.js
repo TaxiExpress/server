@@ -73,7 +73,7 @@ $('window').ready(function(){
 		
     var labels = [];
     var data = [];
-    var j = f.getMonth();
+    var j = f.getMonth()+1;
 
     for (var i=0; i<12; i++) { 
       labels[i] = MonthNames[j];
