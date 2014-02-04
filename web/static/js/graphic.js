@@ -21,7 +21,7 @@ $('window').ready(function(){
     var l = 0;
     var k = new Date();
     var today = f.getDate();
-    
+
     while (((k.getDate()) != today) || (l == 0)){
       dias[l] = k.getDate();
       dataYear[l] = diasMes[k.getDate()];
@@ -29,11 +29,13 @@ $('window').ready(function(){
       k = new Date(k.getTime()-(86400000))
     }
 
-    for (var i=0; i<Math.floor(dias.length/2); i++) { 
+    for (var i=1; i<Math.floor(dias.length/2); i++) { 
       aux = dias[i];
       aux2 = dataYear[i];
       dias[i] = dias[dias.length-i]
       dataYear[i] = dataYear[dias.length-i]
+      dias[dias.length-i] = aux
+      dataYear[dias.length-i] = aux2
     }
 		
 		var lineChartData = {
