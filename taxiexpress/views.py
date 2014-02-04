@@ -30,7 +30,7 @@ from web.LoadComboInf import loadCombo
 
 PUSH_URL = 'http://ec2-54-84-17-105.compute-1.amazonaws.com:8080'
 
-
+#Method to ramdomly generate an alphanumeric sessionID
 def sessionID_generator(size=10, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for x in range(size))
 
