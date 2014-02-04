@@ -23,7 +23,7 @@ $('window').ready(function(){
     var today = f.getDate();
     console.log("entro");
     while ( (k.getDate()-1) != today ){
-      console.log k.getDate();
+      console.log(k.getDate());
       dias[l] = k.getDate();
       dataYear[l] = diasMes[k.getDate()];
       k = new Date(k.getTime()-(86400000))
