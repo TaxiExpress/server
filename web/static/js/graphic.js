@@ -1,6 +1,9 @@
 
 $('window').ready(function(){
 
+  var f = new Date();
+  var MonthNames = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+  var DayNames = ["Lun","Mar","Mie","Jue","Vie","Sab","Dom"];
 
 	  
   //Viajes en el ultimo mes
@@ -60,6 +63,7 @@ $('window').ready(function(){
 	var meses = new Array();
 	var viajesUYear = new Array();
 	  
+
 	$.getJSON('/statistics/gettravelsbylastyear/', function(json) {
     $.each( json, function( key, val ) {
 			viajesUYear[posMes] = val;
@@ -67,14 +71,22 @@ $('window').ready(function(){
 			posMes = posMes + 1;
   	});
 		
+    var labels = [];
+    var data = [];
+    for (var i=0; i<13; i++) { 
+      var j = f.getMonth() +1;
+      labels[i] = MonthNames[j];
+      data[i] = viajesUYear[j];
+    }
+
 		var lineChartData = {
-     	labels : ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"],
+     	labels : labels,
 			datasets : [ {
         fillColor : "rgba(120,120,120,0.5)",
         strokeColor : "rgba(120,120,120,1)",
         pointColor : "rgba(120,120,120,1)",
         pointStrokeColor : "#fff",    
-				data : [viajesUYear[1],viajesUYear[2],viajesUYear[3],viajesUYear[4],viajesUYear[5],viajesUYear[6],viajesUYear[7],viajesUYear[8],viajesUYear[9],viajesUYear[10],viajesUYear[11],viajesUYear[12]]
+				data : data
 			}, ]
     };
 			
