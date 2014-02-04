@@ -1,44 +1,7 @@
 
 $('window').ready(function(){
 
-  //Viajes por mes
-	var viajesMes = new Array();
-	var pos = 1;
-	
-	$.getJSON('/statistics/gettravelsbymonth/', function(json) {
-    $.each( json, function( key, val ) {
-			viajesMes[pos] = val;
-			pos = pos + 1;				
-		});
-		
-		var barChartData = {
-      labels : ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"],
-			datasets : [{
-        fillColor : "rgba(120,120,120,0.5)",
-        strokeColor : "rgba(120,120,120,1)",
-        pointColor : "rgba(120,120,120,1)",
-        pointStrokeColor : "#fff",    
-				data : [viajesMes[1],viajesMes[2],viajesMes[3],viajesMes[4],viajesMes[5],viajesMes[6],viajesMes[7],viajesMes[8],viajesMes[9],viajesMes[10],viajesMes[11],viajesMes[12]]
-			},]
-		};
-			
-		var options = { 
-			scaleShowGridLines: true,
-			scaleOverride: true,
-			scaleSteps: 2,
-			scaleStepWidth: 5,
-			scaleStartValue: 0,
-      scaleLineColor: "rgba(0.9,0.2,0,.1)",
-			scaleLineWidth: 0,
-			scaleShowLabels: true,
-			scaleFontColor: "#000",
-			barDatasetSpacing: 2,
-			barStrokeWidth: 2
-		};
-			
-    new Chart(document.getElementById("travelsByMonth").getContext("2d")).Line(lineChartData, options);
 
-  });
 	  
   //Viajes en el ultimo mes
 	var posDias = 1;
@@ -87,7 +50,7 @@ $('window').ready(function(){
 			barStrokeWidth: 2
 		};
 
-		new Chart(document.getElementById("travelsLastMonth").getContext("2d")).Bar(lineChartData,options);
+		new Chart(document.getElementById("travelsLastMonth").getContext("2d")).Line(lineChartData,options);
 	
   });
 
@@ -129,10 +92,48 @@ $('window').ready(function(){
   		barStrokeWidth: 2
   	};
 
-		new Chart(document.getElementById("travelsLastYear").getContext("2d")).Bar(lineChartData, options);
+		new Chart(document.getElementById("travelsLastYear").getContext("2d")).Line(lineChartData, options);
 
 	});
 	
+  //Viajes por mes
+  var viajesMes = new Array();
+  var pos = 1;
+  
+  $.getJSON('/statistics/gettravelsbymonth/', function(json) {
+    $.each( json, function( key, val ) {
+      viajesMes[pos] = val;
+      pos = pos + 1;        
+    });
+    
+    var barChartData = {
+      labels : ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"],
+      datasets : [{
+        fillColor : "rgba(120,120,120,0.5)",
+        strokeColor : "rgba(120,120,120,1)",
+        pointColor : "rgba(120,120,120,1)",
+        pointStrokeColor : "#fff",    
+        data : [viajesMes[1],viajesMes[2],viajesMes[3],viajesMes[4],viajesMes[5],viajesMes[6],viajesMes[7],viajesMes[8],viajesMes[9],viajesMes[10],viajesMes[11],viajesMes[12]]
+      },]
+    };
+      
+    var options = { 
+      scaleShowGridLines: true,
+      scaleOverride: true,
+      scaleSteps: 2,
+      scaleStepWidth: 5,
+      scaleStartValue: 0,
+      scaleLineColor: "rgba(0.9,0.2,0,.1)",
+      scaleLineWidth: 0,
+      scaleShowLabels: true,
+      scaleFontColor: "#000",
+      barDatasetSpacing: 2,
+      barStrokeWidth: 2
+    };
+      
+    new Chart(document.getElementById("travelsByMonth").getContext("2d")).Bar(barChartData, options);
+
+  });
 	  
   //Viajes por dia
   var posi = 0;
