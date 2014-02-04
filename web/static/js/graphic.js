@@ -8,34 +8,36 @@ $('window').ready(function(){
 	  
   //Viajes en el ultimo mes
 	var posDias = 1;
-	var dias = new Array();
 	var diasMes = new Array();
 	  
 	$.getJSON('/statistics/gettravelsbylastmonth/', function(json) {
     $.each( json, function( key, val ) {
 			diasMes[posDias] = val;
-			dias[posDias] = key;
 			posDias = posDias + 1;			
 		});
+
+    var dias = []
+    var dataYear = []
+    var l = 0;
+    var k = new Date();
+    var today = f.getDate();
+    console.log("entro");
+    while ( (k.getDate()-1) != today ){
+      console.log k.getDate();
+      dias[l] = k.getDate();
+      dataYear[l] = diasMes[k.getDate()];
+      k = new Date(k.getTime()-(86400000))
+      l++;      
+    }
 		
 		var lineChartData = {
-     	labels : [dias[1],dias[2],dias[3],dias[4],dias[5],dias[6],
-           			dias[7],dias[8],dias[9],dias[10],dias[11],dias[12],
-          			dias[13],dias[14],dias[15],dias[16],dias[17],dias[18],
-          			dias[19],dias[20],dias[21],dias[22],dias[23],dias[24],
-          			dias[25],dias[26],dias[27],dias[28],dias[29],dias[30],dias[31]
-               ],	
+     	labels : dias,	
       datasets : [{
         fillColor : "rgba(120,120,120,0.5)",
         strokeColor : "rgba(120,120,120,1)",
         pointColor : "rgba(120,120,120,1)",
         pointStrokeColor : "#fff",        			
-  			data : [diasMes[1],diasMes[2],diasMes[3],diasMes[4],diasMes[5],diasMes[6],
-            		diasMes[7],diasMes[8],diasMes[9],diasMes[10],diasMes[11],diasMes[12],
-            		diasMes[13],diasMes[14],diasMes[15],diasMes[16],diasMes[17],diasMes[18],
-            		diasMes[19],diasMes[20],diasMes[21],diasMes[22],diasMes[23],diasMes[24],
-            		diasMes[25],diasMes[26],diasMes[27],diasMes[28],diasMes[29],diasMes[30],diasMes[31]
-               ]
+  			data : dataYear
 			},]
 	  };
 			
@@ -74,15 +76,21 @@ $('window').ready(function(){
     var labels = [];
     var data = [];
     var j = f.getMonth()+1;
+    var max = 0;
 
     for (var i=0; i<12; i++) { 
       labels[i] = MonthNames[j];
       data[i] = viajesUYear[j+1];
+      if ((viajesUYear[j+1])>max){
+        max = viajesUYear[j+1]
+      }
       j++;
       if (j == 12) {
         j = 0;
       }
     }
+
+    var steps = (Math.round(max/5))+1;
 
 		var lineChartData = {
      	labels : labels,
@@ -98,7 +106,7 @@ $('window').ready(function(){
 		var options = {
   		scaleShowGridLines: true,
   		scaleOverride: true,
-  		scaleSteps: 2,
+  		scaleSteps: steps,
   		scaleStepWidth: 5,
   		scaleStartValue: 0,
       scaleLineColor: "rgba(0.9,0.2,0,.1)",
