@@ -643,5 +643,5 @@ textarea:disabled, input:not([type]):disabled, input[type="color"]:disabled, inp
 
 canvas{
   float: left;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }

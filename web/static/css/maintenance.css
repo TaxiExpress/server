@@ -87,7 +87,8 @@
 }
 
 .maintenance span{
-	margin-bottom:30px;
+	margin-bottom:40px;
+	display: block;
 }
 
 .maintenance select{
