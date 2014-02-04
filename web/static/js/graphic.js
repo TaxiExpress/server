@@ -78,7 +78,7 @@ $('window').ready(function(){
       labels[i] = MonthNames[j];
       data[i] = viajesUYear[j+1];
       j++;
-      if j == 12 {
+      if (j == 12) {
         j = 0;
       }
     }
