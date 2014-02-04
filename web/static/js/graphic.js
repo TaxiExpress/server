@@ -21,13 +21,19 @@ $('window').ready(function(){
     var l = 0;
     var k = new Date();
     var today = f.getDate();
-    console.log("entro");
-    while ( (k.getDate()-1) != today ){
-      console.log(k.getDate());
+    
+    while (((k.getDate()) != today) || (l == 0)){
       dias[l] = k.getDate();
       dataYear[l] = diasMes[k.getDate()];
-      k = new Date(k.getTime()-(86400000))
       l++;      
+      k = new Date(k.getTime()-(86400000))
+    }
+
+    for (var i=0; i<Math.floor(dias.length/2); i++) { 
+      aux = dias[i];
+      aux2 = dataYear[i];
+      dias[i] = dias[dias.length-i]
+      dataYear[i] = dataYear[dias.length-i]
     }
 		
 		var lineChartData = {
@@ -90,7 +96,7 @@ $('window').ready(function(){
       }
     }
 
-    var steps = (Math.round(max/5))+1;
+    var steps = (Math.floor(max/5))+1;
 
 		var lineChartData = {
      	labels : labels,
@@ -210,6 +216,7 @@ $('window').ready(function(){
   });
 	  
 });
+
 
 
 /*
