@@ -123,22 +123,27 @@ $('window').ready(function(){
       pos = pos + 1;        
     });
     
+    var dataMonth = []
+    for (var i=0; i<13; i++) { 
+      dataMonth[i] = viajesMes[i+1];
+    }
+
     var barChartData = {
-      labels : ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"],
+      labels : MonthNames,
       datasets : [{
         fillColor : "rgba(120,120,120,0.5)",
         strokeColor : "rgba(120,120,120,1)",
         pointColor : "rgba(120,120,120,1)",
         pointStrokeColor : "#fff",    
-        data : [viajesMes[1],viajesMes[2],viajesMes[3],viajesMes[4],viajesMes[5],viajesMes[6],viajesMes[7],viajesMes[8],viajesMes[9],viajesMes[10],viajesMes[11],viajesMes[12]]
+        data : dataMonth
       },]
     };
       
     var options = { 
       scaleShowGridLines: true,
       scaleOverride: true,
-      scaleSteps: 2,
-      scaleStepWidth: 5,
+      scaleSteps: 4,
+      scaleStepWidth: 25,
       scaleStartValue: 0,
       scaleLineColor: "rgba(0.9,0.2,0,.1)",
       scaleLineWidth: 0,
@@ -162,22 +167,27 @@ $('window').ready(function(){
 			posi = posi + 1;
 		});
 		
+    var dataDaysWeek = []
+    for (var i=0; i<7; i++) { 
+      dataDaysWeek[i] = viajesDias[i];
+    }
+
   	var barChartData = {
-     	labels : ["Lun","Mar","Mie","Jue","Vie","Sab","Dom"],
+     	labels : DayNames,
 			datasets : [{
   			fillColor : "rgba(120,120,120,0.5)",
   			strokeColor : "rgba(120,120,120,1)",
   			pointColor : "rgba(120,120,120,1)",
   			pointStrokeColor : "#fff",		
-				data : [viajesDias[0],viajesDias[1],viajesDias[2],viajesDias[3],viajesDias[4],viajesDias[5],viajesDias[6]]
+				data : dataDaysWeek
 			}, ]
   	};
 	
   	var options = {					
   		scaleShowGridLines: true,
   		scaleOverride: true,
-  		scaleSteps: 2,
-  		scaleStepWidth: 5,
+  		scaleSteps: 4,
+  		scaleStepWidth: 25,
   		scaleStartValue: 0,
   		scaleLineColor: "rgba(0.9,0.2,0,.1)",
   		scaleLineWidth: 0,

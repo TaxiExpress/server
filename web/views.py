@@ -643,9 +643,10 @@ def getTravelsByMonth(request):
     if 'user_id' in request.session:
         driver = get_object_or_404(Driver, id=request.session['user_id'])
         travels = driver.travel_set.filter(isPaid=True)
+        total = travels.count()
         response_data = {}
         for i in range(1,13):
-            response_data[i] = travels.filter(starttime__month=i).count()
+            response_data[i] = (travels.filter(starttime__month=i).count()*100)/total
         return HttpResponse(json.dumps(response_data), content_type="application/json")
     else:
         return redirect('/')
@@ -684,14 +685,15 @@ def getTravelsByDay(request):
     if 'user_id' in request.session:
         driver = get_object_or_404(Driver, id=request.session['user_id'])
         travels = driver.travel_set.filter(isPaid=True)
+        total = travels.count()
         response_data = {}
-        response_data[0] = travels.filter(starttime__week_day=2).count()
-        response_data[1] = travels.filter(starttime__week_day=3).count()
-        response_data[2] = travels.filter(starttime__week_day=4).count()
-        response_data[3] = travels.filter(starttime__week_day=5).count()
-        response_data[4] = travels.filter(starttime__week_day=6).count()
-        response_data[5] = travels.filter(starttime__week_day=7).count()
-        response_data[6] = travels.filter(starttime__week_day=1).count()
+        response_data[0] = (travels.filter(starttime__week_day=2).count()*100)/total
+        response_data[1] = (travels.filter(starttime__week_day=3).count()*100)/total
+        response_data[2] = (travels.filter(starttime__week_day=4).count()*100)/total
+        response_data[3] = (travels.filter(starttime__week_day=5).count()*100)/total
+        response_data[4] = (travels.filter(starttime__week_day=6).count()*100)/total
+        response_data[5] = (travels.filter(starttime__week_day=7).count()*100)/total
+        response_data[6] = (travels.filter(starttime__week_day=1).count()*100)/total
         return HttpResponse(json.dumps(response_data), content_type="application/json")
     else:
         return redirect('/')
