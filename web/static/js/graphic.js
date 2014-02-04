@@ -52,9 +52,9 @@ $('window').ready(function(){
 		var lineChartData = {
      	labels : dias,	
       datasets : [{
-        fillColor : "rgba(120,120,120,0.5)",
-        strokeColor : "rgba(120,120,120,1)",
-        pointColor : "rgba(120,120,120,1)",
+        fillColor : "rgba(151,187,205,0.5)",
+        strokeColor : "rgba(151,187,205,1)",
+        pointColor : "rgba(151,187,205,1)",
         pointStrokeColor : "#fff",        			
   			data : dataYear
 			},]
@@ -116,9 +116,9 @@ $('window').ready(function(){
 		var lineChartData = {
      	labels : labels,
 			datasets : [ {
-        fillColor : "rgba(120,120,120,0.5)",
-        strokeColor : "rgba(120,120,120,1)",
-        pointColor : "rgba(120,120,120,1)",
+        fillColor : "rgba(151,187,205,0.5)",
+        strokeColor : "rgba(151,187,205,1)",
+        pointColor : "rgba(151,187,205,1)",
         pointStrokeColor : "#fff",    
 				data : data
 			}, ]
@@ -160,10 +160,10 @@ $('window').ready(function(){
     var barChartData = {
       labels : MonthNames,
       datasets : [{
-        fillColor : "rgba(120,120,120,0.5)",
-        strokeColor : "rgba(120,120,120,1)",
-        pointColor : "rgba(120,120,120,1)",
-        pointStrokeColor : "#fff",    
+        fillColor : "rgba(151,187,205,0.5)",
+        strokeColor : "rgba(151,187,205,1)",
+        pointColor : "rgba(151,187,205,1)",
+        pointStrokeColor : "#fff",     
         data : dataMonth
       },]
     };
@@ -178,6 +178,7 @@ $('window').ready(function(){
       scaleLineWidth: 0,
       scaleShowLabels: true,
       scaleFontColor: "#000",
+      scaleLabel : "<%= value%> %",
       barDatasetSpacing: 2,
       barStrokeWidth: 2
     };
@@ -204,10 +205,10 @@ $('window').ready(function(){
   	var barChartData = {
      	labels : DayNames,
 			datasets : [{
-  			fillColor : "rgba(120,120,120,0.5)",
-  			strokeColor : "rgba(120,120,120,1)",
-  			pointColor : "rgba(120,120,120,1)",
-  			pointStrokeColor : "#fff",		
+        fillColor : "rgba(151,187,205,0.5)",
+        strokeColor : "rgba(151,187,205,1)",
+        pointColor : "rgba(151,187,205,1)",
+        pointStrokeColor : "#fff",    
 				data : dataDaysWeek
 			}, ]
   	};
@@ -222,6 +223,7 @@ $('window').ready(function(){
   		scaleLineWidth: 0,
   		scaleShowLabels: true,
   		scaleFontColor: "#000",
+      scaleLabel : "<%= value%> %",
   		barDatasetSpacing: 2,
   		barStrokeWidth: 2
   	};
