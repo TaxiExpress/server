@@ -27,6 +27,7 @@ $('window').ready(function(){
       if (k.getDate() == today || l % 3 == 0){
         dias[l] = k.getDate() + " " + MonthNames[k.getMonth()];
       }
+      else dias[l] = ""
       dataYear[l] = diasMes[k.getDate()];
       l++;      
       k = new Date(k.getTime()-(86400000))
@@ -67,7 +68,7 @@ $('window').ready(function(){
 			scaleStartValue: 0,
       scaleLineColor: "rgba(0.9,0.2,0,.1)",
 			scaleLineWidth: 0,
-			scaleShowLabels: false,
+			scaleShowLabels: true,
 			scaleFontColor: "#000",
 			barDatasetSpacing: 2,
 			barStrokeWidth: 2
