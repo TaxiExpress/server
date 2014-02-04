@@ -536,11 +536,12 @@ def test(request):
 @api_view(['POST'])
 def updateProfile(request):
     try:
-        customer = Customer.objects.get(email=request.POST['email'])
+        customer = Customer.objects.get(email=request.POST['email']) #Retrieve the customer item
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
     if customer.sessionID != request.POST['sessionID']:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
+    #Update customer data
     customer.first_name = request.POST['firstName']
     customer.last_name = request.POST['lastName']
     customer.image = request.POST['newImage']
@@ -549,15 +550,17 @@ def updateProfile(request):
     return HttpResponse(status=status.HTTP_200_OK,content="Perfil del usuario modificado correctamente")
 
 
+#Method called by driver app to update his position every time he moves
 @csrf_exempt
 @api_view(['POST'])
 def updateDriverPosition(request):
     if 'email' in request.POST:
         try:
-            driver = Driver.objects.get(email=request.POST['email'])
+            driver = Driver.objects.get(email=request.POST['email']) #Retrieve the driver item
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
         if 'latitude' in request.POST:
+            #Update driver position in Database
             pointclient = Point(float(request.POST['latitude']), float(request.POST['longitude']))
             driver.geom = pointclient
             driver.save()
@@ -568,14 +571,16 @@ def updateDriverPosition(request):
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email inexistente")
 
 
+#Method called by driver app when his available status changes
 @csrf_exempt
 @api_view(['POST'])
 def updateDriverAvailable(request):
     if 'email' in request.POST:
         try:
-            driver = Driver.objects.get(email=request.POST['email'])
+            driver = Driver.objects.get(email=request.POST['email']) #Retrieve the driver item
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
+        #Update driver available status
         driver.available = (request.POST['available'] == 'true')
         driver.save()
         return HttpResponse(status=status.HTTP_200_OK)
@@ -583,16 +588,17 @@ def updateDriverAvailable(request):
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email inexistente")
 
 
-
+#Method called by customer app when he changes any search filter in the app
 @csrf_exempt
 @api_view(['POST'])
 def updateFilters(request):
     try:
-        customer = Customer.objects.get(email=request.POST['email'])
+        customer = Customer.objects.get(email=request.POST['email']) #Retrieve the customer item
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
     if customer.sessionID != request.POST['sessionID']:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
+    #Update filters in database with values from the app
     customer.fAccessible = (request.POST['accesible'] == 'true')
     customer.fAnimals = (request.POST['animals'] == 'true')
     customer.fAppPayment = (request.POST['appPayment'] == 'true')
@@ -604,16 +610,17 @@ def updateFilters(request):
 
     
 
-
+#Method called by customer app to verify an account once it has been registered and validation code has been received in phone
 @api_view(['POST'])
 def validateUser(request):
     if 'phone' in request.POST:
         try:
-            customer = Customer.objects.get(phone=request.POST['phone'])
+            customer = Customer.objects.get(phone=request.POST['phone']) #Retrieve the customer item
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta. Inténtelo de nuevo")
         if customer.isValidated == False:
             if customer.validationCode == int(request.POST['validationCode']):
+                #If customer isn't validated and posted validation code is correct, update validation status in database and send confirmation email to customer
                 customer.isValidated = True
                 customer.save()
                 subject = '¡Bienvenido a Taxi Express!'
@@ -626,22 +633,24 @@ def validateUser(request):
                 return HttpResponse(status=status.HTTP_201_CREATED,content="La cuenta ha sido validada correctamente")
             else:
                 return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta. Inténtelo de nuevo")
-        else:        
+        else: #If customer is already validated send 401 error
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Esta cuenta ya está validada.")
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Teléfono incorrecto")
         
 
+#Method called by customer app to change account password
 @csrf_exempt
 @api_view(['POST'])
 def changePassword(request):
     try:
-        customer = Customer.objects.get(email=request.POST['email'])
+        customer = Customer.objects.get(email=request.POST['email']) #Retrieve the customer item
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
     if customer.sessionID != request.POST['sessionID']:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
     if customer.password == request.POST['oldPass']:
+        #If old password verification succeeds, update password on database and send confirmation email
         customer.password = request.POST['newPass']  
         customer.save()
         subject = 'Taxi Express: Su contraseña ha sido modificada'
@@ -656,14 +665,16 @@ def changePassword(request):
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="La contraseña actual es incorrecta")
 
 
+#Method called by driver app to change account password
 @csrf_exempt
 @api_view(['POST'])
 def changePasswordDriver(request):
     try:
-        driver = Driver.objects.get(email=request.POST['email'])
+        driver = Driver.objects.get(email=request.POST['email']) #Retrieve the driver item
     except ObjectDoesNotExist:
         return HttpResponse(status=401, content="El email introducido no es válido")
     if driver.password == request.POST['oldPass']:
+        #If old password verification succeeds, update password on database and send confirmation email
         driver.password = request.POST['newPass']  
         driver.save()
         subject = 'Taxi Express: Su contraseña ha sido modificada'
@@ -677,15 +688,18 @@ def changePasswordDriver(request):
     else:
         return HttpResponse(status=401, content="La contraseña actual es incorrecta")
 
+
+#Method called by customer app to request a password recovery email
 @csrf_exempt
 @api_view(['GET'])
 def recoverPassword(request):
     if request.GET['email'] == '':
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
     try:
-        customer = Customer.objects.get(email=request.GET['email'])
+        customer = Customer.objects.get(email=request.GET['email']) #Retrieve the driver item
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
+    #Send email with password
     subject = 'Taxi Express: Recuperar contraseña'
     from_email = 'MyTaxiExpress@gmail.com'
     to = [customer.email]
@@ -696,30 +710,29 @@ def recoverPassword(request):
     return HttpResponse(status=status.HTTP_201_CREATED,content="Se ha enviado la contraseña a su cuenta de email.")
 
 
+#Method called by customer app to recover email address from associated phone
 @csrf_exempt
 @api_view(['GET'])
 def recoverEmail(request):
     if 'phone' in request.GET:   
         try:
-            customer = Customer.objects.get(phone=request.GET['phone'])
+            customer = Customer.objects.get(phone=request.GET['phone']) #Retrieve the driver item by phone number
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
-        try:
-            emailCus = customer.email
-            return HttpResponse(status=status.HTTP_200_OK,content=emailCus)
-        except Exception:
-            return HttpResponse(status=HTTP_400_BAD_REQUEST, content="Error al devolver el email")
+        return HttpResponse(status=status.HTTP_200_OK,content=customer.email) #Return email address
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un número de teléfono") 
         
 
+#Method called by customer app to recover validation code in case it hasn't been received
 @csrf_exempt
 @api_view(['POST'])
 def recoverValidationCodeCustomer(request):
     if 'phone' in request.POST:
         try:
-            customer = Customer.objects.get(phone=request.POST['phone']) 
+            customer = Customer.objects.get(phone=request.POST['phone']) #Retrieve the customer item by phone number
             if customer.isValidated == False:
+                #If customer isn't already validated send sms with validation code
                 msg = {
                         'reqtype': 'json',
                         'api_key': '8a352457',
@@ -732,22 +745,23 @@ def recoverValidationCodeCustomer(request):
                 sms.set_text_info(msg['text'])
                 response = sms.send_request()                
                 return HttpResponse(status=status.HTTP_201_CREATED)
-            else:
+            else: # If customer is already validated send 401 error
                 return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Usuario ya validado")
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Telefono incorrecto")  
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un numero de telefono")     
     
-         
+
+#Method called by driver app to recover validation code in case it hasn't been received
 @csrf_exempt
 @api_view(['POST'])
 def recoverValidationCodeDriver(request):
     if 'phone' in request.POST:     
         try:
-            driver = Driver.objects.get(phone=request.POST['phone']) 
-            
+            driver = Driver.objects.get(phone=request.POST['phone']) #Retrieve the driver item by phone number
             if driver.isValidated == False:
+                #If driver isn't already validated send sms with validation code
                 msg = {
                         'reqtype': 'json',
                         'api_key': '8a352457',
@@ -760,7 +774,7 @@ def recoverValidationCodeDriver(request):
                 sms.set_text_info(msg['text'])
                 response = sms.send_request()                
                 return HttpResponse(status=status.HTTP_201_CREATED)
-            else:
+            else: #If driver is already validated send 401 error
                 return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Usuario ya validado")
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Telefono incorrecto")
@@ -769,39 +783,41 @@ def recoverValidationCodeDriver(request):
         
     
     
-
+#Method called by customer app to add a specific driver to favourite list
 @csrf_exempt
 @api_view(['POST'])
 def addFavoriteDriver(request):
     try:
-        customer = Customer.objects.get(email=request.POST['customerEmail'])
+        customer = Customer.objects.get(email=request.POST['customerEmail']) #Retrieve the customer calling the method
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
     if customer.sessionID != request.POST['sessionID']:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
     try:
-        driver = Driver.objects.get(email=request.POST['driverEmail'])
+        driver = Driver.objects.get(email=request.POST['driverEmail']) #Retrieve the driver to be added to favourite list
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El taxista introducido no es válido")
-    
+    #Add driver item to customer's favourite list
     customer.favlist.add(driver)
     customer.save()
     return HttpResponse(status=status.HTTP_201_CREATED,content="Taxista añadido a la lista de favoritos")
 
 
+#Method called by customer app to remove a driver from favourite list
 @csrf_exempt
 @api_view(['POST'])
 def removeFavoriteDriver(request):
     try:
-        customer = Customer.objects.get(email=request.POST['customerEmail'])
+        customer = Customer.objects.get(email=request.POST['customerEmail']) #Retrieve the customer calling the method
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
     if customer.sessionID != request.POST['sessionID']:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
     try:
-        driver = customer.favlist.get(email=request.POST['driverEmail'])
-    except ObjectDoesNotExist:
+        driver = customer.favlist.get(email=request.POST['driverEmail']) #Search in favourite list for the driver to be removed
+    except ObjectDoesNotExist: #If driver is not found in customer's favourite list, send 400 error
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El taxista no se encuentra en su lista de favoritos")
+    #Remove driver from customer's favoutite list
     customer.favlist.remove(driver)
     customer.save()
     return HttpResponse(status=status.HTTP_200_OK,content="Taxista eliminado de la lista de favoritos")
