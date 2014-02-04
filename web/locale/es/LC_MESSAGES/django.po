@@ -150,17 +150,109 @@ msgstr "Configura tu movil"
 msgid "PregFrecuentes"
 msgstr "Preguntas Frecuentes"
 
-msgid "ComoRegistrarme"
-msgstr "¿Como puedo registrarme?"
+msgid "General"
+msgstr "General"
 
-msgid "SoloUsuYPass"
-msgstr "Solamente debes introducir usuario y password"
+msgid "PSistemaOperativo"
+msgstr "¿En qué sistemas operativos puedo ejecutar la aplicación de TaxiExpress?"
 
-msgid "PregElegirTaxi"
-msgstr "¿Puedo elegir el taxi?"
+msgid "RSistemaOperativo"
+msgstr "TaxiExpress es compatible con iOs de iPhone e iPad, así como con Android."
 
-msgid "CondicionesTaxi"
-msgstr "Por supuesto, podrás elegir las condiciones que debe cumplir el taxi que realice el servicio"
+msgid "PCoste"
+msgstr "¿Cuánto cuesta el servicio?"
+
+msgid "RCoste"
+msgstr "La descarga de la aplicación es gratuita, únicamente si eres taxista se te cobrará un XXXX por servicio contratado."
+
+msgid "PDonde"
+msgstr "¿Dónde puedo conseguir un  taxi?"
+
+msgid "RDonde"
+msgstr "Todos los taxis que hayan descargado la aplicación y se encuentren libres en el momento de hacer la petición recibirán una solicitud (también podrá seleccionar los taxistas que cumplan unas determinadas condiciones) En cuanto uno de los taxistas la acepta, la solicitud queda confirmada. Se mostrará en un mapa los taxis cercanos a su ubicación."
+
+msgid "AsiFunciona"
+msgstr "Así funciona"
+
+msgid "PCondiciones"
+msgstr "¿Puedo especificar condiciones especiales de búsqueda del taxi?"
+
+msgid "RCondiciones"
+msgstr "Se podrán indicar preferencias especiales como, taxi habilitado para minusválidos, taxi que adminta animales, taxis con un número determinado de plazas y taxis que admitan el pago a través de la aplicación."
+
+msgid "PCerrarApp"
+msgstr "¿Puedo cerrar la aplicación sin perder la reserva del taxi?"
+
+msgid "RCerrarApp"
+msgstr "..................."
+
+msgid "PCancelar"
+msgstr "¿Puedo cancelar la reserva?"
+
+msgid "RCancelar"
+msgstr "..................."
+
+msgid "PPuntuar"
+msgstr "¿Puedo puntuar al taxista?"
+
+msgid "RPuntuar"
+msgstr "Sí. Desde la aplicación..........."
+
+msgid "PVariosTaxis"
+msgstr "¿Puedo pedir varios taxis?"
+
+msgid "RVariosTaxis"
+msgstr "......................"
+
+msgid "Privacidad"
+msgstr "Privacidad"
+
+msgid "PRegistro"
+msgstr "¿Debo registrarme para tener acceso al servicio?"
+
+msgid "RRegistro"
+msgstr "Si, para poder hacer uso del servicio deberá registrarse previamente, una vez registrado se enviará un código de validación al móvil indicado para completar el registro y poder empezar a utilizar la aplicación."
+
+msgid "PTelefono"
+msgstr "¿Por qué he de facilitar mi número de teléfono en la aplicación?"
+
+msgid "RTelefono"
+msgstr "Es necesario para que el taxista pueda ponerse en contacto si tiene dudas o han surgido imprevistos (atascos, cortes de carretera, etc.)"
+
+msgid "Ayuda"
+msgstr "Ayuda"
+
+msgid "PNoAbre"
+msgstr "La aplicación mytaxi no se abre. ¿Qué hago?"
+
+msgid "RNoAbre"
+msgstr "Lo más conveniente es que cierre la aplicación y la vuelva a abrir, si aun así sigue sin funcionar, compruebe que la conexión a Internet es la correcta."
+
+msgid "PActualizar"
+msgstr "¿Cómo se actualiza mi aplicación mytaxi?"
+
+msgid "RActualizar"
+msgstr "Los usuarios de iPhone reciben un aviso automático de la App Store. Se puede ver que hay actualizaciones pendientes por el número en rojo sobre el icono de la App Store. Seleccione la actualización correspondiente y pulse «Instalar». Tras introducir la contraseña se descarga la actualización. Los dispositivos con Android cuentan con una función para las actualizaciones automáticas. Simplemente se ha de marcar la opción «Actualizaciones automáticas» para tener siempre la última versión."
+
+msgid "PContacto"
+msgstr "¿Cómo me puedo poner en contacto con TaxiExpress?"
+
+msgid "RContacto"
+msgstr "Puede ponerse en contacto con nuestro equipo llamando al +34 93 22 24 040 o escribiendo a "
+
+# Estos textos aparecen en mantdriver_TravelGraphic.html
+
+msgid "UltimoMes"
+msgstr "Último mes"
+
+msgid "UltimoAno"
+msgstr "Último año"
+
+msgid "HistMes"
+msgstr "Histórico por mes"
+
+msgid "HistDias"
+msgstr "Histórico por días de la semana"
 
 # Estos textos aparecen en client.html
 

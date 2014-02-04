@@ -150,17 +150,109 @@ msgstr "Mugikorra konfiguratu"
 msgid "PregFrecuentes"
 msgstr "Ohiko galderak"
 
-msgid "ComoRegistrarme"
-msgstr "¿Nola erregistratu naiteke?"
+msgid "General"
+msgstr "Orokor"
 
-msgid "SoloUsuYPass"
-msgstr "Erabiltzailea eta pasahitza soilik adierazi behar dituzu"
+msgid "PSistemaOperativo"
+msgstr "¿En qué sistemas operativos puedo ejecutar la aplicación de TaxiExpress?"
 
-msgid "PregElegirTaxi"
-msgstr "¿Taxia aukeratu ahal nezake?"
+msgid "RSistemaOperativo"
+msgstr "TaxiExpress es compatible con iOs de iPhone e iPad, así como con Android."
 
-msgid "CondicionesTaxi"
-msgstr "Noski, zerbitzua egingo duen taxiaren betebeharreko baldintzak aukeratu ahal izango dituzu"
+msgid "PCoste"
+msgstr "¿Zenbat balio du zerbitzuak?"
+
+msgid "RCoste"
+msgstr "La descarga de la aplicación es gratuita, únicamente si eres taxista se te cobrará un XXXX por servicio contratado."
+
+msgid "PDonde"
+msgstr "¿Non lortu dezaket taxi bat?"
+
+msgid "RDonde"
+msgstr "Todos los taxis que hayan descargado la aplicación y se encuentren libres en el momento de hacer la petición recibirán una solicitud (también podrá seleccionar los taxistas que cumplan unas determinadas condiciones) En cuanto uno de los taxistas la acepta, la solicitud queda confirmada. Se mostrará en un mapa los taxis cercanos a su ubicación."
+
+msgid "AsiFunciona"
+msgstr "Horrela dabil"
+
+msgid "PCondiciones"
+msgstr "¿Puedo especificar condiciones especiales de búsqueda del taxi?"
+
+msgid "RCondiciones"
+msgstr "Se podrán indicar preferencias especiales como, taxi habilitado para minusválidos, taxi que adminta animales, taxis con un número determinado de plazas y taxis que admitan el pago a través de la aplicación."
+
+msgid "PCerrarApp"
+msgstr "¿Puedo cerrar la aplicación sin perder la reserva del taxi?"
+
+msgid "RCerrarApp"
+msgstr "..................."
+
+msgid "PCancelar"
+msgstr "¿Puedo cancelar la reserva?"
+
+msgid "RCancelar"
+msgstr "..................."
+
+msgid "PPuntuar"
+msgstr "¿Taxista puntuatu dezaket?"
+
+msgid "RPuntuar"
+msgstr "Sí. Desde la aplicación..........."
+
+msgid "PVariosTaxis"
+msgstr "¿Taxi bat baino gehiago eskatu dezaket?"
+
+msgid "RVariosTaxis"
+msgstr "......................"
+
+msgid "Privacidad"
+msgstr "Pribatutasuna"
+
+msgid "PRegistro"
+msgstr "¿Debo registrarme para tener acceso al servicio?"
+
+msgid "RRegistro"
+msgstr "Si, para poder hacer uso del servicio deberá registrarse previamente, una vez registrado se enviará un código de validación al móvil indicado para completar el registro y poder empezar a utilizar la aplicación."
+
+msgid "PTelefono"
+msgstr "¿Por qué he de facilitar mi número de teléfono en la aplicación?"
+
+msgid "RTelefono"
+msgstr "Es necesario para que el taxista pueda ponerse en contacto si tiene dudas o han surgido imprevistos (atascos, cortes de carretera, etc.)"
+
+msgid "Ayuda"
+msgstr "Laguntza"
+
+msgid "PNoAbre"
+msgstr "La aplicación mytaxi no se abre. ¿Qué hago?"
+
+msgid "RNoAbre"
+msgstr "Lo más conveniente es que cierre la aplicación y la vuelva a abrir, si aun así sigue sin funcionar, compruebe que la conexión a Internet es la correcta."
+
+msgid "PActualizar"
+msgstr "¿Cómo se actualiza mi aplicación mytaxi?"
+
+msgid "RActualizar"
+msgstr "Los usuarios de iPhone reciben un aviso automático de la App Store. Se puede ver que hay actualizaciones pendientes por el número en rojo sobre el icono de la App Store. Seleccione la actualización correspondiente y pulse «Instalar». Tras introducir la contraseña se descarga la actualización. Los dispositivos con Android cuentan con una función para las actualizaciones automáticas. Simplemente se ha de marcar la opción «Actualizaciones automáticas» para tener siempre la última versión."
+
+msgid "PContacto"
+msgstr "¿Nola ipini naiteke kontatuan TaxiExpress-ekin?"
+
+msgid "RContacto"
+msgstr "Gure taldearekin kontaktuan ipini zaitezke +34 93 22 24 040 telefonora deituz edo urrengo helbidera idatziz "
+
+# Estos textos aparecen en mantdriver_TravelGraphic.html
+
+msgid "UltimoMes"
+msgstr "Azkenengo hilabetea"
+
+msgid "UltimoAno"
+msgstr "Azkenengo urtea"
+
+msgid "HistMes"
+msgstr "Urtez besteko historikoa"
+
+msgid "HistDias"
+msgstr "Astegun besteko historikoa"
 
 # Estos textos aparecen en client.html
 
