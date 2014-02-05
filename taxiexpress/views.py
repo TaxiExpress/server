@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseBadRequest
 from taxiexpress.models import Customer, Country, State, City, Driver, Travel, Car
-from taxiexpress.serializers import CarSerializer, DriverSerializer, CustomerTravelsSerializer, CustomerProfileSerializer, DriverDataSerializer, LastTravelSerializer, CustomerCountryStateCitySerializer
+from taxiexpress.serializers import CarSerializer, DriverSerializer, TravelSerializer, CustomerProfileSerializer, DriverDataSerializer, LastTravelSerializer, CustomerCountryStateCitySerializer
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import Distance, D
@@ -77,7 +77,8 @@ def loginUser(request):
             response_data.update(CustomerProfileSerializer(customer).data)
         #If travel history has changed since last login
         if customer.lastUpdateTravels !=  datetime_travels:
-            response_data.update(CustomerTravelsSerializer(customer).data)
+             response_data['travel_set'] = TravelSerializer(customer.travel_set.filter(isPaid=False), many=True)
+             response_data['lastUpdateTravels'] = customer.lastUpdateTravels
         return Response(response_data, status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")

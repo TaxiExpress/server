@@ -54,12 +54,6 @@ class LastTravelSerializer(serializers.ModelSerializer):
         model = Travel
         fields = ('id', 'driver', 'starttime', 'endtime', 'cost', 'startpoint', 'origin', 'endpoint', 'destination', 'lastUpdateTravels','customervoted','drivervoted')
 
-#Este serializer devuelve la lista de viajes
-class CustomerTravelsSerializer(serializers.ModelSerializer):
-    travel_set = TravelSerializer(many=True)
-    class Meta:
-        model = Customer
-        fields = ('travel_set','lastUpdateTravels')
 
 #Este serializer devuelve solo el perfil del Customer
 class CustomerProfileSerializer(serializers.ModelSerializer):
