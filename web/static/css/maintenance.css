@@ -89,6 +89,7 @@
 .maintenance strong{
 	margin-bottom:40px;
 	display: block;
+	font-weight: 100;
 }
 
 .maintenance select{
