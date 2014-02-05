@@ -237,8 +237,11 @@ msgstr "Los usuarios de iPhone reciben un aviso automático de la App Store. Se 
 msgid "PContacto"
 msgstr "¿Nola ipini naiteke kontatuan TaxiExpress-ekin?"
 
-msgid "RContacto"
-msgstr "Gure taldearekin kontaktuan ipini zaitezke +34 93 22 24 040 telefonora deituz edo urrengo helbidera idatziz "
+msgid "RContacto1"
+msgstr "Gurekin kontaktuan ipintzeko sakatu "
+
+msgid "RContacto2"
+msgstr "hemen"
 
 # Estos textos aparecen en mantdriver_TravelGraphic.html
 

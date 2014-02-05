@@ -236,8 +236,11 @@ msgstr "Los usuarios de iPhone reciben un aviso automático de la App Store. Se 
 msgid "PContacto"
 msgstr "¿Cómo me puedo poner en contacto con TaxiExpress?"
 
-msgid "RContacto"
-msgstr "Puede ponerse en contacto con nuestro equipo llamando al +34 93 22 24 040 o escribiendo a "
+msgid "RContacto1"
+msgstr "Para ponerse en contacto con nosotros pinche "
+
+msgid "RContacto2"
+msgstr "here"
 
 # Estos textos aparecen en mantdriver_TravelGraphic.html
 
