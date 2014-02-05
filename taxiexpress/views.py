@@ -248,7 +248,7 @@ def acceptTravel(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
         try:
-            travel = driver.travel_set.get(id=request.POST['travelID']) #Retrieve referenced travel
+            travel = Travel.objects.get(id=request.POST['travelID']) #Retrieve referenced travel
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje ya no está disponible")
         if travel.accepted:
