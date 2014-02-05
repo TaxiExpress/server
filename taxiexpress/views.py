@@ -242,7 +242,7 @@ def getSelectedTaxi(request):
 @api_view(['POST'])
 def acceptTravel(request):
     if 'email' in request.POST:
-        print request
+        print request.POST
         try:
             driver = Driver.objects.get(email=request.POST['email']) #Retrieve the driver accepting the travel
         except ObjectDoesNotExist:
