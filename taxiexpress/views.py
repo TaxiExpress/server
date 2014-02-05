@@ -59,7 +59,7 @@ def loginUser(request):
         if unpaidTravels.count() > 0:
             #If there are unpaid travels sends pay notification
             travel = unpaidTravels[0]
-            post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "true","device": customer.device} 
+            post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": travel.cost, "appPayment": "true","device": customer.device} 
             try:
                 resp = requests.post(PUSH_URL+'/sendTravelCompleted', params=post_data)
             except requests.ConnectionError:
@@ -357,6 +357,7 @@ def travelPaid(request):
         travel.isPaid = True
         travel.customer.lastUpdateTravels = datetime.now()
         travel.save()
+        print travel.isPaid
         #Dictionary to be sent to PUSH server
         post_data = {"travelID": travel.id, "pushId": travel.driver.pushID, "paid": "true", "device": travel.driver.device}
         try:
