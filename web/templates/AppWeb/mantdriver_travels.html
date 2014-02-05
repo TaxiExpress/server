@@ -64,7 +64,7 @@
                     HTMLText += "<td> {% trans 'cCoste' %} </td></tr></th>";
                     for (i = 0, len = result.length; i < len; i++) {
                         travel = result[i];
-                        if (((i+1) % 10 == 0) && ((i+1) != result.length)){
+                        if ((i != 0) && (i % 10 == 0) && (i != result.length)){
                             j +=1;
                             HTMLText += "</table>";
                             HTMLText += "</div>"
