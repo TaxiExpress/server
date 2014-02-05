@@ -66,11 +66,12 @@ $('window').ready(function(){
 			scaleSteps: steps,
 			scaleStepWidth: 5,
 			scaleStartValue: 0,
-      scaleLineColor: "rgba(0.9,0.2,0,.1)",
+      scaleLineColor: "rgba(0.9,0.2,0,.2)",
 			scaleLineWidth: 0,
 			scaleShowLabels: true,
 			scaleFontColor: "#555",
 			barDatasetSpacing: 2,
+      scaleGridLineWidth: 1,
 			barStrokeWidth: 2
 		};
 
@@ -130,11 +131,12 @@ $('window').ready(function(){
   		scaleSteps: steps,
   		scaleStepWidth: 5,
   		scaleStartValue: 0,
-      scaleLineColor: "rgba(0.9,0.2,0,.1)",
+      scaleLineColor: "rgba(0.9,0.2,0,.2)",
   		scaleLineWidth: 0,
   		scaleShowLabels: true,		
   		scaleFontColor: "#555",
   		barDatasetSpacing: 2,
+      scaleGridLineWidth: 1,
   		barStrokeWidth: 2
   	};
 
@@ -174,11 +176,12 @@ $('window').ready(function(){
       scaleSteps: 4,
       scaleStepWidth: 25,
       scaleStartValue: 0,
-      scaleLineColor: "rgba(0.9,0.2,0,.1)",
+      scaleLineColor: "rgba(0.9,0.2,0,.2)",
       scaleLineWidth: 0,
       scaleShowLabels: true,
       scaleFontColor: "#555",
       scaleLabel : "<%= value%> %",
+      scaleGridLineWidth: 1,
       barDatasetSpacing: 2,
       barStrokeWidth: 2
     };
@@ -219,10 +222,11 @@ $('window').ready(function(){
   		scaleSteps: 4,
   		scaleStepWidth: 25,
   		scaleStartValue: 0,
-  		scaleLineColor: "rgba(0.9,0.2,0,.1)",
+  		scaleLineColor: "rgba(0.9,0.2,0,.2)",
   		scaleLineWidth: 0,
   		scaleShowLabels: true,
   		scaleFontColor: "#555",
+      scaleGridLineWidth: 1,
       scaleLabel : "<%= value%> %",
   		barDatasetSpacing: 2,
   		barStrokeWidth: 2
