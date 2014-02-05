@@ -102,8 +102,9 @@ def loginDriver(request):
         driver.device = request.POST['pushDevice']
         driver.available = True
         driver.save()
-        driverNameSurname = DriverDataSerializer(driver)
-        return Response(driverNameSurname.data, status=status.HTTP_200_OK)
+        driverNameSurname = DriverDataSerializer(driver).data
+        driverNameSurname['appPayment'] = driver.car.appPayment
+        return Response(driverNameSurname, status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
 
