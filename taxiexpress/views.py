@@ -77,7 +77,7 @@ def loginUser(request):
             response_data.update(CustomerProfileSerializer(customer).data)
         #If travel history has changed since last login
         if customer.lastUpdateTravels !=  datetime_travels:
-             response_data['travel_set'] = TravelSerializer(customer.travel_set.filter(isPaid=False), many=True)
+             response_data['travel_set'] = TravelSerializer(customer.travel_set.filter(isPaid=True), many=True)
              response_data['lastUpdateTravels'] = customer.lastUpdateTravels
         return Response(response_data, status=status.HTTP_200_OK)
     else:
