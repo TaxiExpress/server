@@ -186,5 +186,18 @@ class TravelsCustomerViewTestCase(TestCase):
 class TravelsDriverViewTestCase(TestCase):
     def test_index(self):
         resp = self.client.get('/gettravelsdriver/')
-        self.assertEqual(resp.status_code, 302)  
+        self.assertEqual(resp.status_code, 302)
+
+"""
+TaxiExpress apps methods test classes
+"""
+    class ClientLoginViewTestCase(TestCase):
+        def test_index(self):
+            resp = self.client.get('/client/login/')
+            self.assertEqual(resp.status_code, 200)
+
+    class ClientRegisterViewTestCase(TestCase):
+        def test_index(self):
+            resp = self.client.get('/client/register')
+            self.assertEqual(resp.status_code, 200)
 
