@@ -43,7 +43,7 @@ class TravelSerializer(serializers.ModelSerializer):
     driver= DriverSerializer()
     class Meta:
         model = Travel
-        fields = ('id', 'driver', 'starttime', 'endtime', 'cost', 'startpoint', 'origin', 'endpoint', 'destination')
+        fields = ('id', 'driver', 'starttime', 'endtime', 'cost', 'startpoint', 'origin', 'endpoint', 'destination','customervoted','drivervoted')
 
 class LastTravelSerializer(serializers.ModelSerializer):
     driver= DriverSerializer()
@@ -52,7 +52,7 @@ class LastTravelSerializer(serializers.ModelSerializer):
         return obj.customer.lastUpdateTravels
     class Meta:
         model = Travel
-        fields = ('id', 'driver', 'starttime', 'endtime', 'cost', 'startpoint', 'origin', 'endpoint', 'destination', 'lastUpdateTravels')
+        fields = ('id', 'driver', 'starttime', 'endtime', 'cost', 'startpoint', 'origin', 'endpoint', 'destination', 'lastUpdateTravels','customervoted','drivervoted')
 
 #Este serializer devuelve la lista de viajes
 class CustomerTravelsSerializer(serializers.ModelSerializer):
