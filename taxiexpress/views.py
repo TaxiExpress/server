@@ -290,8 +290,8 @@ def travelStarted(request):
         if request.POST['email'] != travel.driver.email:
             return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
         #Update travel data
-        travel.origin = request.POST['origin']
-        travel.startpoint = Point(float(request.POST['latitude']), float(request.POST['longitude']))
+        #travel.origin = request.POST['origin']
+        #travel.startpoint = Point(float(request.POST['latitude']), float(request.POST['longitude']))
         travel.starttime = datetime.now()
         travel.save()
         return HttpResponse(status=status.HTTP_200_OK)
