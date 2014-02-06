@@ -193,11 +193,15 @@ TaxiExpress apps methods test classes
 """
     class ClientLoginViewTestCase(TestCase):
         def test_index(self):
-            resp = self.client.get('/client/login/')
+            resp = self.client.post('/client/login/', {'email': 'gorka_12@hotmail.com', 'password': '11111111'})
+            self.assertEqual(resp.status_code, 200)
+
+    class DriverLoginViewTestCase(TestCase):
+        def test_index(self):
+            resp = self.client.post('/driver/login/', {'email': 'conductor@gmail.com', 'password': '11111111'})
             self.assertEqual(resp.status_code, 200)
 
     class ClientRegisterViewTestCase(TestCase):
         def test_index(self):
-            resp = self.client.get('/client/register')
+            resp = self.client.post('/client/register', {'email':'mikel.ortega.novo@gmail.com','phone':635205081,'password':'11111111','passwordCon':'11111111'})
             self.assertEqual(resp.status_code, 200)
-
