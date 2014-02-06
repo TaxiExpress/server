@@ -82,7 +82,6 @@ def registerUser(request):
         #   return HttpResponse("shortpassword", content_type="text/plain")
         else:
             try:
-                tmpPhone = '+34' + request.POST['phone']
                 c = Customer(email=request.POST['email'], password=passtemp, phone=tmpPhone, image="")
                 code = random.randint(1000, 9999)
                 c.validationCode = code
