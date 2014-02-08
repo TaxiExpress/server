@@ -157,7 +157,7 @@ msgid "PSistemaOperativo"
 msgstr "¿En qué sistemas operativos puedo ejecutar la aplicación de TaxiExpress?"
 
 msgid "RSistemaOperativo"
-msgstr "TaxiExpress es compatible con iOs de iPhone e iPad, así como con Android."
+msgstr "TaxiExpress es compatible tanto con dispositivos iOS (iPhone y iPad), así como con dispositivos Android."
 
 msgid "PCoste"
 msgstr "¿Cuánto cuesta el servicio?"
@@ -169,7 +169,7 @@ msgid "PDonde"
 msgstr "¿Dónde puedo conseguir un  taxi?"
 
 msgid "RDonde"
-msgstr "Todos los taxis que hayan descargado la aplicación y se encuentren libres en el momento de hacer la petición recibirán una solicitud (también podrá seleccionar los taxistas que cumplan unas determinadas condiciones) En cuanto uno de los taxistas la acepta, la solicitud queda confirmada. Se mostrará en un mapa los taxis cercanos a su ubicación."
+msgstr "Todos los taxis que hayan descargado la aplicación y se encuentren libres en el momento de hacer la petición recibirán una solicitud (también podrá seleccionar los taxistas que cumplan unas determinadas condiciones) En cuanto uno de los taxistas la acepta, la solicitud queda confirmada."
 
 msgid "AsiFunciona"
 msgstr "Así funciona"
@@ -178,31 +178,31 @@ msgid "PCondiciones"
 msgstr "¿Puedo especificar condiciones especiales de búsqueda del taxi?"
 
 msgid "RCondiciones"
-msgstr "Se podrán indicar preferencias especiales como, taxi habilitado para minusválidos, taxi que adminta animales, taxis con un número determinado de plazas y taxis que admitan el pago a través de la aplicación."
+msgstr "Se podrán indicar preferencias especiales como, taxi habilitado para minusválidos, taxi que admita animales, taxis con un número determinado de plazas y taxis que admitan el pago a través de la aplicación o taxis a un determinado radio de distancia."
 
 msgid "PCerrarApp"
 msgstr "¿Puedo cerrar la aplicación sin perder la reserva del taxi?"
 
 msgid "RCerrarApp"
-msgstr "..................."
+msgstr "Si, se puede cerrar la aplicación sin problema."
 
 msgid "PCancelar"
 msgstr "¿Puedo cancelar la reserva?"
 
 msgid "RCancelar"
-msgstr "..................."
+msgstr "Por parte del cliente, la reserva no se podrá cancelar en ningún caso. Solo se podrá cancelar la petición de taxi en el caso de que todavía no haya sido aceptado por ningún taxista. El taxista podrá cancelar el servicio por si le surge cualquier imprevisto a la hora de recoger al cliente."
 
 msgid "PPuntuar"
 msgstr "¿Puedo puntuar al taxista?"
 
 msgid "RPuntuar"
-msgstr "Sí. Desde la aplicación..........."
+msgstr "Sí. Desde la sección de trayectos realizados, se puede acceder al detalle de cada viaje. Desde esta misma vista, nos permitirá votar al taxista de forma positiva o negativa."
 
 msgid "PVariosTaxis"
 msgstr "¿Puedo pedir varios taxis?"
 
 msgid "RVariosTaxis"
-msgstr "......................"
+msgstr "No"
 
 msgid "Privacidad"
 msgstr "Privacidad"
@@ -217,7 +217,7 @@ msgid "PTelefono"
 msgstr "¿Por qué he de facilitar mi número de teléfono en la aplicación?"
 
 msgid "RTelefono"
-msgstr "Es necesario para que el taxista pueda ponerse en contacto si tiene dudas o han surgido imprevistos (atascos, cortes de carretera, etc.)"
+msgstr "Es necesario para que el taxista pueda ponerse en contacto si tiene dudas o han surgido imprevistos (atascos, cortes de carretera, etc.)."
 
 msgid "Ayuda"
 msgstr "Ayuda"
