@@ -94,12 +94,10 @@
 
                         restohora=milisegundos%3600000;
                         minuto = Math.floor(restohora/60000);
-                        restominuto = restohora%60000;
-                        segundo = Math.floor(restominuto/1000);
-                        duracion = minuto + "'" + segundo + "''";
+                        duracion = minuto + " min";
                         
                         HTMLText += "<td>" + duracion + "</td>";
-                        HTMLText += "<td>" + travel.cost + "</td>";             
+                        HTMLText += "<td>" + travel.cost + " €</td>";            
                     }
                     HTMLText += "</table></div>";
                     HTMLText += "<div id=\"page\"></div>";

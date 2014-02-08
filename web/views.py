@@ -119,20 +119,8 @@ def registerDriver(request):
                 if (Car.objects.filter(plate=request.POST['plate']).count() > 0):
                     return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="La matrícula que ha indicado ya está en uso")
                 else:
-                    if 'accessible' in request.POST:
-                        accessible = True
-                    else:
-                        accessible = False
-                    if 'animals' in request.POST:
-                        animals = True
-                    else:
-                        animals = False
-                    if 'appPayment' in request.POST:
-                        appPayment = True
-                    else:
-                        appPayment = False
-                    car = Car(plate=request.POST['plate'], model=request.POST['model'],capacity=request.POST['capacity'],
-                        accessible=accessible, animals=animals,appPayment=appPayment)
+                    
+                    car = Car(plate=request.POST['plate'], model=request.POST['model'],capacity=request.POST['capacity'])
                     car.save()
 
                     #Driver data
@@ -140,10 +128,6 @@ def registerDriver(request):
                     d = Driver(email=request.POST['email'], password=request.POST['password'], phone=tmpPhone,
                         first_name=request.POST['first_name'], last_name=request.POST['last_name'], license =request.POST['license'],
                         car = car)
-
-                    if 'appPayment' in request.POST:
-                        d.bankAccount = request.POST['bankAccount']
-                        d.recipientName = request.POST['recipientName']
 
                     code = random.randint(1, 9999)
                     d.validationCode = code
@@ -165,6 +149,7 @@ def registerDriver(request):
                 HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email no válido")
     else:
         HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
+
 
 
 @csrf_exempt

@@ -28,15 +28,7 @@
                     <h3 class="MaintenanceHeader">{% trans 'TitViajesrealizados' %}</h3>
                     <div id="mantclient">                      
                         {% csrf_token %}
-<!--                        <div class="col maintenance">
-                             <fieldset class="filter">
-                                <legend>{% trans 'FiltroBusqueda' %}</legend>
-                                {% trans 'FechaDesde' %} <input id="fDate" type="datetime-local">
-                                {% trans 'FechaHasta' %} <input id="fDate" type="datetime-local">
-                            </fieldset>
-                     </div>   
-                        <div class="clr"><button class="btn btnBuscar" onclick="Busqueda()">{% trans 'Busqueda' %}</button></div> 
- -->                    <div class="col maintenance travels">
+                        <div class="col maintenance travels">
                             <div id="pagination" class="clsPagination">
 
                             </div>                 
@@ -100,12 +92,10 @@
 
                         restohora=milisegundos%3600000;
                         minuto = Math.floor(restohora/60000);
-                        restominuto = restohora%60000;
-                        segundo = Math.floor(restominuto/1000);
-                        duracion = minuto + "'" + segundo + "''";
+                        duracion = minuto + " min";
                         
                         HTMLText += "<td>" + duracion + "</td>";
-                        HTMLText += "<td>" + travel.cost + "</td>";                      
+                        HTMLText += "<td>" + travel.cost + " €</td>";                     
                     }
                     HTMLText += "</table></div>";
                     HTMLText += "<div id=\"page\"></div>";
