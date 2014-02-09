@@ -428,7 +428,7 @@ def register(request):
                 d = Driver.objects.get(email=request.POST['email'])
                 codigo = d.validationCode 
    
-        return render(request, 'AppWeb/register.html', {'status': response.status_code, 'error': response.content, 'codigo': codigo, 'tipo':request.POST['tipo']})
+        return render(request, 'AppWeb/register.html', {'status': response.status_code, 'error': response.content, 'codigo': codigo})
     return render(request, 'AppWeb/register.html')
 
 def map(request):
