@@ -265,7 +265,7 @@ def updateBankAccountWeb(request):
             driver.car = car
             driver.save()
             
-        return HttpResponse(status=status.HTTP_200_OK,content="Perfil del taxista modificado correctamente")
+        return HttpResponse(status=status.HTTP_200_OK,content="Datos bancarios modificados correctamente")
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe estar conectado para realizar esa operación") 
 
