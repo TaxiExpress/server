@@ -183,28 +183,31 @@ def updateProfileUserWeb(request):
 @csrf_exempt
 #@api_view(['POST'])
 def updateFiltersWeb(request):
-    try:
-        customer = Customer.objects.get(email=request.POST['email'])
-    except ObjectDoesNotExist:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
-    if 'accessible' in request.POST:
-        customer.fAccessible = True
-    else:
-        customer.fAccessible = False
-    if 'animals' in request.POST:
-        customer.fAnimals = True
-    else:
-        customer.fAnimals = False
-    if 'appPayment' in request.POST:
-        customer.fAppPayment = True
-    else:
-        customer.fAppPayment = False
+    if 'user_id' in request.session:
+        try:
+            customer = Customer.objects.get(email=request.POST['email'])
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
+        if 'accessible' in request.POST:
+            customer.fAccessible = True
+        else:
+            customer.fAccessible = False
+        if 'animals' in request.POST:
+            customer.fAnimals = True
+        else:
+            customer.fAnimals = False
+        if 'appPayment' in request.POST:
+            customer.fAppPayment = True
+        else:
+            customer.fAppPayment = False
 
-    customer.fCapacity = request.POST['capacity']
-    customer.fDistance = request.POST['filters_distance']
-    customer.lastUpdate = datetime.now()
-    customer.save()
-    return HttpResponse(status=status.HTTP_200_OK,content="Filtros actualizados")
+        customer.fCapacity = request.POST['capacity']
+        customer.fDistance = request.POST['filters_distance']
+        customer.lastUpdate = datetime.now()
+        customer.save()
+        return HttpResponse(status=status.HTTP_200_OK,content="Filtros actualizados")
+    else:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe estar conectado para realizar esa operación")    
 
 @csrf_exempt
 @api_view(['POST'])
