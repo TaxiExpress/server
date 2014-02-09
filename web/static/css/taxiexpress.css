@@ -567,8 +567,6 @@ ul.tabs li.active a {
   float:right;
   width:45%;
   padding-top:30px;
-
-  
 }
 
 .textoD ul{
@@ -576,7 +574,7 @@ ul.tabs li.active a {
   line-height:32px;
 }
 
-.textoD h3{
+.textoD h3, .imagenI h3{
   color:#444;
   font-size:26px;
   font-weight:100;
@@ -644,4 +642,111 @@ textarea:disabled, input:not([type]):disabled, input[type="color"]:disabled, inp
 canvas{
   float: left;
   margin-bottom: 50px;
+}
+
+.stores{
+  float:left;
+  padding-top: 20px;
+  padding-right: 20px;
+  width:160px!important;
+  height:50px!important;
+}
+.emptyBox{
+  height: 70px;
+}
+
+.boxUp{
+  clear:both;
+  background: url('../img/separador.png') top no-repeat;
+  min-height:350px;
+  padding-top: 60px;
+  padding-bottom: 100px;
+  margin-top: 130px;
+}
+.box{
+  clear:both;
+  background: url('../img/separador.png') bottom no-repeat;
+  min-height:350px;
+  padding-bottom: 130px;
+}
+.boxI{
+  display: block;
+  float:left;
+  padding-top:30px;
+}
+.boxD{
+  display: block;
+  float:right;
+  padding-top:30px;
+}
+.boxI h1, .boxD h1{
+  color:#1492d6;
+  font-size:40px;
+  line-height: 45px;
+  font-weight:100;
+}
+.boxI h3, .boxD h3{
+  color:#333;
+  font-size:20px;
+  line-height: 25px;
+  font-weight:400;
+}
+.boxI img, .boxD img{
+  text-align: center; 
+  display: block;
+  vertical-align: center;
+  margin: 0px auto 30px;
+  width: 100%;
+}
+
+
+.width5{
+  width:5%;
+}
+.width10{
+  width:10%;
+}
+.width15{
+  width:15%;
+}
+.width20{
+  width:20%;
+}
+.width25{
+  width:25%;
+}
+.width30{
+  width:30%;
+}
+.width35{
+  width:35%;
+}
+.width40{
+  width:40%;
+}
+.width45{
+  width:45%;
+}
+.width50{
+  width:50%;
+}
+.width55{
+  width:55%;
+}
+.width60{
+  width:60%;
+}
+.width65{
+  width:65%;
+}
+.width70{
+  width:70%;
+}
+.width75{
+  width:75%;
+}
+.width100{
+  width:100%;
+  text-align: center;
+  margin-top: -100px;
 }
