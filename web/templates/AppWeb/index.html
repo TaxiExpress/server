@@ -30,13 +30,13 @@
                                         <input type="email" id="email" name="email" required value="{{request.POST.email}}" placeholder="{% trans 'Email' %}" tabindex="1">
                                     </span>                                    
                                     <input class="tipo" id="tipo" type="radio" name="tipo" length=2 value="C" tabindex="3"
-                                    {% if tipo != "D" %}
+                                    {% if request.POST.tipo != "D" %}
                                         checked = "checked"
                                     {% endif %}
                                     >
                                     <span class="typeLabel">{% trans 'Cliente' %}</span>
                                     <input class="tipo" type="radio" name="tipo" length=2 value="D" tabindex="4"
-                                    {% if tipo == "D" %}
+                                    {% if request.POST.tipo == "D" %}
                                         checked = "checked"
                                     {% endif %}
                                     >

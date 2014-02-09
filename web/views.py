@@ -403,8 +403,7 @@ def index(request):
             response = loginDriver(request)
             if response.status_code == 200:
                 return redirect('mantdriver_data')
-        return render(request, 'AppWeb/index.html', {'status': response.status_code, 'error': response.content, 
-            'email':request.POST['email'], 'password':request.POST['password'], 'tipo':request.POST['tipo']}) 
+        return render(request, 'AppWeb/index.html', {'status': response.status_code, 'error': response.content}) 
     else:
         if 'user_id' in request.session:
             if request.session['Customer'] == True:
