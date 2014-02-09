@@ -297,7 +297,7 @@ def updateCarWeb(request):
             car.appPayment = False
         car.lastUpdate = datetime.now()
         car.save()
-        return HttpResponse(status=status.HTTP_200_OK,content="Coche modificado correctamente")
+        return HttpResponse(status=status.HTTP_200_OK,content="Vehículo modificado correctamente")
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe estar conectado para realizar esa operación")
 
@@ -317,9 +317,9 @@ def getStates(request):
             serialStates = StateSerializer(country.state_set.all().order_by('name'), many=True)
             return Response(serialStates.data, status=status.HTTP_200_OK)
         except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado esta provincia")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado el país")
     else:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un codigo de provincia")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe introducir un codigo de país")
 
 @csrf_exempt
 @api_view(['GET'])
@@ -330,9 +330,9 @@ def getCities(request):
             serialCities = CitySerializer(state.city_set.all().order_by('name'), many=True)
             return Response(serialCities.data, status=status.HTTP_200_OK)
         except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado esta ciudad")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No se ha encontrado la provincia")
     else:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar un codigo de ciudad")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe introducir un codigo de provincia")
 
 @csrf_exempt
 def logout(request):
