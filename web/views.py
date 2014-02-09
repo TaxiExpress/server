@@ -187,7 +187,7 @@ def updateFiltersWeb(request):
         try:
             customer = Customer.objects.get(email=request.POST['email'])
         except ObjectDoesNotExist:
-            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El usuario introducido no es válido")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este cliente")
         if 'accessible' in request.POST:
             customer.fAccessible = True
         else:
