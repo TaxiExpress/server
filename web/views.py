@@ -45,7 +45,7 @@ def loginUser(request):
         else:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
     else:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe introducir una dirección de email")
 
 
 @csrf_exempt
@@ -66,7 +66,7 @@ def loginDriver(request):
         else:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
     else:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe introducir una dirección de email")
 
 
 @csrf_exempt
@@ -144,7 +144,7 @@ def registerDriver(request):
                     sms = NexmoMessage(msg)
                     sms.set_text_info(msg['text'])
                     #response = sms.send_request()                
-                    return HttpResponse(status=201)
+                    return HttpResponse(status=status.HTTP_201_CREATED)
             except ValidationError:
                 HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email no válido")
     else:
@@ -216,7 +216,7 @@ def updateProfileDriverWeb(request):
         try:
             driver = Driver.objects.get(id=request.session['user_id'])
         except ObjectDoesNotExist:
-            return HttpResponse(status=401, content="No es posible encontrar a este taxista")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este taxista")
         driver.first_name = request.POST['first_name']
         driver.last_name = request.POST['last_name']
         driver.image = request.POST['image']
@@ -235,9 +235,9 @@ def updateProfileDriverWeb(request):
         driver.license = request.POST['license']
         driver.lastUpdate = datetime.now()
         driver.save()
-        return HttpResponse(status=200,content="Perfil del taxista modificado correctamente")
+        return HttpResponse(status=status.HTTP_200_OK,content="Perfil del taxista modificado correctamente")
     else:
-        return HttpResponse(status=401, content="Debe estar conectado para realizar esa operación")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe estar conectado para realizar esa operación")
 @csrf_exempt
 #@api_view(['POST'])
 def updateBankAccountWeb(request):
@@ -350,7 +350,7 @@ def validateCode(request):
         try:
             if request.POST['tipo'] == 'C':
                 response = validateUser(request)
-                if response.status_code == 201:
+                if response.status_code == status.HTTP_201_CREATED:
                     customer = Customer.objects.get(phone=request.POST['phone'])
                     request.session['email'] = customer.email
                     request.session['user_id'] = customer.id
@@ -358,7 +358,7 @@ def validateCode(request):
                     return HttpResponse(response.status_code) 
             else:
                 response = validateDriver(request)
-                if response.status_code == 201:
+                if response.status_code == status.HTTP_201_CREATED:
                     driver = Driver.objects.get(phone=request.POST['phone'])
                     request.session['email'] = driver.email
                     request.session['user_id'] = driver.id
@@ -397,11 +397,11 @@ def index(request):
     if request.method == "POST":
         if request.POST['tipo'] == "C":
             response = loginUser(request)
-            if response.status_code == 200:
+            if response.status_code == status.HTTP_200_OK:
                 return redirect('mantclient_data') 
         else:
             response = loginDriver(request)
-            if response.status_code == 200:
+            if response.status_code == status.HTTP_200_OK:
                 return redirect('mantdriver_data')
         return render(request, 'AppWeb/index.html', {'status': response.status_code, 'error': response.content}) 
     else:
@@ -419,12 +419,12 @@ def register(request):
         codigo = 0
         if request.POST["tipo"] == 'C':
             response = registerUser(request)
-            if response.status_code == 201:
+            if response.status_code == status.HTTP_201_CREATED:
                 c = Customer.objects.get(email=request.POST['email'])
                 codigo = c.validationCode 
         else:
             response = registerDriver(request)
-            if response.status_code == 201:
+            if response.status_code == status.HTTP_201_CREATED:
                 d = Driver.objects.get(email=request.POST['email'])
                 codigo = d.validationCode 
    
@@ -695,7 +695,7 @@ def recoverValidationCodeWeb(request):
             else:
                 response = recoverValidationCodeDriver(request)
             
-            if response.status_code == 201:
+            if response.status_code == status.HTTP_201_CREATED:
                 msg = 'Se ha enviado un SMS con el código de validación a su teléfono'
             else:
                 msg = response.content 
@@ -733,11 +733,11 @@ def rememberPassword(request):
     if 'tipo' in request.GET:
         if request.GET['tipo'] == "C":
             response = recoverPassword(request)
-            if response.status_code == 201:
+            if response.status_code == status.HTTP_201_CREATED:
                 return redirect('/') 
         else:
             response = recoverPasswordDriver(request)
-            if response.status_code == 201:
+            if response.status_code == status.HTTP_201_CREATED:
                 return redirect('/')
         return render(request, 'AppWeb/rememberpassword.html', {'status': response.status_code, 'error': response.content}) 
     else:
@@ -745,11 +745,11 @@ def rememberPassword(request):
 
 def recoverPasswordDriver(request):
     if request.GET['email'] == '':
-        return HttpResponse(status=401, content="Debe ingresar una dirección de email")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe introducir una dirección de email")
     try:
         driver = Driver.objects.get(email=request.GET['email'])
     except ObjectDoesNotExist:
-        return HttpResponse(status=401, content="No es posible encontrar a este usuario")
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
     subject = 'Taxi Express: Recuperar contraseña'
     from_email = 'MyTaxiExpress@gmail.com'
     to = [driver.email]
@@ -757,7 +757,7 @@ def recoverPasswordDriver(request):
     msg = EmailMessage(subject, html_content, from_email, to)
     msg.content_subtype = "html"  # Main content is now text/html
     msg.send()
-    return HttpResponse(status=201,content="Se ha enviado la contraseña a su cuenta de email.")
+    return HttpResponse(status=status.HTTP_201_CREATED,content="Se ha enviado la contraseña a su cuenta de email.")
 
 @csrf_exempt
 @api_view(['GET'])
