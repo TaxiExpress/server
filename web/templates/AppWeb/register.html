@@ -54,6 +54,7 @@
                         <br><br><span>{% trans 'DatosCoche' %}</span><br>
                         <input type="number" name="license" placeholder="{% trans 'NúmeroLicencia' %}" required value="{{request.POST.license}}" min="0">
                         <input type="text" name="plate" maxlength="7" placeholder="{% trans 'Matrícula' %}" required value="{{request.POST.plate}}">
+                        <input type="text" name="company" maxlength="80" placeholder="{% trans 'Marca' %}" required value="{{request.POST.company}}"><br>
                         <input type="text" name="model" maxlength="80" placeholder="{% trans 'Modelo' %}" required value="{{request.POST.model}}"><br>
                         <label class="lblCapacidad">{% trans 'Capacidad' %}</label>
                         <select id="capacity" name="capacity">
