@@ -120,12 +120,12 @@ def registerDriver(request):
                     return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="La matrícula que ha indicado ya está en uso")
                 else:
                     
-                    car = Car(plate=request.POST['plate'], model=request.POST['model'],capacity=request.POST['capacity'])
+                    car = Car(plate=request.POST['plate'], company=request.POST['company'], model=request.POST['model'],capacity=request.POST['capacity'])
                     car.save()
 
                     #Driver data
                     
-                    d = Driver(email=request.POST['email'], password=request.POST['password'], phone=tmpPhone,
+                    d = Driver(email=request.POST['email'], password=request.POST['password'], phone=tmpPhone,image ="",
                         first_name=request.POST['first_name'], last_name=request.POST['last_name'], license =request.POST['license'],
                         car = car)
 
