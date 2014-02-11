@@ -125,7 +125,7 @@ def registerDriver(request):
 
                     #Driver data
                     
-                    d = Driver(email=request.POST['email'], password=request.POST['password'], phone=tmpPhone,image ="",
+                    d = Driver(email=request.POST['email'], password=request.POST['password'], phone=tmpPhone, image ="", available=False,
                         first_name=request.POST['first_name'], last_name=request.POST['last_name'], license =request.POST['license'],
                         car = car)
 
