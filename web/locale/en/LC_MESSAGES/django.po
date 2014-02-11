@@ -637,13 +637,13 @@ msgid "Titular"
 msgstr "Holder"
 
 msgid "Marca"
-msgstr "Mark"
+msgstr "Company"
 
 msgid "Modelo"
 msgstr "Model"
 
 msgid "Matrícula"
-msgstr "Registration number"
+msgstr "Plate"
 
 msgid "Color"
 msgstr "Colour"
