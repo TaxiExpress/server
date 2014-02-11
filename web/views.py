@@ -630,6 +630,8 @@ def getTravelsByMonth(request):
         driver = get_object_or_404(Driver, id=request.session['user_id'])
         travels = driver.travel_set.filter(isPaid=True)
         total = travels.count()
+        if total == 0:
+                total = 1
         response_data = {}
         for i in range(1,13):
             response_data[i] = (travels.filter(starttime__month=i).count()*100)/total
@@ -672,6 +674,8 @@ def getTravelsByDay(request):
         driver = get_object_or_404(Driver, id=request.session['user_id'])
         travels = driver.travel_set.filter(isPaid=True)
         total = travels.count()
+        if total == 0:
+                total = 1
         response_data = {}
         response_data[0] = (travels.filter(starttime__week_day=2).count()*100)/total
         response_data[1] = (travels.filter(starttime__week_day=3).count()*100)/total
