@@ -60,7 +60,7 @@ class Driver(models.Model):
     negativeVotes = models.IntegerField(blank=True, default=0)
     car = models.ForeignKey(Car, null=True)
     image = models.TextField(blank=True, null=True)
-    available = models.BooleanField(default=True)
+    available = models.BooleanField(default=False)
     #Ponemos la licencia como unique? Y si cambia de dueno?
     license = models.IntegerField(blank=True, null=True)
     #Datos de pago
