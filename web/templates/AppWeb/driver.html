@@ -2,25 +2,92 @@
 {% load i18n %}
 
 {% block head %}
- <link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
+<link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
 <link href="{{STATIC_URL}}css/slider.css" rel="stylesheet" type="text/css">
 {% endblock %}
 
-{% block content %}    
-		<div class="bg titulo">
-			<h1>{% trans 'Taxista' %}</h1>
-		</div>			
-		<div class="bg">				
-            <div class="contenido driver">
-                <div class="container">
-                <div id="slider">
-                    <div><img src="{{STATIC_URL}}img/RegistroT.png" /></a><p>{% trans 'RegistrateSencillo' %}</p></div>
-                    <div><img src="{{STATIC_URL}}img/PerfilT.png" /></a><p>{% trans 'ModificaPerfil' %}</p></div>
-                    <div><img src="{{STATIC_URL}}img/AceptarRechazar.png" /></a><p>{% trans 'aceptaOrechaza' %}</p></div>
-                    <div><img src="{{STATIC_URL}}img/Configuracion.png" /></a><p>{% trans 'ConfiguraMovil' %}</p></div>
+{% block content %} 
+        <div class="bg">
+            <div class="emptyBox"></div>
+            <div class="box">
+                <div class="boxI width40">
+                    <h1>¿Qué es Taxi Express?</h1>
+                    <h3>Taxi Express es la mejor forma de pedir un taxi en dispositivos Android y IOS.</h3>
+                    <p>
+
+                    Si desea elegir el taxi que quiere que le recoja o pedir el taxi más cercano a su posición, con Taxi Express podrá hacerlo de una forma sencilla y rápida.
+                        
+                    <br/><br/><button class="btn" onClick="location.href='register.html'">Registrarse en Taxi Express</button>
+
+                    </p>
+                </div>
+                <div class="width5"></div>
+                <div class="boxD width55">
+                    <img src="{{STATIC_URL}}img/images/image_registro.png" alt="" />
                 </div>
             </div>
-		</div>
+            <div id="slideshow">
+                <div id="slidesContainer">
+                    <div class="slide">
+                        <div class="boxI width35">
+                            <h1>Solicite el taxi más cercano a su posición.</h1>
+                            <p>
+                                Taxi Express es capaz de geoposicionarle y solicitar el servicio al taxi más cercano a su posición.
+                            </p>
+                        </div>
+                        <div class="width5"></div>
+                        <div class="boxD width60">
+                            <img src="{{STATIC_URL}}img/slides/map.png" alt="" />                            
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="boxI width50">
+                            <h1>Gestione su lista de taxistas favoritos.</h1>
+                            <p>
+                                Una vez haya finalizado un trayecto con un taxista determinado, podrá añadir a éste a su lista de favoritos y volver a solicitarle cuantos viajes desee.
+                            </p>
+                        </div>
+                        <div class="width10"></div>
+                        <div class="boxD width40">
+                            <img src="{{STATIC_URL}}img/slides/favorites.png" alt="" />                            
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="boxI width40">
+                            <img src="{{STATIC_URL}}img/slides/travel.png" alt="" />                            
+                        </div>
+                        <div class="width10"></div>
+                        <div class="boxD width50">
+                            <h1>Analice el detalle de sus viajes.</h1>
+                            <p>
+                                Tendrá a su disposición la lista completa de trayectos realizados. Desde esta lista, podrá añadir a los taxistas como favoritos y dar una valoración positiva o negativa del viaje.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="boxI width50">
+                            <h1>Actualice el perfil desde la propia app.</h1>
+                            <p>
+                                Podrá modificar sus datos personales desde el dispositivo móvil.
+                            </p>
+                        </div>
+                        <div class="width10"></div>
+                        <div class="boxD width40">
+                            <img src="{{STATIC_URL}}img/slides/profile.png" alt="" />                            
+                        </div>
+                    </div>      
+                    <div class="slide">
+                        <div class="boxI width100">
+                            <h1>También disponible para tablets</h1>
+                            <p>
+                                La aplicación también está disponible para tablets. Descárguela ahora gratis desde su market.
+                            </p>
+                            <img src="{{STATIC_URL}}img/images/ipad.png" alt="" />                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 {% endblock %}
 
 {% block scripts %}
