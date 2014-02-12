@@ -95,7 +95,12 @@
                         duracion = minuto + " min";
                         
                         HTMLText += "<td>" + duracion + "</td>";
-                        HTMLText += "<td>" + travel.cost + " €</td>";                     
+                        if (travel.cost == null){
+                            HTMLText += "<td>0 €</td>"; 
+                        }
+                        else{
+                            HTMLText += "<td>" + travel.cost + " €</td>"; 
+                        }                     
                     }
                     HTMLText += "</table></div>";
                     HTMLText += "<div id=\"page\"></div>";
