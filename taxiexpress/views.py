@@ -238,6 +238,21 @@ def getSelectedTaxi(request):
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Error al obtener la posicion")
 
 
+@csrf_exempt
+@api_view(['GET'])
+def getCustomerPublicData(request):
+    if 'email' in request.GET:
+        try:
+            customer = Customer.objects.get(email=request.GET['email']) #Retrieve the user asking for a travel
+        except ObjectDoesNotExist:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
+        valuation = 0
+        if (customer.positiveVotes+customer.negativeVotes) > 0:
+            valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes)) #Calculate customer valuation (1..5) to send it to close drivers
+        response_data = CustomerProfileSerializer(customer, fields=('first_name', 'last_name', 'image')).data
+        response_data['valuation'] = valuation
+    else:
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
 
 #Method called by driver app to accept a travel
 @csrf_exempt
