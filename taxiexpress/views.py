@@ -189,7 +189,6 @@ def getClosestTaxi(request):
                 post_data_android["pushId"+str(i)] = ""
         try:
             #Send notify dictionaries to PUSH server
-            resp_ios = requests.post(PUSH_URL+'/sendClosestTaxi', params=post_data_ios)
             resp_android = requests.post(PUSH_URL+'/sendClosestTaxi', params=post_data_android)
         except requests.ConnectionError: #If push server is offline, delete travel and return 503
             travel.delete()
