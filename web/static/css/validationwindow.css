@@ -21,7 +21,7 @@
 	 background: #fcfcfc;
 	 margin: 8em auto;
 	 width: 350px;
-	 padding: 20px 70px 70px 70px;
+	 padding: 20px 70px 40px 70px;
 	 text-align: left;
 	 z-index: 1;
 	 border-radius: 3px;
@@ -52,7 +52,7 @@
 	 background: linear-gradient(to bottom, #fafafa 0%,#f4f4f4 40%,#e5e5e5 100%);
 	 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa', endColorstr='#e5e5e5',GradientType=0 );
 	 border: 1px solid #aaa;
-	 padding: 5px 14px;
+	 padding: 5px 3px 23px;
 	 color: #444;
 	 font-family: Open Sans, Helvetica, sans-serif;
 	 font-size: 12px;
@@ -127,6 +127,13 @@
 	font-size: 13px;
 	border: 1px solid #ccc;
 	border-radius: 3px;
+}
+
+.popupText Input[type="button"]{
+    display: block;
+    min-height: 16px;
+    padding: 4px 0;
+    font-size: 13px;
 }
 
 .validation{
