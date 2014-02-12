@@ -867,8 +867,6 @@ def loadData(request):
 def loadTravels(request):
     cu1 = Customer(email="laura@gmail.com", password="11111111", phone="+34656222222", first_name="laura", last_name="linacero", city = City.objects.get(id=56), validationCode=1234, lastUpdate=datetime.strptime('1980-01-01 00:00:01','%Y-%m-%d %H:%M:%S'), isValidated=True, image="", pushID='APA91bHTypZCKvUdXYd-lhimPaLbolkEvZU8o9o5FWhRW0tIx5JpcIS3mdNYza0o5F0d-lBzn3xYw2RBZWfJEy_wdOLIZVwefcUsRtG_PpGXyauJ0EnnOND-zS0dOOAcb_xG2QhqodKQchzJgV6-z41y8zsPwMzJrNY2Bj-kCeUsm-Ca3kKH0j4')
     cu1.save()
-    cu1.favlist.add(dr)
-    cu1.favlist.add(dr2)
     tr = Travel(customer=Customer.objects.get(email="laura@gmail.com"), driver=Driver.objects.get(email="conductor2@gmail.com"), starttime=datetime.strptime('2014-01-01 00:00:01','%Y-%m-%d %H:%M:%S'), endtime=datetime.strptime('2014-01-01 00:10:01','%Y-%m-%d %H:%M:%S'), cost=20.10, origin='Calle Autonomía 35', destination='Av de las Universidades 24', isPaid = True, startpoint=Point(43.15457, -2.56488), endpoint=Point(43.16218, -2.56352))
     tr.save()
     tr = Travel(customer=Customer.objects.get(email="laura@gmail.com"), driver=Driver.objects.get(email="conductor2@gmail.com"), starttime=datetime.strptime('2014-01-01 00:00:01','%Y-%m-%d %H:%M:%S'), endtime=datetime.strptime('2014-01-01 00:10:01','%Y-%m-%d %H:%M:%S'), cost=20.10, origin='Calle Autonomía 35', destination='Av de las Universidades 24', isPaid = True, startpoint=Point(43.15457, -2.56488), endpoint=Point(43.16218, -2.56352))
