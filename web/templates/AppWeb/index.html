@@ -20,7 +20,6 @@
                     <img src="{{STATIC_URL}}img/logo.png" alt="Logo" />
                 </div>
                 <div class="login h-right">
-				
                     <form id="login-form" action="" method="POST">
                         {% csrf_token %}
                         <fieldset class="fms-block">
@@ -68,6 +67,7 @@
                     </div>
                     <div class="text-index h-left">
                         <h1>{% trans 'PideTaxi' %}</h1>
+                        <strong>{%trans 'NoCuenta' %} <a href="register.html">{%trans 'NoCuenta2' %}</a></strong>
                         <br/>
                         <img src="{{STATIC_URL}}img/ios.png" alt="" />
                         <img src="{{STATIC_URL}}img/play.png" alt="" />
@@ -76,15 +76,6 @@
             </div>
         </div>  
         <br/>
-        <div class="bg">
-            <div class="text-index left75 registerDiv">
-                <strong>{%trans 'NoCuenta' %} <a href="register.html">{%trans 'NoCuenta2' %}</a></strong>
-                <small>{% trans 'Version' %}</small>
-            </div>
-            <div class="right25">
-                <img src="{{STATIC_URL}}img/icon.png" class="icon" alt="Teléfono" />
-            </div>
-        </div>
         <div class="bg cuadro">
             <div class="imagenI">
                 <img src="{{STATIC_URL}}img/doubleScreen.png" alt="" />  
