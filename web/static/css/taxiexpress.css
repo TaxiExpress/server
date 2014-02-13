@@ -57,7 +57,7 @@ a:focus {
 
 .slogan-header h1 {
     font-size: 2.5em;
-    margin: 110px 0px 10px 0px;
+    margin: 80px 0px 10px 0px;
     width: 100%;
     float: left;
     clear: both;
@@ -73,8 +73,7 @@ a:focus {
     text-align: left;
     color: #fff;
     font-weight: 100;
-    line-height: 1.45em;
-    padding-bottom: 30px;
+    line-height: 4.45em;
 }
 
 .slogan-header p {
