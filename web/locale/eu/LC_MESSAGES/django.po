@@ -651,8 +651,11 @@ msgstr "Kolorea"
 msgid "Viajes"
 msgstr "Bidaiak"
 
-msgid "cNombre"
-msgstr "Izena"
+msgid "cCliente"
+msgstr "Bezeroa"
+
+msgid "cTaxista"
+msgstr "Taxista"
 
 msgid "cOrigen"
 msgstr "Jatorria"

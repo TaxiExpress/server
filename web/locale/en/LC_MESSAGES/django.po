@@ -651,8 +651,11 @@ msgstr "Colour"
 msgid "Viajes"
 msgstr "Travels"
 
-msgid "cNombre"
-msgstr "Name"
+msgid "cCliente"
+msgstr "Client"
+
+msgid "cTaxista"
+msgstr "Driver"
 
 msgid "cOrigen"
 msgstr "Origin"
