@@ -176,11 +176,12 @@
 
 }
 
-.travels{
+.travels table{
 	width: 100%;
 }
 
 .travelDetail td{
 	font: normal 12px Open Sans,Arial;
-	padding:3px 5px;
+	padding:5px 6px;
+	text-align:left;
 }
