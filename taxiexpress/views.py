@@ -222,7 +222,7 @@ def getSelectedTaxi(request):
         if (customer.positiveVotes+customer.negativeVotes) > 0:
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes)) #Calculate customer valuation (1..5) to send it to close drivers
         #Dictionary to be sent to PUSH server
-        post_data = {"pushId": driver.pushID ,"origin": request.POST['origin'], "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone, "device": driver.device} 
+        post_data = {"pushId": driver.pushID ,"origin": request.POST['origin'], "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone} 
         try:
             resp = requests.post(PUSH_URL+'/sendSelectedTaxi', params=post_data) #Send notify dictionary to PUSH server
         except requests.ConnectionError: #If push server is offline, delete travel and return 503
@@ -279,10 +279,10 @@ def acceptTravel(request):
         driver.geom = driverpos
         driver.save()
         #Dictionary to be sent to PUSH server
-        post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "latitude": str(driverpos.x), "longitude": str(driverpos.y), "device": travel.customer.device} 
+        post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "title" : "El taxista ha aceptado su solicitud", "message": "SendAcceptTravel", "latitude": str(driverpos.x), "longitude": str(driverpos.y)} 
         print post_data
         try:
-            resp = requests.post(PUSH_URL+'/sendAcceptTravel', params=post_data) #Send notify dictionary to PUSH server
+            resp = requests.post(PUSH_URL+'/push', params=post_data) #Send notify dictionary to PUSH server
             print resp
         except requests.ConnectionError: #If push server is offline, delete travel and return 503
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
