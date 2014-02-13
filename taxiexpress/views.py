@@ -279,7 +279,7 @@ def acceptTravel(request):
         driver.geom = driverpos
         driver.save()
         #Dictionary to be sent to PUSH server
-        post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "title" : "El taxista ha aceptado su solicitud", "message": "SendAcceptTravel", "latitude": str(driverpos.x), "longitude": str(driverpos.y)} 
+        post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "title" : "El taxista ha aceptado su solicitud", "message": "SendAcceptTravel", "latitude": str(driverpos.x), "longitude": str(driverpos.y), "code" : 701} 
         print post_data
         try:
             resp = requests.post(PUSH_URL+'/push', params=post_data) #Send notify dictionary to PUSH server
