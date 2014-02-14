@@ -25,7 +25,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from taxiexpress.views import validateUser, changePassword, changePasswordDriver, recoverValidationCodeCustomer, recoverValidationCodeDriver,recoverPassword
-
+from passlib.hash import sha256_crypt
 
 @csrf_exempt
 @api_view(['POST'])
@@ -35,7 +35,7 @@ def loginUser(request):
             customer = Customer.objects.get(email=request.POST['email'])  
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
-        if customer.password == request.POST['password']:
+        if sha256_crypt.verify(request.POST['password'], customer.password):
             if customer.isValidated == False:
                 return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Debe validar la cuenta antes de conectarse")
             request.session['email'] = customer.email
@@ -56,7 +56,7 @@ def loginDriver(request):
             driver = Driver.objects.get(email=request.POST['email'])  
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
-        if driver.password == request.POST['password']:
+        if sha256_crypt.verify(request.POST['password'], driver.password):
             if driver.isValidated == False:
                 return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Debe validar la cuenta antes de conectarse")
             request.session['email'] = driver.email
@@ -72,7 +72,7 @@ def loginDriver(request):
 @csrf_exempt
 def registerUser(request):
     if request.method == "POST":
-        passtemp = request.POST['password']
+        passtemp = sha256_crypt.encrypt(request.POST['password'])
         tmpPhone = '+34' + request.POST['phone']
         if (Customer.objects.filter(email=request.POST['email']).count() > 0):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email que ha indicado ya está en uso")
@@ -107,7 +107,7 @@ def registerUser(request):
 @csrf_exempt
 def registerDriver(request):
     if request.method == "POST":
-        passtemp = request.POST['password'];
+        passtemp = sha256_crypt.encrypt(request.POST['password'])
         tmpPhone = '+34' + request.POST['phone']
         if (Driver.objects.filter(email=request.POST['email']).count() > 0):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email que ha indicado ya está en uso")
