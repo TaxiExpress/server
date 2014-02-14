@@ -419,7 +419,7 @@ def cancelTravelDriver(request):
         if request.POST['email'] != travel.driver.email:
             return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
         #Dictionary to be sent to PUSH server
-        post_data = {"travelID": travel.id, "pushId": travel.customer.pushID}
+        post_data = {"travelID": travel.id, "pushId": travel.customer.pushID , title:'El taxista ha cancelado el viaje' , message: 'SendTravelCanceled', code:703}
         try:
             resp = requests.post(PUSH_URL+'/push', params=post_data) #Send notify dictionary to PUSH server
             if resp.status_code == 404:
