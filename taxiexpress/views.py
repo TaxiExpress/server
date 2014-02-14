@@ -375,7 +375,7 @@ def travelPaid(request):
         travel.save()
         print travel.isPaid
         #Dictionary to be sent to PUSH server
-        post_data = {"travelID": travel.id, "pushId": travel.driver.pushID, "paid": "true", "title":"Viaje pagado" , "message": "a", "code":803}
+        post_data = {"travelID": travel.id, "pushId": travel.driver.pushID, "paid": "true" , "title" : "Viaje " , "message": "a", "code":803}
         try:
             resp = requests.post(PUSH_URL+'/push', params=post_data) #Send notify dictionary to PUSH server
         except requests.ConnectionError: #If push server is offline, delete travel and return 503
