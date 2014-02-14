@@ -222,13 +222,13 @@ msgid "Ayuda"
 msgstr "Help"
 
 msgid "PNoAbre"
-msgstr "La aplicación mytaxi no se abre. ¿Qué hago?"
+msgstr "La aplicación TaxiExpress no se abre. ¿Qué hago?"
 
 msgid "RNoAbre"
 msgstr "Lo más conveniente es que cierre la aplicación y la vuelva a abrir, si aun así sigue sin funcionar, compruebe que la conexión a Internet es la correcta."
 
 msgid "PActualizar"
-msgstr "¿Cómo se actualiza mi aplicación mytaxi?"
+msgstr "¿Cómo se actualiza mi aplicación TaxiExpress?"
 
 msgid "RActualizar"
 msgstr "Los usuarios de iPhone reciben un aviso automático de la App Store. Se puede ver que hay actualizaciones pendientes por el número en rojo sobre el icono de la App Store. Seleccione la actualización correspondiente y pulse «Instalar». Tras introducir la contraseña se descarga la actualización. Los dispositivos con Android cuentan con una función para las actualizaciones automáticas. Simplemente se ha de marcar la opción «Actualizaciones automáticas» para tener siempre la última versión."
