@@ -53,14 +53,13 @@ def loginUser(request):
         #Update customer data in database
         customer.sessionID = sessionID_generator()
         customer.pushID = request.POST['pushID']
-        customer.device = request.POST['pushDevice']
         customer.save()
         #Check if there are unpaid travels
         unpaidTravels = customer.travel_set.filter(isPaid=False, appPayment=True)
         if unpaidTravels.count() > 0:
             #If there are unpaid travels sends pay notification
             travel = unpaidTravels[0]
-            post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": travel.cost, "appPayment": "true","device": customer.device} 
+            post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": travel.cost, "appPayment": "true"} 
             try:
                 resp = requests.post(PUSH_URL+'/sendTravelCompleted', params=post_data)
             except requests.ConnectionError:
@@ -100,7 +99,6 @@ def loginDriver(request):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe validar la cuenta antes de conectarse")
         #Update driver data in database
         driver.pushID = request.POST['pushID']
-        driver.device = request.POST['pushDevice']
         driver.available = True
         driver.save()
         driverNameSurname = DriverDataSerializer(driver).data
