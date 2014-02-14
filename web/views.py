@@ -24,7 +24,7 @@ from django.utils import timezone
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from taxiexpress.views import validateUser, changePassword, changePasswordDriver, recoverValidationCodeCustomer, recoverValidationCodeDriver,recoverPassword
+from taxiexpress.views import validateUser, recoverValidationCodeCustomer, recoverValidationCodeDriver,recoverPassword
 from passlib.hash import sha256_crypt
 
 @csrf_exempt
@@ -391,6 +391,50 @@ def validateDriver(request):
         return HttpResponse(status=status.HTTP_201_CREATED,content="La cuenta ha sido validada correctamente")
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta. Inténtelo de nuevo")
+
+@csrf_exempt
+@api_view(['POST'])
+def changePassword(request):
+    try:
+        customer = Customer.objects.get(email=request.POST['email']) #Retrieve the customer item
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
+    if sha256_crypt.verify(request.POST['oldPass'], customer.password):
+        #If old password verification succeeds, update password on database and send confirmation email
+        customer.password = sha256_crypt.encrypt(request.POST['newPass'])
+        customer.save()
+        subject = 'Taxi Express: Su contraseña ha sido modificada'
+        from_email = 'MyTaxiExpress@gmail.com'
+        to = [customer.email]
+        html_content = 'Le informamos de que su contraseña de Taxi Express ha sido modificada. En el caso en el que no tenga constancia de ello, póngase inmediantamente en contacto con MyTaxiExpress@gmail.com.'
+        msg = EmailMessage(subject, html_content, from_email, to)
+        msg.content_subtype = "html"  # Main content is now text/html
+        msg.send()  
+        return HttpResponse(status=status.HTTP_200_OK,content="La contraseña ha sido modificada correctamente")
+    else:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="La contraseña actual es incorrecta")
+
+@csrf_exempt
+@api_view(['POST'])
+def changePasswordDriver(request):
+    try:
+        driver = Driver.objects.get(email=request.POST['email']) #Retrieve the driver item
+    except ObjectDoesNotExist:
+        return HttpResponse(status=401, content="El email introducido no es válido")
+    if sha256_crypt.verify(request.POST['oldPass'], driver.password):
+        #If old password verification succeeds, update password on database and send confirmation email
+        driver.password = sha256_crypt.encrypt(request.POST['newPass']) 
+        driver.save()
+        subject = 'Taxi Express: Su contraseña ha sido modificada'
+        from_email = 'MyTaxiExpress@gmail.com'
+        to = [driver.email]
+        html_content = 'Le informamos de que su contraseña de Taxi Express ha sido modificada. En el caso en el que no tenga constancia de ello, póngase inmediantamente en contacto con MyTaxiExpress@gmail.com.'
+        msg = EmailMessage(subject, html_content, from_email, to)
+        msg.content_subtype = "html"  # Main content is now text/html
+        msg.send()  
+        return HttpResponse(status=200,content="La contraseña ha sido modificada correctamente")
+    else:
+        return HttpResponse(status=401, content="La contraseña actual es incorrecta")
 
 @csrf_exempt
 def index(request):
