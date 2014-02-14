@@ -18,6 +18,15 @@ msgstr ""
 "Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "English"
+msgstr "Ingelesa"
+
+msgid "español"
+msgstr "Espainola"
+
+msgid "Basque"
+msgstr "Euskera"
+
 #: .\webApp\index.html
 msgid "Cliente"
 msgstr "Bezeroa"
