@@ -347,8 +347,8 @@ def travelCompleted(request):
             travel.save()
             try:
                 #Dictionary to be sent to PUSH server
-                post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "false","device": travel.customer.device} 
-                resp = requests.post(PUSH_URL+'/sendTravelCompleted', params=post_data) #Send notify dictionary to PUSH server
+                post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "false"} 
+                resp = requests.post(PUSH_URL+'/push', params=post_data) #Send notify dictionary to PUSH server
             except requests.ConnectionError: #If push server is offline, delete travel and return 503
                 return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
         return HttpResponse(status=status.HTTP_200_OK)
@@ -375,9 +375,9 @@ def travelPaid(request):
         travel.save()
         print travel.isPaid
         #Dictionary to be sent to PUSH server
-        post_data = {"travelID": travel.id, "pushId": travel.driver.pushID, "paid": "true", "device": travel.driver.device}
+        post_data = {"travelID": travel.id, "pushId": travel.driver.pushID, "paid": "true"}
         try:
-            resp = requests.post(PUSH_URL+'/sendTravelPaid', params=post_data) #Send notify dictionary to PUSH server
+            resp = requests.post(PUSH_URL+'/push', params=post_data) #Send notify dictionary to PUSH server
         except requests.ConnectionError: #If push server is offline, delete travel and return 503
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
         print resp
@@ -419,9 +419,9 @@ def cancelTravelDriver(request):
         if request.POST['email'] != travel.driver.email:
             return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
         #Dictionary to be sent to PUSH server
-        post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "device": travel.customer.device}
+        post_data = {"travelID": travel.id, "pushId": travel.customer.pushID}
         try:
-            resp = requests.post(PUSH_URL+'/sendTravelCanceled', params=post_data) #Send notify dictionary to PUSH server
+            resp = requests.post(PUSH_URL+'/push', params=post_data) #Send notify dictionary to PUSH server
             if resp.status_code == 404:
                 return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
         except requests.ConnectionError: #If push server is offline, delete travel and return 503
