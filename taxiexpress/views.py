@@ -169,28 +169,25 @@ def getClosestTaxi(request):
         if (customer.positiveVotes+customer.negativeVotes) > 0:
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes)) #Calculate customer valuation (1..5) to send it to close drivers
         post_data = {"origin": request.POST['origin'], "startpoint": pointclient, "travelID": travel.id, "valuation": valuation, "phone": customer.phone} #Base dictionary to be sent to PUSH server
-        post_data_ios = {"device": 'IOS'} #Dictionary to notify IOS users
+        post_data_ios = {"pushId": []} #Dictionary to notify IOS users
         post_data_ios.update(post_data) #Add base dictionary data
-        post_data_android = {"device": 'ANDROID'} #Dictionary to notify ANDROID users
+        post_data_android = {"pushId": []} #Dictionary to notify ANDROID users
         post_data_android.update(post_data)
-        ioscount = 0 #Ios device counter
-        androidcount = 0 #Android device counter
         for i in range(closestDrivers.count()):
             if closestDrivers[i].device == 'IOS': #If device is IOS, add driver to IOS notify dictionary
-                post_data_ios["pushId"+str(ioscount)] = closestDrivers[i].pushID
-                ioscount += 1
+                post_data_ios["pushId"].append(closestDrivers[i].pushID)
             elif closestDrivers[i].device == 'ANDROID': #If device is ANDROID, add driver to ANDROID notify dictionary
-                post_data_android["pushId"+str(androidcount)] = closestDrivers[i].pushID
-                androidcount += 1
-        if ioscount < 5: #If IOS notify dictionary has less than 5 elements, fill with empty elements
-            for i in range(ioscount, 4):
-                post_data_ios["pushId"+str(i)] = ""
-        if androidcount < 5: #If ANDROID notify dictionary has less than 5 elements, fill with empty elements
-            for i in range(androidcount, 4):
-                post_data_android["pushId"+str(i)] = ""
+                post_data_android["pushId"].append(closestDrivers[i].pushID)
+
+        print post_data_ios
+        print post_data_android
+
         try:
             #Send notify dictionaries to PUSH server
-            resp_android = requests.post(PUSH_URL+'/sendClosestTaxi', params=post_data_android)
+            if post_data_android["pushId"].count == 0:
+                resp_android = requests.post(PUSH_URL+'/push', params=post_data_android)
+            if post_data_ios["pushId"].count == 0:
+                resp_ios = requests.post(PUSH_URL+'/push', params=post_data_ios)
         except requests.ConnectionError: #If push server is offline, delete travel and return 503
             travel.delete()
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
