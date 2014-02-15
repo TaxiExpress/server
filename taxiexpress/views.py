@@ -227,7 +227,7 @@ def getSelectedTaxi(request):
         punto = punto0 + "," + punto1
         post_data = {"pushId": driver.pushID , "title" : 'Taxi Express' , "message" : 'SendSelectedTaxi', "origin": request.POST['origin'], "startpoint": punto, "travelID": request.POST['travelID'], "email": request.POST['email'], "phone": request.POST['phone'], code : 802} 
         try:
-            resp = requests.post(PUSH_URL+'/sendSelectedTaxi', params=post_data) #Send notify dictionary to PUSH server
+            resp = requests.post(PUSH_URL+'/push', params=post_data) #Send notify dictionary to PUSH server
         except requests.ConnectionError: #If push server is offline, delete travel and return 503
             travel.delete()
             return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
