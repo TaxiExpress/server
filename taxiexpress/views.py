@@ -99,7 +99,6 @@ def loginDriver(request):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe validar la cuenta antes de conectarse")
         #Update driver data in database
         driver.pushID = request.POST['pushID']
-        driver.available = True
         driver.save()
         driverNameSurname = DriverDataSerializer(driver).data
         driverNameSurname['appPayment'] = driver.car.appPayment
