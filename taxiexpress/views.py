@@ -337,7 +337,7 @@ def travelCompleted(request):
             #Dictionary to be sent to PUSH server
             post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "true", "code" : 702, "title": "Pago en mano", "message" : "sendTravelCompleted"} 
             try:
-                resp = requests.post(PUSH_URL+'/sendTravelCompleted', params=post_data) #Send notify dictionary to PUSH server
+                resp = requests.post(PUSH_URL+'/push', params=post_data) #Send notify dictionary to PUSH server
             except requests.ConnectionError: #If push server is offline, delete travel and return 503
                 return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
         else:
