@@ -103,6 +103,10 @@ def loginDriver(request):
         driverNameSurname = DriverDataSerializer(driver).data
         driverNameSurname['appPayment'] = driver.car.appPayment
         driverNameSurname['available'] = driver.available
+        driverNameSurname['model'] = driver.car.model
+        driverNameSurname['company'] = driver.car.company
+        driverNameSurname['plate'] = driver.car.plate
+        driverNameSurname['license'] = driver.license
         return Response(driverNameSurname, status=status.HTTP_200_OK)
     else:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
