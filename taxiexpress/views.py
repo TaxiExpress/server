@@ -223,7 +223,7 @@ def getSelectedTaxi(request):
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes)) #Calculate customer valuation (1..5) to send it to close drivers
         #Dictionary to be sent to PUSH server
         punto = request.POST['startpoint'][0] + "," + request.POST['startpoint'][1]
-        post_data = {"pushId": driver.pushID , "title" : 'Taxi Express' , "message" : 'SendSelectedTaxi', "origin": request.POST['origin'], "startpoint": punto, "travelID": request.POST['travelID'], "email": request.POST['email'], "phone": request.POST['phone'], code : 802} 
+        post_data = {"pushId": driver.pushID , "title" : 'Un cliente solicita sus servicios' , "message" : 802, "origin": request.POST['origin'], "startpoint": punto, "travelID": request.POST['travelID'], "email": request.POST['email'], "phone": request.POST['phone']} 
         try:
             resp = requests.post(PUSH_URL+'/push', params=post_data) #Send notify dictionary to PUSH server
         except requests.ConnectionError: #If push server is offline, delete travel and return 503
@@ -280,7 +280,7 @@ def acceptTravel(request):
         driver.geom = driverpos
         driver.save()
         #Dictionary to be sent to PUSH server
-        post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "title" : "El taxista ha aceptado su solicitud", "message": "SendAcceptTravel", "latitude": str(driverpos.x), "longitude": str(driverpos.y), "code" : 701} 
+        post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "title" : "El taxista ha aceptado su solicitud", "message": 701, "latitude": str(driverpos.x), "longitude": str(driverpos.y)} 
         print post_data
         try:
             resp = requests.post(PUSH_URL+'/push', params=post_data) #Send notify dictionary to PUSH server
@@ -336,7 +336,7 @@ def travelCompleted(request):
         travel.save()
         if travel.appPayment:
             #Dictionary to be sent to PUSH server
-            post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "true", "code" : 702, "title": "Pago en mano", "message" : "sendTravelCompleted"} 
+            post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "true", "title": "Pago en mano", "message" : 702} 
             try:
                 resp = requests.post(PUSH_URL+'/push', params=post_data) #Send notify dictionary to PUSH server
             except requests.ConnectionError: #If push server is offline, delete travel and return 503
@@ -347,7 +347,7 @@ def travelCompleted(request):
             travel.save()
             try:
                 #Dictionary to be sent to PUSH server
-                post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "false", "code" : 702, "title": "Pago en mano", "message" : "sendTravelCompleted"} 
+                post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "false", "title": "Pago en mano", "message" : 702} 
                 resp = requests.post(PUSH_URL+'/push', params=post_data) #Send notify dictionary to PUSH server
             except requests.ConnectionError: #If push server is offline, delete travel and return 503
                 return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
@@ -375,7 +375,7 @@ def travelPaid(request):
         travel.save()
         print travel.isPaid
         #Dictionary to be sent to PUSH server
-        post_data = {"travelID": travel.id, "pushId": travel.driver.pushID, "paid": "true" , "title" : "Viaje " , "message": "SendTravelPaid", "code":803}
+        post_data = {"travelID": travel.id, "pushId": travel.driver.pushID, "paid": "true" , "title" : "Viaje " , "message": 803}
         try:
             resp = requests.post(PUSH_URL+'/push', params=post_data) #Send notify dictionary to PUSH server
         except requests.ConnectionError: #If push server is offline, delete travel and return 503
@@ -419,7 +419,7 @@ def cancelTravelDriver(request):
         if request.POST['email'] != travel.driver.email:
             return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
         #Dictionary to be sent to PUSH server
-        post_data = {"travelID": travel.id, "pushId": travel.customer.pushID , "title": "El taxista ha cancelado el viaje" , "message" : "SendTravelCanceled", "code":703}
+        post_data = {"travelID": travel.id, "pushId": travel.customer.pushID , "title": "El taxista ha cancelado el viaje" , "message" : 703}
         try:
             resp = requests.post(PUSH_URL+'/push', params=post_data) #Send notify dictionary to PUSH server
             if resp.status_code == 404:
