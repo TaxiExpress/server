@@ -254,6 +254,7 @@ def getCustomerPublicData(request):
         response_data['last_name'] = customer.last_name
         response_data['image'] = customer.image
         response_data['valuation'] = valuation
+        return HttpResponse(json.dumps(response_data), content_type="application/json")
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
 
