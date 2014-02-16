@@ -223,8 +223,8 @@ def getSelectedTaxi(request):
         if (customer.positiveVotes+customer.negativeVotes) > 0:
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes)) #Calculate customer valuation (1..5) to send it to close drivers
         #Dictionary to be sent to PUSH server
-        #punto = request.POST['startpoint'][0] + "," + request.POST['startpoint'][1]
-        post_data = {"pushId": driver.pushID , "title" : "Un cliente solicita sus servicios" , "message" : 802 , "origin": request.POST['origin'], "startpoint": "b", "travelID": travel.id, "email": customer.email, "phone": customer.phone} 
+        punto = request.POST['startpoint'][0] + "," + request.POST['startpoint'][1]
+        post_data = {"pushId": driver.pushID , "title" : "Un cliente solicita sus servicios" , "message" : 802 , "origin": request.POST['origin'], "startpoint": punto, "travelID": travel.id, "email": customer.email, "phone": customer.phone} 
         try:
             resp = requests.post(PUSH_URL + '/push', params=post_data) #Send notify dictionary to PUSH server
         except requests.ConnectionError: #If push server is offline, delete travel and return 503
