@@ -876,7 +876,7 @@ def tmpUrl(request, tipo, ident, fecha):
         return redirect ('/')
     day = (datetime.now()-relativedelta(days=1)).strftime("%Y-%m-%d")
     if (fecha == datetime.now().strftime("%Y-%m-%d") or fecha == day) :
-        return render(request, 'AppWeb/resetpassword.html', {'tipo': tipo, 'id': ident})
+        return render(request, 'AppWeb/resetPassword.html', {'tipo': tipo, 'id': ident})
     else:
         return redirect('expiredPage')
 
