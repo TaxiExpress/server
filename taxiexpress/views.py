@@ -222,9 +222,7 @@ def getSelectedTaxi(request):
         if (customer.positiveVotes+customer.negativeVotes) > 0:
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes)) #Calculate customer valuation (1..5) to send it to close drivers
         #Dictionary to be sent to PUSH server
-        punto0 = request.POST['startpoint'][0]
-        punto1 = request.POST['startpoint'][1]
-        punto = punto0 + "," + punto1
+        punto = request.POST['startpoint'][0] + "," + request.POST['startpoint'][1]
         post_data = {"pushId": driver.pushID , "title" : 'Taxi Express' , "message" : 'SendSelectedTaxi', "origin": request.POST['origin'], "startpoint": punto, "travelID": request.POST['travelID'], "email": request.POST['email'], "phone": request.POST['phone'], code : 802} 
         try:
             resp = requests.post(PUSH_URL+'/push', params=post_data) #Send notify dictionary to PUSH server
