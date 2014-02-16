@@ -170,8 +170,8 @@ def getClosestTaxi(request):
         valuation = 0
         if (customer.positiveVotes+customer.negativeVotes) > 0:
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes)) #Calculate customer valuation (1..5) to send it to close drivers
-        punto = request.POST['startpoint'][0] + "," + request.POST['startpoint'][1]
-        post_data = {"pushId": driver.pushID , "title" : 'Un cliente solicita sus servicios' , "message" : 801, "origin": request.POST['origin'], "startpoint": punto, "travelID": request.POST['travelID'], "email": request.POST['email'], "phone": request.POST['phone']}         post_data_ios = {"pushId": []} #Dictionary to notify IOS users
+        #punto = request.POST['startpoint'][0] + "," + request.POST['startpoint'][1]
+        post_data = {"pushId": driver.pushID , "title" : 'Un cliente solicita sus servicios' , "message" : 801, "origin": request.POST['origin'], "startpoint": 'bb', "travelID": request.POST['travelID'], "email": request.POST['email'], "phone": request.POST['phone']}         post_data_ios = {"pushId": []} #Dictionary to notify IOS users
         post_data_ios.update(post_data) #Add base dictionary data
         post_data_android = {"pushId": []} #Dictionary to notify ANDROID users
         post_data_android.update(post_data)
