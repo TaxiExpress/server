@@ -1,0 +1,24 @@
+{% extends "AppWeb/base.html" %}
+{% load i18n %}
+
+{% block head %}
+<link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block content %}
+		<div class="bg titulo">
+			
+		</div>			
+		<div class="bg">				
+			<div class="contenido wrap resetpass">	
+				<form name="confirmsend" id="confirmsend" action="" method="POST">	
+					{% csrf_token %}	
+					<h3>{% trans 'confirm1' %}</h3>
+					<div>{% trans 'confirm2' %}</div>
+					<div class="clr resetbtn"><button class="btn" type="submit">{% trans 'irIndex' %}</button></div>
+				</form>	
+			</div>
+		</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

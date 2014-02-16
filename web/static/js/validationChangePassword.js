@@ -62,3 +62,34 @@ function validateDriverPassword() {
     }
     return result;
 }
+
+function validatePassword() { 
+    
+    var errorString = ''; 
+    var result = true ; 
+     
+    //The new passwords must be the same
+    if ($('#resetPass input[name=newPass]').val() != $('#resetPass input[name=newPass2]').val()) { 
+        errorString = 'Los valores de las nuevas contraseñas deben ser iguales';
+        result = false; 
+    } 
+    else{
+        //The password's length must be between 8 and 20
+        if ((($('#resetPass input[name=newPass]').val()).length < '8') || (($('#resetPass input[name=newPass2]').val()).length > '20')) {
+            errorString = 'La contraseña debe tener entre 8 y 20 caracteres';
+            result = false; 
+        }
+    }
+
+    if (result == false) {
+        $('#resetPass .passwordError').addClass('showfieldError');
+        $('#resetPass .passwordError').removeClass('hidefieldError');
+        $('#resetPass .registerErrorRec').html(errorString); 
+    }
+    else{
+        $('#resetPass .passwordError').removeClass('showfieldError');
+        $('#resetPass .passwordError').addClass('hidefieldError');
+        $('#resetPass .registerErrorRec').html(''); 
+    }
+    return result;
+}

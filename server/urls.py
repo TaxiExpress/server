@@ -37,8 +37,7 @@ urlpatterns = patterns('',
     url(r'^loaddata', 'taxiexpress.views.loadData', name='loaddata'),
     url(r'^loadtravels', 'taxiexpress.views.loadTravels', name='loadTravels'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^recoverpassword', 'taxiexpress.views.recoverPassword', name='recoverPassword'),
-
+    
     # url(r'^server/', include('server.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
@@ -81,4 +80,7 @@ urlpatterns = patterns('',
     url(r'^statistics/gettravelsbyday', 'web.views.getTravelsByDay', name='getTravelsByDay'),
     url(r'^gettravelscustomer', 'web.views.getTravelsCustomer', name='getTravelsCustomer'),
     url(r'^gettravelsdriver', 'web.views.getTravelsDriver', name='getTravelsDriver'),
+    url(r'^resetpassword/([^/]+)/([^/]+)/([^/]+)', 'web.views.tmpUrl', name='tmpUrl'),
+    url(r'^expiredpage', 'web.views.expiredPage', name='expiredPage'),
+    url(r'^confirmsend', 'web.views.confirmSend', name='confirmSend'),
    )

@@ -686,3 +686,20 @@ msgstr "First"
 
 msgid "Ultima"
 msgstr "Last"
+
+#Expired page
+msgid "expiredpage"
+msgstr "Requested page has expired"
+
+#Confirm send
+msgid "confirm1"
+msgstr "Password reset confirmation sent successfully!"
+
+msgid "confirm2"
+msgstr "We've sent an email containing a temporary link that will allow you to reset your password for the next 24 hours. Please check your spam folder if the email doesn't appear within a few minutes."
+
+msgid "irIndex"
+msgstr "Return to index"
+
+msgid "ResetearPassword"
+msgstr "Reset your password"

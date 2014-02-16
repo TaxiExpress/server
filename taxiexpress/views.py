@@ -689,27 +689,6 @@ def changePassword(request):
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="La contraseña actual es incorrecta")
 
 
-#Method called by customer app to request a password recovery email
-@csrf_exempt
-@api_view(['GET'])
-def recoverPassword(request):
-    if request.GET['email'] == '':
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
-    try:
-        customer = Customer.objects.get(email=request.GET['email']) #Retrieve the driver item
-    except ObjectDoesNotExist:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
-    #Send email with password
-    subject = 'Taxi Express: Recuperar contraseña'
-    from_email = 'MyTaxiExpress@gmail.com'
-    to = [customer.email]
-    html_content = 'Su password es ' + customer.password + '. <br> <br> Un saludo de parte del equipo de Taxi Express.'
-    msg = EmailMessage(subject, html_content, from_email, to)
-    msg.content_subtype = "html"  # Main content is now text/html
-    msg.send()
-    return HttpResponse(status=status.HTTP_201_CREATED,content="Se ha enviado la contraseña a su cuenta de email.")
-
-
 #Method called by customer app to recover email address from associated phone
 @csrf_exempt
 @api_view(['GET'])

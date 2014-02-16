@@ -24,7 +24,7 @@ from django.utils import timezone
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from taxiexpress.views import validateUser, recoverValidationCodeCustomer, recoverValidationCodeDriver,recoverPassword
+from taxiexpress.views import validateUser, recoverValidationCodeCustomer, recoverValidationCodeDriver
 from passlib.hash import sha256_crypt
 
 @csrf_exempt
@@ -782,14 +782,40 @@ def rememberPassword(request):
         if request.GET['tipo'] == "C":
             response = recoverPassword(request)
             if response.status_code == status.HTTP_201_CREATED:
-                return redirect('/') 
+                return redirect('confirmSend') 
         else:
             response = recoverPasswordDriver(request)
             if response.status_code == status.HTTP_201_CREATED:
-                return redirect('/')
+                return redirect('confirmSend') 
         return render(request, 'AppWeb/rememberpassword.html', {'status': response.status_code, 'error': response.content}) 
     else:
         return render(request, 'AppWeb/rememberpassword.html', {})  
+
+@csrf_exempt
+@api_view(['GET'])
+def recoverPassword(request):
+    if request.GET['email'] == '':
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe ingresar una dirección de email")
+    try:
+        customer = Customer.objects.get(email=request.GET['email']) #Retrieve the driver item
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
+
+    tipotemp = request.GET['tipo']
+    idtemp = str(customer.id)
+    dt_obj = datetime.now()
+    datatemp = dt_obj.strftime("%Y-%m-%d")
+
+    subject = 'Taxi Express: Recuperar contraseña'
+    from_email = 'MyTaxiExpress@gmail.com'
+    to = [customer.email]
+    html_content = u'<h3>Solicitud de cambio de contraseña</h3>Utilice el siguiente link durante las próximas 24 horas para resetear la contraseña.'
+    html_content = html_content +  u'<br> <br> taxiloadbalancer-638315338.us-east-1.elb.amazonaws.com/resetpassword/' + tipotemp + '/' + idtemp + '/' + datatemp
+    msg = EmailMessage(subject, html_content, from_email, to)
+    msg.content_subtype = "html"  # Main content is now text/html
+    msg.send()
+    return HttpResponse(status=status.HTTP_201_CREATED,content="Se ha enviado la contraseña a su cuenta de email.")
+
 
 def recoverPasswordDriver(request):
     if request.GET['email'] == '':
@@ -798,10 +824,19 @@ def recoverPasswordDriver(request):
         driver = Driver.objects.get(email=request.GET['email'])
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
+
+    tipotemp = request.GET['tipo']
+    idtemp = str(driver.id)
+    dt_obj = datetime.now()
+    datatemp = dt_obj.strftime("%Y-%m-%d")
+
+
     subject = 'Taxi Express: Recuperar contraseña'
     from_email = 'MyTaxiExpress@gmail.com'
     to = [driver.email]
-    html_content = 'Su password es ' + driver.password + '. <br> <br> Un saludo de parte del equipo de Taxi Express.'
+    html_content = u'<h3>Solicitud de cambio de contraseña</h3>Utilice el siguiente link durante las próximas 24 horas para resetear la contraseña.'
+    html_content = html_content +  u'<br> <br> http://taxiloadbalancer-638315338.us-east-1.elb.amazonaws.com/resetpassword/' + tipotemp + '/' + idtemp + '/' + datatemp
+    
     msg = EmailMessage(subject, html_content, from_email, to)
     msg.content_subtype = "html"  # Main content is now text/html
     msg.send()
@@ -826,3 +861,30 @@ def getTravelsDriver(request):
         return Response(SerialTravel.data, status=status.HTTP_200_OK)
     else:
         return redirect('/')
+
+def tmpUrl(request, tipo, ident, fecha):
+    if request.method == "POST":
+        #grabar contraseña
+        if request.POST['tipo'] == 'C':
+            customer = Customer.objects.get(id=request.POST['id'])
+            customer.password = sha256_crypt.encrypt(request.POST['newPass'])
+            customer.save()
+        else:
+            driver = Driver.objects.get(id=request.POST['id'])
+            driver.password = sha256_crypt.encrypt(request.POST['newPass'])
+            driver.save()
+        return redirect ('/')
+    day = (datetime.now()-relativedelta(days=1)).strftime("%Y-%m-%d")
+    if (fecha == datetime.now().strftime("%Y-%m-%d") or fecha == day) :
+        return render(request, 'AppWeb/resetpassword.html', {'tipo': tipo, 'id': ident})
+    else:
+        return redirect('expiredPage')
+
+def confirmSend(request):
+    if request.method == "POST":
+        return redirect('/')
+    return render(request, 'AppWeb/confirmSend.html')    
+
+def expiredPage(request):
+    return render(request, 'AppWeb/expiredPage.html')    
+

@@ -686,3 +686,20 @@ msgstr "Lehena"
 
 msgid "Ultima"
 msgstr "Azkena"
+
+#Expired page
+msgid "expiredpage"
+msgstr "Orrialdea erabiltzeko epea amaitu egin da"
+
+#Confirm send
+msgid "confirm1"
+msgstr "Pasahitza erreseteatzeko baieztapena ondo bidali da!"
+
+msgid "confirm2"
+msgstr "Emaila bidali da denboraldi baterako linka duena eta urrengo 24 orduetan pasahitza aldetzea utziko duena. Mesedez zure spama berrikusi minutu batzu barru emaila ez baduzu jasotzen."
+
+msgid "irIndex"
+msgstr "Asierara itzuli"
+
+msgid "ResetearPassword"
+msgstr "Zure pasahitza erreseteatu"

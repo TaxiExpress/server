@@ -759,3 +759,29 @@ canvas{
   text-align: center;
   margin-top: -100px;
 }
+
+.resetpass{
+  margin-top: 100px;
+  margin-left: 50px;
+}
+
+.resetbtn{
+  margin-top: 50px;
+}
+
+
+.registerErrorRec {
+  clear: both;
+  font-size: 13px;
+  margin: auto 75px auto;
+  color: #a02b27;
+}
+
+.passwordButtomRec{
+  border-top: 1px solid #ccc;
+  margin-top: 20px;
+}
+
+.passwordButtomRec .btn{
+  margin:10px 30px 10px 75px;
+}
