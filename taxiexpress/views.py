@@ -224,8 +224,7 @@ def getSelectedTaxi(request):
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes)) #Calculate customer valuation (1..5) to send it to close drivers
         #Dictionary to be sent to PUSH server
         #punto = request.POST['startpoint']) + "," + request.POST['startpoint'][1]
-        mipunto = request.POST['startpoint']
-        post_data = {"pushId": driver.pushID , "title" : "Un cliente solicita sus servicios" , "message" : 802 , "startpoint": mipunto, "travelID": travel.id, "email": customer.email, "phone": customer.phone} 
+        post_data = {"pushId": driver.pushID , "title" : "Un cliente solicita sus servicios" , "message" : 802 , "startpoint": "notengoniputaideadecualeselpuntodeloscojones", "travelID": travel.id, "email": customer.email, "phone": customer.phone} 
         try:
             resp = requests.post(PUSH_URL + '/push', params=post_data) #Send notify dictionary to PUSH server
         except requests.ConnectionError: #If push server is offline, delete travel and return 503
@@ -251,12 +250,10 @@ def getCustomerPublicData(request):
         valuation = 0
         if (customer.positiveVotes+customer.negativeVotes) > 0:
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes)) #Calculate customer valuation (1..5) to send it to close drivers
-        response_data = {}
         response_data['first_name'] = customer.first_name
         response_data['last_name'] = customer.last_name
         response_data['image'] = customer.image
         response_data['valuation'] = valuation
-        return HttpResponse(json.dumps(response_data), content_type="application/json")
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
 
