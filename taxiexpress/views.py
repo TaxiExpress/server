@@ -250,7 +250,9 @@ def getCustomerPublicData(request):
         valuation = 0
         if (customer.positiveVotes+customer.negativeVotes) > 0:
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes)) #Calculate customer valuation (1..5) to send it to close drivers
-        response_data = CustomerProfileSerializer(customer, fields=('first_name', 'last_name', 'image')).data
+        response_data['first_name'] = customer.first_name
+        response_data['last_name'] = customer.last_name
+        response_data['image'] = customer.image
         response_data['valuation'] = valuation
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
