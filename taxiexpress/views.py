@@ -251,8 +251,8 @@ def getCustomerPublicData(request):
         if (customer.positiveVotes+customer.negativeVotes) > 0:
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes)) #Calculate customer valuation (1..5) to send it to close drivers
         response_data = {}
-        response_data['first_name'] = customer.first_name
-        response_data['last_name'] = customer.last_name
+        response_data['name'] = customer.first_name
+        response_data['surname'] = customer.last_name
         response_data['image'] = customer.image
         response_data['valuation'] = valuation
         return HttpResponse(json.dumps(response_data), content_type="application/json")
