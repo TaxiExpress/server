@@ -224,7 +224,7 @@ def getSelectedTaxi(request):
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes)) #Calculate customer valuation (1..5) to send it to close drivers
         #Dictionary to be sent to PUSH server
         #punto = request.POST['startpoint']) + "," + request.POST['startpoint'][1]
-        post_data = {"pushId": driver.pushID , "title" : "Un cliente solicita sus servicios" , "message" : 802 , "startpoint": "notengoniputaideadecualeselpuntodeloscojones", "travelID": travel.id, "email": customer.email, "phone": customer.phone} 
+        post_data = {"pushId": driver.pushID , "title" : "Un cliente solicita sus servicios" , "message" : 802 , "startpoint": "notengoniputaideadecualeselpuntodeloscojones", "travelID": travel.id, "customerID": customer.id, "phone": customer.phone} 
         try:
             resp = requests.post(PUSH_URL + '/push', params=post_data) #Send notify dictionary to PUSH server
         except requests.ConnectionError: #If push server is offline, delete travel and return 503
@@ -242,9 +242,9 @@ def getSelectedTaxi(request):
 @csrf_exempt
 @api_view(['GET'])
 def getCustomerPublicData(request):
-    if 'email' in request.GET:
+    if 'customerID' in request.GET:
         try:
-            customer = Customer.objects.get(email=request.GET['email']) #Retrieve the user asking for a travel
+            customer = Customer.objects.get(id=request.GET['customerID']) #Retrieve the user asking for a travel
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
         valuation = 0
