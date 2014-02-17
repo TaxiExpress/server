@@ -159,7 +159,11 @@ def getClosestTaxi(request):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
         if customer.sessionID != request.POST['sessionID']: #Check if user is logged in
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
-        #Get a list with closest drivers meeting user filters
+        #Check if user has unpaid travels
+	unpaidTravels = customer.travel_set.filter(isPaid=False)
+        if unpaidTravels.count() > 0:
+	    return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No puedes pedir dos viajes a la vez")
+	#Get a list with closest drivers meeting user filters
         closestDrivers = Driver.objects.distance(pointclient).filter(car__isfree=True, available=True, car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity).order_by('distance')[:5]
         if closestDrivers.count() == 0:
             return HttpResponse(status=status.HTTP_204_NO_CONTENT, content="No se han encontrado taxis")
@@ -203,6 +207,10 @@ def getSelectedTaxi(request):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
         if customer.sessionID != request.POST['sessionID']:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
+        #Check if user has unpaid travels
+	unpaidTravels = customer.travel_set.filter(isPaid=False)
+        if unpaidTravels.count() > 0:
+	    return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No puedes pedir dos viajes a la vez")
         driver = Driver.objects.get(email=request.POST['driverEmail'])
         if (driver.available == False) or (driver.car.isfree == False):
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El taxista no está disponible actualmente")
