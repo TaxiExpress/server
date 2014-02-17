@@ -61,7 +61,7 @@ def loginUser(request):
             travel = unpaidTravels[0]
             post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": travel.cost, "appPayment": "true"} 
             try:
-                resp = requests.post(PUSH_URL+'/sendTravelCompleted', params=post_data)
+                resp = requests.post(PUSH_URL+'/push', params=post_data)
             except requests.ConnectionError:
                 return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE)
                 
