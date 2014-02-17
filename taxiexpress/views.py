@@ -171,6 +171,7 @@ def getClosestTaxi(request):
             closestDrivers = closestDrivers[:5] #If mone than 5 drivers are found, reduce the list to 5 items
         pushIDS = {}     
         for i in range(1,closestDrivers.count()-1):
+            print closestDrivers[i].pushID
             pushIDS.append(closestDrivers[i].pushID)
         travel = Travel(customer=customer, startpoint=pointclient, origin=request.POST['origin'])
         travel.save()
