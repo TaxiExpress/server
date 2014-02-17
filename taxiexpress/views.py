@@ -173,8 +173,8 @@ def getClosestTaxi(request):
         #Dictionary to be sent to PUSH server
         punto = ''
         punto += str(request.POST['latitude'])+','+str(request.POST['longitude'])
-		pushIDS = {}		
-		for i in range(closestDrivers.count()):
+	pushIDS = {}		
+	for i in range(closestDrivers.count()):
             pushIDS.append(closestDrivers[i].pushID)
         post_data = {"pushId": pushIDS , "title" : "Viaje disponible" , "message" : 801 , "startpoint": punto, "travelID": travel.id, "customerID": customer.id, "phone": customer.phone} 
         try:
