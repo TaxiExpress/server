@@ -195,7 +195,7 @@ def getClosestTaxi(request):
 @csrf_exempt
 @api_view(['POST'])
 def getSelectedTaxi(request):
-    if 'sessionID' in request.POST:
+    if 'latitude' in request.POST:
         pointclient = Point(float(request.POST['latitude']), float(request.POST['longitude'])) #Create a point item from received coordinates
         try:
             customer = Customer.objects.get(email=request.POST['email']) #Retrieve the user asking for a travel
