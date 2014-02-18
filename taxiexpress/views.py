@@ -189,9 +189,9 @@ def getClosestTaxi(request):
         if (customer.positiveVotes+customer.negativeVotes) > 0:
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes)) #Calculate customer valuation (1..5) to send it to close drivers
         #Dictionary to be sent to PUSH server
-        punto = ''
-        punto += str(request.POST['latitude'])+','+str(request.POST['longitude'])
-        post_data = {"pushId": pushIDS , "title" : "Viaje disponible" , "message" : 801 , "startpoint": punto, "travelID": travel.id, "customerID": customer.id, "phone": customer.phone} 
+        point = ''
+        point += str(request.POST['latitude'])+','+str(request.POST['longitude'])
+        post_data = {"pushId": pushIDS , "title" : "Viaje disponible" , "message" : 801 , "startpoint": point, "travelID": travel.id, "customerID": customer.id, "phone": customer.phone} 
         try:
             resp = requests.post(PUSH_URL + '/push', params=post_data) #Send notify dictionary to PUSH server
         except requests.ConnectionError: #If push server is offline, delete travel and return 503
@@ -259,11 +259,7 @@ def getCustomerPublicData(request):
         valuation = 0
         if (customer.positiveVotes+customer.negativeVotes) > 0:
             valuation = int(5*customer.positiveVotes/(customer.positiveVotes+customer.negativeVotes)) #Calculate customer valuation (1..5) to send it to close drivers
-        response_data = {}
-        response_data['name'] = customer.first_name
-        response_data['surname'] = customer.last_name
-        response_data['image'] = customer.image
-        response_data['valuation'] = valuation
+        response_data = {"name": customer.first_name, "surname": customer.last_name, "image": customer.image, "valuation": valuation}
         return HttpResponse(json.dumps(response_data), content_type="application/json")
     else:
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Parámetros incorrectos")
