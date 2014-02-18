@@ -59,7 +59,7 @@ def loginUser(request):
         if unpaidTravels.count() > 0:
             #If there are unpaid travels sends pay notification
             travel = unpaidTravels[0]
-            post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": travel.cost, "appPayment": "true"} 
+            post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": travel.cost, "appPayment": "true", title: "Pagar trayecto"} 
             try:
                 resp = requests.post(PUSH_URL+'/push', params=post_data)
             except requests.ConnectionError:
@@ -339,7 +339,7 @@ def travelCompleted(request):
         travel.save()
         if travel.appPayment:
             #Dictionary to be sent to PUSH server
-            post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "true", "title": "Pago en mano", "message" : 702} 
+            post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "true", "title": "Pagar trayecto", "message" : 702} 
             try:
                 resp = requests.post(PUSH_URL+'/push', params=post_data) #Send notify dictionary to PUSH server
             except requests.ConnectionError: #If push server is offline, delete travel and return 503
@@ -350,7 +350,7 @@ def travelCompleted(request):
             travel.save()
             try:
                 #Dictionary to be sent to PUSH server
-                post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "false", "title": "Pago en mano", "message" : 702} 
+                post_data = {"travelID": travel.id, "pushId": travel.customer.pushID, "cost": request.POST['cost'], "appPayment": "false", "title": "Trayecto pagado", "message" : 702} 
                 resp = requests.post(PUSH_URL+'/push', params=post_data) #Send notify dictionary to PUSH server
             except requests.ConnectionError: #If push server is offline, delete travel and return 503
                 return HttpResponse(status=status.HTTP_503_SERVICE_UNAVAILABLE, content="Servicio no disponible")
@@ -378,7 +378,7 @@ def travelPaid(request):
         travel.save()
         print travel.isPaid
         #Dictionary to be sent to PUSH server
-        post_data = {"travelID": travel.id, "pushId": travel.driver.pushID, "paid": "true" , "title" : "Viaje " , "message": 803}
+        post_data = {"travelID": travel.id, "pushId": travel.driver.pushID, "paid": "true" , "title" : "Trayecto pagado" , "message": 803}
         try:
             resp = requests.post(PUSH_URL+'/push', params=post_data) #Send notify dictionary to PUSH server
         except requests.ConnectionError: #If push server is offline, delete travel and return 503
