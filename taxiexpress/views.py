@@ -816,11 +816,11 @@ def removeUnvalidatedUsers(request):
     if  "removeUnvalidatedUsers" != request.POST['valID']:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Clave incorrecta")
     try:
-        customer.filter(isValidatede=False).delete()
+        Customer.objects.filter(isValidated=False).delete()
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Todos lo clientes se encuentran validados")
     try:
-        driver.filter(isValidatede=False).delete()
+        Driver.objects.filter(isValidated=False).delete()
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Todos los taxistas se encuentran validados")
     return HttpResponse(status=status.HTTP_200_OK,content="Se han eliminado todos los usuarios no validados")
