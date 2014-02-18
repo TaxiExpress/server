@@ -56,6 +56,9 @@ class Driver(models.Model):
     city = models.ForeignKey(City, blank=True, null=True)
     isValidated = models.BooleanField(default=False)
     validationCode = models.IntegerField(max_length=4, blank=True, null=True)
+    validationCodeEmail = models.IntegerField(max_length=4, blank=True, null=True)
+    validationCodeUrl = models.IntegerField(max_length=4, blank=True, null=True)
+    expiredDate = expiredDate = models.DateTimeField(blank=True, null=True)
     positiveVotes = models.IntegerField(blank=True, default=0)
     negativeVotes = models.IntegerField(blank=True, default=0)
     car = models.ForeignKey(Car, null=True)
@@ -67,7 +70,6 @@ class Driver(models.Model):
     bankAccount = models.CharField(max_length=20, default="", blank=True)
     recipientName = models.CharField(max_length=80, default="", blank=True)
     pushID = models.TextField(blank=True, null=True)
-    device = models.CharField(max_length=7, default='ANDROID', blank=True)
     sessionID = models.CharField(max_length=10, blank=True, null=True)
     #Posicion
     geom = models.PointField(srid=4326, null=True)
@@ -89,6 +91,9 @@ class Customer(models.Model):
     lastUpdateTravels = models.DateTimeField(default=datetime.now, blank=True)
     isValidated = models.BooleanField(default=False)
     validationCode = models.IntegerField(max_length=4, blank=True, null=True)
+    validationCodeEmail = models.IntegerField(max_length=4, blank=True, null=True)
+    validationCodeUrl = models.IntegerField(max_length=4, blank=True, null=True)
+    expiredDate = models.DateTimeField(blank=True, null=True)
     positiveVotes = models.IntegerField(default=0)
     negativeVotes = models.IntegerField(default=0)
     #Datos de pago
@@ -100,7 +105,6 @@ class Customer(models.Model):
     fCapacity = models.IntegerField(default=1)
     fDistance = models.IntegerField(default=1)
     pushID = models.TextField(blank=True, null=True)
-    device = models.CharField(max_length=7, default='ANDROID', blank=True)
     sessionID = models.CharField(max_length=10, blank=True, null=True)
     def __unicode__(self):
         return self.email
@@ -131,3 +135,11 @@ class Observation(models.Model):
     observations = models.TextField(max_length=200)
     def __unicode__(self):
         return self.email
+
+class Payments(models.Model):
+    idDriver = models.IntegerField()
+    date = models.DateTimeField()
+    travels = models.IntegerField(max_length=4)
+    total = models.DecimalField(max_digits=8, decimal_places=2)
+    def __unicode__(self):
+        return self.idDriver

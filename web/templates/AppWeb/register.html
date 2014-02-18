@@ -120,7 +120,8 @@
                 <h3>{% trans 'ValidacionCuenta' %}</h3>
                 <span class="popupText">{% trans 'TfnoYCodigoSMS' %}<br/>
                     <input type="tel" id="phone" name="phone" maxlength="12" required  placeholder="{% trans 'Teléfono' %}" tabindex="1">
-                    <input type="text" id="validationCode" name="validationCode" maxlength="4" required value placeholder="{% trans 'Codigo' %}" tabindex="2">
+                    <input type="text" id="validationCode" name="validationCode" maxlength="4" required value placeholder="{% trans 'CodigoSMS' %}" tabindex="2">
+                        <input type="text" id="validationCodeEmail" name="validationCodeEmail" maxlength="4" required value placeholder="{% trans 'CodigoEmail' %}" tabindex="3">
                     <p class="h-left error ff-txt-error"></p><br/>                        
                     <input type="button" value="{% trans 'PedirCodigo' %}>>" class="validationRefRegister validation"/>   
                 </span>

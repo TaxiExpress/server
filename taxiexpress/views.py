@@ -127,6 +127,8 @@ def registerUser(request):
                 c = Customer(email=request.POST['email'], password=passtemp, phone=request.POST['phone'], lastUpdate=datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S'),lastUpdateTravels=datetime.strptime(request.POST['lastUpdate'], '%Y-%m-%d %H:%M:%S'), image="")
                 code = random.randint(1000, 9999) #Generate validation code
                 c.validationCode = code
+                codeEmail = random.randint(1000,9999)
+                c.validationCodeEmail = codeEmail
                 c.save()
                 #Create account confirmation sms
                 msg = {
@@ -139,7 +141,16 @@ def registerUser(request):
                     }                
                 sms = NexmoMessage(msg)
                 sms.set_text_info(msg['text'])
-                #response = sms.send_request()                
+                #response = sms.send_request()    
+
+                subject = 'Código validación email'
+                from_email = 'MyTaxiExpress@gmail.com'
+                to = [c.email]
+                html_content =  'Su código de validación del email de Taxi Express es: ' + str(codeEmail) 
+                msg = EmailMessage(subject, html_content, from_email, to)
+                msg.content_subtype = "html"  # Main content is now text/html
+                msg.send()
+
                 return HttpResponse(status=status.HTTP_201_CREATED)
             except ValidationError:
                 HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email no válido")
@@ -641,7 +652,7 @@ def validateUser(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta. Inténtelo de nuevo")
         if customer.isValidated == False:
-            if customer.validationCode == int(request.POST['validationCode']):
+            if (customer.validationCode == int(request.POST['validationCode']) and customer.validationCodeEmail == int(request.POST['validationCodeEmail'])):
                 #If customer isn't validated and posted validation code is correct, update validation status in database and send confirmation email to customer
                 customer.isValidated = True
                 customer.save()
@@ -799,6 +810,20 @@ def removeFavoriteDriver(request):
     customer.save()
     return HttpResponse(status=status.HTTP_200_OK,content="Taxista eliminado de la lista de favoritos")
 
+@csrf_exempt
+@api_view(['POST'])
+def removeUnvalidatedUsers(request):
+    if  "removeUnvalidatedUsers" != request.POST['valID']:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Clave incorrecta")
+    try:
+        customer.filter(isValidatede=False).delete()
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Todos lo clientes se encuentran validados")
+    try:
+        driver.filter(isValidatede=False).delete()
+    except ObjectDoesNotExist:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Todos los taxistas se encuentran validados")
+    return HttpResponse(status=status.HTTP_200_OK,content="Se han eliminado todos los usuarios no validados")
 
 #Method called to load test data every time Database is reset
 @csrf_exempt

@@ -85,6 +85,8 @@ def registerUser(request):
                 c = Customer(email=request.POST['email'], password=passtemp, phone=tmpPhone, image="")
                 code = random.randint(1000, 9999)
                 c.validationCode = code
+                codeEmail = random.randint(1000,9999)
+                c.validationCodeEmail = codeEmail
                 c.save()
                 msg = {
                         'reqtype': 'json',
@@ -96,7 +98,16 @@ def registerUser(request):
                     }                
                 sms = NexmoMessage(msg)
                 sms.set_text_info(msg['text'])
-                #response = sms.send_request()                
+                #response = sms.send_request()    
+
+                subject = 'Código validación email'
+                from_email = 'MyTaxiExpress@gmail.com'
+                to = [c.email]
+                html_content =  'Su código de validación del email de Taxi Express es: ' + str(codeEmail) 
+                msg = EmailMessage(subject, html_content, from_email, to)
+                msg.content_subtype = "html"  # Main content is now text/html
+                msg.send()
+ 
                 return HttpResponse(status=status.HTTP_201_CREATED)
             except ValidationError:
                 HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email no válido")
@@ -131,6 +142,8 @@ def registerDriver(request):
 
                     code = random.randint(1, 9999)
                     d.validationCode = code
+                    codeEmail = random.randint(1000,9999)
+                    d.validationCodeEmail = codeEmail
                     d.save()
                     
                     msg = {
@@ -143,7 +156,16 @@ def registerDriver(request):
                         }                
                     sms = NexmoMessage(msg)
                     sms.set_text_info(msg['text'])
-                    #response = sms.send_request()                
+                    #response = sms.send_request()    
+
+                    subject = 'Código validación email'
+                    from_email = 'MyTaxiExpress@gmail.com'
+                    to = [d.email]
+                    html_content =  'Su código de validación del email de Taxi Express es: ' + str(codeEmail) 
+                    msg = EmailMessage(subject, html_content, from_email, to)
+                    msg.content_subtype = "html"  # Main content is now text/html
+                    msg.send()
+
                     return HttpResponse(status=status.HTTP_201_CREATED)
             except ValidationError:
                 HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email no válido")
@@ -378,7 +400,7 @@ def validateDriver(request):
         driver = Driver.objects.get(phone=request.POST['phone'])
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Error al validar esta cuenta. Inténtelo de nuevo")
-    if driver.validationCode == int(request.POST['validationCode']):
+    if (driver.validationCode == int(request.POST['validationCode']) and driver.validationCodeEmail == int(request.POST['validationCodeEmail'])):
         driver.isValidated = True
         driver.save()
         subject = '¡Bienvenido a Taxi Express!'
@@ -802,15 +824,19 @@ def recoverPassword(request):
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
 
     tipotemp = request.GET['tipo']
-    idtemp = str(customer.id)
-    dt_obj = datetime.now()
-    datatemp = dt_obj.strftime("%Y-%m-%d")
+    emailtemp = request.GET['email']
+    codetemp = str(random.randint(1, 9999))
+
+    customer.validationCodeUrl = codetemp
+    customer.expiredDate = datetime.now()
+    customer.save()
 
     subject = 'Taxi Express: Recuperar contraseña'
     from_email = 'MyTaxiExpress@gmail.com'
     to = [customer.email]
     html_content = u'<h3>Solicitud de cambio de contraseña</h3>Utilice el siguiente link durante las próximas 24 horas para resetear la contraseña.'
-    html_content = html_content +  u'<br> <br> taxiloadbalancer-638315338.us-east-1.elb.amazonaws.com/resetpassword/' + tipotemp + '/' + idtemp + '/' + datatemp
+    html_content = html_content +  u'<br> <br> http://taxiloadbalancer-638315338.us-east-1.elb.amazonaws.com/resetpassword/' + tipotemp + '/' + emailtemp + '/' + codetemp
+    
     msg = EmailMessage(subject, html_content, from_email, to)
     msg.content_subtype = "html"  # Main content is now text/html
     msg.send()
@@ -826,21 +852,25 @@ def recoverPasswordDriver(request):
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No es posible encontrar a este usuario")
 
     tipotemp = request.GET['tipo']
-    idtemp = str(driver.id)
-    dt_obj = datetime.now()
-    datatemp = dt_obj.strftime("%Y-%m-%d")
+    emailtemp = request.GET['email']
+    codetemp = str(random.randint(1, 9999))
+
+    driver.validationCodeUrl = codetemp
+    driver.expiredDate = datetime.now()
+    driver.save()
 
 
     subject = 'Taxi Express: Recuperar contraseña'
     from_email = 'MyTaxiExpress@gmail.com'
     to = [driver.email]
     html_content = u'<h3>Solicitud de cambio de contraseña</h3>Utilice el siguiente link durante las próximas 24 horas para resetear la contraseña.'
-    html_content = html_content +  u'<br> <br> http://taxiloadbalancer-638315338.us-east-1.elb.amazonaws.com/resetpassword/' + tipotemp + '/' + idtemp + '/' + datatemp
-    
+    html_content = html_content +  u'<br> <br> http://taxiloadbalancer-638315338.us-east-1.elb.amazonaws.com/resetpassword/' + tipotemp + '/' + emailtemp + '/' + codetemp
+
     msg = EmailMessage(subject, html_content, from_email, to)
     msg.content_subtype = "html"  # Main content is now text/html
     msg.send()
     return HttpResponse(status=status.HTTP_201_CREATED,content="Se ha enviado la contraseña a su cuenta de email.")
+
 
 @csrf_exempt
 @api_view(['GET'])
@@ -862,22 +892,57 @@ def getTravelsDriver(request):
     else:
         return redirect('/')
 
-def tmpUrl(request, tipo, ident, fecha):
-    if request.method == "POST":
-        #grabar contraseña
-        if request.POST['tipo'] == 'C':
-            customer = Customer.objects.get(id=request.POST['id'])
-            customer.password = sha256_crypt.encrypt(request.POST['newPass'])
-            customer.save()
-        else:
-            driver = Driver.objects.get(id=request.POST['id'])
-            driver.password = sha256_crypt.encrypt(request.POST['newPass'])
-            driver.save()
-        return redirect ('/')
-    day = (datetime.now()-relativedelta(days=1)).strftime("%Y-%m-%d")
-    if (fecha == datetime.now().strftime("%Y-%m-%d") or fecha == day) :
-        return render(request, 'AppWeb/resetPassword.html', {'tipo': tipo, 'id': ident})
+def tmpUrl(request, tipo, email, code):
+    if request.method == 'POST':
+        try:
+            to = None
+            if request.POST['tipo'] == 'C':
+                customer = Customer.objects.get(email=request.POST['email'])
+                customer.password = sha256_crypt.encrypt(request.POST['newPass'])
+                customer.expiredDate = None
+                customer.validationCodeUrl = None
+                customer.save()
+                to = [customer.email]
+                
+            else:
+                driver = Driver.objects.get(email=request.POST['email'])
+                driver.password = sha256_crypt.encrypt(request.POST['newPass'])
+                driver.expiredDate = None
+                driver.validationCodeUrl = None
+                driver.save()
+                to = [driver.email]
+
+            subject = 'Taxi Express: Su contraseña ha sido modificada'
+            from_email = 'MyTaxiExpress@gmail.com'
+            html_content = 'Le informamos de que su contraseña de Taxi Express ha sido modificada. En el caso en el que no tenga constancia de ello, póngase inmediantamente en contacto con MyTaxiExpress@gmail.com.'
+            msg = EmailMessage(subject, html_content, from_email, to)
+            msg.content_subtype = "html"  # Main content is now text/html
+            msg.send()  
+            return redirect ('/')
+        except KeyError:
+            return render(request, 'AppWeb/resetPassword.html', {'tipo': tipo, 'email': email, 'error' : status.HTTP_401_UNAUTHORIZED})
     else:
+        if tipo == 'C':
+            customer = Customer.objects.get(email=email)
+            if customer.expiredDate != None:
+                fecha = customer.expiredDate.strftime("%Y-%m-%d")
+            else:
+                fecha = None
+            codetemp = customer.validationCodeUrl
+        else:
+            driver = Driver.objects.get(email=email)
+            if driver.expiredDate != None:
+                fecha = driver.expiredDate.strftime("%Y-%m-%d")
+            else:
+                fecha = None
+            codetemp = driver.validationCodeUrl
+
+        day = (datetime.now()-relativedelta(days=1)).strftime("%Y-%m-%d")
+
+        if fecha != None:
+            if (fecha == datetime.now().strftime("%Y-%m-%d") or fecha == day) :
+                if str(codetemp) == code:
+                    return render(request, 'AppWeb/resetPassword.html', {'tipo': tipo, 'email': email})
         return redirect('expiredPage')
 
 def confirmSend(request):
