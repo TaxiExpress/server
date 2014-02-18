@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "English"
-msgstr "Ingles"
+msgstr "Inglés"
 
 msgid "español"
 msgstr "Español"
@@ -575,7 +575,7 @@ msgstr "Estadísticas de viajes"
 #Spans de los mantenimientos
 
 msgid "intro_mant_pass"
-msgstr "Si deseas cambiar la contraseña, rellena el formulario que aparece a continuación:"
+msgstr "Si desea cambiar la contraseña, rellene el formulario que aparece a continuación:"
 
 
 msgid "intro_mant_car"
@@ -618,8 +618,11 @@ msgstr "Número de licencia"
 msgid "Observaciones"
 msgstr "Observaciones"
 
-msgid "Codigo"
-msgstr "Codigo"
+msgid "CodigoSMS"
+msgstr "Código SMS"
+
+msgid "CodigoEmail"
+msgstr "Código email"
 
 msgid "ContraseñaActual"
 msgstr "Contraseña actual"
@@ -652,7 +655,7 @@ msgid "Modelo"
 msgstr "Modelo"
 
 msgid "Matrícula"
-msgstr "Matricula"
+msgstr "Matrícula"
 
 msgid "Color"
 msgstr "Color"
@@ -703,3 +706,35 @@ msgstr "Volver al inicio"
 
 msgid "ResetearPassword"
 msgstr "Resetee su contraseña"
+
+#Slide Taxista
+
+msgid "SlideD1"
+msgstr "Reciba las solicitudes en su móvil."
+
+msgid "SlideD2"
+msgstr "Taxi Express ofrecerá el servicio de su taxi a los clientes cercanos que lo necesiten."
+
+msgid "SlideD3"
+msgstr "Decida si quiere aceptar el viaje o no."
+
+msgid "SlideD4"
+msgstr "Se le mostrará una pantalla con la información personal y valoración del cliente que necesita el servicio. Podrá elegir si aceptar o rechazar la petición."
+
+msgid "SlideD5"
+msgstr "Permita pagar a sus clientes a través de la propia app."
+
+msgid "SlideD6"
+msgstr "Podrá dar a sus clientes la posibilidad de pagar el servicio en mano o a través de la propia aplicación."
+
+msgid "SlideD7"
+msgstr "También disponible para tablets"
+
+msgid "SlideD8"
+msgstr "La aplicación también está disponible para tablets. Descárguela ahora gratis desde su market."
+
+msgid "SlideD9"
+msgstr "Descargar ahora, gratis"
+
+msgid "SlideD10"
+msgstr "Taxi Express es una aplicación multiplataforma, es decir, se puede instalar en dispositivos con diferentes sistemas operativos. En estos momentos, está disponible tanto para dispositivos Android como para dispositivos IOS."
