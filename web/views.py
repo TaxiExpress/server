@@ -482,20 +482,14 @@ def index(request):
 @csrf_exempt
 def register(request):
     if request.method == "POST":
-        codigo = 0
         if request.POST["tipo"] == 'C':
             response = registerUser(request)
-            if response.status_code == status.HTTP_201_CREATED:
-                c = Customer.objects.get(email=request.POST['email'])
-                codigo = c.validationCode 
         else:
-            response = registerDriver(request)
-            if response.status_code == status.HTTP_201_CREATED:
-                d = Driver.objects.get(email=request.POST['email'])
-                codigo = d.validationCode 
-   
-        return render(request, 'AppWeb/register.html', {'status': response.status_code, 'error': response.content, 'codigo': codigo})
+            response = registerDriver(request)   
+        return render(request, 'AppWeb/register.html', {'status': response.status_code, 'error': response.content})
     return render(request, 'AppWeb/register.html')
+
+
 
 def client(request):
     return render(request, 'AppWeb/client.html', {}) 
