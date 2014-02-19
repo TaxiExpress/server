@@ -240,7 +240,7 @@ msgid "PActualizar"
 msgstr "How can I update my TaxiExpress App?"
 
 msgid "RActualizar"
-msgstr "IOS users receive an automatic notice of the App Store. You can see that there are pending updates the number in red on the App Store icon. Select the appropriate update and press "Install". After entering the password the update is downloaded. Android devices have a feature for automatic updates. It just has to check the "Automatic Updates" option to always have the latest version."
+msgstr "IOS users receive an automatic notice of the App Store. You can see that there are pending updates the number in red on the App Store icon. Select the appropriate update and press «Install». After entering the password the update is downloaded. Android devices have a feature for automatic updates. It just has to check the «Automatic Updates» option to always have the latest version."
 
 msgid "PContacto"
 msgstr "How can I contact TaxiExpress team?"
