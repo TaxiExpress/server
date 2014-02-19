@@ -497,9 +497,6 @@ def register(request):
         return render(request, 'AppWeb/register.html', {'status': response.status_code, 'error': response.content, 'codigo': codigo})
     return render(request, 'AppWeb/register.html')
 
-def map(request):
-    return render(request, 'AppWeb/map.html', {})   
-
 def client(request):
     return render(request, 'AppWeb/client.html', {}) 
 
