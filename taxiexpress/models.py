@@ -136,7 +136,7 @@ class Observation(models.Model):
     def __unicode__(self):
         return self.email
 
-class Payments(models.Model):
+class Payment(models.Model):
     idDriver = models.IntegerField()
     date = models.DateTimeField()
     travels = models.IntegerField(max_length=4)
