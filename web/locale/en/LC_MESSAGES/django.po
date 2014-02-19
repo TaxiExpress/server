@@ -159,55 +159,55 @@ msgid "PregFrecuentes"
 msgstr "Frequent questions"
 
 msgid "General"
-msgstr "General"
+msgstr "Global system"
 
 msgid "PSistemaOperativo"
-msgstr "¿En qué sistemas operativos puedo ejecutar la aplicación de TaxiExpress?"
+msgstr "What platforms can I run the application TaxiExpress on?"
 
 msgid "RSistemaOperativo"
-msgstr "TaxiExpress es compatible tanto con dispositivos iOS (iPhone y iPad), así como con dispositivos Android."
+msgstr "TaxiExpress supports both iOS devices (iPhone and iPad) and Android devices."
 
 msgid "PCoste"
-msgstr "¿Cuánto cuesta el servicio?"
+msgstr "How much does it cost?"
 
 msgid "RCoste"
-msgstr "La descarga de la aplicación es gratuita, únicamente si eres taxista se te cobrará un XXXX por servicio contratado."
+msgstr "If you are a client, you can download the app free. If you are a driver, you'll be charged a small percentage each way."
 
 msgid "PDonde"
-msgstr "¿Dónde puedo conseguir un  taxi?"
+msgstr "Where I can get a taxi?"
 
 msgid "RDonde"
-msgstr "Todos los taxis que hayan descargado la aplicación y se encuentren libres en el momento de hacer la petición recibirán una solicitud (también podrá seleccionar los taxistas que cumplan unas determinadas condiciones) En cuanto uno de los taxistas la acepta, la solicitud queda confirmada."
+msgstr "All taxis that have downloaded the app and are free at the time of making the request, will receive an application (you can also select the drivers that meet certain conditions) As one of the drivers accepted, the request is confirmed."
 
 msgid "AsiFunciona"
-msgstr "Así funciona"
+msgstr "How it works?"
 
 msgid "PCondiciones"
-msgstr "¿Puedo especificar condiciones especiales de búsqueda del taxi?"
+msgstr "Can I get a specify conditions taxi?"
 
 msgid "RCondiciones"
-msgstr "Se podrán indicar preferencias especiales como, taxi habilitado para minusválidos, taxi que admita animales, taxis con un número determinado de plazas y taxis que admitan el pago a través de la aplicación o taxis a un determinado radio de distancia."
+msgstr "You may indicate special preferences as disabled-cab, taxi that supports animals, taxis with a certain number of seats and taxis that accept the payment via the application or taxis within a certain distance."
 
 msgid "PCerrarApp"
-msgstr "¿Puedo cerrar la aplicación sin perder la reserva del taxi?"
+msgstr "Can I close the application without losing reserve taxi?"
 
 msgid "RCerrarApp"
-msgstr "Si, se puede cerrar la aplicación sin problema."
+msgstr "Yes, you can close the application without problem."
 
 msgid "PCancelar"
-msgstr "¿Puedo cancelar la reserva?"
+msgstr "Can I cancel my taxi reservation?"
 
 msgid "RCancelar"
-msgstr "Por parte del cliente, la reserva no se podrá cancelar en ningún caso. Solo se podrá cancelar la petición de taxi en el caso de que todavía no haya sido aceptado por ningún taxista. El taxista podrá cancelar el servicio por si le surge cualquier imprevisto a la hora de recoger al cliente."
+msgstr "On the customer side, the booking can not be canceled under any circumstances. Only may cancel the request taxi in case that has not been accepted yet by any driver. The driver may terminate service if you encounter any unforeseen at the time of collecting customer."
 
 msgid "PPuntuar"
-msgstr "¿Puedo puntuar al taxista?"
+msgstr "Can I rate the driver?"
 
 msgid "RPuntuar"
-msgstr "Sí. Desde la sección de trayectos realizados, se puede acceder al detalle de cada viaje. Desde esta misma vista, nos permitirá votar al taxista de forma positiva o negativa."
+msgstr "Yes, from the section of trips, you can access the details of each trip. From this same view, allow us to vote the driver with a positive vote or a negative vote."
 
 msgid "PVariosTaxis"
-msgstr "¿Puedo pedir varios taxis?"
+msgstr "Can I order several taxis at the same time?"
 
 msgid "RVariosTaxis"
 msgstr "No"
@@ -216,37 +216,37 @@ msgid "Privacidad"
 msgstr "Privacy"
 
 msgid "PRegistro"
-msgstr "¿Debo registrarme para tener acceso al servicio?"
+msgstr "Have I to be registered to access the service?"
 
 msgid "RRegistro"
-msgstr "Si, para poder hacer uso del servicio deberá registrarse previamente, una vez registrado se enviará un código de validación al móvil indicado para completar el registro y poder empezar a utilizar la aplicación."
+msgstr "Yes, to use the service you must previously be registered. Once registered a validation code to the mobile indicated to complete the registration and you can start using the application will be sent."
 
 msgid "PTelefono"
-msgstr "¿Por qué he de facilitar mi número de teléfono en la aplicación?"
+msgstr "Why should I provide my phone number in the application?"
 
 msgid "RTelefono"
-msgstr "Es necesario para que el taxista pueda ponerse en contacto si tiene dudas o han surgido imprevistos (atascos, cortes de carretera, etc.)."
+msgstr "It is necessary for the driver to contact if you have questions or unforeseen (jams, roadblocks, etc..) Have emerged."
 
 msgid "Ayuda"
 msgstr "Help"
 
 msgid "PNoAbre"
-msgstr "La aplicación TaxiExpress no se abre. ¿Qué hago?"
+msgstr "TaxiExpress Qpp doesn't open. What have I to do?"
 
 msgid "RNoAbre"
-msgstr "Lo más conveniente es que cierre la aplicación y la vuelva a abrir, si aun así sigue sin funcionar, compruebe que la conexión a Internet es la correcta."
+msgstr "It is best to close the application and reopen if still does not work, check that the Internet connection is correct."
 
 msgid "PActualizar"
-msgstr "¿Cómo se actualiza mi aplicación TaxiExpress?"
+msgstr "How can I update my TaxiExpress App?"
 
 msgid "RActualizar"
-msgstr "Los usuarios de iPhone reciben un aviso automático de la App Store. Se puede ver que hay actualizaciones pendientes por el número en rojo sobre el icono de la App Store. Seleccione la actualización correspondiente y pulse «Instalar». Tras introducir la contraseña se descarga la actualización. Los dispositivos con Android cuentan con una función para las actualizaciones automáticas. Simplemente se ha de marcar la opción «Actualizaciones automáticas» para tener siempre la última versión."
+msgstr "IOS users receive an automatic notice of the App Store. You can see that there are pending updates the number in red on the App Store icon. Select the appropriate update and press "Install". After entering the password the update is downloaded. Android devices have a feature for automatic updates. It just has to check the "Automatic Updates" option to always have the latest version."
 
 msgid "PContacto"
-msgstr "¿Cómo me puedo poner en contacto con TaxiExpress?"
+msgstr "How can I contact TaxiExpress team?"
 
 msgid "RContacto1"
-msgstr "Para ponerse en contacto con nosotros pinche "
+msgstr "If you want to contact us, yo can send a form clicking"
 
 msgid "RContacto2"
 msgstr "here"
@@ -710,31 +710,31 @@ msgstr "Reset your password"
 #Slide Taxista
 
 msgid "SlideD1"
-msgstr "Reciba las solicitudes en su móvil."
+msgstr "You can receive taxi request in your mobile device."
 
 msgid "SlideD2"
-msgstr "Taxi Express ofrecerá el servicio de su taxi a los clientes cercanos que lo necesiten."
+msgstr "Taxi Express will offer your taxi service to near clients that requiere a taxi to go anywhere."
 
 msgid "SlideD3"
-msgstr "Decida si quiere aceptar el viaje o no."
+msgstr "You'll decide to accept or to reject a taxi request."
 
 msgid "SlideD4"
-msgstr "Se le mostrará una pantalla con la información personal y valoración del cliente que necesita el servicio. Podrá elegir si aceptar o rechazar la petición."
+msgstr "It will show a screen with personal information and assessment of the client who needs the service. You can choose whether to accept or reject the request."
 
 msgid "SlideD5"
-msgstr "Permita pagar a sus clientes a través de la propia app."
+msgstr "Let your customers pay through the app itself."
 
 msgid "SlideD6"
-msgstr "Podrá dar a sus clientes la posibilidad de pagar el servicio en mano o a través de la propia aplicación."
+msgstr "You can allow customers to pay you for the service by hand or by the application itself."
 
 msgid "SlideD7"
-msgstr "También disponible para tablets"
+msgstr "Also available for tablets"
 
 msgid "SlideD8"
-msgstr "La aplicación también está disponible para tablets. Descárguela ahora gratis desde su market."
+msgstr "The application is also available for tablets. Download now for free from the market."
 
 msgid "SlideD9"
-msgstr "Descargar ahora, gratis"
+msgstr "Download now, free"
 
 msgid "SlideD10"
-msgstr "Taxi Express es una aplicación multiplataforma, es decir, se puede instalar en dispositivos con diferentes sistemas operativos. En estos momentos, está disponible tanto para dispositivos Android como para dispositivos IOS."
+msgstr "Taxi Express is a multiplatform application, ie, it can be installed on devices with different operating systems. At present, it is available for both Android devices and IOS devices."
