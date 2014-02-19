@@ -49,7 +49,6 @@ urlpatterns = patterns('',
 
         #url para la Web
     url(r'^$', 'web.views.index', name='index'),
-    url(r'^map', 'web.views.map', name='map'),
     url(r'^client', 'web.views.client', name='client'),
     url(r'^driver', 'web.views.driver', name='driver'),
     url(r'^faq', 'web.views.faq', name='faq'),
