@@ -142,4 +142,4 @@ class Payment(models.Model):
     travels = models.IntegerField(max_length=4)
     total = models.DecimalField(max_digits=8, decimal_places=2)
     def __unicode__(self):
-        return self.idDriver
+        return unicode(self.idDriver)
