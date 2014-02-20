@@ -8,7 +8,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseBadRequest
-from taxiexpress.models import Customer, Country, State, City, Driver, Travel, Car
+from taxiexpress.models import Customer, Country, State, City, Driver, Travel, Car, Payment
 from taxiexpress.serializers import CarSerializer, DriverSerializer, TravelSerializer, CustomerProfileSerializer, DriverDataSerializer, LastTravelSerializer, CustomerCountryStateCitySerializer
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.gis.geos import Point
@@ -26,7 +26,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from web.LoadComboInf import loadCombo
-
+from dateutil.relativedelta import relativedelta
 
 PUSH_URL = 'http://ec2-54-84-17-105.compute-1.amazonaws.com:8080'
 
@@ -819,6 +819,44 @@ def removeUnvalidatedUsers(request):
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Todos los taxistas se encuentran validados")
     return HttpResponse(status=status.HTTP_200_OK,content="Se han eliminado todos los usuarios no validados")
+
+@csrf_exempt
+@api_view(['POST'])
+def invoicing (request):
+    if  "invoicing" != request.POST['valID']:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Clave incorrecta")
+    end = datetime.now()
+    start = datetime.now() - relativedelta(months = 1)
+    try:
+        drivers = Driver.objects.filter(isValidated = True)
+    except ObjectDoesNotExist:
+        return HttpResponse(status = status.HTTP_401_UNAUTHORIZED, content = "No existen taxistas validados")
+
+    for i in range(0, drivers.count()):
+        sumTravels = 0
+        try:
+            travels = drivers[i].travel_set.filter(starttime__range = [start,end])
+        except ObjectDoesNotExist:
+            return HttpResponse(status = status.HTTP_401_UNAUTHORIZED, content = "No existen viajes en este periodo de tiempo")
+        
+        numTravels = travels.count()
+        if numTravels > 0:
+            for j in range(0, travels.count()):
+                sumTravels = sumTravels + travels[j].cost
+
+            p = Payment(idDriver = drivers[i].id, date = end , travels = numTravels, total = sumTravels)
+            p.save()
+            
+            subject = 'Taxi Express: Resumen mensual'
+            from_email = 'MyTaxiExpress@gmail.com'
+            to = [drivers[i].email]
+            html_content = 'Sr/Sra ' + str(drivers[i].last_name) + ' a continuación le detallamos el extracto de los viajes realizados a fecha ' + str(end.strftime("%d/%m/%Y"))
+            html_content =  html_content + '<br> Número de viajes realizados: ' + str(numTravels) + '<br> Ingresos: ' + str(sumTravels) + '<br> Beneficio: ' + str(sumTravels - numTravels) + '€' 
+            msg = EmailMessage(subject, html_content, from_email, to)
+            msg.content_subtype = "html"
+            msg.send()
+    
+    return HttpResponse(status = status.HTTP_201_CREATED)
 
 #Method called to load test data every time Database is reset
 @csrf_exempt
