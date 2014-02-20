@@ -12,6 +12,7 @@
         <link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
         <link href="{{STATIC_URL}}css/login.css" rel="stylesheet" type="text/css">
         <link href="{{STATIC_URL}}css/validationwindow.css" rel="stylesheet" type="text/css">
+        <link href="{{STATIC_URL}}css/cookies.css" rel="stylesheet" type="text/css">
     </head>
     <body>      
         <div class="header-index">
@@ -173,6 +174,15 @@
                 </form>
             </div>
         </div> 
+        <div id="pagina">
+            <div class="info_cookies">
+                <a href="#" title="Aceptar y cerrar" class="closeCookies" onclick="hideLayer(); return false;">X</a>
+                <span><strong>{% trans 'Cookies1' %}</strong> 
+                    {% trans 'Cookies2' %}
+                    <a href="cookies.html" target="_blank">{% trans 'Cookies3' %}</a>.
+                </span>
+            </div>
+        </div>
     </body>
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="{{STATIC_URL}}js/validationcode.js"></script>
@@ -191,6 +201,11 @@
             }
             $('#password').val(tx);     
             return true;
+        }
+
+        function hideLayer()
+        {
+            document.body.removeChild(document.getElementById('pagina'));
         }
 
         function showValidationCodeWindow()

@@ -84,4 +84,5 @@ urlpatterns = patterns('',
     url(r'^resetpassword/(\w)/([^/]+)/(\d+)', 'web.views.tmpUrl', name='tmpUrl'),
     url(r'^expiredpage', 'web.views.expiredPage', name='expiredPage'),
     url(r'^confirmsend', 'web.views.confirmSend', name='confirmSend'),
+    url(r'^cookies', 'web.views.cookies', name='cookies'),
    )

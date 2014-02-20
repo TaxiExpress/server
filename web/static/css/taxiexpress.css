@@ -314,6 +314,10 @@ a:focus {
 	min-height: 450px;
 }
 
+.cookies{
+  min-height: 300px;
+}
+
 .Webmap a{
 	color: black;
 }

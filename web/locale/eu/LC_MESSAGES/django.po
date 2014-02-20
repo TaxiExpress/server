@@ -738,3 +738,22 @@ msgstr "Descargar ahora, gratis"
 
 msgid "SlideD10"
 msgstr "Taxi Express es una aplicación multiplataforma, es decir, se puede instalar en dispositivos con diferentes sistemas operativos. En estos momentos, está disponible tanto para dispositivos Android como para dispositivos IOS."
+
+#Pagina cookies
+msgid "Cookies1"
+msgstr "COOKIES ERABILPENA."
+
+msgid "Cookies2"
+msgstr "Gure cookiak eta besteen cookiak erabiltzen ditugu nabegazio esperientzia hobetzeko, eta interesa duten edukina eta publizitatea eskaintzeko. Nabegazioarekin jarraitzean ulertzen dugu onartzen duzula gure "
+
+msgid "Cookies3"
+msgstr "cookies politica"
+
+msgid "Cookies4"
+msgstr "TaxiExpress web-a "
+
+msgid "Cookies5"
+msgstr "sesio cookiak "
+
+msgid "Cookies6"
+msgstr "erabiltzen ditu: denboraldi baterako cookiak dira eta nabegadorearen cookies artxiboan gordetzen dira, horrialde utzi arte, beraz ez dira ordenagailuaren disko finkoan gordetzen. Cookie hauen bidez jasotako informazioa, erabiltzailea identifikatzeko balio du web horrialdeetan dagoen bitartean."

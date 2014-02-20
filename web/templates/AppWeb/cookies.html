@@ -1,0 +1,22 @@
+﻿{% extends "AppWeb/base.html" %}
+{% load i18n %}
+
+{% block head %}
+<link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+    <div class="bg titulo">
+       <h1>{% trans 'Cookies3'%}</h1>
+    </div>                  
+    <div class="bg">                                
+        <div class="contenido cookies">                         
+            <p>
+                {% trans 'Cookies4' %}<strong>{% trans 'Cookies5' %}</strong>{% trans 'Cookies6' %}
+            </p>
+        </div>
+    </div>  
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

@@ -738,3 +738,22 @@ msgstr "Download now, free"
 
 msgid "SlideD10"
 msgstr "Taxi Express is a multiplatform application, ie, it can be installed on devices with different operating systems. At present, it is available for both Android devices and IOS devices."
+
+#Pagina cookies
+msgid "Cookies1"
+msgstr "COOKIES USE."
+
+msgid "Cookies2"
+msgstr "We use our own And third-party cookies to enhance the browsing experience, provide content and advertising of interest. If you continue the navigation we understand that you accept "
+
+msgid "Cookies3"
+msgstr "cookies policy"
+
+msgid "Cookies4"
+msgstr "TaxiExpress website uses "
+
+msgid "Cookies5"
+msgstr "session cookies"
+
+msgid "Cookies6"
+msgstr ": are temporary cookies that remain in the cookie file of your browser until you leave the website, so nothing is registered in the user's hard drive. The information collected through these cookies serve to identify you during your visit through the pages of the web."

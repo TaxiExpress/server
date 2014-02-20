@@ -943,3 +943,5 @@ def confirmSend(request):
 def expiredPage(request):
     return render(request, 'AppWeb/expiredPage.html')    
 
+def cookies(request):
+    return render(request, 'AppWeb/cookies.html') 
