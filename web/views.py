@@ -888,7 +888,7 @@ def tmpUrl(request, tipo, email, code):
             to = None
             if request.POST['tipo'] == 'C':
                 customer = Customer.objects.get(email=request.POST['email'])
-                customer.password = sha256_crypt.encrypt(request.POST['newPass'])
+                customer.password = request.POST['newPass']
                 customer.expiredDate = None
                 customer.validationCodeUrl = None
                 customer.save()
@@ -896,7 +896,7 @@ def tmpUrl(request, tipo, email, code):
                 
             else:
                 driver = Driver.objects.get(email=request.POST['email'])
-                driver.password = sha256_crypt.encrypt(request.POST['newPass'])
+                driver.password = request.POST['newPass']
                 driver.expiredDate = None
                 driver.validationCodeUrl = None
                 driver.save()
