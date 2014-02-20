@@ -25,7 +25,6 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from taxiexpress.views import validateUser, recoverValidationCodeCustomer, recoverValidationCodeDriver
-from passlib.hash import sha256_crypt
 
 @csrf_exempt
 @api_view(['POST'])
@@ -35,7 +34,7 @@ def loginUser(request):
             customer = Customer.objects.get(email=request.POST['email'])  
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
-        if sha256_crypt.verify(request.POST['password'], customer.password):
+        if request.POST['password'] == customer.password:
             if customer.isValidated == False:
                 return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Debe validar la cuenta antes de conectarse")
             request.session['email'] = customer.email
@@ -56,7 +55,7 @@ def loginDriver(request):
             driver = Driver.objects.get(email=request.POST['email'])  
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
-        if sha256_crypt.verify(request.POST['password'], driver.password):
+        if request.POST['password'] == driver.password:
             if driver.isValidated == False:
                 return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="Debe validar la cuenta antes de conectarse")
             request.session['email'] = driver.email
@@ -72,7 +71,7 @@ def loginDriver(request):
 @csrf_exempt
 def registerUser(request):
     if request.method == "POST":
-        passtemp = sha256_crypt.encrypt(request.POST['password'])
+        passtemp = request.POST['password']
         tmpPhone = '+34' + request.POST['phone']
         if (Customer.objects.filter(email=request.POST['email']).count() > 0):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email que ha indicado ya está en uso")
@@ -118,7 +117,7 @@ def registerUser(request):
 @csrf_exempt
 def registerDriver(request):
     if request.method == "POST":
-        passtemp = sha256_crypt.encrypt(request.POST['password'])
+        passtemp = request.POST['password']
         tmpPhone = '+34' + request.POST['phone']
         if (Driver.objects.filter(email=request.POST['email']).count() > 0):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email que ha indicado ya está en uso")
@@ -421,9 +420,9 @@ def changePassword(request):
         customer = Customer.objects.get(email=request.POST['email']) #Retrieve the customer item
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
-    if sha256_crypt.verify(request.POST['oldPass'], customer.password):
+    if request.POST['oldPass'] == customer.password:
         #If old password verification succeeds, update password on database and send confirmation email
-        customer.password = sha256_crypt.encrypt(request.POST['newPass'])
+        customer.password = request.POST['newPass']
         customer.save()
         subject = 'Taxi Express: Su contraseña ha sido modificada'
         from_email = 'MyTaxiExpress@gmail.com'
@@ -443,9 +442,9 @@ def changePasswordDriver(request):
         driver = Driver.objects.get(email=request.POST['email']) #Retrieve the driver item
     except ObjectDoesNotExist:
         return HttpResponse(status=401, content="El email introducido no es válido")
-    if sha256_crypt.verify(request.POST['oldPass'], driver.password):
+    if srequest.POST['oldPass'] == driver.password:
         #If old password verification succeeds, update password on database and send confirmation email
-        driver.password = sha256_crypt.encrypt(request.POST['newPass']) 
+        driver.password = request.POST['newPass']
         driver.save()
         subject = 'Taxi Express: Su contraseña ha sido modificada'
         from_email = 'MyTaxiExpress@gmail.com'

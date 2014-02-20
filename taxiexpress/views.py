@@ -26,7 +26,6 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from web.LoadComboInf import loadCombo
-from passlib.hash import sha256_crypt
 
 
 PUSH_URL = 'http://ec2-54-84-17-105.compute-1.amazonaws.com:8080'
@@ -46,7 +45,7 @@ def loginUser(request):
         customer = Customer.objects.get(email=request.POST['email'])  
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
-    if sha256_crypt.verify(request.POST['password'], customer.password):
+    if request.POST['password'] == customer.password:
         if customer.isValidated == False:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe validar la cuenta antes de conectarse")
 
@@ -94,7 +93,7 @@ def loginDriver(request):
         driver = Driver.objects.get(email=request.POST['email'])  
     except ObjectDoesNotExist:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Credenciales incorrectas. Inténtelo de nuevo")
-    if sha256_crypt.verify(request.POST['password'], driver.password):
+    if request.POST['password'] == driver.password:
         if driver.isValidated == False:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debe validar la cuenta antes de conectarse")
         #Update driver data in database
@@ -116,7 +115,7 @@ def loginDriver(request):
 @csrf_exempt
 def registerUser(request):
     if request.method == "POST":
-        passtemp = sha256_crypt.encrypt(request.POST['password'])
+        passtemp = request.POST['password']
         if (Customer.objects.filter(email=request.POST['email']).count() > 0):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email que ha indicado ya está en uso")
         if (Customer.objects.filter(phone=request.POST['phone']).count() > 0):
@@ -175,7 +174,7 @@ def getClosestTaxi(request):
         if unpaidTravels.count() > 0:
            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No puedes pedir dos viajes a la vez")
         #Get a list with closest drivers meeting user filters
-        closestDrivers = Driver.objects.distance(pointclient).filter(car__isfree=True, available=True, car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity).order_by('distance')[:5]
+        closestDrivers = Driver.objects.filter(car__isfree=True, available=True, car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity, geom__distance_lte=(pointclient, D(km=customer.fDistance))).distance(pointclient).order_by('distance')[:5]
         if closestDrivers.count() == 0:
             return HttpResponse(status=status.HTTP_204_NO_CONTENT, content="No se han encontrado taxis")
         elif closestDrivers.count() > 5:
@@ -543,7 +542,7 @@ def getNearestTaxies(request):
         if customer.sessionID != request.GET['sessionID']:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
         #Get a list with closest drivers meeting user filters
-        closestDrivers = Driver.objects.distance(pointclient).filter(car__isfree=True, available=True, car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity).order_by('distance')[:10]
+        closestDrivers = Driver.objects.filter(car__isfree=True, available=True, car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity, geom__distance_lte=(pointclient, D(km=customer.fDistance))).distance(pointclient).order_by('distance')[:10]
         serialDriver = DriverSerializer(closestDrivers, many=True) #Serialize driver list
         return Response(serialDriver.data, status=status.HTTP_200_OK) #Send the serialized list to customer
     else:
@@ -678,9 +677,9 @@ def changePassword(request):
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="El email introducido no es válido")
     if customer.sessionID != request.POST['sessionID']:
         return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
-    if sha256_crypt.verify(request.POST['oldPass'], customer.password):
+    if request.POST['oldPass'] == customer.password:
         #If old password verification succeeds, update password on database and send confirmation email
-        customer.password = sha256_crypt.encrypt(request.POST['newPass'])
+        customer.password = request.POST['newPass']
         customer.save()
         subject = 'Taxi Express: Su contraseña ha sido modificada'
         from_email = 'MyTaxiExpress@gmail.com'
@@ -828,13 +827,13 @@ def loadData(request):
     loadCombo(request)
     car = Car(plate='1111AAA', model='Laguna', company='Renault', color='White', capacity=4, accessible=True, animals=False, isfree=True, appPayment=True)
     car.save()
-    dr = Driver(email="conductor@gmail.com", password=sha256_crypt.encrypt("11111111"), phone="+34656111112", first_name="Conductor", last_name="DePrimera", city = City.objects.get(id=34), validationCode=1234, positiveVotes=10, negativeVotes=3, car=car, geom=Point(43.2618425, -2.9327811), isValidated=True, image="", pushID='APA91bHJRkpSjXvlFA7L94ybyalAeW0BxE0Z1K4g99onHvXLIFgptSJDhBIMXckY9HBzaBpEWo4Se9zUCd2KjzWUHCJ5TLac-qF-Hu8ozi7Uoe14ZFRg2_c82xmL4ZXgMfuhec4UUd-eu_SkYsMPRt2bqNZ0K5Uzgpwd2en9454w8-f3c7pyEK0')
+    dr = Driver(email="conductor@gmail.com", password="aafca95dc708269600e8cd56e1c827b126f5abc3e074e0e960a309372f0759f3", phone="+34656111112", first_name="Conductor", last_name="DePrimera", city = City.objects.get(id=34), validationCode=1234, positiveVotes=10, negativeVotes=3, car=car, geom=Point(43.2618425, -2.9327811), isValidated=True, image="", pushID='APA91bHJRkpSjXvlFA7L94ybyalAeW0BxE0Z1K4g99onHvXLIFgptSJDhBIMXckY9HBzaBpEWo4Se9zUCd2KjzWUHCJ5TLac-qF-Hu8ozi7Uoe14ZFRg2_c82xmL4ZXgMfuhec4UUd-eu_SkYsMPRt2bqNZ0K5Uzgpwd2en9454w8-f3c7pyEK0')
     dr.save()
     car = Car(plate='2222BBB', model='Cooper', company='Mini', color='White', capacity=3, accessible=False, animals=False, isfree=True, appPayment=False)
     car.save()
-    dr2 = Driver(email="conductor2@gmail.com", password=sha256_crypt.encrypt("11111111"), phone="+34656111113", first_name="Conductor", last_name="DeSegunda", city = City.objects.get(id=54), validationCode=1234, positiveVotes=2, negativeVotes=7, car=car, geom=Point(43.264116, -2.9237662), isValidated=True, image="", pushID='APA91bHTypZCKvUdXYd-lhimPaLbolkEvZU8o9o5FWhRW0tIx5JpcIS3mdNYza0o5F0d-lBzn3xYw2RBZWfJEy_wdOLIZVwefcUsRtG_PpGXyauJ0EnnOND-zS0dOOAcb_xG2QhqodKQchzJgV6-z41y8zsPwMzJrNY2Bj-kCeUsm-Ca3kKH0j4')
+    dr2 = Driver(email="conductor2@gmail.com", password="aafca95dc708269600e8cd56e1c827b126f5abc3e074e0e960a309372f0759f3", phone="+34656111113", first_name="Conductor", last_name="DeSegunda", city = City.objects.get(id=54), validationCode=1234, positiveVotes=2, negativeVotes=7, car=car, geom=Point(43.264116, -2.9237662), isValidated=True, image="", pushID='APA91bHTypZCKvUdXYd-lhimPaLbolkEvZU8o9o5FWhRW0tIx5JpcIS3mdNYza0o5F0d-lBzn3xYw2RBZWfJEy_wdOLIZVwefcUsRtG_PpGXyauJ0EnnOND-zS0dOOAcb_xG2QhqodKQchzJgV6-z41y8zsPwMzJrNY2Bj-kCeUsm-Ca3kKH0j4')
     dr2.save()
-    cu = Customer(email="gorka_12@hotmail.com", password=sha256_crypt.encrypt("11111111"), phone="+34656111111", first_name="Pepito", last_name="Palotes", city = City.objects.get(id=20), validationCode=1234, lastUpdate=datetime.strptime('1980-01-01 00:00:01','%Y-%m-%d %H:%M:%S'), isValidated=True, image="", pushID='APA91bHTypZCKvUdXYd-lhimPaLbolkEvZU8o9o5FWhRW0tIx5JpcIS3mdNYza0o5F0d-lBzn3xYw2RBZWfJEy_wdOLIZVwefcUsRtG_PpGXyauJ0EnnOND-zS0dOOAcb_xG2QhqodKQchzJgV6-z41y8zsPwMzJrNY2Bj-kCeUsm-Ca3kKH0j4')
+    cu = Customer(email="gorka_12@hotmail.com", password="aafca95dc708269600e8cd56e1c827b126f5abc3e074e0e960a309372f0759f3", phone="+34656111111", first_name="Pepito", last_name="Palotes", city = City.objects.get(id=20), validationCode=1234, lastUpdate=datetime.strptime('1980-01-01 00:00:01','%Y-%m-%d %H:%M:%S'), isValidated=True, image="", pushID='APA91bHTypZCKvUdXYd-lhimPaLbolkEvZU8o9o5FWhRW0tIx5JpcIS3mdNYza0o5F0d-lBzn3xYw2RBZWfJEy_wdOLIZVwefcUsRtG_PpGXyauJ0EnnOND-zS0dOOAcb_xG2QhqodKQchzJgV6-z41y8zsPwMzJrNY2Bj-kCeUsm-Ca3kKH0j4')
     cu.save()
     cu.favlist.add(dr)
     cu.favlist.add(dr2)
@@ -845,7 +844,7 @@ def loadData(request):
 @csrf_exempt
 @api_view(['GET'])
 def loadTravels(request):
-    cu1 = Customer(email="laura@gmail.com", password=sha256_crypt.encrypt("11111111"), phone="+34656222222", first_name="laura", last_name="linacero", city = City.objects.get(id=56), validationCode=1234, lastUpdate=datetime.strptime('1980-01-01 00:00:01','%Y-%m-%d %H:%M:%S'), isValidated=True, image="", pushID='APA91bHTypZCKvUdXYd-lhimPaLbolkEvZU8o9o5FWhRW0tIx5JpcIS3mdNYza0o5F0d-lBzn3xYw2RBZWfJEy_wdOLIZVwefcUsRtG_PpGXyauJ0EnnOND-zS0dOOAcb_xG2QhqodKQchzJgV6-z41y8zsPwMzJrNY2Bj-kCeUsm-Ca3kKH0j4')
+    cu1 = Customer(email="laura@gmail.com", password="aafca95dc708269600e8cd56e1c827b126f5abc3e074e0e960a309372f0759f3", phone="+34656222222", first_name="laura", last_name="linacero", city = City.objects.get(id=56), validationCode=1234, lastUpdate=datetime.strptime('1980-01-01 00:00:01','%Y-%m-%d %H:%M:%S'), isValidated=True, image="", pushID='APA91bHTypZCKvUdXYd-lhimPaLbolkEvZU8o9o5FWhRW0tIx5JpcIS3mdNYza0o5F0d-lBzn3xYw2RBZWfJEy_wdOLIZVwefcUsRtG_PpGXyauJ0EnnOND-zS0dOOAcb_xG2QhqodKQchzJgV6-z41y8zsPwMzJrNY2Bj-kCeUsm-Ca3kKH0j4')
     cu1.save()
     tr = Travel(customer=Customer.objects.get(email="laura@gmail.com"), driver=Driver.objects.get(email="conductor2@gmail.com"), starttime=datetime.strptime('2014-01-01 00:00:01','%Y-%m-%d %H:%M:%S'), endtime=datetime.strptime('2014-01-01 00:10:01','%Y-%m-%d %H:%M:%S'), cost=20.10, origin='Calle Autonomía 35', destination='Av de las Universidades 24', isPaid = True, startpoint=Point(43.15457, -2.56488), endpoint=Point(43.16218, -2.56352))
     tr.save()
