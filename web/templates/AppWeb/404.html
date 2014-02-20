@@ -1,0 +1,18 @@
+{% extends "AppWeb/base.html" %}
+{% load i18n %}
+
+{% block head %}
+<link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block content %}		
+		<div class="bg">				
+			<div class="boxI width30"></div>
+			<div class="boxD width70">
+				<h1>404 Page not found</h1>
+			</div>
+			<div class="boxI width100">
+				<h2>Sorry, the page you are looking for is unavailable</h2>
+				<p>Sorry, we cannot find the page you requested. Page has either been moved or deleted, or you entered a wrong URL. Look at the URL and correct it if possible. If this doesn`t work and the problem persists, please feel free to <a href="contact.html">contact us</a>.</p>
+			</div>
+		</div>
+{% endblock %}

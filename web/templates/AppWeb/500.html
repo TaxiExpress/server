@@ -1,0 +1,18 @@
+{% extends "AppWeb/base.html" %}
+{% load i18n %}
+
+{% block head %}
+<link href="{{STATIC_URL}}css/taxiexpress.css" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block content %}		
+		<div class="bg">				
+			<div class="boxI width30"></div>
+			<div class="boxD width70">
+				<h1>500 Internal Server Error</h1>
+			</div>
+			<div class="boxI width100">
+				<h2>Something went wrong when we tried to load this page</h2>
+				<p>Please try again, if the problem persist, please feel free to <a href="contact.html">contact us</a>.</p>
+			</div>
+		</div>
+{% endblock %}
