@@ -442,7 +442,7 @@ def changePasswordDriver(request):
         driver = Driver.objects.get(email=request.POST['email']) #Retrieve the driver item
     except ObjectDoesNotExist:
         return HttpResponse(status=401, content="El email introducido no es válido")
-    if srequest.POST['oldPass'] == driver.password:
+    if request.POST['oldPass'] == driver.password:
         #If old password verification succeeds, update password on database and send confirmation email
         driver.password = request.POST['newPass']
         driver.save()
