@@ -31,8 +31,9 @@
                       <input type="hidden" class="tipo" name="tipo" value="C">   
                       <input type="email" name="email" maxlength="80" placeholder="{% trans 'Email' %}" required value="{{request.POST.email}}">
                       <input type="tel" name="phone" maxlength="80" placeholder="{% trans 'Teléfono' %}" required value="{{request.POST.phone}}">
-                      <input type="password" name="password" maxlength="80" placeholder="{% trans 'Contraseña' %}" required value="{{request.POST.password}}"><span class="passwordError hidefieldError">*</span>
-                      <input type="password" name="passwordCon" maxlength="80" placeholder="{% trans 'ConfirmarContraseña' %}" required value="{{request.POST.passwordCon}}"><span class="passwordError hidefieldError">*</span>
+                      <input type="password" id="passwordAux" name="passwordAux" maxlength="80" placeholder="{% trans 'Contraseña' %}" required value="{{request.POST.passwordAux}}"><span class="passwordError hidefieldError">*</span>
+                      <input type="hidden" id="password" name="password">
+                      <input type="password" id="passwordCon" name="passwordCon" maxlength="80" placeholder="{% trans 'ConfirmarContraseña' %}" required value="{{request.POST.passwordCon}}"><span class="passwordError hidefieldError">*</span>
                       <br><span>{% trans 'SigningUp1' %} <a href="termsofuse">{% trans 'SigningUp2' %}</a>.</span> 
                       <p class="registerError">{{error}}</p>    
                       <button class="btn" type="submit">{% trans 'Registrar' %}</button>
@@ -48,8 +49,9 @@
                         <input type="tel" name="phone" maxlength="80" placeholder="{% trans 'Teléfono' %}" required value="{{request.POST.phone}}">
                         <input type="text" name="first_name" maxlength="80" placeholder="{% trans 'Nombre' %}" required value="{{request.POST.first_name}}">
                         <input type="text" name="last_name" maxlength="80" placeholder="{% trans 'Apellido' %}" required value="{{request.POST.last_name}}">
-                        <input type="password" name="password" maxlength="80" placeholder="{% trans 'Contraseña' %}" required value="{{request.POST.password}}"><span class="passwordError hidefieldError">*</span>
-                        <input type="password" name="passwordCon" maxlength="80" placeholder="{% trans 'ConfirmarContraseña' %}" required value="{{request.POST.passwordCon}}"><span class="passwordError hidefieldError">*</span>
+                        <input type="password" id="passwordAux" name="passwordAux" maxlength="80" placeholder="{% trans 'Contraseña' %}" required value="{{request.POST.passwordAux}}"><span class="passwordError hidefieldError">*</span>
+                        <input type="hidden" id="password" name="password">
+                        <input type="password" id="passwordCon" name="passwordCon" maxlength="80" placeholder="{% trans 'ConfirmarContraseña' %}" required value="{{request.POST.passwordCon}}"><span class="passwordError hidefieldError">*</span>
                         <br><br><span>{% trans 'DatosCoche' %}</span><br>
                         <input type="number" name="license" placeholder="{% trans 'NúmeroLicencia' %}" required value="{{request.POST.license}}" min="0">
                         <input type="text" name="plate" maxlength="7" placeholder="{% trans 'Matrícula' %}" required value="{{request.POST.plate}}">
@@ -138,18 +140,19 @@
 <script defer type="text/javascript" src="{{STATIC_URL}}js/validationFields.js"></script>
 <script defer type="text/javascript" src="{{STATIC_URL}}js/clearFields.js"></script>
 <script defer type="text/javascript" src="{{STATIC_URL}}js/validationcode.js"></script>
+<script defer type="text/javascript" src="{{STATIC_URL}}js/sha256.js"></script>
 <script>
-  function showValidationCodeWindow()
-  {
-      {% if status == 201 %}
-          $('.overlay-container').fadeIn(function() {
-              window.setTimeout(function(){
-                  $('.window-container.zoomin').addClass('window-container-visible');
-              }, 100);
-          });
-      {% endif %}
-  }
- window.onload=showValidationCodeWindow;
+    function showValidationCodeWindow()
+    {
+        {% if status == 201 %}
+            $('.overlay-container').fadeIn(function() {
+                window.setTimeout(function(){
+                    $('.window-container.zoomin').addClass('window-container-visible');
+                }, 100);
+            });
+        {% endif %}
+    }
+    window.onload=showValidationCodeWindow;
 </script>
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

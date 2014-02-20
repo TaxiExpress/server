@@ -5,8 +5,8 @@ function validateClient() {
     var errorString = ''; 
     var result = true ; 
 
-    var passwordValue = $('#createaccountClient input[name=password]').fieldValue(); 
-    var repeatPasswordValue = $('#createaccountClient input[name=passwordCon]').fieldValue();         
+    var passwordValue = $('#createaccountClient input[name=passwordAux]').fieldValue(); 
+    var repeatPasswordValue = $('#createaccountClient input[name=passwordCon]').fieldValue();     
     // passwordValue and repeatPasswordValue are arrays
 
     //The password must be the same
@@ -33,6 +33,17 @@ function validateClient() {
         $('#createaccountClient .passwordError').addClass('hidefieldError');
         $('#createaccountClient .registerError').html(''); 
     }
+
+    tx =  $('#createaccountClient #passwordAux').val();    
+    i = 0;
+    while (i < 5000)
+    {
+        hashObj = new jsSHA(tx, "TEXT");
+        tx = hashObj.getHash("SHA-256", "HEX");
+        i++;
+    }
+    $('#createaccountClient #password').val(tx);    
+
     return result;
 }
 function validateDriver() { 
@@ -46,7 +57,7 @@ function validateDriver() {
     var result = true ; 
 
 
-    var passwordValue = $('#createaccountDriver input[name=password]').fieldValue(); 
+    var passwordValue = $('#createaccountDriver input[name=passwordAux]').fieldValue(); 
     var repeatPasswordValue = $('#createaccountDriver input[name=passwordCon]').fieldValue();   
 
     // passwordValue and repeatPasswordValue are arrays
@@ -74,5 +85,16 @@ function validateDriver() {
     else{
         $('#createaccountDriver .registerError').html(''); 
     }
+
+    tx =  $('#createaccountDriver #passwordAux').val();    
+    i = 0;
+    while (i < 5000)
+    {
+        hashObj = new jsSHA(tx, "TEXT");
+        tx = hashObj.getHash("SHA-256", "HEX");
+        i++;
+    }
+    $('#createaccountDriver #password').val(tx);  
+
     return result;
 }
