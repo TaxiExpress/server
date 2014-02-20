@@ -170,7 +170,7 @@ def getClosestTaxi(request):
         if customer.sessionID != request.POST['sessionID']: #Check if user is logged in
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
         #Check if user has unpaid travels
-        unpaidTravels = customer.travel_set.filter(isPaid=False)
+        unpaidTravels = customer.travel_set.filter(isPaid=False, appPayment=True)
         if unpaidTravels.count() > 0:
            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No puedes pedir dos viajes a la vez")
         #Get a list with closest drivers meeting user filters
@@ -218,7 +218,7 @@ def getSelectedTaxi(request):
         if customer.sessionID != request.POST['sessionID']:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
         #Check if user has unpaid travels
-        unpaidTravels = customer.travel_set.filter(isPaid=False)
+        unpaidTravels = customer.travel_set.filter(isPaid=False, appPayment=True)
         if unpaidTravels.count() > 0:
 	       return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="No puedes pedir dos viajes a la vez")
         driver = Driver.objects.get(email=request.POST['driverEmail'])
