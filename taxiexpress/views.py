@@ -312,7 +312,7 @@ def travelStarted(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
         if request.POST['email'] != travel.driver.email:
-            return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email incorrecto")
         #Update travel data
         #travel.origin = request.POST['origin']
         #travel.startpoint = Point(float(request.POST['latitude']), float(request.POST['longitude']))
@@ -334,7 +334,7 @@ def travelCompleted(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
         if request.POST['email'] != travel.driver.email:
-            return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email incorrecto")
         #Update travel data
         travel.destination = request.POST['destination']
         travel.endpoint = Point(float(request.POST['latitude']), float(request.POST['longitude']))
@@ -375,7 +375,7 @@ def travelPaid(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
         if request.POST['email'] != travel.customer.email:
-            return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email incorrecto")
         if request.POST['sessionID'] != travel.customer.sessionID:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
         #Update travel data
@@ -405,7 +405,7 @@ def cancelTravelCustomer(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
         if request.POST['email'] != travel.customer.email:
-            return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email incorrecto")
         if request.POST['sessionID'] != travel.customer.sessionID:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
         if travel.accepted: #If travel has already been accepted, return 401
@@ -426,7 +426,7 @@ def cancelTravelDriver(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST, content="El viaje no existe")
         if request.POST['email'] != travel.driver.email:
-            return HttpResponse(status=status.HTTP_401_BAD_REQUEST, content="Email incorrecto")
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Email incorrecto")
         #Dictionary to be sent to PUSH server
         post_data = {"travelID": travel.id, "pushId": travel.customer.pushID , "title": "El taxista ha cancelado el viaje" , "message" : 703}
         try:
