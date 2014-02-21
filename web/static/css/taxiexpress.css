@@ -38,12 +38,12 @@ a:focus {
 	line-height:35px;
 }*/
 
-.phone {height:460px; float:right; bottom:0px; position:relative; display:block;}
+.phone {height:494px; float:right; bottom:0px; position:relative; display:block;}
 .icon {height:100px; width:100; float:left; position:relative; display:block;border-radius: 25px; margin-left:60px;margin-top: 15px}
 
 .slogan-header {
     width: 100%;
-    height: 500px;
+    height: 535px;
     float: left;
     clear: both;
     margin-bottom: 50px;
@@ -557,7 +557,7 @@ ul.tabs li.active a {
   background: url('../img/separador.png') bottom no-repeat;
   min-height:386px;
   margin-bottom: 100px;
-  padding-top: 75px;
+  padding-top: 35px;
 }
 
 

@@ -1,6 +1,6 @@
 #pagina {
 	width: 99%; 
-	background-color: #dfe8ee; 
+	background-color: #ddd; 
 	box-shadow: 0 -3px 10px #999; 
 	position: fixed; 
 	bottom: 0; 
@@ -14,14 +14,14 @@
 	width: 100%; 
 	margin: 0 auto; 
 	font-size: 12px; 
-	line-height: 15px; 
+	line-height: 8px; 
 	font-family: Arial, Helvetica, sans-serif;
 }
 
 #pagina .info_cookies span {
-	padding: 25px 70px; 
+	padding: 24px 70px; 
 	display: inline-block; 
-	background: transparent url(../img/icon-alert.png) no-repeat 20px 22px;
+	background: transparent url(../img/icon-alert.png) no-repeat 20px 13px;
 	color: black;
 }
 
@@ -37,8 +37,9 @@
 
 #pagina .info_cookies .closeCookies {
 	position: absolute; 
-	top: 10px; right: 10px; 
-	color: #FFF; 
+	top: 23px; 
+	right: 15px; 
+	color: #333; 
 	font-weight: bold; 
 	font-size: 17px; 
 	text-decoration: none;
