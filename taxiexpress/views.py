@@ -533,7 +533,7 @@ def testPush(request):
 @csrf_exempt
 @api_view(['GET'])
 def getNearestTaxies(request):
-    if 'latitud' in request.GET:
+    if 'latitude' in request.GET:
         pointclient = Point(float(request.GET['latitude']), float(request.GET['longitude'])) #Create a point item from received coordinates
         try:
             customer = Customer.objects.get(email=request.GET['email']) #Retrieve the customer item
