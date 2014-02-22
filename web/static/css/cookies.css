@@ -19,10 +19,11 @@
 }
 
 #pagina .info_cookies span {
-	padding: 24px 70px; 
+	padding: 15px 70px; 
 	display: inline-block; 
 	background: transparent url(../img/icon-alert.png) no-repeat 20px 13px;
 	color: black;
+	line-height: 20px;
 }
 
 #pagina .info_cookies strong {
