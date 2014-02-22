@@ -534,7 +534,7 @@ def testPush(request):
 @api_view(['GET'])
 def getNearestTaxies(request):
     if 'latitud' in request.GET:
-        pointclient = Point(float(request.GET['latitud']), float(request.GET['longitud'])) #Create a point item from received coordinates
+        pointclient = Point(float(request.GET['latitude']), float(request.GET['longitude'])) #Create a point item from received coordinates
         try:
             customer = Customer.objects.get(email=request.GET['email']) #Retrieve the customer item
         except ObjectDoesNotExist:
@@ -542,7 +542,7 @@ def getNearestTaxies(request):
         if customer.sessionID != request.GET['sessionID']:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED, content="Debes estar conectado para realizar esta acción")
         #Get a list with closest drivers meeting user filters
-        closestDrivers = Driver.objects.filter(car__isfree=True, available=True, car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity, geom__distance_lte=(pointclient, D(km=8000))).distance(pointclient).order_by('distance')[:10]
+        closestDrivers = Driver.objects.filter(car__isfree=True, available=True, car__accessible__in=[customer.fAccessible, True], car__animals__in=[customer.fAnimals, True], car__appPayment__in=[customer.fAppPayment, True], car__capacity__gte=customer.fCapacity, geom__distance_lte=(pointclient, D(km=customer.fDistance))).distance(pointclient).order_by('distance')[:10]
         serialDriver = DriverSerializer(closestDrivers, many=True) #Serialize driver list
         return Response(serialDriver.data, status=status.HTTP_200_OK) #Send the serialized list to customer
     else:
