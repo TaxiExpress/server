@@ -744,10 +744,10 @@ msgid "Cookies1"
 msgstr "USO DE COOKIES."
 
 msgid "Cookies2"
-msgstr "Utilizamos cookies propias y de terceros para mejorar la experiencia de navegación, y ofrecer contenidos y publicidad de interés. Al continuar con la navegación entendemos que se acepta nuestra "
+msgstr "Utilizamos cookies propias para mejorar la experiencia de navegación, y ofrecer contenidos y publicidad de interés. Al continuar con la navegación entendemos que se acepta nuestra "
 
 msgid "Cookies3"
-msgstr "política de cookies"
+msgstr "Política de cookies"
 
 msgid "Cookies4"
 msgstr "La web de TaxiExpress utiliza "

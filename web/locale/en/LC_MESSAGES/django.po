@@ -744,10 +744,10 @@ msgid "Cookies1"
 msgstr "COOKIES USE."
 
 msgid "Cookies2"
-msgstr "We use our own And third-party cookies to enhance the browsing experience, provide content and advertising of interest. If you continue the navigation we understand that you accept "
+msgstr "We use our own cookies to enhance the browsing experience, provide content and advertising of interest. If you continue the navigation we understand that you accept "
 
 msgid "Cookies3"
-msgstr "cookies policy"
+msgstr "Cookies policy"
 
 msgid "Cookies4"
 msgstr "TaxiExpress website uses "

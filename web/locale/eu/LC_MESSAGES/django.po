@@ -82,7 +82,7 @@ msgstr "Udalerria aukeratu..."
 # Estos textos aparecen en manclient_preferences.html
 
 msgid "TaxisMinusvalidos"
-msgstr "Minusbalidatuentzat prestatutako taxiak"
+msgstr "Elbarrientzat prestatutako taxiak"
 
 msgid "TaxisAnimales"
 msgstr "Animaliak onartzen dituen taxia"
@@ -137,7 +137,7 @@ msgid "GrabVehiculo"
 msgstr "Autoaren datuak aldatu"
 
 msgid "HabilitadoMinusvalidos"
-msgstr "Taxia minusbaliatuentzat prestatuta dago"
+msgstr "Taxia elbarrientzat prestatuta dago"
 
 msgid "AnimalesPermitidos"
 msgstr "Animaliak onartzen dira"
@@ -163,52 +163,52 @@ msgid "General"
 msgstr "Orokor"
 
 msgid "PSistemaOperativo"
-msgstr "¿En qué sistemas operativos puedo ejecutar la aplicación de TaxiExpress?"
+msgstr "Zein sistema eragiletan egikaritu dezaket TaxiExpress aplikazioa?"
 
 msgid "RSistemaOperativo"
-msgstr "TaxiExpress es compatible tanto con dispositivos iOS (iPhone y iPad), así como con dispositivos Android."
+msgstr "TaxiExpress bateragarria da bai IOS gailuetan (iPhone eta iPad) zein Android gailuetan."
 
 msgid "PCoste"
-msgstr "¿Zenbat balio du zerbitzuak?"
+msgstr "Zenbat balio du zerbitzuak?"
 
 msgid "RCoste"
-msgstr "La descarga de la aplicación es gratuita, únicamente si eres taxista se te cobrará un XXXX por servicio contratado."
+msgstr "Aplikazioaren deskarga dohainikakoa da, taxista baldin bazara soilik zerbait kobratuko zaizu kontratatutako zerbitzu bakoitzagaitik."
 
 msgid "PDonde"
-msgstr "¿Non lortu dezaket taxi bat?"
+msgstr "Non lortu dezaket taxi bat?"
 
 msgid "RDonde"
-msgstr "Todos los taxis que hayan descargado la aplicación y se encuentren libres en el momento de hacer la petición recibirán una solicitud (también podrá seleccionar los taxistas que cumplan unas determinadas condiciones) En cuanto uno de los taxistas la acepta, la solicitud queda confirmada."
+msgstr "Aplikazioa deskargatu duten taxi guztiak eta eskaera egindako momentuan libre daudenak, eskaera bat jasoko dute(baita ere baldintza zehatzak betetzen dituzten taxiak aukeratu dezakezu). Taxista batek onartzen duenean, eskaera baieztatuta gelditzen da."
 
 msgid "AsiFunciona"
 msgstr "Horrela dabil"
 
 msgid "PCondiciones"
-msgstr "¿Puedo especificar condiciones especiales de búsqueda del taxi?"
+msgstr "Taxia bilatzeko, baldintza zehatzak espezifikatu ditzaket?"
 
 msgid "RCondiciones"
-msgstr "Se podrán indicar preferencias especiales como, taxi habilitado para minusválidos, taxi que admita animales, taxis con un número determinado de plazas y taxis que admitan el pago a través de la aplicación o taxis a un determinado radio de distancia."
+msgstr "Baldintza zehatzak adierazi ahal dira, adibidez: elbarrientzako taxia, animaliak onartzen dituen taxia, plaza kopuru zehatzak dituen taxia, aplikazioaren bitartez ordaintzea onartzen dituen taxia eta zehaztutako km inguru dauden taxiak."
 
 msgid "PCerrarApp"
-msgstr "¿Puedo cerrar la aplicación sin perder la reserva del taxi?"
+msgstr "Aplikazioa itxi dezaket taxiaren erreserba galdu barik?"
 
 msgid "RCerrarApp"
-msgstr "Si, se puede cerrar la aplicación sin problema."
+msgstr "Bai, aplikazioa arazorik gabe itxi dezakezu."
 
 msgid "PCancelar"
-msgstr "¿Puedo cancelar la reserva?"
+msgstr "Erreserba ezeztatu dezaket?"
 
 msgid "RCancelar"
-msgstr "Por parte del cliente, la reserva no se podrá cancelar en ningún caso. Solo se podrá cancelar la petición de taxi en el caso de que todavía no haya sido aceptado por ningún taxista. El taxista podrá cancelar el servicio por si le surge cualquier imprevisto a la hora de recoger al cliente."
+msgstr "Bezeroaren partetik erreserba ezin da ezeztatu. Taxiaren eskaera ezeztatu ahal izando da, inongo taxirik eskaera onartu ez badu. Taxistak eskaera ezeztatu ahalko du, bezeroa jasotzeko orduan edozein ustekabekoa sortzen bazaio."
 
 msgid "PPuntuar"
-msgstr "¿Taxista puntuatu dezaket?"
+msgstr "Taxista puntuatu dezaket?"
 
 msgid "RPuntuar"
-msgstr "Sí. Desde la sección de trayectos realizados, se puede acceder al detalle de cada viaje. Desde esta misma vista, nos permitirá votar al taxista de forma positiva o negativa."
+msgstr "Bai. Egindako ibilbideen atalan, egindako ibilbideak ikus ditzakezuz eta han taxista era positivo edo negatiboan bozkatu."
 
 msgid "PVariosTaxis"
-msgstr "¿Taxi bat baino gehiago eskatu dezaket?"
+msgstr "Taxi bat baino gehiago eskatu ditzaket?"
 
 msgid "RVariosTaxis"
 msgstr "Ez"
@@ -217,34 +217,34 @@ msgid "Privacidad"
 msgstr "Pribatutasuna"
 
 msgid "PRegistro"
-msgstr "¿Debo registrarme para tener acceso al servicio?"
+msgstr "Zerbitzua erabiltzeko erregistratu behar dut?"
 
 msgid "RRegistro"
-msgstr "Si, para poder hacer uso del servicio deberá registrarse previamente, una vez registrado se enviará un código de validación al móvil indicado para completar el registro y poder empezar a utilizar la aplicación."
+msgstr "Bai, zerbitzua erabiltzeko lehenik eta behin erregistratu behar duzu, erregistratu ondoren, hau betetzeko, baliazio kode bat bialduko zaizu mobilera etan handik aurrera aplikazioa erabili ahalko duzu."
 
 msgid "PTelefono"
-msgstr "¿Por qué he de facilitar mi número de teléfono en la aplicación?"
+msgstr "Zergaitik eman behar dut nire mobil zenbakia aplikazioan?"
 
 msgid "RTelefono"
-msgstr "Es necesario para que el taxista pueda ponerse en contacto si tiene dudas o han surgido imprevistos (atascos, cortes de carretera, etc.)."
+msgstr "Beharrezkoa da, taxista zurekin arremanetan ipini ahal izateko dudaren bat baldin badu edo ezuzteko bat gertatzen bazaio(auto-ilarak, errepidean arazoak... )."
 
 msgid "Ayuda"
 msgstr "Laguntza"
 
 msgid "PNoAbre"
-msgstr "La aplicación TaxiExpress no se abre. ¿Qué hago?"
+msgstr "TaxiExpress aplikazioa ez da irekitzen. Zer egin dezaket?"
 
 msgid "RNoAbre"
-msgstr "Lo más conveniente es que cierre la aplicación y la vuelva a abrir, si aun así sigue sin funcionar, compruebe que la conexión a Internet es la correcta."
+msgstr "Komenigarriena aplikazioa itxi eta berriz irekitzea da, arazoa jarraitzen baldin badu, egiaztatu Internet-eko konexioa ondo dagoela."
 
 msgid "PActualizar"
-msgstr "¿Cómo se actualiza mi aplicación TaxiExpress?"
+msgstr "Nola eguneratzen da TaxiExpress aplikazioa?"
 
 msgid "RActualizar"
-msgstr "Los usuarios de iPhone reciben un aviso automático de la App Store. Se puede ver que hay actualizaciones pendientes por el número en rojo sobre el icono de la App Store. Seleccione la actualización correspondiente y pulse «Instalar». Tras introducir la contraseña se descarga la actualización. Los dispositivos con Android cuentan con una función para las actualizaciones automáticas. Simplemente se ha de marcar la opción «Actualizaciones automáticas» para tener siempre la última versión."
+msgstr "IPhone-eko irabiltzaileak App Storetik automatikoki ohar bat jasoko dute. Eguneratze gabeak daudela adieraztun du App Store ikono gainean dagoen zenbaki gorriak. Dagokion eguneratzea aukeratu eta «Instalatu» botoia sakatu. Pasahitza sartu ondoren eguneratzea deskagatuko da. Android gailuak eguneratze automatikoentzat funtzio bat dute. Horretarako «Eguneratze automatikoak» aukera adierazi behar da."
 
 msgid "PContacto"
-msgstr "¿Nola ipini naiteke kontatuan TaxiExpress-ekin?"
+msgstr "Nola ipini naiteke kontatuan TaxiExpress-ekin?"
 
 msgid "RContacto1"
 msgstr "Gurekin kontaktuan ipintzeko sakatu "
@@ -346,7 +346,7 @@ msgstr "Berriz eskatu balioztapen kodea "
 # Estos textos aparecen en index.html
 
 msgid "ContraseñaOlvidada"
-msgstr "¿Pasahitza ahaztu ahal duzu?"
+msgstr "Pasahitza ahaztu ahal duzu?"
 
 msgid "PideTaxi"
 msgstr "Aukeratu ondoen datorkizun taxia era azkar eta eraginkorrean"
@@ -361,7 +361,7 @@ msgid "NoCuenta2"
 msgstr "erregistratu"
 
 msgid "Version"
-msgstr "Versión 1.0, Febrero 2014"
+msgstr "1.0 Bertsioa, Otsailak 2014"
 
 msgid "Opciones"
 msgstr "TaxiExpress-ek baimentzen gaitu ..."
@@ -454,94 +454,94 @@ msgstr "Bidali"
 #estos textos aparecen en termsofuse.html
 
 msgid "TerminosObligatorios"
-msgstr "Los términos de uso que se exponen a continuación son de obligado cumplimiento."
+msgstr "Ondoren aipatuko diren erabilera-terminoak nahi eta nahi ez bete beharrekoak dira."
 
 msgid "AceptacionTerminos"
-msgstr "Aceptación de los Términos de Uso"
+msgstr "Erabilera terminoen onarpena"
 
 msgid "AceptacionTerminosDesc"
-msgstr "El acceso o uso de cualquier web o servicio significa que usted ha leído , entendido y acepta los términos de uso. Al acceder o utilizar cualquier sitio web o servicio, usted también declara que tiene la autoridad legal para aceptar los términos en su nombre y en cualquiera de las partes que lo represente en relación con su uso de cualquier sitio web o servicio."
+msgstr "Edozein web edo zerbitzutara sartzeak edo hura erabiltzeak esan nahi du erabilera terminoak irakurri, ulertu eta onartu dituzula. Edozein webgune edo zerbitzutara sartuz, edo berau erabiliz, terminook onartzeko aginte legala duzula adierazten duzu, bai zure izenean bai edozein web edo zerbitzuren erabilerari dagokionez zu ordezkatzen zaituen edozeinenean."
 
 msgid "CambiosCondiciones"
-msgstr "Cambios en las condiciones"
+msgstr "Aldaketak Baldintzetan"
 
 msgid "CambiosCondicionesDesc"
-msgstr "De vez en cuando, <b>TaxiExpress</b> puede cambiar, suprimir, añadir o modificar los términos, y se reserva el derecho de hacerlo cuando lo considere oportuno. En tal caso, publicaremos las nuevas Condiciones de Uso. Le recomendamos que revise periódicamente los Términos. Todos los términos nuevos o modificados entran en vigor inmediatamente, sin embargo, si <b>TaxiExpress</b> así lo considera, entrará en vigor 30 días después de que se publiquen en la web. Si no está de acuerdo con cualquier modificación de los términos, podrá rescindir el presente acuerdo mediante el cese de uso de los sitios web y servicios. Su uso continuo de cualquier sitio web o servicio después de nuevos y / o términos revisados ​​son eficaces indicar que ha leído, entendido y aceptado los Términos y Condiciones."
+msgstr "Batzuetan, <b>TaxiExpress-ek</b> aldatu, ezabatu, gehitu edo eraldatu egin ditzake terminoak, eta egoki deritzonean hala egiteko eskubidea gordetzen du. Hala denean, Erabilera Baldintza berriak argitaratuko ditugu. Terminoak aldiro berraztertzeko gomendatzen dizugu. Termino berri guztiak, hala nola aldatutakoak, berehala sartzen dira indarrean, haatik,  <b>TaxiExpress-ek</b> egokitzat jotzen badu, webean argitaratu eta 30 egunera sartuko da indarrean. Terminoen aldaketaren batekin ados ez bazaude, akordio hau ezeztatu ahal izango duzu webgune eta zerbitzuak erabiltzeari utziz. Termino berri edo errebisatutakoekin edozein webgune edo zerbitzu modu jarraian erabiltzeak adieraziko du Termino eta Baldintzak irakurri, ulertu eta onartu dituzula."
 
 msgid "DisposicionWeb"
-msgstr "Disposición de los sitios web y servicios en general"
+msgstr "Webguneen eta, oro har, zerbitzuen eskuragarritasuna"
 
 msgid "DisposicionWebDesc"
-msgstr "Sólo se pueden utilizar los sitios web y servicios de acuerdo con estos Términos y las Condiciones adicionales aplicables. Usted no podrá utilizar los sitios web y servicios para ningún propósito que sea ilegal o esté prohibido por estos términos, las Condiciones adicionales aplicables, o cualquier otra condición o avisos que están disponibles en cualquier sitio web o servicio."
+msgstr "Webgune eta zerbitzuak Termino hauen eta ezar litezkeen Baldintza gehigarrien arabera baizik ezin dira erabili. Ezin izango dituzu webguneak eta zerbitzuak legez kanpoko helburuak lortzeko, ez eta termino hauek, ezar litezkeen Baldintza gehigarriek edo ezein webgune edo zerbitzutan eskuragarri dagoen beste edozein baldintza edo ohartarazpenek debekatutakorik."
 
 msgid "UbicacionSitiosWeb"
-msgstr "Ubicación de los sitios web y servicios"
+msgstr "Webguneen eta zerbitzuen kokapena"
 
 msgid "UbicacionSitiosWebDesc"
-msgstr "Los sitios web y los servicios son controlados y ofrecidos por <b>TaxiExpress</b> desde sus instalaciones en España. <b>TaxiExpress</b> no garantiza que los sitios web o servicios son apropiados o disponibles para su uso en otros lugares. Si va a utilizar o acceder desde otras jurisdicciones, lo hace bajo su propio riesgo y usted es responsable de cumplir con las leyes locales. No obstante, las páginas web pueden contener o proporcionar enlaces a contenido alojados en los sitios web ubicados fuera de España."
+msgstr "Webgunak eta zerbitzuak <b>TaxiExpress-ek</b> kontrolatzen eta eskaintzen ditu, Espainian dituen egoitzetatik.  <b>TaxiExpress-ek</b> ez du bermatzen webgune edo zerbitzuak beste leku batzuetan erabiltzeko egokiak direnik edo eskuragarri daudenik. Beste jurisdikzio batetik erabiliko baduzu edo iritsiko bazara bertara, zure ardurapean egingo duzu, eta zuk duzu tokian tokiko legedia betetzeko erantzukizuna. Hala ere, web-orrialdeek Espainiatik kanpoko webguneetako esteka edo edukiek eman edo eskaini ditzakete."
 
 msgid "ConductaUsuario"
-msgstr "Conducta del usuario"
+msgstr "Erabiltzailearen jokabidea"
 
 msgid "ConductaUsuario2"
-msgstr "El usuario se compromete a no utilizar los sitios web o servicios a:"
+msgstr "Erabiltzaileak konpromisoa agertzen du webgune edo zerbitzuak honela erabiltzeko:"
 
 msgid "Conducta1"
-msgstr "Publicar, transmitir o usar el Contenido que usted no tiene el derecho de publicar o utilizar, por ejemplo, en virtud de la propiedad intelectual, las leyes de confidencialidad, de privacidad o de otro tipo aplicables."
+msgstr "Argitaratu edo erabiltzeko eskubiderik ez daukazun Edukia argitaratzea, transmititzea edo erabiltzea, esaterako, jabego intelektualaren edo konfidentzialtasun, pribatutasunaren edo ezar litekeen bestelako legeen arabera."
 
 msgid "Conducta2"
-msgstr "Publicar, transmitir o usar contenido no solicitado o no autorizado, incluyendo la publicidad o materiales promocionales, 'correo basura', 'spam', 'cartas en cadena', 'esquemas piramidales' o cualquier otra forma de solicitación no solicitado o indeseable y publicitarios."
+msgstr "Baimendu edo eskatu gabeko edukia argitaratzea transmititzea edo erabiltzea, barne hartuta publizitatea edo sustapen materialak, 'zabor posta', 'spam-a', 'kateatutako eskutitzak', 'piramide-eskemak' edo eskatu gabeko beste edozein iragarpen baztergarri."
 
 msgid "Conducta3"
-msgstr "Publicar o transmitir Contenido que sea perjudicial, ofensivo, obsceno, abusivo, invasivo de la privacidad, difamatorio, de odio o discriminatorias de otro modo, falsa y engañosa, incita a un acto ilegal, o es de otra manera en violación de sus obligaciones para con cualquier persona o contrario a cualquier ley leyes y reglamentos."
+msgstr "Honelako ezaugarriren bat duen edukia argitaratzea edo transmititzea: kaltegarri, iraingarri, lizun, abusuzko, pribatutasunaren aurkako, difamatzaile, gorroto-eragile edo beste moduren batean baztertzaile, gezurrezko eta iruzur-egile, legez kanpoko ekintzaren bat egitera bultzatzen duena, edo beste edozein eratan legearen eta araudien aurkakoa dena."
 
 msgid "Conducta4"
-msgstr "Intimidar o acosar a otro."
+msgstr "Larderiatzea edo jazartzea."
 
 msgid "Conducta5"
-msgstr "Usar o intentar usar la cuenta, servicio o información personal."
+msgstr "Kontua, zerbitzu edo informazio pertsonala erabiltzea edo erabiltzen saiatzea."
 
 msgid "Conducta6"
-msgstr "Suprimir, eludir, desactivar, dañar o interferir con cualquier característica relacionados con la seguridad que imponen limitaciones en el uso de los Sitios Web o los Servicios."
+msgstr "Webgune edo Zerbitzue erabilpenerako mugaren bat ezartzen duen edozein segurtasun-ezaugarri ezabatzea, saihestea, desaktibatzea, kaltetzea edo trabatzea."
 
 msgid "Conducta7"
-msgstr "Intentar obtener acceso no autorizado a los Sitios o Servicios, a otras cuentas, sistemas informáticos o redes conectadas a los sitios web o servicios, mediante el recordatorio de contraseña hacking o cualquier otro medio o interferir o intentar interferir con el correcto funcionamiento de los sitios web o servicios o cualquier otra actividades llevadas a cabo a través de las páginas web o los Servicios."
+msgstr "Baimenik gabe Webgune do Zerbitzuetan sartzen saiatzea, hala nola webgune edo zerbitzuekin konektatutako beste kontu, sistema informatiko edo sareetara, hacking pasahitzaren gogorarazpena erabiliz edo bestelako bitartekoren batez, edo webgune edo zerbitzuen (edo haien bitartez gauzatutako beste edozein aktibitateren) funtzionamendua egokia oztopatzea edo oztopatzen saiatzea."
 
 msgid "Conducta8"
-msgstr "El uso de cualquier medio para eludir o ignorar robot.txt, u otras medidas que utilizamos para restringir el acceso o uso de los Sitios Web o los Servicios."
+msgstr "Edozein bitarteko baliatzea robot.txt saihesteko edo hari jaramonik ez egiteko, hala nola Webguneetara edo Zerbitzuetara sarbidea edo erabilpena murrizteko erabiltzen dugun ezein neurri."
 
 msgid "Conducta9"
-msgstr "Hacerse pasar por otra persona o entidad, o declarar falsamente o tergiversar su afiliación con una persona o entidad."
+msgstr "Beste pertsona edo entitate baten nortasuna ordezkatzea, edo faltsuki deklaratzea edo pertsona batetiko edo entitate batekiko harremanaz gezurra esatea."
 
 msgid "Conducta10"
-msgstr "Publicar o transmitir cualquier información personalmente identificable sobre personas menores de 13 años de edad, incluyendo, sin limitación en relación con los Servicios ofrecidos en ella."
+msgstr "13 urtetik beherako pertsonei buruz erraz identifikatu daitekeen edozein informazio argitaratzea edo transmititzea, bertan eskainitako Zerbitzuekiko mugarik gabe."
 
 msgid "CondicionesServicios"
-msgstr "Condiciones relativas al contenido de los sitios web y servicios"
+msgstr "Webguneen eta zerbitzuen edukiarekin zerikusia duten baldintzak"
 
 msgid "UsuariosRegistrados"
-msgstr "Usuarios Registrados"
+msgstr "Erregistratutako Erabiltzaileak"
 
 msgid "UsuariosMayores"
-msgstr "Sólo las personas que tienen más de la mayoría de edad en su jurisdicción (que normalmente es de 18, pero pueden ser diferentes en su jurisdicción) y plenamente competente para entrar en los términos, condiciones, obligaciones, afirmaciones, declaraciones y garantías establecidas en los Términos y acatar y cumplir con los términos pueden registrarse para una cuenta y utilizar sus servicios relacionados, a condición, sin embargo, que si usted es menor de edad en su jurisdicción, pero más de 13 años de edad, puede inscribirse con la autorización expresa de su padre, madre o tutor legal. Cualquier registro, uso o acceso a los servicios prestados a los usuarios registrados (se define a continuación) por cualquier persona (1) bajo la edad de 13 años o (2) en la mayoría de edad en su jurisdicción, pero sin permiso de los padres o tutor, no está autorizado , sin licencia y una violación de estos Términos. Al registrarse en una cuenta en cualquiera de las páginas web o el uso de los servicios relacionados, usted representa y garantiza que (1) son la mayoría de edad en su jurisdicción o, (2) son mayores de 13 años y tener el permiso expreso de un tutor legal para convertirse en un usuario registrado y Servicios de uso que se hace disponible para usuarios registrados, y además se compromete a cumplir con todos los términos y condiciones de estos Términos y las Condiciones adicionales aplicables."
+msgstr "Beren esparruan adin nagusikoak (normalean 18 urtekoak, baina aldatu daiteke) diren, eta Terminoetan ezarritako  termino, baldintza, betebehar, baieztapen, adierazpen eta bermeetan sartzeko eta terminoak onartu eta betetzeko erabat gai diren pertsonak baizik ezin daitezke erregistratu kontu bat erabiltzeko eta hari lotutako zerbitzuak erabiltzeko, baldintza batekin: zure esparruan adinez beherakoa baina 13 urtetik gorakoa bazara, zure aita, ama edo legezko zaindariaren beren-beregiko baimenarekin izena eman dezakezu. (1) 13 urtetik beherako edo (2) bere esparruan adin nagusiko baina gurasoen edo tutorearen baimenik gabeko edozein pertsonak erregistratutako erabiltzaileei (ondoren definituko da) emandako zerbitzutan erregistratzea, erabiltzea edo sartzea, ez dago baimenduta, lizentziarik gabe eta Termino hauen urraketa da. Webguneetako edozeinetan erregistratzean edo haiei lotutako zerbitzuak erabiltzean, zuk adierazi eta ziurtatu egiten duzu (1) zure esparruan adin nagusitasuna direla edo, (2) 13 urtetik gorakoak direla eta legezko tutore baten beren-beregiko baimena daukatela erregistratutako erabiltzaile bilakatzeko eta erregistratutako erabiltzaileentzat eskuragarri egiten den erabilpen-Zerbitzuak, eta gainera konpromisoa hartzen duzu Termino hauetako termino eta baldintza guztiak betetzeko, hala nola ezar litezkeen gainerako Baldintzak."
 
 
 #estos textos aparecen en legalnotice.html
 
 msgid "LegalNotice1"
-msgstr "TAXIEXPRESS, como responsable de ficheros de los que es propietaria, se compromete a respetar la confidencialidad de la información de carácter personal de sus clientes guardando en todo momento el deber de secreto profesional."
+msgstr "TAXIEXPRESS-ek, bere jabegoko fitxategien erantzulea den heinean, konpromisoa hartzen du bere bezeroen informazio pertsonalaren konfidentzialtasuna errespetatzeko, une oro gordez sekretu profesionala."
 
 msgid "LegalNotice2"
-msgstr "TAXIEXPRESS le informa que se encuentra adaptada a la Ley Orgánica 15/1.999, de Protección de Datos de Carácter Personal, y el Real Decreto 1720/2007 por el que se aprueba el Reglamento de desarrollo de la L.O.P.D., que sus ficheros con datos personales han sido debidamente inscritos en la Agencia Española de Protección de Datos y que cumple con el resto de las obligaciones establecidas en la normativa sobre protección de datos para garantizar la confidencialidad y seguridad de la información de que dispone."
+msgstr "TAXIEXPRESS-ek jakinarazten dizu Norbanakoaren Datuen Babeserako 15/1999 Lege Organikora egokituta dagoela, hala nola 1720/2007 Errege Dekretura, zeinaren bitartez DBLOaren garapen araudia onartua baiten; datu pertsonalak dituzten bere fitxategiak behar bezala izendatu direla Datuak Babesteko Espainiako Bulegoan; eta datu babesari buruzkoa araudian ezarritako gainerako betebeharrak betetzen dituela, bere esku dagoen informazioaren konfidentzialtasuna eta segurtasuna bermatze aldera."
 
 msgid "LegalNotice3"
-msgstr "Los datos personales proporcionados en ningún caso serán cedidos a terceros salvo previo consentimiento de los interesados."
+msgstr "Emandako datu pertsonalak ez zaizkie inolaz ere beste inori utziko, interesdunak aldez aurretik baimendutako kasuetan izan ezik."
 
 msgid "LegalNotice4"
-msgstr "Por todo ello, TAXIEXPRESS, ha adoptado los niveles de seguridad de protección de datos personales legalmente requeridos, y ha instalado todos los medios y medidas técnicas a su alcance para evitar la pérdida, mal uso, alteración, acceso no autorizado y robo de los datos que le han sido confiados."
+msgstr "Horregatik guztiagatik, TAXIEXPRESS-ek legearen araberako datu pertsonalen babes-segurtasun mailak hartu ditu bere gain, eta bere esku dauden bitarteko eta neurri guztiak ezarri ditu utzi zaizkion datuen galera, erabiltze okerra, alterazioa, baimendu gabeko sarbidea eta lapurreta eragozteko."
 
 msgid "LegalNotice5"
-msgstr "Los titulares de los datos tienen reconocidos y podrán ejercitar los derechos de acceso, cancelación rectificación y oposición, contactando con:"
+msgstr "Datuen jabeei onartu egiten zaizkie sarbide, baliogabetze, zuzentze eta aurkakotasun eskubideak, eta haiek gauzatu ahal izango dituzte ondokoarekin harremanean jarriz:"
 
 msgid "LegalNotice7"
 msgstr "Sozial helbidea:"
@@ -590,7 +590,7 @@ msgid "intro_mant_Travel_SinDatosC"
 msgstr "Oraindik ez dituzu bidairik egin beraz ez daude kontzultatzeko daturik"
 
 msgid "intro_mant_Travel_SinDatosT"
-msgstr "Oraindik ez duzu serbitzurik eman beraz ez daude kontzultatzeko daturik"
+msgstr "Oraindik ez duzu zerbitzurik eman beraz ez daude kontzultatzeko daturik"
 
 msgid "plaza"
 msgstr "Toki"
@@ -710,47 +710,47 @@ msgstr "Zure pasahitza erreseteatu"
 #Slide Taxista
 
 msgid "SlideD1"
-msgstr "Reciba las solicitudes en su móvil."
+msgstr "Eskaera zure mobilan jaso."
 
 msgid "SlideD2"
-msgstr "Taxi Express ofrecerá el servicio de su taxi a los clientes cercanos que lo necesiten."
+msgstr "TaxiExpress-ek zure taxiaren zerbitzua eskainiko du beharrezkoa duten bezero urbilei."
 
 msgid "SlideD3"
-msgstr "Decida si quiere aceptar el viaje o no."
+msgstr "Erabaki bidaia onartu nahi duzun ala ez."
 
 msgid "SlideD4"
-msgstr "Se le mostrará una pantalla con la información personal y valoración del cliente que necesita el servicio. Podrá elegir si aceptar o rechazar la petición."
+msgstr "Zerbitzua behar duen bezorearen informazio eta balorazioarekin pantaila bat erakutziko zaizu. Erabaki ahalko duzu eskaera onartu ala ez."
 
 msgid "SlideD5"
-msgstr "Permita pagar a sus clientes a través de la propia app."
+msgstr "Aplikazioaren bitartez bezeroak ordaintzea baimendu."
 
 msgid "SlideD6"
-msgstr "Podrá dar a sus clientes la posibilidad de pagar el servicio en mano o a través de la propia aplicación."
+msgstr "Zure bezeroei zerbitzua eskuan edo aplikazioaren bitartez ordaintzeko aukera emango diozu."
 
 msgid "SlideD7"
-msgstr "También disponible para tablets"
+msgstr "Tablet-entzat baita ere erabilgarri"
 
 msgid "SlideD8"
-msgstr "La aplicación también está disponible para tablets. Descárguela ahora gratis desde su market."
+msgstr "Aplikazioa baita ere tablet-entzat erabilgarri dago. Dohainik deskargatu sure market-aren bitartez."
 
 msgid "SlideD9"
-msgstr "Descargar ahora, gratis"
+msgstr "Orain deskargatu, dohianik"
 
 msgid "SlideD10"
-msgstr "Taxi Express es una aplicación multiplataforma, es decir, se puede instalar en dispositivos con diferentes sistemas operativos. En estos momentos, está disponible tanto para dispositivos Android como para dispositivos IOS."
+msgstr "TaxiExpress plataforma askotarako aplikazioa da, hau da, sistema eragile desberdineko gailuetan instalatu daiteke. Momentu honetan, Androin zein IOS gailuentzat erabilgarri da."
 
 #Pagina cookies
 msgid "Cookies1"
 msgstr "COOKIES ERABILPENA."
 
 msgid "Cookies2"
-msgstr "Gure cookiak eta besteen cookiak erabiltzen ditugu nabegazio esperientzia hobetzeko, eta interesa duten edukina eta publizitatea eskaintzeko. Nabegazioarekin jarraitzean ulertzen dugu onartzen duzula gure "
+msgstr "Gure cookiak erabiltzen ditugu nabegazio esperientzia hobetzeko, eta interesa duten edukina eta publizitatea eskaintzeko. Nabegazioarekin jarraitzean ulertzen dugu onartzen duzula gure "
 
 msgid "Cookies3"
-msgstr "cookies politica"
+msgstr "Cookies politika"
 
 msgid "Cookies4"
-msgstr "TaxiExpress web-a "
+msgstr "TaxiExpress webgunea "
 
 msgid "Cookies5"
 msgstr "sesio cookiak "
