@@ -140,7 +140,7 @@ def registerUser(request):
                     }                
                 sms = NexmoMessage(msg)
                 sms.set_text_info(msg['text'])
-                #response = sms.send_request()    
+                response = sms.send_request()    
 
                 subject = 'Código validación email'
                 from_email = 'MyTaxiExpress@gmail.com'
