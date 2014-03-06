@@ -67,7 +67,7 @@ class Driver(models.Model):
     #Ponemos la licencia como unique? Y si cambia de dueno?
     license = models.IntegerField(blank=True, null=True)
     #Datos de pago
-    bankAccount = models.CharField(max_length=20, default="", blank=True)
+    bankAccount = models.CharField(max_length=24, default="", blank=True)
     recipientName = models.CharField(max_length=80, default="", blank=True)
     pushID = models.TextField(blank=True, null=True)
     sessionID = models.CharField(max_length=10, blank=True, null=True)
